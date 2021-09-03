@@ -10483,7 +10483,7 @@
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/react-refresh/-/react-refresh-0.8.3.tgz"
   "version" "0.8.3"
 
-"react-scripts@4.0.3":
+"react-scripts@^4.0.3":
   "integrity" "sha1-scr+18P6YD52KLoPGHeHlky100U="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/react-scripts/-/react-scripts-4.0.3.tgz"
   "version" "4.0.3"
