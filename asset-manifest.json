@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/blockcerts/static/css/main.afd7172b.chunk.css",
+    "main.js": "/blockcerts/static/js/main.b6a5686d.chunk.js",
+    "main.js.map": "/blockcerts/static/js/main.b6a5686d.chunk.js.map",
+    "runtime-main.js": "/blockcerts/static/js/runtime-main.b976188a.js",
+    "runtime-main.js.map": "/blockcerts/static/js/runtime-main.b976188a.js.map",
+    "static/css/2.4f8976c6.chunk.css": "/blockcerts/static/css/2.4f8976c6.chunk.css",
+    "static/js/2.dc2b9269.chunk.js": "/blockcerts/static/js/2.dc2b9269.chunk.js",
+    "static/js/2.dc2b9269.chunk.js.map": "/blockcerts/static/js/2.dc2b9269.chunk.js.map",
+    "index.html": "/blockcerts/index.html",
+    "static/css/2.4f8976c6.chunk.css.map": "/blockcerts/static/css/2.4f8976c6.chunk.css.map",
+    "static/css/main.afd7172b.chunk.css.map": "/blockcerts/static/css/main.afd7172b.chunk.css.map",
+    "static/js/2.dc2b9269.chunk.js.LICENSE.txt": "/blockcerts/static/js/2.dc2b9269.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b976188a.js",
+    "static/css/2.4f8976c6.chunk.css",
+    "static/js/2.dc2b9269.chunk.js",
+    "static/css/main.afd7172b.chunk.css",
+    "static/js/main.b6a5686d.chunk.js"
+  ]
+}
