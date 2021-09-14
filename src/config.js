@@ -1,4 +1,4 @@
-export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0x5c4A0Df21c88871738Aa9e160A3397eDc1a3fb88'
+export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0x61ec5582f38afe6281217e89e91581d5513bc0ec'
 
 export const CERTIFICATE_POOL_MANAGER_ABI = [
   {
@@ -259,6 +259,20 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "isCurrentPropositionProp",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -280,6 +294,48 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "retrieveChairPerson",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveNextPropId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -358,6 +414,31 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
         "name": "",
         "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "PropId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "voter",
+        "type": "address"
+      }
+    ],
+    "name": "retrieveVotesForVoter",
+    "outputs": [
       {
         "internalType": "uint256",
         "name": "",
@@ -1025,7 +1106,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1038,7 +1120,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1062,7 +1145,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1091,7 +1175,22 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1104,7 +1203,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1117,18 +1217,46 @@ export const PUBLIC_ABI = [
     "name": "retrieveOwner",
     "outputs": [
       {
-        "internalType": "string",
+        "components": [
+          {
+            "internalType": "string",
+            "name": "_Info",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "_activated",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pendingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Validations",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Rejections",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct ItemsLibrary._itemIdentity",
         "name": "",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1141,7 +1269,32 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrievePendingMinOwnersStatus",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1157,15 +1310,11 @@ export const PUBLIC_ABI = [
         "internalType": "bytes32[]",
         "name": "",
         "type": "bytes32[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1181,15 +1330,11 @@ export const PUBLIC_ABI = [
         "internalType": "bytes32[]",
         "name": "",
         "type": "bytes32[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1202,18 +1347,46 @@ export const PUBLIC_ABI = [
     "name": "retrieveProvider",
     "outputs": [
       {
-        "internalType": "string",
+        "components": [
+          {
+            "internalType": "string",
+            "name": "_Info",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "_activated",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pendingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Validations",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Rejections",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct ItemsLibrary._itemIdentity",
         "name": "",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1232,7 +1405,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1306,7 +1480,8 @@ export const PUBLIC_ABI = [
     "name": "addProvider",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -1324,7 +1499,8 @@ export const PUBLIC_ABI = [
     "name": "addCertificate",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [],
@@ -1337,7 +1513,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1350,7 +1527,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1473,7 +1651,22 @@ export const PRIVATEFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1486,7 +1679,8 @@ export const PRIVATEFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1522,7 +1716,8 @@ export const PRIVATEFACTORY_ABI = [
     "name": "create",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   }
 ]
 
@@ -1599,7 +1794,22 @@ export const PROVIDERFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1612,7 +1822,8 @@ export const PROVIDERFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1648,7 +1859,8 @@ export const PROVIDERFACTORY_ABI = [
     "name": "create",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   }
 ]
 
@@ -1966,6 +2178,20 @@ export const TREASURY_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "isCurrentPropositionProp",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -1987,6 +2213,48 @@ export const TREASURY_ABI = [
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "retrieveChairPerson",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveNextPropId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2014,7 +2282,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2037,7 +2306,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2070,7 +2340,33 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "PropId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "voter",
+        "type": "address"
+      }
+    ],
+    "name": "retrieveVotesForVoter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2112,27 +2408,27 @@ export const TREASURY_ABI = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "PublicPriceWei",
+        "name": "PublicPriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "PrivatePriceWei",
+        "name": "PrivatePriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "ProviderPriceWei",
+        "name": "ProviderPriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "CertificatePriceWei",
+        "name": "CertificatePriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "OwnerRefundFeeWei",
+        "name": "OwnerRefundFeeUSD",
         "type": "uint256"
       },
       {
@@ -2170,27 +2466,27 @@ export const TREASURY_ABI = [
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "PublicPriceWei",
+        "name": "PublicPriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "PrivatePriceWei",
+        "name": "PrivatePriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "ProviderPriceWei",
+        "name": "ProviderPriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "CertificatePriceWei",
+        "name": "CertificatePriceUSD",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "OwnerRefundFeeWei",
+        "name": "OwnerRefundFeeUSD",
         "type": "uint256"
       }
     ],
@@ -2210,7 +2506,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2223,7 +2520,8 @@ export const TREASURY_ABI = [
     "name": "pay",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [],
@@ -2271,6 +2569,26 @@ export const TREASURY_ABI = [
         "type": "address"
       }
     ],
+    "name": "retrieveLastAssigned",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
     "name": "retrieveBalance",
     "outputs": [
       {
@@ -2280,7 +2598,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2313,7 +2632,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2326,7 +2646,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
@@ -2403,7 +2724,8 @@ export const CERTIS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2446,7 +2768,8 @@ export const CERTIS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2507,7 +2830,22 @@ export const CERTIS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2520,7 +2858,8 @@ export const CERTIS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2533,7 +2872,8 @@ export const CERTIS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2637,7 +2977,8 @@ export const CERTIS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
@@ -2734,7 +3075,8 @@ export const PRIVATE_ABI =  [
     "name": "addCertificate",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -2770,7 +3112,8 @@ export const PRIVATE_ABI =  [
     "name": "addProvider",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -2901,7 +3244,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2914,7 +3258,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2927,7 +3272,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2951,7 +3297,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2980,7 +3327,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2993,7 +3341,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3006,18 +3355,46 @@ export const PRIVATE_ABI =  [
     "name": "retrieveOwner",
     "outputs": [
       {
-        "internalType": "string",
+        "components": [
+          {
+            "internalType": "string",
+            "name": "_Info",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "_activated",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pendingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Validations",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Rejections",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct ItemsLibrary._itemIdentity",
         "name": "",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3030,7 +3407,32 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrievePendingMinOwnersStatus",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3046,15 +3448,11 @@ export const PRIVATE_ABI =  [
         "internalType": "bytes32[]",
         "name": "",
         "type": "bytes32[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3070,15 +3468,11 @@ export const PRIVATE_ABI =  [
         "internalType": "bytes32[]",
         "name": "",
         "type": "bytes32[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3091,18 +3485,46 @@ export const PRIVATE_ABI =  [
     "name": "retrieveProvider",
     "outputs": [
       {
-        "internalType": "string",
+        "components": [
+          {
+            "internalType": "string",
+            "name": "_Info",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "_activated",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pendingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Validations",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Rejections",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct ItemsLibrary._itemIdentity",
         "name": "",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3115,7 +3537,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3134,7 +3557,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3298,7 +3722,8 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3311,7 +3736,8 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3324,18 +3750,46 @@ export const PROVIDER_ABI =  [
     "name": "retrieveOwner",
     "outputs": [
       {
-        "internalType": "string",
+        "components": [
+          {
+            "internalType": "string",
+            "name": "_Info",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "_activated",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pendingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Validations",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Rejections",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct ItemsLibrary._itemIdentity",
         "name": "",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3348,7 +3802,32 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrievePendingMinOwnersStatus",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address[]",
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3364,15 +3843,11 @@ export const PROVIDER_ABI =  [
         "internalType": "bytes32[]",
         "name": "",
         "type": "bytes32[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3396,7 +3871,8 @@ export const PROVIDER_ABI =  [
   },
   {
     "stateMutability": "payable",
-    "type": "receive"
+    "type": "receive",
+    "payable": true
   },
   {
     "inputs": [
@@ -3494,10 +3970,57 @@ export const PROVIDER_ABI =  [
     "name": "retrievePool",
     "outputs": [
       {
-        "internalType": "string",
+        "components": [
+          {
+            "internalType": "string",
+            "name": "_Info",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "_activated",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_pendingId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Validations",
+            "type": "address[]"
+          },
+          {
+            "internalType": "address[]",
+            "name": "_Rejections",
+            "type": "address[]"
+          }
+        ],
+        "internalType": "struct ItemsLibrary._itemIdentity",
         "name": "",
-        "type": "string"
-      },
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pool",
+        "type": "address"
+      }
+    ],
+    "name": "retrievePoolConfg",
+    "outputs": [
       {
         "internalType": "bool",
         "name": "",
@@ -3510,7 +4033,8 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3523,7 +4047,8 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3539,15 +4064,11 @@ export const PROVIDER_ABI =  [
         "internalType": "bytes32[]",
         "name": "",
         "type": "bytes32[]"
-      },
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3646,7 +4167,8 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3675,7 +4197,8 @@ export const PROVIDER_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3921,6 +4444,20 @@ export const PRICECONVERTER_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "isCurrentPropositionProp",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -3942,6 +4479,48 @@ export const PRICECONVERTER_ABI = [
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "retrieveChairPerson",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveManagerContract",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
+    "name": "retrieveNextPropId",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4020,6 +4599,31 @@ export const PRICECONVERTER_ABI = [
         "name": "",
         "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "PropId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "voter",
+        "type": "address"
+      }
+    ],
+    "name": "retrieveVotesForVoter",
+    "outputs": [
       {
         "internalType": "uint256",
         "name": "",
