@@ -5,18 +5,24 @@ import ListPendingPropositionConfigComponent from './ListPendingPropositionConfi
 import ValidatePropositionConfigComponent from './ValidatePropositionConfigComponent.js';
 import RejectPropositionConfigComponent from './RejectPropositionConfigComponent.js';
 
+const certFunc = require("../../../functions/CertisFunctions.js");
+
 class PropositionConfigComponent extends React.Component{
        render(){
          return (
            <div>
             <ListPropositionConfigComponent contractType={this.props.contractType}/>
             <br/>
-            <UpgradePropositionConfigComponent contractType={this.props.contractType}/>
+            {certFunc.isOwner ? (
+              <UpgradePropositionConfigComponent contractType={this.props.contractType}/>): null}
             <br />
-            <ListPendingPropositionConfigComponent contractType={this.props.contractType}/>
+            {certFunc.isOwner ? (
+              <ListPendingPropositionConfigComponent contractType={this.props.contractType}/>): null}
             <br />
-            <ValidatePropositionConfigComponent contractType={this.props.contractType}/>
-            <RejectPropositionConfigComponent contractType={this.props.contractType}/>
+            {certFunc.isOwner ? (
+              <ValidatePropositionConfigComponent contractType={this.props.contractType}/>): null}
+            {certFunc.isOwner ? (
+              <RejectPropositionConfigComponent contractType={this.props.contractType}/>): null}
             <br/>
            </div>
          );

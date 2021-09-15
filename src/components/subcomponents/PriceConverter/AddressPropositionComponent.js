@@ -3,6 +3,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
+const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 
 class AddressPropositionComponent extends React.Component {
@@ -46,39 +47,42 @@ class AddressPropositionComponent extends React.Component {
             </Container>
           </div>
 
-          <button
-              className="btn btn-lg btn-danger center modal-button"
-              onClick={this.toggleUpdateRegistry}>Manage Chain Link Feed Registry</button>
+          {certFunc.isOwner ? (
+              <div>
+                   <button
+                      className="btn btn-lg btn-danger center modal-button"
+                      onClick={this.toggleUpdateRegistry}>Manage Chain Link Feed Registry</button>
 
-            {this.state.isUpdateRegistryShown ? (
-              <div class="border border-danger border-5">
-                <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
-                  <Form.Group  className="mb-3">
-                    <Form.Control type="text" name="NewRegistryAddress" placeholder="NewRegistryAddress" 
-                      value={this.state.NewRegistryAddress}
-                      onChange={event => this.setState({ NewRegistryAddress: event.target.value })}/>
-                  </Form.Group>
-                  <button>Upgrade Registry</button>
-                </Form>
-                <br/>
-              </div>) : null}
+                    {this.state.isUpdateRegistryShown ? (
+                      <div class="border border-danger border-5">
+                        <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
+                          <Form.Group  className="mb-3">
+                            <Form.Control type="text" name="NewRegistryAddress" placeholder="NewRegistryAddress" 
+                              value={this.state.NewRegistryAddress}
+                              onChange={event => this.setState({ NewRegistryAddress: event.target.value })}/>
+                          </Form.Group>
+                          <button>Upgrade Registry</button>
+                        </Form>
+                        <br/>
+                      </div>) : null}
 
-          <br />
-          <br />
+                  <br />
+                  <br />
 
-          <button
-            className="btn btn-lg btn-warning center modal-button"
-            onClick={this.togglePendingRegistry}>Check Pending Registry</button>
+                  <button
+                    className="btn btn-lg btn-warning center modal-button"
+                    onClick={this.togglePendingRegistry}>Check Pending Registry</button>
 
-          {this.state.isPendingRegistryShown ? (
-            <div class="border border-warning border-5">
-              <Container style={{margin: '10px 50px 50px 50px' }}>
-                <Row>
-                  <Col><b>Pending Registry Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingRegistryAddress)}</Col>
-                </Row>
-              </Container>
-            </div>) : null}
+                  {this.state.isPendingRegistryShown ? (
+                    <div class="border border-warning border-5">
+                      <Container style={{margin: '10px 50px 50px 50px' }}>
+                        <Row>
+                          <Col><b>Pending Registry Address :</b></Col> 
+                          <Col>{Aux.Bytes32ToAddress(func.PendingRegistryAddress)}</Col>
+                        </Row>
+                      </Container>
+                    </div>) : null}
+              </div>):null}
           
         </div>
       );

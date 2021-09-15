@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+
 const func = require("../../../functions/PropositionFunctions.js");
+const certFunc = require("../../../functions/CertisFunctions.js");
 
 class UpgradePropositionConfigComponent extends React.Component{
     state = {
@@ -37,34 +39,31 @@ class UpgradePropositionConfigComponent extends React.Component{
          return (
            <div>
              <button
-              className="btn btn-lg btn-danger center modal-button"
-              onClick={this.toggleUpdatePropositionConfig}>Manage Proposition Configuration</button>
+                    className="btn btn-lg btn-danger center modal-button"
+                    onClick={this.toggleUpdatePropositionConfig}>Manage Proposition Configuration</button>
 
-            {this.state.isUpdatePropositionConfigShown ? (
-              <div class="border border-danger border-5">
-                <Form onSubmit={this.handleUpgradeProp} style={{margin: '50px 50px 50px 50px' }}>
-                  <Form.Group  className="mb-3">
-                    <Form.Control type="integer" name="NewPropositionLifeTime" placeholder="NewPropositionLifeTime" 
-                      value={this.state.NewPropositionLifeTime}
-                      onChange={event => this.setState({ NewPropositionLifeTime: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
-                    <Form.Control type="integer" name="NewPropositionThresholdPercentage" placeholder="NewPropositionThresholdPercentage" 
-                      value={this.state.NewPropositionThresholdPercentage}
-                      onChange={event => this.setState({ NewPropositionThresholdPercentage: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
-                    <Form.Control type="integer" name="NewMinWeightToProposePercentage" placeholder="NewMinWeightToProposePercentage" 
-                      value={this.state.NewMinWeightToProposePercentage}
-                      onChange={event => this.setState({ NewMinWeightToProposePercentage: event.target.value })}/>
-                  </Form.Group>
-                  <button>Upgrade Proposition Configuration</button>
-                </Form>
-                <br/>
-              </div>
-                
-            ) : null}
-
+                  {this.state.isUpdatePropositionConfigShown ? (
+                    <div class="border border-danger border-5">
+                      <Form onSubmit={this.handleUpgradeProp} style={{margin: '50px 50px 50px 50px' }}>
+                        <Form.Group  className="mb-3">
+                          <Form.Control type="integer" name="NewPropositionLifeTime" placeholder="NewPropositionLifeTime" 
+                            value={this.state.NewPropositionLifeTime}
+                            onChange={event => this.setState({ NewPropositionLifeTime: event.target.value })}/>
+                        </Form.Group>
+                        <Form.Group  className="mb-3">
+                          <Form.Control type="integer" name="NewPropositionThresholdPercentage" placeholder="NewPropositionThresholdPercentage" 
+                            value={this.state.NewPropositionThresholdPercentage}
+                            onChange={event => this.setState({ NewPropositionThresholdPercentage: event.target.value })}/>
+                        </Form.Group>
+                        <Form.Group  className="mb-3">
+                          <Form.Control type="integer" name="NewMinWeightToProposePercentage" placeholder="NewMinWeightToProposePercentage" 
+                            value={this.state.NewMinWeightToProposePercentage}
+                            onChange={event => this.setState({ NewMinWeightToProposePercentage: event.target.value })}/>
+                        </Form.Group>
+                        <button>Upgrade Proposition Configuration</button>
+                      </Form>
+                      <br/>
+                    </div>) : null}    
            </div>
          );
        }

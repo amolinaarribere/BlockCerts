@@ -3,6 +3,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 import { CERTIFICATE_POOL_MANAGER_ADDRESS} from '../../../config';
 const func = require("../../../functions/ManagerFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
+const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 
 class AddressPropositionComponent extends React.Component {
@@ -138,108 +139,107 @@ class AddressPropositionComponent extends React.Component {
             </Container>
           </div>
 
-          <button
-              className="btn btn-lg btn-danger center modal-button"
-              onClick={this.toggleUpdateContracts}>Manage Contracts</button>
+          {certFunc.isOwner ? (
+            <div>
+               <button
+                  className="btn btn-lg btn-danger center modal-button"
+                  onClick={this.toggleUpdateContracts}>Manage Contracts</button>
 
-          {this.state.isUpdateContractsShown ? (
-            <div class="border border-danger border-5">
-              <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewPublicPoolAddress" placeholder="NewPublicPoolAddress" 
-                      value={this.state.NewPublicPoolAddress}
-                      onChange={event => this.setState({ NewPublicPoolAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewTreasuryAddress" placeholder="NewTreasuryAddress" 
-                      value={this.state.NewTreasuryAddress}
-                      onChange={event => this.setState({ NewTreasuryAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewCertisTokenAddress" placeholder="NewCertisTokenAddress" 
-                      value={this.state.NewCertisTokenAddress}
-                      onChange={event => this.setState({ NewCertisTokenAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewPrivatePoolFactoryAddress" placeholder="NewPrivatePoolFactoryAddress" 
-                      value={this.state.NewPrivatePoolFactoryAddress}
-                      onChange={event => this.setState({ NewPrivatePoolFactoryAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewPrivatePoolAddress" placeholder="NewPrivatePoolAddress" 
-                      value={this.state.NewPrivatePoolAddress}
-                      onChange={event => this.setState({ NewPrivatePoolAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewProviderFactoryAddress" placeholder="NewProviderFactoryAddress" 
-                      value={this.state.NewProviderFactoryAddress}
-                      onChange={event => this.setState({ NewProviderFactoryAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewProviderAddress" placeholder="NewProviderAddress" 
-                      value={this.state.NewProviderAddress}
-                      onChange={event => this.setState({ NewProviderAddress: event.target.value })}/>
-                </Form.Group>
-                <Form.Group  className="mb-3">
-                  <Form.Control type="text" name="NewPriceConverterAddress" placeholder="NewPriceConverterAddress" 
-                      value={this.state.NewPriceConverterAddress}
-                      onChange={event => this.setState({ NewPriceConverterAddress: event.target.value })}/>
-                </Form.Group>
-                  <button>Submit Contracts</button>
-              </Form>
-            </div>
-              
-          ) : null}
+              {this.state.isUpdateContractsShown ? (
+                <div class="border border-danger border-5">
+                  <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewPublicPoolAddress" placeholder="NewPublicPoolAddress" 
+                          value={this.state.NewPublicPoolAddress}
+                          onChange={event => this.setState({ NewPublicPoolAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewTreasuryAddress" placeholder="NewTreasuryAddress" 
+                          value={this.state.NewTreasuryAddress}
+                          onChange={event => this.setState({ NewTreasuryAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewCertisTokenAddress" placeholder="NewCertisTokenAddress" 
+                          value={this.state.NewCertisTokenAddress}
+                          onChange={event => this.setState({ NewCertisTokenAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewPrivatePoolFactoryAddress" placeholder="NewPrivatePoolFactoryAddress" 
+                          value={this.state.NewPrivatePoolFactoryAddress}
+                          onChange={event => this.setState({ NewPrivatePoolFactoryAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewPrivatePoolAddress" placeholder="NewPrivatePoolAddress" 
+                          value={this.state.NewPrivatePoolAddress}
+                          onChange={event => this.setState({ NewPrivatePoolAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewProviderFactoryAddress" placeholder="NewProviderFactoryAddress" 
+                          value={this.state.NewProviderFactoryAddress}
+                          onChange={event => this.setState({ NewProviderFactoryAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewProviderAddress" placeholder="NewProviderAddress" 
+                          value={this.state.NewProviderAddress}
+                          onChange={event => this.setState({ NewProviderAddress: event.target.value })}/>
+                    </Form.Group>
+                    <Form.Group  className="mb-3">
+                      <Form.Control type="text" name="NewPriceConverterAddress" placeholder="NewPriceConverterAddress" 
+                          value={this.state.NewPriceConverterAddress}
+                          onChange={event => this.setState({ NewPriceConverterAddress: event.target.value })}/>
+                    </Form.Group>
+                      <button>Submit Contracts</button>
+                  </Form>
+                </div>) : null}
 
-          <br />
-          <br />
+                <br />
+                <br />
 
+                <button
+                    className="btn btn-lg btn-warning center modal-button"
+                    onClick={this.togglePendingContracts}>Check Pending Contracts</button>
 
-          <button
-              className="btn btn-lg btn-warning center modal-button"
-              onClick={this.togglePendingContracts}>Check Pending Contracts</button>
+                {this.state.isPendingContractsShown ? (
+                  <div class="border border-warning border-5">
+                    <br />
+                    <Container style={{margin: '10px 50px 50px 50px' }}>
+                      <Row>
+                        <Col><b>Pending Public Pool Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingPublicPoolAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Treasury Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingTreasuryAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Certis Token Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingCertisTokenAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Private Factory Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingPrivatePoolFactoryAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Private Pool Impl Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingPrivatePoolImplAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Provider Factory Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingProviderFactoryAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Provider Impl Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingProviderImplAddress)}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Price Converter Address :</b></Col> 
+                        <Col>{Aux.Bytes32ToAddress(func.PendingPriceConverterAddress)}</Col>
+                      </Row>
+                    </Container> 
+                  </div>) : null}
 
-          {this.state.isPendingContractsShown ? (
-            <div class="border border-warning border-5">
-              <br />
-              <Container style={{margin: '10px 50px 50px 50px' }}>
-                <Row>
-                  <Col><b>Pending Public Pool Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingPublicPoolAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Treasury Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingTreasuryAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Certis Token Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingCertisTokenAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Private Factory Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingPrivatePoolFactoryAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Private Pool Impl Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingPrivatePoolImplAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Provider Factory Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingProviderFactoryAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Provider Impl Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingProviderImplAddress)}</Col>
-                </Row>
-                <Row>
-                  <Col><b>Pending Price Converter Address :</b></Col> 
-                  <Col>{Aux.Bytes32ToAddress(func.PendingPriceConverterAddress)}</Col>
-                </Row>
-              </Container>
-              
-            </div>
-              
-          ) : null}
+            </div>) : null}
+          
           
         </div>
       );

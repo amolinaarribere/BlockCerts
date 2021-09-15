@@ -78,9 +78,9 @@ class Demo extends React.Component {
             <Tab label="Public" {...a11yProps(1)} />
             <Tab label="Private" {...a11yProps(2)} />
             <Tab label="Provider" {...a11yProps(3)} />
-            {certFunc.isOwner ? (<Tab label="Treasury" {...a11yProps(4)} />) : null}
-            {certFunc.isOwner ? (<Tab label="Certis Tokens" {...a11yProps(5)} />) : null}
-            <Tab label="Price Converter" {...a11yProps(6)} />
+            <Tab label="Price Converter" {...a11yProps(4)} />
+            {certFunc.isOwner ? (<Tab label="Treasury" {...a11yProps(5)} />) : null}
+            {certFunc.isOwner ? (<Tab label="Certis Tokens" {...a11yProps(6)} />) : null}
           </Tabs>
         </AppBar>
         <h1>{loadFunc.Network} NETWORK</h1>  
@@ -96,15 +96,16 @@ class Demo extends React.Component {
         <TabPanel value={this.state.value} index={3}>
           <IssuerComponent />
         </TabPanel>
-        {certFunc.isOwner ? (<TabPanel value={this.state.value} index={4}>
-          <TreasuryComponent />
-        </TabPanel>) : null}
-        {certFunc.isOwner ? (<TabPanel value={this.state.value} index={5}>
-          <CertisTokensComponent />
-        </TabPanel>) : null}
-        <TabPanel value={this.state.value} index={6}>
+        <TabPanel value={this.state.value} index={4}>
           <PriceConverterComponent />
         </TabPanel>
+        {certFunc.isOwner ? (<TabPanel value={this.state.value} index={5}>
+          <TreasuryComponent />
+        </TabPanel>) : null}
+        {certFunc.isOwner ? (<TabPanel value={this.state.value} index={6}>
+          <CertisTokensComponent />
+        </TabPanel>) : null}
+        
       </div>
     );
 
