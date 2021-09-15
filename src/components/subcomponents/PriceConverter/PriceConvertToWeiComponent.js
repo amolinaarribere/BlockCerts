@@ -1,21 +1,22 @@
 import React from 'react';
+import { USDDecimals, ETHDecimals } from '../../../config';
 const func = require("../../../functions/PriceConverterFunctions.js");
 
 class PriceConvertToWeiComponent extends React.Component {
     state = {
-      PriceUSDText : "",
-      PriceUSD : 0,
-      PriceWei : 0
+      AmountUSDText : "",
+      AmountUSD : 0,
+      AmountWei : 0
     };
 
     Convert = async (event) => {
       event.preventDefault();
 
-      if(this.state.PriceUSDText != "") this.state.PriceUSD = this.state.PriceUSDText;
+      if(this.state.AmountUSDText != "") this.state.AmountUSD = this.state.AmountUSDText;
 
-      this.state.PriceWei = await func.USDToEther(this.state.PriceUSD);
+      this.state.AmountWei = await func.USDToEther(this.state.AmountUSD);
 
-      this.setState({ PriceUSDText: ""})
+      this.setState({ AmountUSDText: ""})
     };
     
     render(){
@@ -24,14 +25,14 @@ class PriceConvertToWeiComponent extends React.Component {
           <br />
           <form onSubmit={this.Convert}>
             <p>
-              <input type="integer" name="PriceUSD" placeholder="PriceUSD" 
-                  value={this.state.PriceUSDText}
-                  onChange={event => this.setState({ PriceUSDText: event.target.value })}/>
+              <input type="integer" name="AmountUSD" placeholder="Amount in USD cents" 
+                  value={this.state.AmountUSDText}
+                  onChange={event => this.setState({ AmountUSDText: event.target.value })}/>
             </p>
               <button>Convert</button>
           </form>
           <br />
-          <p><b>Price In Wei :</b> {this.state.PriceWei} ({this.state.PriceUSD}USD)</p>
+          <p><b>Amount In ETH :</b> {this.state.AmountWei / ETHDecimals} ({this.state.AmountUSD}USD)</p>
         </div>
       );
     }

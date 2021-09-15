@@ -67,8 +67,19 @@ export async function AddProviderPool(address, Info, subscribe, contractType){
         publicProviders[i] = [publicProvidersAddresses[i], publicProviderInfo]
       }
 
-      pendingPublicProvidersAdd = await Aux.RetrievePendings(Contracts.publicPool.methods.retrievePendingProviders(true).call());
-      pendingPublicProvidersRemove = await Aux.RetrievePendings(Contracts.publicPool.methods.retrievePendingProviders(false).call());
+      pendingPublicProvidersAdd = []
+      let pendingPublicProvidersAddAddresses = await Contracts.publicPool.methods.retrievePendingProviders(true).call();
+      for (let i = 0; i < pendingPublicProvidersAddAddresses.length; i++) {
+        let {0:Info} = await Contracts.publicPool.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingPublicProvidersAddAddresses[i])).call();
+        pendingPublicProvidersAdd[i] = [pendingPublicProvidersAddAddresses[i], Info]
+      }
+
+      pendingPublicProvidersRemove = []
+      let pendingPublicProvidersRemoveAddresses = await Contracts.publicPool.methods.retrievePendingProviders(false).call();
+      for (let i = 0; i < pendingPublicProvidersRemoveAddresses.length; i++) {
+        let {0:Info} = await Contracts.publicPool.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingPublicProvidersRemoveAddresses[i])).call();
+        pendingPublicProvidersRemove[i] = [pendingPublicProvidersRemoveAddresses[i], Info]
+      }
     }
     else if(2 == contractType){
       let privateProvidersAddresses = await privatePool.methods.retrieveAllProviders().call()
@@ -80,8 +91,20 @@ export async function AddProviderPool(address, Info, subscribe, contractType){
         privateProviders[i] = [privateProvidersAddresses[i], privateProviderInfo]
       }
 
-      pendingPrivateProvidersAdd = await Aux.RetrievePendings(privatePool.methods.retrievePendingProviders(true).call());
-      pendingPrivateProvidersRemove = await Aux.RetrievePendings(privatePool.methods.retrievePendingProviders(false).call());
+      pendingPrivateProvidersAdd = []
+      let pendingPrivateProvidersAddAddresses = await privatePool.methods.retrievePendingProviders(true).call();
+      for (let i = 0; i < pendingPrivateProvidersAddAddresses.length; i++) {
+        let {0:Info} = await Contracts.privatePool.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingPrivateProvidersAddAddresses[i])).call();
+        pendingPrivateProvidersAdd[i] = [pendingPrivateProvidersAddAddresses[i], Info]
+      }
+
+      pendingPrivateProvidersRemove = []
+      let pendingPrivateProvidersRemoveAddresses = await privatePool.methods.retrievePendingProviders(false).call();
+      for (let i = 0; i < pendingPrivateProvidersRemoveAddresses.length; i++) {
+        let {0:Info} = await Contracts.privatePool.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingPrivateProvidersRemoveAddresses[i])).call();
+        pendingPrivateProvidersRemove[i] = [pendingPrivateProvidersRemoveAddresses[i], Info]
+      }
+
     }
     else{
       let providerPoolsAddresses = await provider.methods.retrieveAllPools().call()
@@ -93,8 +116,19 @@ export async function AddProviderPool(address, Info, subscribe, contractType){
         providerPools[i] = [providerPoolsAddresses[i], providerPoolInfo]
       }
     
-      pendingProviderPoolsAdd = await Aux.RetrievePendings(provider.methods.retrievePendingPools(true).call());
-      pendingProviderPoolsRemove = await Aux.RetrievePendings(provider.methods.retrievePendingPools(false).call());
+      pendingProviderPoolsAdd = []
+      let pendingProviderPoolsAddAddresses = await provider.methods.retrievePendingPools(true).call();
+      for (let i = 0; i < pendingProviderPoolsAddAddresses.length; i++) {
+        let {0:Info} = await Contracts.provider.methods.retrievePool(Aux.Bytes32ToAddress(pendingProviderPoolsAddAddresses[i])).call();
+        pendingProviderPoolsAdd[i] = [pendingProviderPoolsAddAddresses[i], Info]
+      }
+
+      pendingProviderPoolsRemove = []
+      let pendingProviderPoolsRemoveAddresses = await provider.methods.retrievePendingPools(false).call();
+      for (let i = 0; i < pendingProviderPoolsRemoveAddresses.length; i++) {
+        let {0:Info} = await Contracts.provider.methods.retrievePool(Aux.Bytes32ToAddress(pendingProviderPoolsRemoveAddresses[i])).call();
+        pendingProviderPoolsRemove[i] = [pendingProviderPoolsRemoveAddresses[i], Info]
+      }
     }
   }
 

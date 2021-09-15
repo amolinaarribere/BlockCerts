@@ -26,14 +26,4 @@ export function Bytes32ToAddress(bytes){
       return ("0x" + (bytes.toString()).substring(26));
 }
 
-export async function RetrievePendings(callback){
-    let addr = await callback;
-    var output = [];
-  
-    for (let i = 0; i < addr.length; i++) {
-      //let info = retrieveInfo(addr[i]);
-      output[i] = [addr[i], "info must be filled"]
-    }
-  
-    return output;
-}
+
