@@ -141,8 +141,6 @@ class AddressPropositionComponent extends React.Component {
           <button
               className="btn btn-lg btn-danger center modal-button"
               onClick={this.toggleUpdateContracts}>Manage Contracts</button>
-          <br />
-          <br />
 
           {this.state.isUpdateContractsShown ? (
             <div class="border border-danger border-5">
@@ -193,11 +191,13 @@ class AddressPropositionComponent extends React.Component {
               
           ) : null}
 
+          <br />
+          <br />
+
+
           <button
               className="btn btn-lg btn-warning center modal-button"
               onClick={this.togglePendingContracts}>Check Pending Contracts</button>
-          <br />
-          <br />
 
           {this.state.isPendingContractsShown ? (
             <div class="border border-warning border-5">

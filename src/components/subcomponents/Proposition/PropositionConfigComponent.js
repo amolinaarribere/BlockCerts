@@ -12,6 +12,7 @@ class PropositionConfigComponent extends React.Component{
             <ListPropositionConfigComponent contractType={this.props.contractType}/>
             <br/>
             <UpgradePropositionConfigComponent contractType={this.props.contractType}/>
+            <br />
             <ListPendingPropositionConfigComponent contractType={this.props.contractType}/>
             <br />
             <ValidatePropositionConfigComponent contractType={this.props.contractType}/>

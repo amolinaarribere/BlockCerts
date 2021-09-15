@@ -39,8 +39,6 @@ class UpgradePropositionConfigComponent extends React.Component{
              <button
               className="btn btn-lg btn-danger center modal-button"
               onClick={this.toggleUpdatePropositionConfig}>Manage Proposition Configuration</button>
-            <br />
-            <br />
 
             {this.state.isUpdatePropositionConfigShown ? (
               <div class="border border-danger border-5">

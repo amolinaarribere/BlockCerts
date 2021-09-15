@@ -1,5 +1,6 @@
 import React from 'react';
-import { USDDecimals, ETHDecimals } from '../../../config';
+import {  ETHDecimals } from '../../../config';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 const func = require("../../../functions/PriceConverterFunctions.js");
 
 class PriceConvertToWeiComponent extends React.Component {
@@ -22,17 +23,20 @@ class PriceConvertToWeiComponent extends React.Component {
     render(){
       return (
         <div>
-          <br />
-          <form onSubmit={this.Convert}>
-            <p>
-              <input type="integer" name="AmountUSD" placeholder="Amount in USD cents" 
+         <Form onSubmit={this.Convert} style={{margin: '50px 50px 50px 50px' }}>
+            <Form.Group  className="mb-3">
+              <Form.Control type="integer" name="AmountUSD" placeholder="Amount in USD cents" 
                   value={this.state.AmountUSDText}
                   onChange={event => this.setState({ AmountUSDText: event.target.value })}/>
-            </p>
-              <button>Convert</button>
-          </form>
-          <br />
-          <p><b>Amount In ETH :</b> {this.state.AmountWei / ETHDecimals} ({this.state.AmountUSD}USD)</p>
+            </Form.Group>
+            <button>Convert</button> 
+          </Form>
+          <Container style={{margin: '10px 50px 50px 50px' }}>
+              <Row>
+                <Col><b>Amount In ETH :</b></Col> 
+                <Col>{this.state.AmountWei / ETHDecimals} ({this.state.AmountUSD}USD)</Col>
+              </Row>
+          </Container>
         </div>
       );
     }

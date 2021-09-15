@@ -1,4 +1,6 @@
 import React from 'react';
+import { Form, Container, Row, Col } from 'react-bootstrap';
+import { ETHDecimals } from '../../../config';
 const func = require("../../../functions/TreasuryFunctions.js");
 
 class AssignWithdrawComponent extends React.Component {
@@ -20,24 +22,39 @@ class AssignWithdrawComponent extends React.Component {
     render(){
       return (
         <div>
-          <p><b>Aggregated Balance :</b> {func.TreasuryAggregatedBalance}</p>
-          <br />
-          <p><b>Contract Balance :</b> {func.TreasuryBalance}</p>
-          <br />
-          <p><b>Your Last Assigned :</b> {func.LastAssigned}</p>
-          <br />
-          <p><b>Your current Balance :</b> {func.AccountBalance}</p>
-          <form onSubmit={this.handleAssignDividends}>
-            <button type="submit">Assign Dividends</button>
-          </form>
-          <form onSubmit={this.handleWithdraw}>
-            <input type="integer" name="Amount" placeholder="amount" 
-                        value={this.state.amount}
-                        onChange={event => this.setState({ amount: event.target.value })}/>
-            <button type="submit">Withdraw Amount</button>
-          </form>
-          <br />
+          <div class="border border-0">
+            <h3>Treasury Balances</h3>
+            <Container style={{margin: '10px 50px 50px 50px' }}>
+              <Row>
+                <Col><b>Aggregated Balance (ETH) :</b></Col> 
+                <Col>{func.TreasuryAggregatedBalance / ETHDecimals}</Col>
+              </Row>
+              <Row>
+                <Col><b>Contract Balance (ETH) :</b></Col> 
+                <Col>{func.TreasuryBalance / ETHDecimals}</Col>
+              </Row>
+              <Row>
+                <Col><b>Your Last Assigned (ETH) :</b></Col> 
+                <Col>{func.LastAssigned / ETHDecimals}</Col>
+              </Row>
+              <Row>
+                <Col><b>Your current Balance (ETH) :</b></Col> 
+                <Col>{func.AccountBalance / ETHDecimals}</Col>
+              </Row>
+            </Container>
+          </div>
+          <div class="border border border-0">
+            <Form onSubmit={this.handleWithdraw} style={{margin: '50px 50px 50px 50px' }}>
+              <Form.Group  className="mb-3">
+                <Form.Control type="integer" name="Amount" placeholder="Amount in Wei" 
+                  value={this.state.amount}
+                  onChange={event => this.setState({ amount: event.target.value })}/>
+              </Form.Group>
+              <button>Withdraw Amount</button>
+            </Form>
+          </div>
         </div>
+
       );
     }
   }

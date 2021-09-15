@@ -1,5 +1,6 @@
 import React from 'react';
 import { USDDecimals, ETHDecimals } from '../../../config';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 const func = require("../../../functions/TreasuryFunctions.js");
 
 class PricePropositionComponent extends React.Component {
@@ -8,8 +9,22 @@ class PricePropositionComponent extends React.Component {
       NewPrivatePriceUSD : "",
       NewProviderPriceUSD : "",
       NewCertificatePriceUSD : "",
-      NewOwnerRefundFeeUSD : ""
+      NewOwnerRefundFeeUSD : "",
+
+      isUpdatePricesShown: false,
+      isPendingPricesShown: false
     };
+
+    toggleUpdatePrices = () => {
+      if(this.state.isUpdatePricesShown)this.setState({ isUpdatePricesShown: false })
+      else this.setState({ isUpdatePricesShown: true })
+    };
+
+    togglePendingPrices = () => {
+      if(this.state.isPendingPricesShown)this.setState({ isPendingPricesShown: false })
+      else this.setState({ isPendingPricesShown: true })
+    };
+
     handleUpgradePrices = async (event) => {
       event.preventDefault();
 
@@ -37,46 +52,105 @@ class PricePropositionComponent extends React.Component {
     render(){
       return (
         <div>
-          <p><b>Submit New Provider to Public Pool Price :</b> {func.PublicPriceUSD / USDDecimals} USD (approx. {func.PublicPriceWei / ETHDecimals} ETH)</p>
-          <p><b>Create New Private Pool Price :</b> {func.PrivatePriceUSD / USDDecimals} USD (approx. {func.PrivatePriceWei / ETHDecimals} ETH)</p>
-          <p><b>Create New Provider Price :</b> {func.ProviderPriceUSD / USDDecimals} USD (approx. {func.ProviderPriceWei / ETHDecimals} ETH)</p>
-          <p><b>Send Certificate to Public Pool Price :</b> {func.CertificatePriceUSD / USDDecimals} USD (approx. {func.CertificatePriceWei / ETHDecimals} ETH)</p>
-          <p><b>Refund Fee :</b> {func.OwnerRefundFeeUSD / USDDecimals} USD (approx. {func.OwnerRefundFeeWei / ETHDecimals} ETH)</p>
+          <div class="border border-0">
+            <h3>Prices</h3>
+            <Container style={{margin: '10px 50px 50px 50px' }}>
+              <Row>
+                <Col><b>Submit New Provider to Public Pool Price :</b></Col> 
+                <Col>{func.PublicPriceUSD / USDDecimals} USD (approx. {func.PublicPriceWei / ETHDecimals} ETH)</Col>
+              </Row>
+              <Row>
+                <Col><b>Create New Private Pool Price :</b></Col> 
+                <Col>{func.PrivatePriceUSD / USDDecimals} USD (approx. {func.PrivatePriceWei / ETHDecimals} ETH)</Col>
+              </Row>
+              <Row>
+                <Col><b>Create New Provider Price :</b></Col> 
+                <Col>{func.ProviderPriceUSD / USDDecimals} USD (approx. {func.ProviderPriceWei / ETHDecimals} ETH)</Col>
+              </Row>
+              <Row>
+                <Col><b>Send Certificate to Public Pool Price :</b></Col> 
+                <Col>{func.CertificatePriceUSD / USDDecimals} USD (approx. {func.CertificatePriceWei / ETHDecimals} ETH)</Col>
+              </Row>
+              <Row>
+                <Col><b>Refund Fee :</b></Col> 
+                <Col>{func.OwnerRefundFeeUSD / USDDecimals} USD (approx. {func.OwnerRefundFeeWei / ETHDecimals} ETH)</Col>
+              </Row>
+            </Container>
+          </div>
           <br />
-          <form onSubmit={this.handleUpgradePrices}>
-            <p>
-              <input type="integer" name="NewPublicPriceUSD" placeholder="NewPublicPrice in USD cents" 
-                  value={this.state.NewPublicPriceUSD}
-                  onChange={event => this.setState({ NewPublicPriceUSD: event.target.value })}/>
-            </p>
-            <p>
-              <input type="integer" name="NewPrivatePriceUSD" placeholder="NewPrivatePrice in USD cents" 
-                  value={this.state.NewPrivatePriceUSD}
-                  onChange={event => this.setState({ NewPrivatePriceUSD: event.target.value })}/>
-            </p>
-            <p>
-              <input type="integer" name="NewProviderPriceUSD" placeholder="NewProviderPrice in USD cents" 
-                  value={this.state.NewProviderPriceUSD}
-                  onChange={event => this.setState({ NewProviderPriceUSD: event.target.value })}/>
-            </p>
-            <p>
-              <input type="integer" name="NewCertificatePriceUSD" placeholder="NewCertificatePrice in USD cents" 
-                  value={this.state.NewCertificatePriceUSD}
-                  onChange={event => this.setState({ NewCertificatePriceUSD: event.target.value })}/>
-            </p>
-            <p>
-              <input type="integer" name="NewOwnerRefundFeeUSD" placeholder="NewOwnerRefundFee in USD cents" 
-                  value={this.state.NewOwnerRefundFeeUSD}
-                  onChange={event => this.setState({ NewOwnerRefundFeeUSD: event.target.value })}/>
-            </p>
-              <button>Upgrade Prices</button>
-          </form>
+
+          <button
+              className="btn btn-lg btn-danger center modal-button"
+              onClick={this.toggleUpdatePrices}>Manage Prices</button>
+
+            {this.state.isUpdatePricesShown ? (
+              <div class="border border-danger border-5">
+                <Form onSubmit={this.handleUpgradePrices} style={{margin: '50px 50px 50px 50px' }}>
+                  <Form.Group  className="mb-3">
+                    <Form.Control type="integer" name="NewPublicPriceUSD" placeholder="NewPublicPrice in USD cents" 
+                      value={this.state.NewPublicPriceUSD}
+                      onChange={event => this.setState({ NewPublicPriceUSD: event.target.value })}/>
+                  </Form.Group>
+                  <Form.Group  className="mb-3">
+                    <Form.Control type="integer" name="NewPrivatePriceUSD" placeholder="NewPrivatePrice in USD cents" 
+                      value={this.state.NewPrivatePriceUSD}
+                      onChange={event => this.setState({ NewPrivatePriceUSD: event.target.value })}/>
+                  </Form.Group>
+                  <Form.Group  className="mb-3">
+                    <Form.Control type="integer" name="NewProviderPriceUSD" placeholder="NewProviderPrice in USD cents" 
+                      value={this.state.NewProviderPriceUSD}
+                      onChange={event => this.setState({ NewProviderPriceUSD: event.target.value })}/>
+                  </Form.Group>
+                  <Form.Group  className="mb-3">
+                    <Form.Control type="integer" name="NewCertificatePriceUSD" placeholder="NewCertificatePrice in USD cents" 
+                      value={this.state.NewCertificatePriceUSD}
+                      onChange={event => this.setState({ NewCertificatePriceUSD: event.target.value })}/>
+                  </Form.Group>
+                  <Form.Group  className="mb-3">
+                    <Form.Control type="integer" name="NewOwnerRefundFeeUSD" placeholder="NewOwnerRefundFee in USD cents" 
+                      value={this.state.NewOwnerRefundFeeUSD}
+                      onChange={event => this.setState({ NewOwnerRefundFeeUSD: event.target.value })}/>
+                  </Form.Group>
+                  <button>Upgrade Prices</button>
+                </Form>
+                <br/>
+              </div>
+              ) : null}
+
           <br />
-          <p class="text-warning"><b>Pending Public Price :</b> {func.PendingPublicPriceUSD / USDDecimals} USD</p>
-          <p class="text-warning"><b>Pending Private Price :</b> {func.PendingPrivatePriceUSD / USDDecimals} USD</p>
-          <p class="text-warning"><b>Pending Provider Price :</b> {func.PendingProviderPriceUSD / USDDecimals} USD</p>
-          <p class="text-warning"><b>Pending Certificate Price :</b> {func.PendingCertificatePriceUSD / USDDecimals} USD</p>
-          <p class="text-warning"><b>Pending Refund Fee :</b> {func.PendingOwnerRefundFeeUSD / USDDecimals} USD</p>
+          <br />
+
+          <button
+                className="btn btn-lg btn-warning center modal-button"
+                onClick={this.togglePendingPrices}>Check Pending Prices</button>
+
+            {this.state.isPendingPricesShown ? (
+              <div class="border border-warning border-5">
+                <Container style={{margin: '10px 50px 50px 50px' }}>
+                  <Row>
+                    <Col><b>Pending Public Price :</b></Col> 
+                    <Col>{func.PendingPublicPriceUSD / USDDecimals} USD</Col>
+                  </Row>
+                  <Row>
+                    <Col><b>Pending Private Price :</b></Col> 
+                    <Col>{func.PendingPrivatePriceUSD / USDDecimals} USD</Col>
+                  </Row>
+                  <Row>
+                    <Col><b>Pending Provider Price :</b></Col> 
+                    <Col>{func.PendingProviderPriceUSD / USDDecimals} USD</Col>
+                  </Row>
+                  <Row>
+                    <Col><b>Pending Certificate Price :</b></Col> 
+                    <Col>{func.PendingCertificatePriceUSD / USDDecimals} USD</Col>
+                  </Row>
+                  <Row>
+                    <Col><b>Pending Refund Fee :</b></Col> 
+                    <Col>{func.PendingOwnerRefundFeeUSD / USDDecimals} USD</Col>
+                  </Row>
+                </Container>
+              </div>
+                
+            ) : null}
         </div>
       );
     }

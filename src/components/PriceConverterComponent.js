@@ -19,11 +19,11 @@ class PriceConverterComponent extends React.Component {
         <div>
          <CurrentAddressComponent />
           <br />
-          <PriceConvertToWeiComponent />
-          <br />
           <AddressPropositionComponent />
           <br />
           <PropositionConfigComponent contractType={this.state.contractType}/>
+          <br />
+          <PriceConvertToWeiComponent />
           <br/>
         </div>
       );
