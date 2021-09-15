@@ -7,7 +7,7 @@ const func = require("../functions/LoadFunctions.js");
 
 class TreasuryComponent extends React.Component {
     componentWillMount() {
-      func.LoadBlockchain()
+      //func.LoadBlockchain()
       //func.SwitchContext()
    }
     state = {

@@ -9,6 +9,7 @@ class AddOwnerComponent extends React.Component{
         event.preventDefault();
       await func.AddOwner(this.state.addOwner, "", this.props.contractType)
       this.setState({ addOwner: "" })
+      window.location.reload();
     };
   
     render(){

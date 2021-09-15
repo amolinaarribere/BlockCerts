@@ -11,7 +11,7 @@ const Certificatefunc = require("../functions/CertificateFunctions.js");
 
 class PrivateComponent extends React.Component {
     componentWillMount() {
-      func.LoadBlockchain()
+      //func.LoadBlockchain()
       Certificatefunc.SwitchContext()
       if(ProviderPoolFunc.privatePoolAddress != null && ProviderPoolFunc.privatePoolAddress !== "" && ProviderPoolFunc.privatePoolAddress !== "undefined"){
         ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.privatePoolAddress, this.state.contractType);

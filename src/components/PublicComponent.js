@@ -9,7 +9,7 @@ const Certificatefunc = require("../functions/CertificateFunctions.js");
 
 class PublicComponent extends React.Component {
     componentWillMount() {
-      func.LoadBlockchain()
+      //func.LoadBlockchain()
       Certificatefunc.SwitchContext()
    }
     state = {

@@ -5,7 +5,7 @@ class CurrentAddressComponent extends React.Component{
     render(){
       return(
         <div>
-          <h3>Current Address : {func.account}</h3>
+          <h2 class="text-primary">Current Address : {func.account}</h2>
           <br />
         </div>
       );

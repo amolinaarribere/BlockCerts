@@ -13,12 +13,20 @@ const Aux = require("./AuxiliaryFunctions.js");
 
 export var chairPerson = ""
 export var balance = ""
+export var Network = ""
 
 
 export async function LoadBlockchain() {
   Aux.LoadWeb3();
+  
   const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+  window.ethereum.on('accountsChanged', function (accounts) {
+    window.location.reload();
+  })
   Aux.setAccount(accounts[0]);
+
+  Network = await Aux.web3.eth.net.getNetworkType();
+
   ProviderPoolFunc.ReadKeys();
 
   Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
@@ -31,6 +39,9 @@ export async function LoadBlockchain() {
   Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
   Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
   Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
+
+  await CertisFunc.isTokenOwner(Aux.account);
+
   await ProviderPoolFunc.RetrieveProviderPool(1);
   await OwnersFunc.RetrieveOwners(1);
   await FactoriesFunc.RetrieveFactories();

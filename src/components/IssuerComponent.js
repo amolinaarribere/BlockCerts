@@ -10,7 +10,7 @@ const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 
   class IssuerComponent extends React.Component {
     componentWillMount() {
-      func.LoadBlockchain()
+      //func.LoadBlockchain()
       //func.SwitchContext()
       if(ProviderPoolFunc.providerAddress != null && ProviderPoolFunc.providerAddress !== "" && ProviderPoolFunc.providerAddress !== "undefined"){
         ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.providerAddress, this.state.contractType);

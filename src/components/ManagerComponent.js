@@ -7,7 +7,7 @@ const func = require("../functions/LoadFunctions.js");
 
 class ManagerComponent extends React.Component {
     componentWillMount() {
-      func.LoadBlockchain()
+      //func.LoadBlockchain()
       //Certificatefunc.SwitchContext()
    }
    state = {
