@@ -12,7 +12,7 @@ class ValidatePropositionConfigComponent extends React.Component{
       return(
         <div>
           <form onSubmit={this.handleValidatePropConfig}>
-              <button>Validate Proposition Configuration</button>
+              <button>Validate Proposition</button>
           </form>
         </div>
       );

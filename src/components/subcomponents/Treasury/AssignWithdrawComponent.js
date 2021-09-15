@@ -24,6 +24,8 @@ class AssignWithdrawComponent extends React.Component {
           <br />
           <p><b>Contract Balance :</b> {func.TreasuryBalance}</p>
           <br />
+          <p><b>Your Last Assigned :</b> {func.LastAssigned}</p>
+          <br />
           <p><b>Your current Balance :</b> {func.AccountBalance}</p>
           <form onSubmit={this.handleAssignDividends}>
             <button type="submit">Assign Dividends</button>

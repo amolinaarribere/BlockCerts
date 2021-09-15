@@ -19,20 +19,18 @@ export async function LoadBlockchain() {
   Aux.LoadWeb3();
   const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
   Aux.setAccount(accounts[0]);
-
   ProviderPoolFunc.ReadKeys();
 
   Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
   await ManagerFunc.RetrieveContractsAddresses();
   await ManagerFunc.RetrievePendingContractsAddresses();
-  
+
   Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
   Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
   Contracts.setProviderFactory(await new Aux.web3.eth.Contract(PROVIDERFACTORY_ABI, ManagerFunc.providerFactoryAddressProxy))
   Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
   Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
   Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
-
   await ProviderPoolFunc.RetrieveProviderPool(1);
   await OwnersFunc.RetrieveOwners(1);
   await FactoriesFunc.RetrieveFactories();
@@ -46,6 +44,7 @@ export async function LoadBlockchain() {
   await PropositionFunc.RetrievePendingProposition(3);
   await CertisFunc.totalSupply();
   await CertisFunc.balanceOf(Aux.account);
+  await TreasuryFunc.RetrieveLastAssigned(Aux.account);
   await TreasuryFunc.RetrieveBalance(Aux.account);
   await TreasuryFunc.RetrieveTreasuryBalance();
   await PriceConverterFunc.RetrieveRegistryAddress();

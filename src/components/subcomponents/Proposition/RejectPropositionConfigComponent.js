@@ -12,7 +12,7 @@ class RejectPropositionConfigComponent extends React.Component{
       return(
         <div>
           <form onSubmit={this.handleRejectPropConfig}>
-              <button>Reject Proposition Configuration</button>
+              <button>Reject Proposition</button>
           </form>
         </div>
       );

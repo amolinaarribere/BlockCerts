@@ -4,6 +4,7 @@ const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
 
+export var LastAssigned = "";
 export var AccountBalance = "";
 export var TreasuryBalance = "";
 export var TreasuryAggregatedBalance = "";
@@ -33,12 +34,12 @@ export var PendingOwnerRefundFeeUSD = "";
     ProviderPriceUSD = response[2];
     CertificatePriceUSD = response[3];
     OwnerRefundFeeUSD = response[4];
-    
-    PublicPriceWei = await PriceConverter.USDToEther(PublicPriceUSD);
-    PrivatePriceWei = await PriceConverter.USDToEther(PrivatePriceUSD);
-    ProviderPriceWei = await PriceConverter.USDToEther(ProviderPriceUSD);
-    CertificatePriceWei = await PriceConverter.USDToEther(CertificatePriceUSD);
-    OwnerRefundFeeWei = await PriceConverter.USDToEther(OwnerRefundFeeUSD);
+    let exchangeRate = await PriceConverter.USDToEther(1);
+    PublicPriceWei = PublicPriceUSD * exchangeRate;
+    PrivatePriceWei = PrivatePriceUSD * exchangeRate;
+    ProviderPriceWei = ProviderPriceUSD * exchangeRate;
+    CertificatePriceWei = CertificatePriceUSD * exchangeRate;
+    OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
   }
 
   export async function RetrievePendingPricesTreasury(){
@@ -53,6 +54,10 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function UpgradePricesTreasury(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD){
     await Aux.CallBackFrame(Contracts.Treasury.methods.updatePrices(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD).send({from: Aux.account }));
+  }
+
+  export async function RetrieveLastAssigned(address){
+    LastAssigned = await Contracts.Treasury.methods.retrieveLastAssigned(address).call();
   }
 
   export async function RetrieveBalance(address){
