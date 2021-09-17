@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import VoteForPropositionComponent from './VoteForPropositionComponent.js';
 
 const func = require("../../../functions/PropositionFunctions.js");
-const certFunc = require("../../../functions/CertisFunctions.js");
 
 class ListPendingPropositionConfigComponent extends React.Component{
 
@@ -41,6 +41,10 @@ class ListPendingPropositionConfigComponent extends React.Component{
                       <Col>{(this.props.contractType == 1)? func.PendingManagerMinWeightToProposePercentage :
                             (this.props.contractType == 2)? func.PendingTreasuryMinWeightToProposePercentage :
                             func.PendingPCMinWeightToProposePercentage}</Col>
+                    </Row>
+                    < br/>
+                    <Row>
+                      <VoteForPropositionComponent contractType={this.props.contractType}/>
                     </Row>
                   </Container>
                 </div>) : null}      

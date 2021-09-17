@@ -1,6 +1,5 @@
 import React from 'react';
 import CertificateComponent from './subcomponents/Certificates/CertificateComponent.js';
-import CurrentAddressComponent from './subcomponents/CurrentAddressComponent.js';
 import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
 import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolComponent.js';
 const func = require("../functions/LoadFunctions.js");
@@ -29,8 +28,6 @@ class PublicComponent extends React.Component {
     render(){
       return (
         <div>
-          <CurrentAddressComponent />
-          <br />
             <form onSubmit={this.handleNewProposal}>
                 <input type="text" name="newProvider" placeholder="address" 
                     value={this.state.newProvider}

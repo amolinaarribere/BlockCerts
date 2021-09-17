@@ -1,5 +1,4 @@
 import React from 'react';
-import CurrentAddressComponent from './subcomponents/CurrentAddressComponent.js';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
 import AddressPropositionComponent from './subcomponents/PriceConverter/AddressPropositionComponent.js';
 import PriceConvertToWeiComponent from './subcomponents/PriceConverter/PriceConvertToWeiComponent.js';
@@ -17,14 +16,12 @@ class PriceConverterComponent extends React.Component {
     render(){
       return (
         <div>
-         <CurrentAddressComponent />
-          <br />
-          <AddressPropositionComponent />
+          <PriceConvertToWeiComponent />
+          <br/>
+          <AddressPropositionComponent contractType={this.state.contractType}/>
           <br />
           <PropositionConfigComponent contractType={this.state.contractType}/>
           <br />
-          <PriceConvertToWeiComponent />
-          <br/>
         </div>
       );
     }

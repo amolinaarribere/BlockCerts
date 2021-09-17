@@ -1,6 +1,8 @@
 import React from 'react';
 import { USDDecimals, ETHDecimals } from '../../../config';
 import { Form, Container, Row, Col } from 'react-bootstrap';
+import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
+
 const func = require("../../../functions/TreasuryFunctions.js");
 
 class PricePropositionComponent extends React.Component {
@@ -80,11 +82,11 @@ class PricePropositionComponent extends React.Component {
           <br />
 
           <button
-              className="btn btn-lg btn-danger center modal-button"
+              className="btn btn-lg btn-primary center modal-button"
               onClick={this.toggleUpdatePrices}>Manage Prices</button>
 
             {this.state.isUpdatePricesShown ? (
-              <div class="border border-danger border-5">
+              <div class="border border-primary border-5">
                 <Form onSubmit={this.handleUpgradePrices} style={{margin: '50px 50px 50px 50px' }}>
                   <Form.Group  className="mb-3">
                     <Form.Control type="integer" name="NewPublicPriceUSD" placeholder="NewPublicPrice in USD cents" 
@@ -111,7 +113,7 @@ class PricePropositionComponent extends React.Component {
                       value={this.state.NewOwnerRefundFeeUSD}
                       onChange={event => this.setState({ NewOwnerRefundFeeUSD: event.target.value })}/>
                   </Form.Group>
-                  <button>Upgrade Prices</button>
+                  <button class="btn btn-primary">Upgrade Prices</button>
                 </Form>
                 <br/>
               </div>
@@ -146,6 +148,10 @@ class PricePropositionComponent extends React.Component {
                   <Row>
                     <Col><b>Pending Refund Fee :</b></Col> 
                     <Col>{func.PendingOwnerRefundFeeUSD / USDDecimals} USD</Col>
+                  </Row>
+                  < br/>
+                  <Row>
+                    <VoteForPropositionComponent contractType={this.props.contractType}/>
                   </Row>
                 </Container>
               </div>

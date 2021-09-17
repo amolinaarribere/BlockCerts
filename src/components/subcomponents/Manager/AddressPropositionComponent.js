@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { CERTIFICATE_POOL_MANAGER_ADDRESS} from '../../../config';
+import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
+
 const func = require("../../../functions/ManagerFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
@@ -68,7 +70,7 @@ class AddressPropositionComponent extends React.Component {
       return (
         <div>
           <div class="border border-0">
-            <h3>Contract Proxies Addresses</h3>
+          <h3>Contract Proxies Addresses</h3>
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Manager Address :</b></Col> 
@@ -142,11 +144,11 @@ class AddressPropositionComponent extends React.Component {
           {certFunc.isOwner ? (
             <div>
                <button
-                  className="btn btn-lg btn-danger center modal-button"
+                  className="btn btn-lg btn-primary center modal-button"
                   onClick={this.toggleUpdateContracts}>Manage Contracts</button>
 
               {this.state.isUpdateContractsShown ? (
-                <div class="border border-danger border-5">
+                <div class="border border-primary border-5">
                   <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
                     <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewPublicPoolAddress" placeholder="NewPublicPoolAddress" 
@@ -188,7 +190,7 @@ class AddressPropositionComponent extends React.Component {
                           value={this.state.NewPriceConverterAddress}
                           onChange={event => this.setState({ NewPriceConverterAddress: event.target.value })}/>
                     </Form.Group>
-                      <button>Submit Contracts</button>
+                      <button class="btn btn-primary">Submit Contracts</button>
                   </Form>
                 </div>) : null}
 
@@ -234,6 +236,10 @@ class AddressPropositionComponent extends React.Component {
                       <Row>
                         <Col><b>Pending Price Converter Address :</b></Col> 
                         <Col>{Aux.Bytes32ToAddress(func.PendingPriceConverterAddress)}</Col>
+                      </Row>
+                      < br/>
+                      <Row>
+                        <VoteForPropositionComponent contractType={this.props.contractType}/>
                       </Row>
                     </Container> 
                   </div>) : null}

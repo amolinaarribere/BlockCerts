@@ -39,11 +39,11 @@ class UpgradePropositionConfigComponent extends React.Component{
          return (
            <div>
              <button
-                    className="btn btn-lg btn-danger center modal-button"
+                    className="btn btn-lg btn-primary center modal-button"
                     onClick={this.toggleUpdatePropositionConfig}>Manage Proposition Configuration</button>
 
                   {this.state.isUpdatePropositionConfigShown ? (
-                    <div class="border border-danger border-5">
+                    <div class="border border-primary border-5">
                       <Form onSubmit={this.handleUpgradeProp} style={{margin: '50px 50px 50px 50px' }}>
                         <Form.Group  className="mb-3">
                           <Form.Control type="integer" name="NewPropositionLifeTime" placeholder="NewPropositionLifeTime" 
@@ -60,7 +60,7 @@ class UpgradePropositionConfigComponent extends React.Component{
                             value={this.state.NewMinWeightToProposePercentage}
                             onChange={event => this.setState({ NewMinWeightToProposePercentage: event.target.value })}/>
                         </Form.Group>
-                        <button>Upgrade Proposition Configuration</button>
+                        <button class="btn btn-primary">Upgrade Proposition Configuration</button>
                       </Form>
                       <br/>
                     </div>) : null}    

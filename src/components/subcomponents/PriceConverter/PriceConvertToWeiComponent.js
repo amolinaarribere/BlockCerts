@@ -23,13 +23,14 @@ class PriceConvertToWeiComponent extends React.Component {
     render(){
       return (
         <div>
+         <h3>Convert</h3>
          <Form onSubmit={this.Convert} style={{margin: '50px 50px 50px 50px' }}>
             <Form.Group  className="mb-3">
               <Form.Control type="integer" name="AmountUSD" placeholder="Amount in USD cents" 
                   value={this.state.AmountUSDText}
                   onChange={event => this.setState({ AmountUSDText: event.target.value })}/>
             </Form.Group>
-            <button>Convert</button> 
+            <button class="btn btn-secondary">Convert</button> 
           </Form>
           <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>

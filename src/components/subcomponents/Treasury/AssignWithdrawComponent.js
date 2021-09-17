@@ -50,7 +50,7 @@ class AssignWithdrawComponent extends React.Component {
                   value={this.state.amount}
                   onChange={event => this.setState({ amount: event.target.value })}/>
               </Form.Group>
-              <button>Withdraw Amount</button>
+              <button class="btn btn-secondary">Withdraw Amount</button>
             </Form>
           </div>
         </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
-import CurrentAddressComponent from './subcomponents/CurrentAddressComponent.js';
 import PricePropositionComponent from './subcomponents/Treasury/PricePropositionComponent.js';
 import AssignWithdrawComponent from './subcomponents/Treasury/AssignWithdrawComponent.js';
 const func = require("../functions/LoadFunctions.js");
@@ -17,11 +16,9 @@ class TreasuryComponent extends React.Component {
     render(){
       return (
         <div>
-          <CurrentAddressComponent />
-          <br />
           <AssignWithdrawComponent />
           <br />
-          <PricePropositionComponent />
+          <PricePropositionComponent contractType={this.state.contractType}/>
           <br />
           <PropositionConfigComponent contractType={this.state.contractType}/>
         </div>

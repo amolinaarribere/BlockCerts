@@ -14,6 +14,8 @@ import IssuerComponent from './components/IssuerComponent.js';
 import TreasuryComponent from './components/TreasuryComponent.js';
 import ManagerComponent from './components/ManagerComponent.js';
 import PriceConverterComponent from './components/PriceConverterComponent.js';
+import CurrentAddressComponent from './components/CurrentAddressComponent.js';
+
 const certFunc = require("./functions/CertisFunctions.js");
 const loadFunc = require("./functions/LoadFunctions.js");
 
@@ -30,7 +32,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box class="mx-auto w-75" p={3}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -84,6 +86,8 @@ class Demo extends React.Component {
           </Tabs>
         </AppBar>
         <h1>{loadFunc.Network} NETWORK</h1>  
+        <CurrentAddressComponent />
+        <br />
         <TabPanel value={this.state.value} index={0}>
           <ManagerComponent />
         </TabPanel>

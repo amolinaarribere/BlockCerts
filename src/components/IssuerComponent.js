@@ -1,6 +1,5 @@
 import React from 'react';
 import CertificateComponent from './subcomponents/Certificates/CertificateComponent.js';
-import CurrentAddressComponent from './subcomponents/CurrentAddressComponent.js';
 import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
 import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolComponent.js';
 import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
@@ -23,8 +22,6 @@ const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
     render(){
       return (
         <div>
-          <CurrentAddressComponent />
-          <br />
           <CreatePoolIssuer contractType={this.state.contractType}/>
           <br />
           <br />
