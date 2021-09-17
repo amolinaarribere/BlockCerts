@@ -23,8 +23,6 @@ class CertisTransferComponent extends React.Component {
                     <Form.Control type="integer" name="Amount" placeholder="amount" 
                           value={this.state.amount}
                           onChange={event => this.setState({ amount: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
                     <Form.Control type="text" name="Recipient" placeholder="recipient" 
                           value={this.state.recipient}
                           onChange={event => this.setState({ recipient: event.target.value })}/>

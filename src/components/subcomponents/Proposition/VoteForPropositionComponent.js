@@ -16,7 +16,7 @@ class VoteForPropositionComponent extends React.Component{
     render(){
       return(
         <div>
-          <button type="submit" class="btn btn-success" onClick={this.handleValidatePropConfig}>Validate Proposition</button> &nbsp;&nbsp;
+          <button type="button" class="btn btn-success" onClick={this.handleValidatePropConfig}>Validate Proposition</button> &nbsp;&nbsp;
           <button type="button" class="btn btn-danger" onClick={this.handleRejectPropConfig}>Reject Proposition</button>
         </div>
       );

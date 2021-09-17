@@ -1,4 +1,6 @@
 import React from 'react';
+import { Form, Container, Row, Col } from 'react-bootstrap';
+
 const func = require("../../../functions/FactoriesFunctions.js");
 const ProviderPoolFunctions = require("../../../functions/ProviderPoolFunctions.js");
 
@@ -16,12 +18,15 @@ class FundProviderComponent extends React.Component{
     render(){
       return (
           <div>
-              <form onSubmit={this.handleFundProvider}>
-                  <input type="interger" name="Amount" placeholder="amount" 
-                      value={this.state.Amount}
-                      onChange={event => this.setState({ Amount: event.target.value })}/>
-                  <button>Fund Provider</button>
-              </form>
+              <h3>Fund Provider</h3>
+                <Form onSubmit={this.handleFundProvider} style={{margin: '50px 50px 50px 50px' }}>
+                    <Form.Group  className="mb-3">
+                        <Form.Control type="interger" name="Amount" placeholder="amount" 
+                            value={this.state.Amount}
+                            onChange={event => this.setState({ Amount: event.target.value })}/>
+                    </Form.Group>
+                    <button type="submit" class="btn btn-secondary">Fund</button>
+                </Form>
           </div>
       );
     }
@@ -45,12 +50,15 @@ class SelectPoolIssuerComponent extends React.Component{
         if (this.props.contractType == 3)text = "Provider";
         return (
             <div>
-                <form onSubmit={this.handleSelectProviderPool}>
-                    <input type="text" name="SelectProviderPool" placeholder="address" 
+                <h3>Select {text}</h3>
+                <Form onSubmit={this.handleSelectProviderPool} style={{margin: '50px 50px 50px 50px' }}>
+                <Form.Group  className="mb-3">
+                    <Form.Control type="text" name="SelectProviderPool" placeholder="address" 
                         value={this.state.ProviderPool}
                         onChange={event => this.setState({ ProviderPool: event.target.value })}/>
-                    <button>Select {text}</button>
-                </form>
+                </Form.Group>
+                <button type="submit" class="btn btn-secondary">Select {text}</button>
+                </Form>
             </div>
         );
       }
@@ -58,46 +66,45 @@ class SelectPoolIssuerComponent extends React.Component{
 
 class ListPoolsIssuers extends React.Component {
     render(){
-        if(this.props.contractType == 2){
-            return(
-                <div>
-                    <p><b>Private Pool Addresses :</b>
-                        <ol>
-                        {func.privatePoolAddresses.map(privatePoolAddress => (
-                        <li key={privatePoolAddress[1]}><i>creator</i> {privatePoolAddress[0]} :  
-                                                        <i> address</i> {privatePoolAddress[1]}</li>
-                        ))}
-                        </ol>
-                    </p>
-                    <br />
-                    <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key}/>
-                    <br />
-                    <h4> Selected Private Pool : {ProviderPoolFunctions.privatePoolAddress}</h4>
-                </div>
-            );
+        var text = "Private Pool";
+        var addresses = func.privatePoolAddresses;
+        var selectedAddress = ProviderPoolFunctions.privatePoolAddress;
+        var Provider = false;
+        if (this.props.contractType == 3) {
+            text = "Provider";
+            addresses = func.providerAddresses;
+            selectedAddress = ProviderPoolFunctions.providerAddress;
+            Provider = true;
         }
-        else{
-            return (
-                <div>
-                    <p><b>Provider Addresses :</b>
-                        <ol>
-                        {func.providerAddresses.map(providerAddress => (
-                        <li key={providerAddress[1]}><i>creator</i> {providerAddress[0]} :  
-                                                    <i> address</i> {providerAddress[1]}</li>
+        return(
+            <div>
+                <h3>{text} Addresses :</h3> 
+                <Container>
+                        {addresses.map(address => (
+                        <Row key={address[1]}>
+                            <Col><i><b>creator </b></i>{address[0]}</Col> 
+                            <Col><i><b>address </b></i>{address[1]}</Col></Row>
                         ))}
-                        </ol>
-                    </p>
-                    <br />
-                    <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key}/>
-                    <br />
-                    <h4> Selected Provider : {ProviderPoolFunctions.providerAddress}</h4>
-                    <br />
-                    <p><b>Contract Balance :</b> {ProviderPoolFunctions.providerBalance}</p>
-                    <br />
-                    <FundProviderComponent />
-                </div>
-            );
-        }
+                </Container>
+                <br />
+                <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key}/>
+                <br />
+                <h2 class="text-primary"> Selected {text} : {selectedAddress}</h2>
+                <br />
+                {Provider ? (
+                    <div>
+                        <Container>
+                            <Row>
+                                <Col><b>Contract Balance :</b></Col>
+                                <Col>{ProviderPoolFunctions.providerBalance}</Col>
+                            </Row>
+                        </Container>
+                        <br />
+                        <FundProviderComponent />
+                    </div>): null}
+                
+            </div>
+        );
         
     }
 }

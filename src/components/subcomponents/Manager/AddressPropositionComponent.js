@@ -57,14 +57,14 @@ class AddressPropositionComponent extends React.Component {
       await func.UpgradeContracts(NPPA, NTA, NCTA, NPPFA, NPPA2, NPFA, NPA, NPCA);
 
       this.setState({ NewPublicPoolAddress: "",
-      NewTreasuryAddress: "",
-      NewCertisTokenAddress: "",
-      NewPrivatePoolFactoryAddress: "",
-      NewPrivatePoolAddress: "",
-      NewProviderFactoryAddress: "",
-      NewProviderAddress: "",
-      NewPriceConverterAddress: ""})
-    };
+        NewTreasuryAddress: "",
+        NewCertisTokenAddress: "",
+        NewPrivatePoolFactoryAddress: "",
+        NewPrivatePoolAddress: "",
+        NewProviderFactoryAddress: "",
+        NewProviderAddress: "",
+        NewPriceConverterAddress: ""})
+      };
     
     render(){
       return (
@@ -154,38 +154,24 @@ class AddressPropositionComponent extends React.Component {
                       <Form.Control type="text" name="NewPublicPoolAddress" placeholder="NewPublicPoolAddress" 
                           value={this.state.NewPublicPoolAddress}
                           onChange={event => this.setState({ NewPublicPoolAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewTreasuryAddress" placeholder="NewTreasuryAddress" 
                           value={this.state.NewTreasuryAddress}
                           onChange={event => this.setState({ NewTreasuryAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewCertisTokenAddress" placeholder="NewCertisTokenAddress" 
                           value={this.state.NewCertisTokenAddress}
                           onChange={event => this.setState({ NewCertisTokenAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewPrivatePoolFactoryAddress" placeholder="NewPrivatePoolFactoryAddress" 
                           value={this.state.NewPrivatePoolFactoryAddress}
                           onChange={event => this.setState({ NewPrivatePoolFactoryAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewPrivatePoolAddress" placeholder="NewPrivatePoolAddress" 
                           value={this.state.NewPrivatePoolAddress}
                           onChange={event => this.setState({ NewPrivatePoolAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewProviderFactoryAddress" placeholder="NewProviderFactoryAddress" 
                           value={this.state.NewProviderFactoryAddress}
                           onChange={event => this.setState({ NewProviderFactoryAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewProviderAddress" placeholder="NewProviderAddress" 
                           value={this.state.NewProviderAddress}
                           onChange={event => this.setState({ NewProviderAddress: event.target.value })}/>
-                    </Form.Group>
-                    <Form.Group  className="mb-3">
                       <Form.Control type="text" name="NewPriceConverterAddress" placeholder="NewPriceConverterAddress" 
                           value={this.state.NewPriceConverterAddress}
                           onChange={event => this.setState({ NewPriceConverterAddress: event.target.value })}/>

@@ -49,13 +49,9 @@ class UpgradePropositionConfigComponent extends React.Component{
                           <Form.Control type="integer" name="NewPropositionLifeTime" placeholder="NewPropositionLifeTime" 
                             value={this.state.NewPropositionLifeTime}
                             onChange={event => this.setState({ NewPropositionLifeTime: event.target.value })}/>
-                        </Form.Group>
-                        <Form.Group  className="mb-3">
                           <Form.Control type="integer" name="NewPropositionThresholdPercentage" placeholder="NewPropositionThresholdPercentage" 
                             value={this.state.NewPropositionThresholdPercentage}
                             onChange={event => this.setState({ NewPropositionThresholdPercentage: event.target.value })}/>
-                        </Form.Group>
-                        <Form.Group  className="mb-3">
                           <Form.Control type="integer" name="NewMinWeightToProposePercentage" placeholder="NewMinWeightToProposePercentage" 
                             value={this.state.NewMinWeightToProposePercentage}
                             onChange={event => this.setState({ NewMinWeightToProposePercentage: event.target.value })}/>

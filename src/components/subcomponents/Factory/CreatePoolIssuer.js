@@ -1,4 +1,6 @@
 import React from 'react';
+import { Form, Container, Row, Col } from 'react-bootstrap';
+
 const func = require("../../../functions/FactoriesFunctions.js");
 
 class CreatePoolIssuer extends React.Component {
@@ -19,18 +21,21 @@ class CreatePoolIssuer extends React.Component {
         if(this.props.contractType == 3)text = "Provider";
         return(
             <div>
-                <form onSubmit={this.handleNewPrivatePoolProvider}>
-                <input type="integer" name="minOwners" placeholder="min Owners" 
-                    value={this.state.minOwners}
-                    onChange={event => this.setState({ minOwners: event.target.value })}/>
-                <input type="text" name="listOfOwners" placeholder="list Of Owners" 
-                    value={this.state.listOfOwners}
-                    onChange={event => this.setState({ listOfOwners: event.target.value.split(",") })}/>
-                <input type="text" name="name" placeholder="Name" 
-                    value={this.state.name}
-                    onChange={event => this.setState({ name: event.target.value })}/>
-                <button>Request New {text}</button>
-                </form>
+                 <h3>Create {text}</h3>
+                <Form onSubmit={this.handleNewPrivatePoolProvider} style={{margin: '50px 50px 50px 50px' }}>
+                    <Form.Group className="mb-3">
+                        <Form.Control type="integer" name="minOwners" placeholder="min Owners" 
+                            value={this.state.minOwners}
+                            onChange={event => this.setState({ minOwners: event.target.value })}/>
+                        <Form.Control type="text" name="listOfOwners" placeholder="list Of Owners" 
+                            value={this.state.listOfOwners}
+                            onChange={event => this.setState({ listOfOwners: event.target.value.split(",") })}/>
+                        <Form.Control type="text" name="name" placeholder="Name" 
+                            value={this.state.name}
+                            onChange={event => this.setState({ name: event.target.value })}/>
+                    </Form.Group>
+                    <button  class="btn btn-secondary">Request New {text}</button>
+                </Form>
             </div>
         );
         

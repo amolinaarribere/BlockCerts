@@ -1,79 +1,107 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import VoteForMinOwnersComponent from './VoteForMinOwnersComponent.js';
+
 const func = require("../../../functions/OwnerFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 class ListPendingOwnersComponent extends React.Component{
+  state = {
+    isPendingMinOwnersShown: false,
+    isPendingOwnersAddShown: false,
+    isPendingOwnersRemoveShown: false
+  };
+
+  togglePendingMinOwners = () => {
+    if(this.state.isPendingMinOwnersShown)this.setState({ isPendingMinOwnersShown: false })
+    else this.setState({ isPendingMinOwnersShown: true })
+  };
+  togglePendingOwnersAdd = () => {
+    if(this.state.isPendingOwnersAddShown)this.setState({ isPendingOwnersAddShown: false })
+    else this.setState({ isPendingOwnersAddShown: true })
+  };
+  togglePendingOwnersRemove = () => {
+    if(this.state.isPendingOwnersRemoveShown)this.setState({ isPendingOwnersRemoveShown: false })
+    else this.setState({ isPendingOwnersRemoveShown: true })
+  };
+
     render(){
-      if (this.props.contractType == 1){
-        return(
-          <div>
-            <p class="text-warning"><b>Pending Public Min Owner : {func.publicPendingMinOwners}</b></p>
-            <br />
-            <p class="text-warning"><b>Pending Public Owners to be Added :</b>
-              <ol>
-                {func.pendingPublicOwnersAdd.map(pendingPublicOwnerAdd => (
-                <li key={pendingPublicOwnerAdd}>{Aux.Bytes32ToAddress(pendingPublicOwnerAdd)}</li>
-                ))}
-              </ol>
-            </p>
-            <br />
-            <p class="text-warning"><b>Pending Public Owners to be Removed :</b>
-              <ol>
-                {func.pendingPublicOwnersRemove.map(pendingPublicOwnerRemove => (
-                <li key={pendingPublicOwnerRemove}>{Aux.Bytes32ToAddress(pendingPublicOwnerRemove)}</li>
-                ))}
-              </ol>
-            </p>
-          </div>
-        );
+      var text = "Public";
+      var minOwners = func.publicPendingMinOwners;
+      var pendingOwnersAdd = func.pendingPublicOwnersAdd;
+      var pendingOwnersRemove = func.pendingPublicOwnersRemove;
+
+      if (this.props.contractType == 2){
+        text = "Private";
+        minOwners = func.privatePendingMinOwners;
+        pendingOwnersAdd = func.pendingPrivateOwnersAdd;
+        pendingOwnersRemove = func.pendingPrivateOwnersRemove;
       }
-      else  if (this.props.contractType == 2){
-        return(
-          <div>
-            <p class="text-warning"><b>Pending Private Min Owner : {func.privatePendingMinOwners}</b></p>
-            <br />
-            <p class="text-warning"><b>Pending Private Owners to be Added :</b>
-              <ol>
-                {func.pendingPrivateOwnersAdd.map(pendingPrivateOwnerAdd => (
-                <li key={pendingPrivateOwnerAdd[0]}>{Aux.Bytes32ToAddress(pendingPrivateOwnerAdd[0])}</li>
-                ))}
-              </ol>
-            </p>
-            <br />
-            <p class="text-warning"><b>Pending Private Owners to be Removed :</b>
-              <ol>
-                {func.pendingPrivateOwnersRemove.map(pendingPrivateOwnerRemove => (
-                <li key={pendingPrivateOwnerRemove[0]}>{Aux.Bytes32ToAddress(pendingPrivateOwnerRemove[0])}</li>
-                ))}
-              </ol>
-            </p>
-          </div>
-        );
+
+      else if(this.props.contractType == 3){
+        text = "Provider";
+        minOwners = func.providerPendingMinOwners;
+        pendingOwnersAdd = func.pendingProviderOwnersAdd;
+        pendingOwnersRemove = func.pendingProviderOwnersRemove;
       }
-      else{
-        return(
-          <div>
-            <p class="text-warning"><b>Pending Provider Min Owner : {func.providerPendingMinOwners}</b></p>
+
+      return(
+        <div>
+          <button
+              className="btn btn-lg btn-warning center modal-button"
+              onClick={this.togglePendingMinOwners}>Check Pending Min Owners</button>
+
+          {this.state.isPendingMinOwnersShown ? (
+                  <div class="border border-warning border-5">
+                    <br />
+                    <Container style={{margin: '10px 50px 50px 50px' }}>
+                      <Row>
+                        <Col><b>Pending {text} Min Owner :</b></Col>
+                        <Col>{minOwners}</Col>
+                      </Row>
+                      < br/>
+                      <Row>
+                        <VoteForMinOwnersComponent contractType={this.props.contractType}/>
+                      </Row>
+                    </Container>
+                  </div>) : null} 
+
+          <br />
+          <br />
+
+           <button
+              className="btn btn-lg btn-warning center modal-button"
+              onClick={this.togglePendingOwnersAdd}>Check Pending Owners to be Added</button>
+
+           {this.state.isPendingOwnersAddShown ? (
+                  <div class="border border-warning border-5">
+                    <br />
+                    <Container style={{margin: '10px 50px 50px 50px' }}>
+                        {pendingOwnersAdd.map(pendingOwnerAdd => (
+                        <Row key={pendingOwnerAdd}>{Aux.Bytes32ToAddress(pendingOwnerAdd)}</Row>
+                        ))}
+                    </Container>
+                  </div>) : null} 
+
             <br />
-            <p class="text-warning"><b>Pending Provider Owners to be Added :</b>
-              <ol>
-                {func.pendingProviderOwnersAdd.map(pendingProviderOwnerAdd => (
-                <li key={pendingProviderOwnerAdd}>{Aux.Bytes32ToAddress(pendingProviderOwnerAdd)}</li>
-                ))}
-              </ol>
-            </p>
             <br />
-            <p class="text-warning"><b>Pending Provider Owners to be Removed :</b>
-              <ol>
-                {func.pendingProviderOwnersRemove.map(pendingProviderOwnerRemove => (
-                <li key={pendingProviderOwnerRemove}>{Aux.Bytes32ToAddress(pendingProviderOwnerRemove)}</li>
-                ))}
-              </ol>
-            </p>
-          </div>
-        );
-      }
-      
+
+            <button
+              className="btn btn-lg btn-warning center modal-button"
+              onClick={this.togglePendingOwnersRemove}>Check Pending Owners to be Removed</button>
+
+            {this.state.isPendingOwnersRemoveShown ? (
+                  <div class="border border-warning border-5">
+                    <br />
+                    <Container style={{margin: '10px 50px 50px 50px' }}>
+                      {pendingOwnersRemove.map(pendingOwnerRemove => (
+                        <Row key={pendingOwnerRemove}>{Aux.Bytes32ToAddress(pendingOwnerRemove)}</Row>
+                        ))}
+                    </Container>
+                  </div>) : null} 
+        </div>
+      );
+ 
     }
     
   }

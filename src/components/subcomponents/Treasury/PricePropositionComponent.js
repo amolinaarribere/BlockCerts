@@ -92,23 +92,15 @@ class PricePropositionComponent extends React.Component {
                     <Form.Control type="integer" name="NewPublicPriceUSD" placeholder="NewPublicPrice in USD cents" 
                       value={this.state.NewPublicPriceUSD}
                       onChange={event => this.setState({ NewPublicPriceUSD: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
                     <Form.Control type="integer" name="NewPrivatePriceUSD" placeholder="NewPrivatePrice in USD cents" 
                       value={this.state.NewPrivatePriceUSD}
                       onChange={event => this.setState({ NewPrivatePriceUSD: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
                     <Form.Control type="integer" name="NewProviderPriceUSD" placeholder="NewProviderPrice in USD cents" 
                       value={this.state.NewProviderPriceUSD}
                       onChange={event => this.setState({ NewProviderPriceUSD: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
                     <Form.Control type="integer" name="NewCertificatePriceUSD" placeholder="NewCertificatePrice in USD cents" 
                       value={this.state.NewCertificatePriceUSD}
                       onChange={event => this.setState({ NewCertificatePriceUSD: event.target.value })}/>
-                  </Form.Group>
-                  <Form.Group  className="mb-3">
                     <Form.Control type="integer" name="NewOwnerRefundFeeUSD" placeholder="NewOwnerRefundFee in USD cents" 
                       value={this.state.NewOwnerRefundFeeUSD}
                       onChange={event => this.setState({ NewOwnerRefundFeeUSD: event.target.value })}/>
