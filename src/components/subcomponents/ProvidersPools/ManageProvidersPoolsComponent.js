@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/OwnerFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class ManageProvidersPoolsComponent extends React.Component{
     state = {
@@ -15,21 +16,25 @@ class ManageProvidersPoolsComponent extends React.Component{
         event.preventDefault();
       await func.AddProviderPool(this.state.ProviderPool, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType)
       this.setState({ addProviderPoolInfo: "", ProviderPool: "", subscribe: false})
+      await loadFunc.LoadProviderPoolFunc();
     };
     handleRemoveProviderPool = async (event) => {
         event.preventDefault();
       await func.RemoveProviderPool(this.state.ProviderPool, this.props.contractType)
       this.setState({ ProviderPool: "" })
+      await loadFunc.LoadProviderPoolFunc();
     };
     handleValidateProviderPool = async (event) => {
         event.preventDefault();
       await func.ValidateProviderPool(this.state.ProviderPool, this.props.contractType)
       this.setState({ ProviderPool: "" })
+      await loadFunc.LoadProviderPoolFunc();
     };
     handleRejectProviderPool = async (event) => {
         event.preventDefault();
       await func.RejectProviderPool(this.state.ProviderPool, this.props.contractType)
       this.setState({ ProviderPool: "" })
+      await loadFunc.LoadProviderPoolFunc();
     };
 
     toggleManageProvidersPools = () => {

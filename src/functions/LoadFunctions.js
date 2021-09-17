@@ -40,70 +40,54 @@ export async function LoadBlockchain() {
   Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
   Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
 
-  await CertisFunc.isTokenOwner(Aux.account);
+  await LoadProviderPoolFunc();
+  await LoadOwnersFunc();
+  await LoadFactoriesFunc();
+  await LoadPropositionFunc();
+  await LoadCertisFunc();
+  await LoadTreasuryFunc();
+  await LoadPriceConverterFunc();
+}
 
-  await ProviderPoolFunc.RetrieveProviderPool(1);
-  await OwnersFunc.RetrieveOwners(1);
-  await FactoriesFunc.RetrieveFactories();
-  await TreasuryFunc.RetrievePricesTreasury();
-  await TreasuryFunc.RetrievePendingPricesTreasury();
+export async function LoadCertisFunc() {
+  await CertisFunc.isTokenOwner(Aux.account);
+  await CertisFunc.totalSupply();
+  await CertisFunc.balanceOf(Aux.account);
+}
+
+export async function LoadPropositionFunc() {
   await PropositionFunc.RetrieveProposition(1);
   await PropositionFunc.RetrieveProposition(2);
   await PropositionFunc.RetrieveProposition(3);
   await PropositionFunc.RetrievePendingProposition(1);
   await PropositionFunc.RetrievePendingProposition(2);
   await PropositionFunc.RetrievePendingProposition(3);
-  await CertisFunc.totalSupply();
-  await CertisFunc.balanceOf(Aux.account);
+}
+
+export async function LoadTreasuryFunc() {
+  await TreasuryFunc.RetrievePricesTreasury();
+  await TreasuryFunc.RetrievePendingPricesTreasury();
   await TreasuryFunc.RetrieveLastAssigned(Aux.account);
   await TreasuryFunc.RetrieveBalance(Aux.account);
   await TreasuryFunc.RetrieveTreasuryBalance();
+}
+
+export async function LoadPriceConverterFunc() {
   await PriceConverterFunc.RetrieveRegistryAddress();
   await PriceConverterFunc.RetrievePendingRegistryAddress();
 }
 
-
-
-/*
-export async function DisconnectBlockchain() {
-  web3 = ""
-  certificatePoolManager = ""
-  Aux.account = "";
-  publicPoolAddress = ""
-  chairPerson = ""
-  balance = ""
-
-  publicPool = ""
-  publicTotalProviders = ""
-  publicProviders = []
-  publicTotalOwners = ""
-  publicMinOwners = ""
-  publicOwners = []
-
-  privatePoolAddresses = []
-  privatePoolAddress = ""
-  privatePool = ""
-  privateTotalProviders = ""
-  privateProviders = []
-  privateMinOwners = ""
-  privateTotalOwners = ""
-  privateOwners = ""
-  sessionStorage.removeItem(privatePoolKey);
-
-  certificatesByHolder = []
-  currentHolder = ""
-  certificateProvider = ""
-
-  pendingPublicOwnersAdd = []
-  pendingPublicOwnersRemove = []
-  pendingPrivateOwnersAdd = [] 
-  pendingPrivateOwnersRemove = []
-  pendingPublicProvidersAdd = [] 
-  pendingPublicProvidersRemove = []
-  pendingPrivateProvidersAdd = [] 
-  pendingPrivateProvidersRemove = []
+export async function LoadProviderPoolFunc() {
+  await ProviderPoolFunc.RetrieveProviderPool(1);
 }
-*/
+
+export async function LoadOwnersFunc() {
+  await OwnersFunc.RetrieveOwners(1);
+}
+
+export async function LoadFactoriesFunc() {
+  await FactoriesFunc.RetrieveFactories();
+}
 
 
   

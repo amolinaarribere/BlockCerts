@@ -4,12 +4,10 @@ import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
 import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolComponent.js';
 import SendNewProposalComponent from './subcomponents/Public/SendNewProposalComponent.js';
 
-const func = require("../functions/LoadFunctions.js");
 const Certificatefunc = require("../functions/CertificateFunctions.js");
 
 class PublicComponent extends React.Component {
     componentWillMount() {
-      //func.LoadBlockchain()
       Certificatefunc.SwitchContext()
    }
     state = {

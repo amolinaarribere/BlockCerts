@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { ETHDecimals } from '../../../config';
+
 const func = require("../../../functions/TreasuryFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AssignWithdrawComponent extends React.Component {
     state = {
@@ -11,12 +13,14 @@ class AssignWithdrawComponent extends React.Component {
     handleAssignDividends = async (event) => {
         event.preventDefault();
       await func.AssignDividends();
+      await loadFunc.LoadTreasuryFunc();
     };
 
     handleWithdraw = async (event) => {
         event.preventDefault();
       await func.WithdrawAmount(this.state.amount);
       this.setState({amount: 0});
+      await loadFunc.LoadTreasuryFunc();
     };
 
     render(){

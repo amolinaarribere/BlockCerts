@@ -2,6 +2,7 @@ import React from 'react';
 import { Form} from 'react-bootstrap';
 
 const ProviderPoolFunc = require("../../../functions/ProviderPoolFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class SendNewProposalComponent extends React.Component {
     state = {
@@ -14,6 +15,7 @@ class SendNewProposalComponent extends React.Component {
       await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType)
       this.setState({ newProvider: "" })
       this.setState({ newProviderInfo: "" })
+      await loadFunc.LoadProviderPoolFunc();
     };
     
     render(){
