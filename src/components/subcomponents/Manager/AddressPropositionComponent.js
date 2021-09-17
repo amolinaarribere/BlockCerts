@@ -7,6 +7,7 @@ const func = require("../../../functions/ManagerFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AddressPropositionComponent extends React.Component {
     state = {
@@ -64,6 +65,9 @@ class AddressPropositionComponent extends React.Component {
         NewProviderFactoryAddress: "",
         NewProviderAddress: "",
         NewPriceConverterAddress: ""})
+
+      await loadFunc.LoadManagerFunc();
+      this.props.refresh();
       };
     
     render(){

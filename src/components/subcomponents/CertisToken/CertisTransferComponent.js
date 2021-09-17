@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/CertisFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class CertisTransferComponent extends React.Component {
     state = {
@@ -13,6 +14,8 @@ class CertisTransferComponent extends React.Component {
       event.preventDefault();
       await func.transfer(this.state.recipient, this.state.amount);
       this.setState({amount: 0, recipient: ""});
+      await loadFunc.LoadCertisFunc();
+      this.props.refresh();
     };
     
     render(){

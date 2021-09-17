@@ -6,6 +6,7 @@ const FactoriesFunc = require("./FactoriesFunctions.js");
 const TreasuryFunc = require("./TreasuryFunctions.js");
 const PropositionFunc = require("./PropositionFunctions.js");
 const CertisFunc = require("./CertisFunctions.js");
+const CertificateFunc = require("./CertificateFunctions.js");
 const Contracts = require("./Contracts.js");
 const ManagerFunc = require("./ManagerFunctions.js");
 const PriceConverterFunc = require("./PriceConverterFunctions.js");
@@ -30,8 +31,7 @@ export async function LoadBlockchain() {
   ProviderPoolFunc.ReadKeys();
 
   Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
-  await ManagerFunc.RetrieveContractsAddresses();
-  await ManagerFunc.RetrievePendingContractsAddresses();
+  await LoadManagerFunc();
 
   Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
   Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
@@ -40,13 +40,22 @@ export async function LoadBlockchain() {
   Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
   Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
 
-  await LoadProviderPoolFunc();
-  await LoadOwnersFunc();
+  await LoadProviderPoolFunc(1);
+  await LoadProviderPoolFunc(2);
+  await LoadProviderPoolFunc(3);
+  await LoadOwnersFunc(1);
+  await LoadOwnersFunc(2);
+  await LoadOwnersFunc(3);
   await LoadFactoriesFunc();
   await LoadPropositionFunc();
   await LoadCertisFunc();
   await LoadTreasuryFunc();
   await LoadPriceConverterFunc();
+}
+
+export async function LoadManagerFunc() {
+  await ManagerFunc.RetrieveContractsAddresses();
+  await ManagerFunc.RetrievePendingContractsAddresses();
 }
 
 export async function LoadCertisFunc() {
@@ -77,16 +86,20 @@ export async function LoadPriceConverterFunc() {
   await PriceConverterFunc.RetrievePendingRegistryAddress();
 }
 
-export async function LoadProviderPoolFunc() {
-  await ProviderPoolFunc.RetrieveProviderPool(1);
+export async function LoadProviderPoolFunc(ContractId) {
+  await ProviderPoolFunc.RetrieveProviderPool(ContractId);
 }
 
-export async function LoadOwnersFunc() {
-  await OwnersFunc.RetrieveOwners(1);
+export async function LoadOwnersFunc(ContractId) {
+  await OwnersFunc.RetrieveOwners(ContractId);
 }
 
 export async function LoadFactoriesFunc() {
   await FactoriesFunc.RetrieveFactories();
+}
+
+export async function LoadCertificateFunc() {
+  await CertificateFunc.RetrievePendingCertificates();
 }
 
 

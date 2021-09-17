@@ -1,24 +1,27 @@
 import React from 'react';
 import AddressPropositionComponent from './subcomponents/Manager/AddressPropositionComponent.js';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
-const func = require("../functions/LoadFunctions.js");
 
 class ManagerComponent extends React.Component {
-    componentWillMount() {
-      //func.LoadBlockchain()
-      //Certificatefunc.SwitchContext()
-   }
    state = {
      contractType : 1
     };
     
+    constructor(props) {
+      super(props)
+      this.refresh = this.refresh.bind(this)
+    }
+    
+    refresh() {
+      this.setState({})
+    }
   
     render(){
       return (
         <div>
-          <AddressPropositionComponent contractType={this.state.contractType}/>
+          <AddressPropositionComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <PropositionConfigComponent contractType={this.state.contractType}/>
+          <PropositionConfigComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br/>
         </div>
       );

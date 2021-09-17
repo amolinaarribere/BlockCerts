@@ -15,9 +15,10 @@ class SendNewProposalComponent extends React.Component {
       await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType)
       this.setState({ newProvider: "" })
       this.setState({ newProviderInfo: "" })
-      await loadFunc.LoadProviderPoolFunc();
+      await loadFunc.LoadProviderPoolFunc(this.props.contractType);
+      this.props.refresh();
     };
-    
+
     render(){
       return (
         <div>

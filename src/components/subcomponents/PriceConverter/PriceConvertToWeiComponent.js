@@ -12,11 +12,8 @@ class PriceConvertToWeiComponent extends React.Component {
 
     Convert = async (event) => {
       event.preventDefault();
-
       if(this.state.AmountUSDText != "") this.state.AmountUSD = this.state.AmountUSDText;
-
       this.state.AmountWei = await func.USDToEther(this.state.AmountUSD);
-
       this.setState({ AmountUSDText: ""})
     };
     

@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/CertificateFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class VoteCertificateComponent extends React.Component{
     state = {
@@ -13,12 +14,18 @@ class VoteCertificateComponent extends React.Component{
     handleValidateCertificate = async (event) => {
         event.preventDefault();
       await func.ValidateCertificate(this.state.pool, this.state.hash, this.state.holder)
-      this.setState({ pool: "",  hash : "", holder: ""})
+      await this.reset();
     };
     handleRejectCertificate = async (event) => {
         event.preventDefault();
       await func.RejectCertificate(this.state.pool, this.state.hash, this.state.holder)
+      await this.reset();
+    };
+
+    reset = async () => {
       this.setState({ pool: "",  hash : "", holder: ""})
+      await loadFunc.LoadCertificateFunc()
+      this.props.refresh();
     };
   
     render(){

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Container, Row, Col } from 'react-bootstrap';
+import { Form} from 'react-bootstrap';
 
 const func = require("../../../functions/FactoriesFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class CreatePoolIssuer extends React.Component {
     state = {
@@ -14,6 +15,8 @@ class CreatePoolIssuer extends React.Component {
           event.preventDefault();
         await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.props.contractType)
         this.setState({ minOwners: 0, listOfOwners: [], name : "" })
+        await loadFunc.LoadFactoriesFunc();
+        this.props.refresh();
       };
 
     render(){

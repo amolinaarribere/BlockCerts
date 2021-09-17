@@ -10,25 +10,33 @@ class PublicComponent extends React.Component {
     componentWillMount() {
       Certificatefunc.SwitchContext()
    }
+
     state = {
       newProvider : "",
       newProviderInfo : "",
       privateEnv : false,
       contractType : 1
     };
-  
+
+    constructor(props) {
+      super(props)
+      this.refresh = this.refresh.bind(this)
+    }
     
+    refresh() {
+      this.setState({})
+    }
   
     render(){
       return (
         <div>
-          <SendNewProposalComponent contractType={this.state.contractType}/>
+          <SendNewProposalComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <CertificateComponent contractType={this.state.contractType} privateEnv={this.state.privateEnv}/>
+          <CertificateComponent contractType={this.state.contractType} privateEnv={this.state.privateEnv} refresh={this.refresh}/>
           <br />
-          <OwnerComponent contractType={this.state.contractType}/>
+          <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br/>
-          <ProviderPoolComponent contractType={this.state.contractType}/>
+          <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
         </div>
       );
     }

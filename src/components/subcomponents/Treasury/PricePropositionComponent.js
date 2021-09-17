@@ -4,6 +4,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
 
 const func = require("../../../functions/TreasuryFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class PricePropositionComponent extends React.Component {
     state = {
@@ -49,6 +50,9 @@ class PricePropositionComponent extends React.Component {
       NewProviderPriceUSD: "",
       NewCertificatePriceUSD: "",
       NewOwnerRefundFeeUSD: ""})
+
+      await loadFunc.LoadTreasuryFunc();
+      this.props.refresh();
     };
     
     render(){

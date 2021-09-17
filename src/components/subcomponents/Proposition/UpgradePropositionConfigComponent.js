@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/PropositionFunctions.js");
-const certFunc = require("../../../functions/CertisFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class UpgradePropositionConfigComponent extends React.Component{
     state = {
@@ -33,6 +33,8 @@ class UpgradePropositionConfigComponent extends React.Component{
          this.setState({ NewPropositionLifeTime: "",
          NewPropositionThresholdPercentage: "",
          NewMinWeightToProposePercentage: ""})
+         await loadFunc.LoadPropositionFunc();
+         this.props.refresh();
        };
      
     render(){

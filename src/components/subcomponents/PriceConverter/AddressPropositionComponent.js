@@ -5,6 +5,7 @@ import VoteForPropositionComponent from '../Proposition/VoteForPropositionCompon
 const func = require("../../../functions/PriceConverterFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 
 class AddressPropositionComponent extends React.Component {
@@ -29,10 +30,10 @@ class AddressPropositionComponent extends React.Component {
       var NRA = address_0;
 
       if(this.state.NewRegistryAddress != "") NRA = this.state.NewRegistryAddress;
-
       await func.UpgradeRegistryAddress(NRA);
-
       this.setState({ NewRegistryAddress: ""})
+      await loadFunc.LoadPriceConverterFunc();
+      this.props.refresh();
     };
     
     render(){

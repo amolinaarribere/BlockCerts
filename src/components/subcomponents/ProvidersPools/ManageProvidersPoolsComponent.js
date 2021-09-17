@@ -15,27 +15,29 @@ class ManageProvidersPoolsComponent extends React.Component{
     handleAddProvider = async (event) => {
         event.preventDefault();
       await func.AddProviderPool(this.state.ProviderPool, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType)
-      this.setState({ addProviderPoolInfo: "", ProviderPool: "", subscribe: false})
-      await loadFunc.LoadProviderPoolFunc();
+      await this.reset();
     };
     handleRemoveProviderPool = async (event) => {
         event.preventDefault();
       await func.RemoveProviderPool(this.state.ProviderPool, this.props.contractType)
-      this.setState({ ProviderPool: "" })
-      await loadFunc.LoadProviderPoolFunc();
+      await this.reset();
     };
     handleValidateProviderPool = async (event) => {
         event.preventDefault();
       await func.ValidateProviderPool(this.state.ProviderPool, this.props.contractType)
-      this.setState({ ProviderPool: "" })
-      await loadFunc.LoadProviderPoolFunc();
+      await this.reset();
     };
     handleRejectProviderPool = async (event) => {
         event.preventDefault();
       await func.RejectProviderPool(this.state.ProviderPool, this.props.contractType)
-      this.setState({ ProviderPool: "" })
-      await loadFunc.LoadProviderPoolFunc();
+      await this.reset();
     };
+
+    reset = async () =>{
+      this.setState({ ProviderPool: "", addProviderPoolInfo: "", subscribe: false })
+      await loadFunc.LoadProviderPoolFunc(this.props.contractType);
+      this.props.refresh();
+    }
 
     toggleManageProvidersPools = () => {
       if(this.state.isManageProvidersPoolsShown)this.setState({ isManageProvidersPoolsShown: false })

@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/OwnerFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class UpdateMinOwnerComponent extends React.Component{
     state = {
@@ -13,6 +14,8 @@ class UpdateMinOwnerComponent extends React.Component{
         event.preventDefault();
       await func.UpdateMinOwner(this.state.minOwner, this.props.contractType)
       this.setState({ minOwner: "" })
+      await loadFunc.LoadOwnersFunc(this.props.contractType);
+      this.props.refresh();
     };
 
     toggleManageMinOwners = () => {

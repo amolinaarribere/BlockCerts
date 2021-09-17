@@ -4,17 +4,25 @@ import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
 import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolComponent.js';
 import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
-const func = require("../functions/LoadFunctions.js");
+
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 
   class IssuerComponent extends React.Component {
     componentWillMount() {
-      //func.LoadBlockchain()
-      //func.SwitchContext()
       if(ProviderPoolFunc.providerAddress != null && ProviderPoolFunc.providerAddress !== "" && ProviderPoolFunc.providerAddress !== "undefined"){
         ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.providerAddress, this.state.contractType);
       }
    }
+
+   constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh() {
+    this.setState({})
+  }
+
     state = {
       contractType : 3
     };
@@ -22,16 +30,16 @@ const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
     render(){
       return (
         <div>
-          <CreatePoolIssuer contractType={this.state.contractType}/>
+          <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
           <br />
           <ListPoolsIssuers contractType={this.state.contractType} Key={ProviderPoolFunc.providerKey}/>
           <br />
-          <CertificateComponent contractType={this.state.contractType}/>
+          <CertificateComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <OwnerComponent contractType={this.state.contractType}/>
+          <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br/>
-          <ProviderPoolComponent contractType={this.state.contractType}/>
+          <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
         </div>
       );
     }

@@ -14,6 +14,7 @@ class AssignWithdrawComponent extends React.Component {
         event.preventDefault();
       await func.AssignDividends();
       await loadFunc.LoadTreasuryFunc();
+      this.props.refresh();
     };
 
     handleWithdraw = async (event) => {
@@ -21,6 +22,7 @@ class AssignWithdrawComponent extends React.Component {
       await func.WithdrawAmount(this.state.amount);
       this.setState({amount: 0});
       await loadFunc.LoadTreasuryFunc();
+      this.props.refresh();
     };
 
     render(){
@@ -45,6 +47,8 @@ class AssignWithdrawComponent extends React.Component {
                 <Col><b>Your current Balance (ETH) :</b></Col> 
                 <Col>{func.AccountBalance / ETHDecimals}</Col>
               </Row>
+              <br />
+              <button type="button" class="btn btn-secondary" onClick={this.handleAssignDividends}>Assign</button>
             </Container>
           </div>
           <div class="border border border-0">

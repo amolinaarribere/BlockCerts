@@ -2,6 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/OwnerFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class ManageOwnerComponent extends React.Component{
     state = {
@@ -12,24 +13,29 @@ class ManageOwnerComponent extends React.Component{
     handleAddOwner = async (event) => {
         event.preventDefault();
       await func.AddOwner(this.state.Owner, "", this.props.contractType)
-      this.setState({ Owner: "" })
-      window.location.reload();
+      await this.reset();
     };
     handleRemoveOwner = async (event) => {
         event.preventDefault();
       await func.RemoveOwner(this.state.removeOwner, this.props.contractType)
-      this.setState({ removeOwner: "" })
+      await this.reset();
     };
     handleValidateOwner = async (event) => {
         event.preventDefault();
       await func.ValidateOwner(this.state.validateOwner, this.props.contractType)
-      this.setState({ validateOwner: "" })
+      await this.reset();
     };
     handleRejectOwner = async (event) => {
         event.preventDefault();
       await func.RejectOwner(this.state.rejectOwner, this.props.contractType)
-      this.setState({ rejectOwner: "" })
+      await this.reset();
     };
+    
+    reset = async() =>{
+      this.setState({ Owner: "" })
+      await loadFunc.LoadOwnersFunc(this.props.contractType);
+      this.props.refresh();
+    }
 
     toggleManageOwners = () => {
       if(this.state.isManageOwnersShown)this.setState({ isManageOwnersShown: false })
