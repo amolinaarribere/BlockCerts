@@ -79,7 +79,7 @@ class ListPoolsIssuers extends React.Component {
         return(
             <div>
                 <h3>{text} Addresses :</h3> 
-                <Container>
+                <Container style={{margin: '10px 50px 50px 50px' }}>
                         {addresses.map(address => (
                         <Row key={address[1]}>
                             <Col><i><b>creator </b></i>{address[0]}</Col> 
@@ -93,7 +93,7 @@ class ListPoolsIssuers extends React.Component {
                 <br />
                 {Provider ? (
                     <div>
-                        <Container>
+                        <Container style={{margin: '10px 50px 50px 50px' }}>
                             <Row>
                                 <Col><b>Contract Balance :</b></Col>
                                 <Col>{ProviderPoolFunctions.providerBalance}</Col>
