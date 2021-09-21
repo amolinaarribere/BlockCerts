@@ -7,6 +7,7 @@ import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 const Certificatefunc = require("../functions/CertificateFunctions.js");
+const Ownerfunc = require("../functions/OwnerFunctions.js");
 
 class PrivateComponent extends React.Component {
     componentWillMount() {
@@ -40,9 +41,14 @@ class PrivateComponent extends React.Component {
           <br />
           <CertificateComponent contractType={this.state.contractType} privateEnv={this.state.privateEnv} refresh={this.refresh}/>
           <br />
-          <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
-          <br/>
-          <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          {
+           (Ownerfunc.isPrivateOwner)?(
+             <div>
+              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <br/>
+              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+            </div>
+           ):null}
         </div>
       );
     }

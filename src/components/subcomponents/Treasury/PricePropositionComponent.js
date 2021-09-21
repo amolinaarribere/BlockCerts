@@ -5,6 +5,7 @@ import VoteForPropositionComponent from '../Proposition/VoteForPropositionCompon
 
 const func = require("../../../functions/TreasuryFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
+const certFunc = require("../../../functions/CertisFunctions.js");
 
 class PricePropositionComponent extends React.Component {
     state = {
@@ -85,11 +86,13 @@ class PricePropositionComponent extends React.Component {
           </div>
           <br />
 
-          <button
-              className="btn btn-lg btn-primary center modal-button"
-              onClick={this.toggleUpdatePrices}>Manage Prices</button>
-
-            {this.state.isUpdatePricesShown ? (
+          {certFunc.isOwner ? (
+            <button
+            className="btn btn-lg btn-primary center modal-button"
+            onClick={this.toggleUpdatePrices}>Manage Prices</button>
+          ): null}
+          
+            {(this.state.isUpdatePricesShown && certFunc.isOwner) ? (
               <div class="border border-primary border-5">
                 <Form onSubmit={this.handleUpgradePrices} style={{margin: '50px 50px 50px 50px' }}>
                   <Form.Group  className="mb-3">
@@ -115,14 +118,21 @@ class PricePropositionComponent extends React.Component {
               </div>
               ) : null}
 
-          <br />
-          <br />
+          {certFunc.isOwner ? (
+                <div>
+                        <br />    
+                        <br />
+                </div>): null}
 
-          <button
-                className="btn btn-lg btn-warning center modal-button"
-                onClick={this.togglePendingPrices}>Check Pending Prices</button>
+          {certFunc.isOwner ? (
+            <button
+              className="btn btn-lg btn-warning center modal-button"
+              onClick={this.togglePendingPrices}>Check Pending Prices</button>
+          ): null}
 
-            {this.state.isPendingPricesShown ? (
+         
+
+            {(this.state.isPendingPricesShown && certFunc.isOwner) ? (
               <div class="border border-warning border-5">
                 <Container style={{margin: '10px 50px 50px 50px' }}>
                   <Row>

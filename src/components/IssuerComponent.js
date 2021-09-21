@@ -6,6 +6,7 @@ import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
+const Ownerfunc = require("../functions/OwnerFunctions.js");
 
   class IssuerComponent extends React.Component {
     componentWillMount() {
@@ -35,11 +36,16 @@ const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
           <br />
           <ListPoolsIssuers contractType={this.state.contractType} Key={ProviderPoolFunc.providerKey}/>
           <br />
-          <CertificateComponent contractType={this.state.contractType} refresh={this.refresh}/>
-          <br />
-          <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
-          <br/>
-          <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          {
+           (Ownerfunc.isProviderOwner)?(
+             <div>
+              <CertificateComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <br />
+              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <br/>
+              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+            </div>
+           ):null}
         </div>
       );
     }

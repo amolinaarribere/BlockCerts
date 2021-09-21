@@ -3,6 +3,9 @@ const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 const ProviderPool = require("./ProviderPoolFunctions.js");
 
+export var isPublicOwner;
+export var isPrivateOwner;
+export var isProviderOwner;
 export var publicMinOwners = ""
 export var publicPendingMinOwners = ""
 export var publicTotalOwners = ""
@@ -50,6 +53,7 @@ export async function AddOwner(address, info, contractType){
   export async function RetrieveOwners(contractType){
     try{
       if(1 == contractType){
+        isPublicOwner = false;
         publicMinOwners = await Contracts.publicPool.methods.retrieveMinOwners().call()
         publicOwners = await Contracts.publicPool.methods.retrieveAllOwners().call()
         publicTotalOwners = publicOwners.length
@@ -69,9 +73,12 @@ export async function AddOwner(address, info, contractType){
         }
   
         publicPendingMinOwners = await Contracts.publicPool.methods.retrievePendingMinOwners().call();
+
+        let resultPublic = await Contracts.publicPool.methods.retrieveOwner(Aux.account).call();
+        isPublicOwner = resultPublic[1];
       }
       else if(2 == contractType){
-        
+        isPrivateOwner = false;
         privateMinOwners = await ProviderPool.privatePool.methods.retrieveMinOwners().call()
         privateOwners = await ProviderPool.privatePool.methods.retrieveAllOwners().call()
         privateTotalOwners = privateOwners.length
@@ -91,8 +98,12 @@ export async function AddOwner(address, info, contractType){
         }
   
         privatePendingMinOwners = await ProviderPool.privatePool.methods.retrievePendingMinOwners().call();
+
+        let resultPrivate = await ProviderPool.privatePool.methods.retrieveOwner(Aux.account).call();
+        isPrivateOwner = resultPrivate[1];
       }
       else{
+        isProviderOwner = false;
         providerMinOwners = await ProviderPool.provider.methods.retrieveMinOwners().call()
         providerOwners = await ProviderPool.provider.methods.retrieveAllOwners().call()
         providerTotalOwners = providerOwners.length
@@ -112,6 +123,9 @@ export async function AddOwner(address, info, contractType){
         }
   
         providerPendingMinOwners = await ProviderPool.provider.methods.retrievePendingMinOwners().call();
+
+        let resultProvider = await ProviderPool.provider.methods.retrieveOwner(Aux.account).call();
+        isProviderOwner = resultProvider[1];
       }
     }
     catch(e){}

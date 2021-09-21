@@ -5,6 +5,7 @@ import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolCo
 import SendNewProposalComponent from './subcomponents/Public/SendNewProposalComponent.js';
 
 const Certificatefunc = require("../functions/CertificateFunctions.js");
+const Ownerfunc = require("../functions/OwnerFunctions.js");
 
 class PublicComponent extends React.Component {
     componentWillMount() {
@@ -34,9 +35,16 @@ class PublicComponent extends React.Component {
           <br />
           <CertificateComponent contractType={this.state.contractType} privateEnv={this.state.privateEnv} refresh={this.refresh}/>
           <br />
-          <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
-          <br/>
-          <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          {
+           (Ownerfunc.isPublicOwner)?(
+             <div>
+              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <br/>
+              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+            </div>
+           ):null}
+
+          
         </div>
       );
     }
