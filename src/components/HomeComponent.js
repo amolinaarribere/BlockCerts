@@ -1,4 +1,5 @@
 import React from 'react';
+import Image1 from '../diagram/image1.PNG';
 
 
 class ManagerComponent extends React.Component {
@@ -14,6 +15,8 @@ class ManagerComponent extends React.Component {
             Validated <span style={{ color: 'blue' }}><b>providers</b></span> are allowed to deliver certificates (PDF files for example) to the blockchain, more precisely to a <span style={{ color: 'blue' }}><b>Certificate Pool (Public or Private)</b></span> and assign them to a particular account, called the <span style={{ color: 'blue' }}><b>holder</b></span>.
             <br />
             <i>Certificates are never published to the blockchain, only the hash (keccak256) of the document is sent to the blockchain.</i>
+            <br />
+            <i>Published Certificates can never be removed from the Certificate Pool.</i>
             <br />
             Once certificates are deployed anyone having the certificate document (PDF file) can check whether or not it was issued by a provider and assigned to a particular holder.
             <br />
@@ -57,7 +60,24 @@ class ManagerComponent extends React.Component {
             Application services prices are defined in USD, the actual amount being paid in ETH, the exchange rate is calculated for every transaction using the <span style={{ color: 'blue' }}><b>Chain Link (ETH-USD) Feed Registry</b></span>.
             <br />
             Prices and the Chain Link registry itself can be changed at any time if the proposition is validated by the Certis Token owners.
+            <br />
+            <br />
+            <br />
           </h6>
+          <h3>Public Certificate Pool</h3>
+          <img src={Image1}/>
+          <br />
+          <br />
+          <br />
+          <h3>Private Certificate Pool</h3>
+          <br />
+          <br />
+          <br />
+          <h3>Provider</h3>
+          <br />
+          <br />
+          <br />
+          <h3>Dividends</h3>
 
         </div>
       );
