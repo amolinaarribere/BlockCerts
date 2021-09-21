@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
-
+import HomeComponent from './components/HomeComponent.js';
 import PublicComponent from './components/PublicComponent.js';
 import PrivateComponent from './components/PrivateComponent.js';
 import CertisTokensComponent from './components/CertisTokensComponent.js';
@@ -14,6 +14,15 @@ import CurrentAddressComponent from './components/CurrentAddressComponent.js';
 
 const certFunc = require("./functions/CertisFunctions.js");
 const loadFunc = require("./functions/LoadFunctions.js");
+
+const Home = "Home";
+const Manager = "Manager";
+const Public = "Public";
+const Private = "Private";
+const Provider = "Provider";
+const PriceConverter = "Price Converter";
+const Treasury = "Treasury";
+const CertisToken = "Certis Token";
 
 
 
@@ -31,16 +40,6 @@ class Demo extends React.Component {
     this.setState({Component: newValue});
   };
 
-  renderSwitch() {
-    window.alert("hello")
-    switch(this.state.Component) {
-      case "Manager":
-        return <ManagerComponent />;
-      case "Public":
-        return <PublicComponent />;
-    }
-  }
-
   
   render(){
     return (
@@ -50,13 +49,13 @@ class Demo extends React.Component {
             <Container>
               <Navbar.Brand onClick={() => this.toggleMenu("Home")}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
               <Nav className="me-auto">
-                <Nav.Link onClick={() => this.toggleMenu("Manager")}>Manager</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu("Public")}>Public</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu("Private")}>Private</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu("Provider")}>Provider</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu("PriceConverter")}>Price Converter</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu("Treasury")}>Treasury</Nav.Link>
-                {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu("CertisToken")}>Certis Token</Nav.Link>) : null}
+                <Nav.Link onClick={() => this.toggleMenu(Manager)}>{Manager}</Nav.Link>
+                <Nav.Link onClick={() => this.toggleMenu(Public)}>{Public}</Nav.Link>
+                <Nav.Link onClick={() => this.toggleMenu(Private)}>{Private}</Nav.Link>
+                <Nav.Link onClick={() => this.toggleMenu(Provider)}>{Provider}</Nav.Link>
+                <Nav.Link onClick={() => this.toggleMenu(PriceConverter)}>{PriceConverter}</Nav.Link>
+                <Nav.Link onClick={() => this.toggleMenu(Treasury)}>{Treasury}</Nav.Link>
+                {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(CertisToken)}>{CertisToken}</Nav.Link>) : null}
               </Nav>
             </Container>
         </Navbar>
@@ -65,37 +64,37 @@ class Demo extends React.Component {
         <div class="mx-auto w-75">
           {(() => {
               switch (this.state.Component) {
-                case 'Manager':
+                case Manager:
                     return (
                       <ManagerComponent />
                     )
-                case 'Public':
+                case Public:
                     return (
                       <PublicComponent />
                     )
-                case 'Private':
+                case Private:
                     return (
                         <PrivateComponent />
                       )
-                case 'Provider':
+                case Provider:
                     return (
                       <IssuerComponent />
                     )
-                case 'PriceConverter':
+                case PriceConverter:
                     return (
                       <PriceConverterComponent />
                     )
-                case 'Treasury':
+                case Treasury:
                     return (
                       <TreasuryComponent />
                     )
-                case 'CertisToken':
+                case CertisToken:
                     return (
                       <CertisTokensComponent />
                     )
                 default:
                     return (
-                      <div>You are a User.</div>
+                      <HomeComponent />
                     )
               }
           })()}
