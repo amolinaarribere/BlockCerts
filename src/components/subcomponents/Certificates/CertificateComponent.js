@@ -56,8 +56,6 @@ class CertificateComponent extends React.Component{
             <Form onSubmit={this.handleAddCertificate} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Control type="file" onChange={this.captureFile}/>
-              </Form.Group>
-              <Form.Group  className="mb-3">
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
@@ -82,8 +80,8 @@ class CertificateComponent extends React.Component{
             </Form>
 
             <Container>
-              {(func.certificatesByHolder.length > 0)? (<Row>Certificates for Holder : {func.currentHolder} </Row>):null}
-              {(func.certificatesByHolder.length == 0 && func.currentHolder != "")? (<Row>No Certificates for Holder :  {func.currentHolder}</Row>):null}
+              {(func.certificatesByHolder.length > 0)? (<Row><Col><b>Certificates for Holder :</b></Col> <Col>{func.currentHolder}</Col></Row>):null}
+              {(func.certificatesByHolder.length == 0 && func.currentHolder != "")? (<Row><Col><b>No Certificates for Holder :</b></Col>  <Col>{func.currentHolder}</Col></Row>):null}
               {func.certificatesByHolder.map(certificateByHolder => (
                 <Row key={certificateByHolder}>{certificateByHolder}</Row>
               ))}

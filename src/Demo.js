@@ -47,7 +47,7 @@ class Demo extends React.Component {
 
         <Navbar bg="dark" variant="dark">
             <Container>
-              <Navbar.Brand onClick={() => this.toggleMenu("Home")}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
+              <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link onClick={() => this.toggleMenu(Manager)}>{Manager}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Public)}>{Public}</Nav.Link>
@@ -60,7 +60,10 @@ class Demo extends React.Component {
             </Container>
         </Navbar>
         <br />
-        <CurrentAddressComponent />
+        {(this.state.Component != Home)?
+          <CurrentAddressComponent />
+        :null}
+        
         <div class="mx-auto w-75">
           {(() => {
               switch (this.state.Component) {
