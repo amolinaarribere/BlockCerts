@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2021-09-21T14:46:27.686Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" etag="pPebnABp3Az3B_q5TGuN" version="14.9.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-09-21T14:49:38.541Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" etag="OYhwnj6FXTaEfcW96nCA" version="14.9.6" type="github">
   <diagram id="2_7LosgEdVpiRMIQfIVS" name="Page-1">
-    <mxGraphModel dx="2844" dy="1588" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="794" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -282,7 +282,7 @@
         <mxCell id="CVqee3alxtFutnKoP7we-156" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/cryptocoins/227/ETH-alt-128.png;strokeColor=#000000;fillColor=#FF0000;" vertex="1" parent="1">
           <mxGeometry x="355" y="1361" width="35" height="35" as="geometry" />
         </mxCell>
-        <mxCell id="CVqee3alxtFutnKoP7we-160" value="&lt;b&gt;Validated Provider&lt;/b&gt;" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+        <mxCell id="CVqee3alxtFutnKoP7we-160" value="&lt;b&gt;&lt;font style=&quot;font-size: 14px&quot;&gt;Validated Provider&lt;/font&gt;&lt;/b&gt;" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
           <mxGeometry x="1899" y="275.5" width="78" height="78" as="geometry" />
         </mxCell>
         <mxCell id="CVqee3alxtFutnKoP7we-161" value="&lt;font style=&quot;font-size: 14px&quot;&gt;&lt;b&gt;Anyone&lt;/b&gt;&lt;/font&gt;" style="outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3E;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
