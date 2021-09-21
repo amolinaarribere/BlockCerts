@@ -2,6 +2,7 @@
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 const ProviderPool = require("./ProviderPoolFunctions.js");
+const load = require("./LoadFunctions.js");
 
 export var isPublicOwner;
 export var isPrivateOwner;
@@ -74,8 +75,14 @@ export async function AddOwner(address, info, contractType){
   
         publicPendingMinOwners = await Contracts.publicPool.methods.retrievePendingMinOwners().call();
 
-        let resultPublic = await Contracts.publicPool.methods.retrieveOwner(Aux.account).call();
-        isPublicOwner = resultPublic[1];
+        if(load.Admin){
+          let resultPublic = await Contracts.publicPool.methods.retrieveOwner(Aux.account).call();
+          isPublicOwner = resultPublic[1];
+        }
+        else {
+          isPublicOwner = true;
+        }
+        
       }
       else if(2 == contractType){
         isPrivateOwner = false;
@@ -99,8 +106,13 @@ export async function AddOwner(address, info, contractType){
   
         privatePendingMinOwners = await ProviderPool.privatePool.methods.retrievePendingMinOwners().call();
 
-        let resultPrivate = await ProviderPool.privatePool.methods.retrieveOwner(Aux.account).call();
-        isPrivateOwner = resultPrivate[1];
+        if(load.Admin){
+          let resultPrivate = await ProviderPool.privatePool.methods.retrieveOwner(Aux.account).call();
+          isPrivateOwner = resultPrivate[1];
+        }
+        else {
+          isPrivateOwner = true;
+        }
       }
       else{
         isProviderOwner = false;
@@ -124,8 +136,13 @@ export async function AddOwner(address, info, contractType){
   
         providerPendingMinOwners = await ProviderPool.provider.methods.retrievePendingMinOwners().call();
 
-        let resultProvider = await ProviderPool.provider.methods.retrieveOwner(Aux.account).call();
-        isProviderOwner = resultProvider[1];
+        if(load.Admin){
+          let resultProvider = await ProviderPool.provider.methods.retrieveOwner(Aux.account).call();
+          isProviderOwner = resultProvider[1];
+        }
+        else {
+          isProviderOwner = true;
+        }
       }
     }
     catch(e){}

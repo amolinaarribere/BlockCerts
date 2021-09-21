@@ -1,6 +1,7 @@
 export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0xa7932359D55D2Eb225617770e51c63611093bb20'
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
+export const AdminRights = true;
 
 export const CERTIFICATE_POOL_MANAGER_ABI = [
   {

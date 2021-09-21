@@ -1,4 +1,4 @@
-import { CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS, PUBLIC_ABI, PRIVATEFACTORY_ABI, PROVIDERFACTORY_ABI, TREASURY_ABI, CERTIS_ABI, PRICECONVERTER_ABI } from '../config'
+import { CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS, PUBLIC_ABI, PRIVATEFACTORY_ABI, PROVIDERFACTORY_ABI, TREASURY_ABI, CERTIS_ABI, PRICECONVERTER_ABI, AdminRights } from '../config'
 
 const ProviderPoolFunc = require("./ProviderPoolFunctions.js");
 const OwnersFunc = require("./OwnerFunctions.js");
@@ -15,6 +15,7 @@ const Aux = require("./AuxiliaryFunctions.js");
 export var chairPerson = ""
 export var balance = ""
 export var Network = ""
+export var Admin = AdminRights;
 
 
 export async function LoadBlockchain() {

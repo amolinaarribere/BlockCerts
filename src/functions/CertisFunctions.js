@@ -1,6 +1,7 @@
  // Certis Tokens
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
+const load = require("./LoadFunctions.js");
 
 export var TokensTotalSupply = "";
 export var TokensBalance = "";
@@ -20,6 +21,11 @@ export var isOwner;
 
   export async function isTokenOwner(address){
     isOwner = false;
-    let tokens = await Contracts.CertisToken.methods.balanceOf(address).call({from: Aux.account });
-    if(tokens > 0 ) isOwner = true;
+    if(load.Admin){
+      let tokens = await Contracts.CertisToken.methods.balanceOf(address).call({from: Aux.account });
+      if(tokens > 0 ) isOwner = true;
+    }
+    else {
+      isOwner = true;
+    }
   }
