@@ -57,12 +57,10 @@ class Demo extends React.Component {
                 <Nav.Link onClick={() => this.toggleMenu(Treasury)}>{Treasury}</Nav.Link>
                 {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(CertisToken)}>{CertisToken}</Nav.Link>) : null}
               </Nav>
+              <CurrentAddressComponent />
             </Container>
         </Navbar>
         <br />
-        {(this.state.Component != Home)?
-          <CurrentAddressComponent />
-        :null}
         
         <div class="mx-auto w-75">
           {(() => {
