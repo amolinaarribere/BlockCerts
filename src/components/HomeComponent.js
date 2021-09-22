@@ -18,22 +18,42 @@ class ManagerComponent extends React.Component {
   };
 
   togglePublic = () => {
+    this.setState({ isPrivateShown: false })
+    this.setState({ isProviderShown: false })
+    this.setState({ isDividendsShown: false })
+    this.setState({ isVotingShown: false })
     if(this.state.isPublicShown)this.setState({ isPublicShown: false })
     else this.setState({ isPublicShown: true })
   };
   togglePrivate = () => {
+    this.setState({ isPublicShown: false })
+    this.setState({ isProviderShown: false })
+    this.setState({ isDividendsShown: false })
+    this.setState({ isVotingShown: false })
     if(this.state.isPrivateShown)this.setState({ isPrivateShown: false })
     else this.setState({ isPrivateShown: true })
   };
   toggleProvider = () => {
+    this.setState({ isPublicShown: false })
+    this.setState({ isPrivateShown: false })
+    this.setState({ isDividendsShown: false })
+    this.setState({ isVotingShown: false })
     if(this.state.isProviderShown)this.setState({ isProviderShown: false })
     else this.setState({ isProviderShown: true })
   };
   toggleDividends = () => {
+    this.setState({ isPublicShown: false })
+    this.setState({ isPrivateShown: false })
+    this.setState({ isProviderShown: false })
+    this.setState({ isVotingShown: false })
     if(this.state.isDividendsShown)this.setState({ isDividendsShown: false })
     else this.setState({ isDividendsShown: true })
   };
   toggleVoting = () => {
+    this.setState({ isPublicShown: false })
+    this.setState({ isPrivateShown: false })
+    this.setState({ isProviderShown: false })
+    this.setState({ isDividendsShown: false })
     if(this.state.isVotingShown)this.setState({ isVotingShown: false })
     else this.setState({ isVotingShown: true })
   };
@@ -100,7 +120,20 @@ class ManagerComponent extends React.Component {
 
           <button
             className="btn btn-lg btn-secondary center modal-button"
-            onClick={this.togglePublic}>Public Certificate Pool</button>
+            onClick={this.togglePublic}>Public Certificate Pool</button> &nbsp;&nbsp;
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.togglePrivate}>Private Certificate Pool</button> &nbsp;&nbsp;
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.toggleProvider}>Provider</button>  &nbsp;&nbsp;
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.toggleDividends}>Dividends</button>  &nbsp;&nbsp;
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.toggleVoting}>Voting</button>  &nbsp;&nbsp;
+
 
           {(this.state.isPublicShown) ? (
              <div class="border border-secondary border-5">
@@ -110,14 +143,6 @@ class ManagerComponent extends React.Component {
               </div>
             )
               :null}
-          
-          <br />
-          <br />
-          <br />
-
-          <button
-            className="btn btn-lg btn-secondary center modal-button"
-            onClick={this.togglePrivate}>Private Certificate Pool</button>
 
           {(this.state.isPrivateShown) ? (
              <div class="border border-secondary border-5">
@@ -128,14 +153,6 @@ class ManagerComponent extends React.Component {
             )
               :null}
 
-          <br />
-          <br />
-          <br />
-
-          <button
-            className="btn btn-lg btn-secondary center modal-button"
-            onClick={this.toggleProvider}>Provider</button>
-
           {(this.state.isProviderShown) ? (
              <div class="border border-secondary border-5">
               <Container style={{margin: '10px 50px 50px 50px' }}>
@@ -144,15 +161,7 @@ class ManagerComponent extends React.Component {
               </div>
             )
               :null}
-
-          <br />
-          <br />
-          <br />
-
-          <button
-            className="btn btn-lg btn-secondary center modal-button"
-            onClick={this.toggleDividends}>Dividends</button>
-
+        
           {(this.state.isDividendsShown) ? (
              <div class="border border-secondary border-5">
               <Container style={{margin: '10px 50px 50px 50px' }}>
@@ -160,15 +169,7 @@ class ManagerComponent extends React.Component {
               </Container>
               </div>
             )
-              :null}
-
-          <br />
-          <br />
-          <br />
-
-          <button
-            className="btn btn-lg btn-secondary center modal-button"
-            onClick={this.toggleVoting}>Voting</button>
+              :null}  
 
           {(this.state.isVotingShown) ? (
              <div class="border border-secondary border-5">
@@ -178,10 +179,6 @@ class ManagerComponent extends React.Component {
               </div>
             )
               :null}
-
-          <br />
-          <br />
-          <br />
 
         </div>
       );
