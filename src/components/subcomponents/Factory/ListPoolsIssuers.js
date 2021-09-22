@@ -43,6 +43,7 @@ class SelectPoolIssuerComponent extends React.Component{
 
         await ProviderPoolFunctions.SelectProviderPool(this.state.ProviderPool, this.props.contractType);
         this.setState({ ProviderPool: "" })
+        this.props.refresh();
       };
       
       render(){
@@ -87,7 +88,7 @@ class ListPoolsIssuers extends React.Component {
                         ))}
                 </Container>
                 <br />
-                <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key}/>
+                <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key} refresh={this.props.refresh}/>
                 <hr class="bg-secondary"/>
                 <br />
                 <h2 class="text-primary"> Selected {text} : {selectedAddress}</h2>

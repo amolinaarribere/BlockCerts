@@ -34,7 +34,7 @@ const Ownerfunc = require("../functions/OwnerFunctions.js");
           <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
           <br />
-          <ListPoolsIssuers contractType={this.state.contractType} Key={ProviderPoolFunc.providerKey}/>
+          <ListPoolsIssuers contractType={this.state.contractType} Key={ProviderPoolFunc.providerKey} refresh={this.refresh}/>
           <br />
           {
            (Ownerfunc.isProviderOwner)?(
