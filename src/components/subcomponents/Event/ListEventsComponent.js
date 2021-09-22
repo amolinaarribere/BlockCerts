@@ -55,13 +55,13 @@ class ListEventsComponent extends React.Component {
                           value={this.state.PublicEventBlock}
                           onChange={event => this.setState({ PublicEventBlock: event.target.value })}/>
                     </Form.Group>
-                      <button class="btn btn-secondary">List Events</button>
+                      <button class="btn btn-secondary">{(this.state.listingPublicEvents) ? "Refresh" : "List Events"}</button>
                   </Form>
                 
                   <br />
 
-                  {(this.state.listingPublicEvents && EventsFunc.PublicNewProposalConnected && 
-                  this.state.PublicEvents.length > 0) ? (
+                  {(this.state.listingPublicEvents  && 
+                        this.state.PublicEvents.length > 0) ? (
                   <Container style={{margin: '10px 50px 50px 50px' }}>
                     <Row>
                       <button
@@ -70,8 +70,10 @@ class ListEventsComponent extends React.Component {
                     </Row>
 
                     <br />
+                    <br />
 
-                    {(this.state.PublicEvents[EventsFunc.NewProposalId].length > 0) ? (
+                    {(this.state.PublicEvents[EventsFunc.NewProposalId].length > 0 && 
+                          EventsFunc.PublicNewProposalConnected) ? (
                       <div>
                         <Row>
                           <Col><h2>New Proposals</h2></Col>
@@ -80,18 +82,44 @@ class ListEventsComponent extends React.Component {
                         {(this.state.PublicEvents[EventsFunc.NewProposalId]).map(NewProposal => (
                               <div>
                                 <Row>
-                                  <Col><b>provider account : </b></Col>
-                                  <Col>{NewProposal[0]}</Col>
-                                  <Col><b>provider info : </b></Col>
-                                  <Col>{NewProposal[1]}</Col>
-                                  </Row>
+                                    <Col><b>Account : </b>{NewProposal[0]}</Col>
+                                    <Col><b>Info : </b>{NewProposal[1]}</Col>
+                                </Row>
+                                <br />
+                              </div>
+                        ))}
+                        
+                        </div>
+                      ):null}
+
+                    <br />  
+                    <hr class="bg-secondary"/>
+                    <br />
+
+                    {(this.state.PublicEvents[EventsFunc.AddCertificateId].length > 0 && 
+                          EventsFunc.PublicAddCertificatesConnected) ? (
+                      <div>
+                        <Row>
+                          <Col><h2>Add Certificates</h2></Col>
+                        </Row>
+    
+                        {(this.state.PublicEvents[EventsFunc.AddCertificateId]).map(AddCertificateId => (
+                              <div>
+                                <Row>
+                                  <Col><b>Provider : </b>{AddCertificateId[0]}</Col>
+                                  <Col><b>Holder : </b>{AddCertificateId[1]}</Col>
+                                  <Col><b>Certificate : </b>{AddCertificateId[2]}</Col>
+                                </Row>
+                                <br />
                               </div>
                         ))}
                         
                         </div>
                       ):null}
                    
-                        
+                    <br />  
+                    <hr class="bg-secondary"/>
+                    <br />  
                         
 
                     
