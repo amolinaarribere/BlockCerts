@@ -1,9 +1,42 @@
 import React from 'react';
-import Image1 from '../diagram/image1.PNG';
+import { Container} from 'react-bootstrap';
+import Public from '../diagram/Public.PNG';
+import Private from '../diagram/Private.PNG';
+import Provider from '../diagram/Provider.PNG';
+import Dividends from '../diagram/Owner2.PNG';
+import Voting from '../diagram/Owner1.PNG';
 
 
 class ManagerComponent extends React.Component {
 
+  state = {
+    isPublicShown: false,
+    isPrivateShown: false,
+    isProviderShown: false,
+    isDividendsShown: false,
+    isVotingShown: false
+  };
+
+  togglePublic = () => {
+    if(this.state.isPublicShown)this.setState({ isPublicShown: false })
+    else this.setState({ isPublicShown: true })
+  };
+  togglePrivate = () => {
+    if(this.state.isPrivateShown)this.setState({ isPrivateShown: false })
+    else this.setState({ isPrivateShown: true })
+  };
+  toggleProvider = () => {
+    if(this.state.isProviderShown)this.setState({ isProviderShown: false })
+    else this.setState({ isProviderShown: true })
+  };
+  toggleDividends = () => {
+    if(this.state.isDividendsShown)this.setState({ isDividendsShown: false })
+    else this.setState({ isDividendsShown: true })
+  };
+  toggleVoting = () => {
+    if(this.state.isVotingShown)this.setState({ isVotingShown: false })
+    else this.setState({ isVotingShown: true })
+  };
   
     render(){
       return (
@@ -64,20 +97,91 @@ class ManagerComponent extends React.Component {
             <br />
             <br />
           </h6>
-          <h3>Public Certificate Pool</h3>
-          <img src={Image1}/>
+
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.togglePublic}>Public Certificate Pool</button>
+
+          {(this.state.isPublicShown) ? (
+             <div class="border border-secondary border-5">
+              <Container style={{margin: '10px 50px 50px 50px' }}>
+                <img src={Public}/>
+              </Container>
+              </div>
+            )
+              :null}
+          
           <br />
           <br />
           <br />
-          <h3>Private Certificate Pool</h3>
+
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.togglePrivate}>Private Certificate Pool</button>
+
+          {(this.state.isPrivateShown) ? (
+             <div class="border border-secondary border-5">
+              <Container style={{margin: '10px 50px 50px 50px' }}>
+                <img src={Private}/>
+              </Container>
+              </div>
+            )
+              :null}
+
           <br />
           <br />
           <br />
-          <h3>Provider</h3>
+
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.toggleProvider}>Provider</button>
+
+          {(this.state.isProviderShown) ? (
+             <div class="border border-secondary border-5">
+              <Container style={{margin: '10px 50px 50px 50px' }}>
+                <img src={Provider}/>
+              </Container>
+              </div>
+            )
+              :null}
+
           <br />
           <br />
           <br />
-          <h3>Dividends</h3>
+
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.toggleDividends}>Dividends</button>
+
+          {(this.state.isDividendsShown) ? (
+             <div class="border border-secondary border-5">
+              <Container style={{margin: '10px 50px 50px 50px' }}>
+                <img src={Dividends}/>
+              </Container>
+              </div>
+            )
+              :null}
+
+          <br />
+          <br />
+          <br />
+
+          <button
+            className="btn btn-lg btn-secondary center modal-button"
+            onClick={this.toggleVoting}>Voting</button>
+
+          {(this.state.isVotingShown) ? (
+             <div class="border border-secondary border-5">
+              <Container style={{margin: '10px 50px 50px 50px' }}>
+                <img src={Voting}/>
+              </Container>
+              </div>
+            )
+              :null}
+
+          <br />
+          <br />
+          <br />
 
         </div>
       );
