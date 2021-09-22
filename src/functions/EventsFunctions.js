@@ -2,13 +2,104 @@
 const Aux = require("./AuxiliaryFunctions.js");
 const Contracts = require("./Contracts.js");
 
-export const PublicId = 0;
+export const ManagerId = 0;
+export const NewContractsId = 1;
+export const AddedPropositionId = 2;
+
+export const PublicId = 1;
 export const NewProposalId = 0;
 export const AddCertificateId = 1;
 
+
+
 export var eventlogs = [];
+
+export var ManagerNewContracts = false;
+export var ManagerAddedProposition = false;
+
 export var PublicNewProposalConnected = false;
 export var PublicAddCertificatesConnected = false;
+
+
+
+
+const NewContractsInputs = [
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  }
+];
+
+const AddedPropositionInputs = [
+  {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+  },
+  {
+    "indexed": true,
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+  },
+  {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+  },
+  {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+  }
+];
 
 const NewProposalInputs = [
     {
@@ -44,6 +135,34 @@ const AddCertificatesInputs = [
     }
   ];
 
+
+  export async function GetManagerEvents(_block){
+    eventlogs[ManagerId] = []
+
+    var options = {
+        fromBlock: _block
+    };
+ 
+    if(Contracts.certificatePoolManager != ""){
+        let newContracts = Contracts.certificatePoolManager.events._NewContracts(options);
+        eventlogs[ManagerId][NewContractsId] = []
+        newContracts.on('data', event => {eventlogs[ManagerId][NewContractsId][eventlogs[ManagerId][NewContractsId].length] = Aux.web3.eth.abi.decodeLog(NewContractsInputs, event.raw.data, event.raw.topics.slice(1))})
+        newContracts.on('changed', changed => window.alert("event removed from blockchain : " + changed))
+        newContracts.on('error', err => window.alert("event error : " + err))
+        newContracts.on('connected', nr => ManagerNewContracts = true)
+
+        let addedProposition = Contracts.certificatePoolManager.events._AddedProposition(options);
+        eventlogs[ManagerId][AddedPropositionId] = []
+        addedProposition.on('data', event => {eventlogs[ManagerId][AddedPropositionId][eventlogs[ManagerId][AddedPropositionId].length] = Aux.web3.eth.abi.decodeLog(AddedPropositionInputs, event.raw.data, event.raw.topics.slice(1))})
+        addedProposition.on('changed', changed => window.alert("event removed from blockchain : " + changed))
+        addedProposition.on('error', err => window.alert("event error : " + err))
+        addedProposition.on('connected', nr => ManagerAddedProposition = true)
+
+
+    }
+
+}
+
 export async function GetPublicEvents(_block){
     eventlogs[PublicId] = []
 
@@ -65,6 +184,7 @@ export async function GetPublicEvents(_block){
         addCertificates.on('changed', changed => window.alert("event removed from blockchain : " + changed))
         addCertificates.on('error', err => window.alert("event error : " + err))
         addCertificates.on('connected', nr => PublicAddCertificatesConnected = true)
+
     }
 
 }
@@ -73,6 +193,8 @@ export async function StopEvents(){
     Aux.web3.eth.clearSubscriptions()
     PublicNewProposalConnected = false;
     PublicAddCertificatesConnected = false;
+    ManagerNewContracts = false;
+    ManagerAddedProposition = false;
 }
 
 /*
