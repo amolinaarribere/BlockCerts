@@ -10,6 +10,7 @@ import TreasuryComponent from './components/TreasuryComponent.js';
 import ManagerComponent from './components/ManagerComponent.js';
 import PriceConverterComponent from './components/PriceConverterComponent.js';
 import CurrentAddressComponent from './components/CurrentAddressComponent.js';
+import EventsComponent from './components/EventsComponent.js';
 
 
 const certFunc = require("./functions/CertisFunctions.js");
@@ -23,6 +24,7 @@ const Provider = "Provider";
 const PriceConverter = "Price Converter";
 const Treasury = "Treasury";
 const CertisToken = "Certis Token";
+const Event = "Events";
 
 
 
@@ -56,6 +58,7 @@ class Demo extends React.Component {
                 <Nav.Link onClick={() => this.toggleMenu(PriceConverter)}>{PriceConverter}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Treasury)}>{Treasury}</Nav.Link>
                 {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(CertisToken)}>{CertisToken}</Nav.Link>) : null}
+                <Nav.Link onClick={() => this.toggleMenu(Event)}>{Event}</Nav.Link>
               </Nav>
               <CurrentAddressComponent />
             </Container>
@@ -93,6 +96,10 @@ class Demo extends React.Component {
                     return (
                       <CertisTokensComponent />
                     )
+                case Event:
+                      return (
+                        <EventsComponent />
+                      )
                 default:
                     return (
                       <HomeComponent />
