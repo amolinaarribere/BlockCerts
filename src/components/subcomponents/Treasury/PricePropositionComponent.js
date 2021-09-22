@@ -121,7 +121,6 @@ class PricePropositionComponent extends React.Component {
           {certFunc.isOwner ? (
                 <div>
                         <br />    
-                        <br />
                 </div>): null}
 
           {certFunc.isOwner ? (
@@ -161,8 +160,8 @@ class PricePropositionComponent extends React.Component {
                   </Row>
                 </Container>
               </div>
-                
             ) : null}
+            <hr class="bg-secondary"/>
         </div>
       );
     }

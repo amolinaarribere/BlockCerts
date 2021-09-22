@@ -89,7 +89,7 @@ class AddressPropositionComponent extends React.Component {
                       </Container>
                     </div>) : null}
               </div>):null}
-          
+              <hr class="bg-secondary"/>
         </div>
       );
     }

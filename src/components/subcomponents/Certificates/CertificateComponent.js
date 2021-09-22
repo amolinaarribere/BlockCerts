@@ -86,6 +86,7 @@ class CertificateComponent extends React.Component{
                 <Row key={certificateByHolder}>{certificateByHolder}</Row>
               ))}
             </Container>
+            <hr class="bg-secondary"/>
 
           </div>
         );
@@ -111,6 +112,7 @@ class CertificateComponent extends React.Component{
             <VoteCertificateComponent />
             <br />
             <ListPendingCertificatesComponent />
+            <hr class="bg-secondary"/>
           </div>
         );
       }

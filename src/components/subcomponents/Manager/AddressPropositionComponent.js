@@ -106,6 +106,7 @@ class AddressPropositionComponent extends React.Component {
               </Row>
             </Container>
           </div>
+          <hr class="bg-secondary"/>
 
           <div class="border border-0">
           <h3>Contract Implementation Addresses</h3>
@@ -144,7 +145,7 @@ class AddressPropositionComponent extends React.Component {
               </Row>
             </Container>
           </div>
-
+          
           {certFunc.isOwner ? (
             <div>
                <button
@@ -236,7 +237,7 @@ class AddressPropositionComponent extends React.Component {
 
             </div>) : null}
           
-          
+            <hr class="bg-secondary"/>
         </div>
       );
     }

@@ -16,6 +16,7 @@ class OwnerComponent extends React.Component{
           <UpdateMinOwnerComponent contractType={this.props.contractType}/>
           <br/>
           <ListPendingOwnersComponent contractType={this.props.contractType}/>
+          <hr class="bg-secondary"/>
         </div>
       );
     }

@@ -88,6 +88,7 @@ class ListPoolsIssuers extends React.Component {
                 </Container>
                 <br />
                 <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key}/>
+                <hr class="bg-secondary"/>
                 <br />
                 <h2 class="text-primary"> Selected {text} : {selectedAddress}</h2>
                 <br />
@@ -102,7 +103,6 @@ class ListPoolsIssuers extends React.Component {
                         <br />
                         <FundProviderComponent />
                     </div>): null}
-                
             </div>
         );
         

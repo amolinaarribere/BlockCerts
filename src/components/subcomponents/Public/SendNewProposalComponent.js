@@ -34,6 +34,7 @@ class SendNewProposalComponent extends React.Component {
             </Form.Group>
             <button class="btn btn-secondary">Submit Proposal</button> 
           </Form>
+          <hr class="bg-secondary"/>
         </div>
       );
     }

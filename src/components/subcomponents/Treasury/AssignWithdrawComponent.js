@@ -61,6 +61,7 @@ class AssignWithdrawComponent extends React.Component {
               <button class="btn btn-secondary">Withdraw Amount</button>
             </Form>
           </div>
+          <hr class="bg-secondary"/>
         </div>
 
       );

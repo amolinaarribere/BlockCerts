@@ -35,6 +35,7 @@ class PriceConvertToWeiComponent extends React.Component {
                 <Col>{this.state.AmountWei / ETHDecimals} ({this.state.AmountUSD}USD)</Col>
               </Row>
           </Container>
+          <hr class="bg-secondary"/>
         </div>
       );
     }

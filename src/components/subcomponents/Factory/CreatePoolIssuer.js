@@ -39,6 +39,7 @@ class CreatePoolIssuer extends React.Component {
                     </Form.Group>
                     <button  class="btn btn-secondary">Request New {text}</button>
                 </Form>
+                <hr class="bg-secondary"/>
             </div>
         );
         
