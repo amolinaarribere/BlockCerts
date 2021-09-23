@@ -22,17 +22,11 @@ class ListManagerEventsComponent extends React.Component {
     handleManagerEvents = async (event) => {
       event.preventDefault();
       if(!this.state.listingManagerEvents){
-        await EventsFunc.GetManagerEvents(this.state.ManagerEventBlock);
         this.setState({ listingManagerEvents: true });
       }
       this.setState({ ManagerEvents: EventsFunc.eventlogs[EventsFunc.ManagerId] });
     }
 
-    handleStopEvents = async (event) => {
-      event.preventDefault();
-      this.setState({ listingManagerEvents: false })
-      await EventsFunc.StopEvents();
-    }
 
     render(){
       return (
@@ -59,38 +53,29 @@ class ListManagerEventsComponent extends React.Component {
                         this.state.ManagerEvents.length > 0) ? (
                   <Container style={{margin: '10px 50px 50px 50px' }}>
                     <Row>
-                      <button
-                          className="btn btn-lg btn-secondary center modal-button"
-                          onClick={this.handleStopEvents}>Stop Events</button>
-                    </Row>
-
-                    <br />
-                    <br />
-
-                    <Row>
                       <Col><h2>New Contracts</h2></Col>
                     </Row>
 
                     {(this.state.ManagerEvents[EventsFunc.NewContractsId].length > 0 && 
-                          EventsFunc.ManagerNewProposalConnected) ? (
+                          EventsFunc.ManagerNewContractsConnected) ? (
                       <div>
-
-                        {(this.state.ManagerEvents[EventsFunc.NewContractsId]).map(NewContracts => (
-                              <div>
-                                <Row>
-                                    <Col><b>Public : </b>{NewContracts[0]}</Col>
-                                    <Col><b>Treasury : </b>{NewContracts[1]}</Col>
-                                    <Col><b>Certis : </b>{NewContracts[2]}</Col>
-                                    <Col><b>Private Factory : </b>{NewContracts[3]}</Col>
-                                    <Col><b>Private : </b>{NewContracts[4]}</Col>
-                                    <Col><b>Provider Factory : </b>{NewContracts[5]}</Col>
-                                    <Col><b>Provider : </b>{NewContracts[6]}</Col>
-                                    <Col><b>Price Converter : </b>{NewContracts[7]}</Col>
-                                </Row>
-                                <br />
-                              </div>
-                        ))}
-                        
+                          {(this.state.ManagerEvents[EventsFunc.NewContractsId]).map(NewContracts => (
+                               <div>
+                                  <Row>
+                                    <p>
+                                      <b>Public </b>{NewContracts[0]} &nbsp;
+                                      <b>Certis</b> {NewContracts[1]} &nbsp;
+                                      <b>Treasury</b> {NewContracts[2]} &nbsp;
+                                      <b>Private Factory : </b>{NewContracts[3]} &nbsp;
+                                      <b>Private : </b>{NewContracts[4]} &nbsp;
+                                      <b>Provider Factory : </b>{NewContracts[5]} &nbsp;
+                                      <b>Provider : </b>{NewContracts[6]} &nbsp;
+                                      <b>Price Converter : </b>{NewContracts[7]}
+                                    </p>
+                                  </Row>
+                                  <br />  
+                                </div>
+                          ))}
                         </div>
                       ):null}
 
@@ -103,16 +88,18 @@ class ListManagerEventsComponent extends React.Component {
                     </Row>
 
                     {(this.state.ManagerEvents[EventsFunc.AddedPropositionId].length > 0 && 
-                          EventsFunc.ManagerAddedProposition) ? (
+                          EventsFunc.ManagerAddedPropositionConnected) ? (
                       <div>
     
                         {(this.state.ManagerEvents[EventsFunc.AddedPropositionId]).map(AddedProposition => (
                               <div>
                                 <Row>
-                                    <Col><b>ID : </b>{AddedProposition[0]}</Col>
-                                    <Col><b>Proposer : </b>{AddedProposition[1]}</Col>
-                                    <Col><b>DeadLine : </b>{AddedProposition[2]}</Col>
-                                    <Col><b>Threshold : </b>{AddedProposition[3]}</Col>
+                                  <p>
+                                      <b>ID </b>{AddedProposition[0]} &nbsp;
+                                      <b>Proposer</b> {AddedProposition[1]} &nbsp;
+                                      <b>DeadLine</b> {AddedProposition[2]} &nbsp;
+                                      <b>Threshold : </b>{AddedProposition[3]} 
+                                  </p>
                                 </Row>
                                 <br />
                               </div>

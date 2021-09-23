@@ -14,8 +14,8 @@ export const AddCertificateId = 1;
 
 export var eventlogs = [];
 
-export var ManagerNewContracts = false;
-export var ManagerAddedProposition = false;
+export var ManagerNewContractsConnected = false;
+export var ManagerAddedPropositionConnected = false;
 
 export var PublicNewProposalConnected = false;
 export var PublicAddCertificatesConnected = false;
@@ -136,7 +136,7 @@ const AddCertificatesInputs = [
   ];
 
 
-  export async function GetManagerEvents(_block){
+export async function GetManagerEvents(_block){
     eventlogs[ManagerId] = []
 
     var options = {
@@ -149,14 +149,14 @@ const AddCertificatesInputs = [
         newContracts.on('data', event => {eventlogs[ManagerId][NewContractsId][eventlogs[ManagerId][NewContractsId].length] = Aux.web3.eth.abi.decodeLog(NewContractsInputs, event.raw.data, event.raw.topics.slice(1))})
         newContracts.on('changed', changed => window.alert("event removed from blockchain : " + changed))
         newContracts.on('error', err => window.alert("event error : " + err))
-        newContracts.on('connected', nr => ManagerNewContracts = true)
+        newContracts.on('connected', nr => ManagerNewContractsConnected = true)
 
         let addedProposition = Contracts.certificatePoolManager.events._AddedProposition(options);
         eventlogs[ManagerId][AddedPropositionId] = []
         addedProposition.on('data', event => {eventlogs[ManagerId][AddedPropositionId][eventlogs[ManagerId][AddedPropositionId].length] = Aux.web3.eth.abi.decodeLog(AddedPropositionInputs, event.raw.data, event.raw.topics.slice(1))})
         addedProposition.on('changed', changed => window.alert("event removed from blockchain : " + changed))
         addedProposition.on('error', err => window.alert("event error : " + err))
-        addedProposition.on('connected', nr => ManagerAddedProposition = true)
+        addedProposition.on('connected', nr => ManagerAddedPropositionConnected = true)
 
 
     }
@@ -189,12 +189,17 @@ export async function GetPublicEvents(_block){
 
 }
 
-export async function StopEvents(){
+export function StartEvents(){
+  GetManagerEvents(0);
+  GetPublicEvents(0)
+}
+
+export function StopEvents(){
     Aux.web3.eth.clearSubscriptions()
     PublicNewProposalConnected = false;
     PublicAddCertificatesConnected = false;
-    ManagerNewContracts = false;
-    ManagerAddedProposition = false;
+    ManagerNewContractsConnected = false;
+    ManagerAddedPropositionConnected = false;
 }
 
 /*

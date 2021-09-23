@@ -22,17 +22,11 @@ class ListPublicEventsComponent extends React.Component {
     handlePublicEvents = async (event) => {
       event.preventDefault();
       if(!this.state.listingPublicEvents){
-        await EventsFunc.GetPublicEvents(this.state.PublicEventBlock);
         this.setState({ listingPublicEvents: true });
       }
       this.setState({ PublicEvents: EventsFunc.eventlogs[EventsFunc.PublicId] });
     }
 
-    handleStopEvents = async (event) => {
-      event.preventDefault();
-      this.setState({ listingPublicEvents: false })
-      await EventsFunc.StopEvents();
-    }
 
     render(){
       return (
@@ -59,15 +53,6 @@ class ListPublicEventsComponent extends React.Component {
                         this.state.PublicEvents.length > 0) ? (
                   <Container style={{margin: '10px 50px 50px 50px' }}>
                     <Row>
-                      <button
-                          className="btn btn-lg btn-secondary center modal-button"
-                          onClick={this.handleStopEvents}>Stop Events</button>
-                    </Row>
-
-                    <br />
-                    <br />
-
-                    <Row>
                       <Col><h2>New Proposals</h2></Col>
                     </Row>
 
@@ -77,10 +62,12 @@ class ListPublicEventsComponent extends React.Component {
                         
                         {(this.state.PublicEvents[EventsFunc.NewProposalId]).map(NewProposal => (
                               <div>
-                                <Row>
-                                    <Col><b>Account : </b>{NewProposal[0]}</Col>
-                                    <Col><b>Info : </b>{NewProposal[1]}</Col>
-                                </Row>
+                                  <Row>
+                                    <p>
+                                      <b>Account </b>{NewProposal[0]} &nbsp;
+                                      <b>Info</b> {NewProposal[1]}
+                                    </p>
+                                  </Row>
                                 <br />
                               </div>
                         ))}
@@ -103,9 +90,11 @@ class ListPublicEventsComponent extends React.Component {
                         {(this.state.PublicEvents[EventsFunc.AddCertificateId]).map(AddCertificateId => (
                               <div>
                                 <Row>
-                                  <Col><b>Provider : </b>{AddCertificateId[0]}</Col>
-                                  <Col><b>Holder : </b>{AddCertificateId[1]}</Col>
-                                  <Col><b>Certificate : </b>{AddCertificateId[2]}</Col>
+                                    <p>
+                                      <b>Provider </b>{AddCertificateId[0]} &nbsp;
+                                      <b>Holder</b> {AddCertificateId[1]} &nbsp;
+                                      <b>Certificate</b> {AddCertificateId[2]}
+                                    </p>
                                 </Row>
                                 <br />
                               </div>

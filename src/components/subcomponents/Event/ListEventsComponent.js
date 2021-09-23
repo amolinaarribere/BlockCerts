@@ -9,39 +9,35 @@ const ManagerFunc = require("../../../functions/ManagerFunctions.js");
 
 class ListEventsComponent extends React.Component {
     state = {
-     isPublicEventsShown: false,
-     PublicEventBlock : 0,
-     listingPublicEvents: false,
-     PublicEvents: []
+     EventsActivated: false
     };
-
-    
-
-    togglePublicEvents = () => {
-      if(this.state.isPublicEventsShown)this.setState({ isPublicEventsShown: false })
-      else this.setState({ isPublicEventsShown: true })
-    };
-
-
-    handlePublicEvents = async (event) => {
-      event.preventDefault();
-      if(!this.state.listingPublicEvents){
-        await EventsFunc.GetPublicEvents(this.state.PublicEventBlock);
-        this.setState({ listingPublicEvents: true });
-      }
-      this.setState({ PublicEvents: EventsFunc.eventlogs[EventsFunc.PublicId] });
-    }
 
     handleStopEvents = async (event) => {
       event.preventDefault();
-      this.setState({ listingPublicEvents: false })
-      await EventsFunc.StopEvents();
+      EventsFunc.StopEvents();
+      this.setState({ EventsActivated: false });
+    }
+
+    handleStartEvents = async (event) => {
+      event.preventDefault();
+      EventsFunc.StartEvents();
+      this.setState({ EventsActivated: true });
     }
 
     render(){
       return (
         <div>
-          <h3>Events</h3>
+          <h3>Events</h3> 
+          <button
+                disabled={this.state.EventsActivated}
+                className="btn btn-lg btn-secondary center modal-button"
+                onClick={this.handleStartEvents}>Start Events</button> &nbsp;&nbsp;
+          <button
+                disabled={! this.state.EventsActivated}
+                className="btn btn-lg btn-secondary center modal-button"
+                onClick={this.handleStopEvents}>Stop Events</button>
+          <br/>
+          <br/>
           <br/>
           <ListPublicEventsComponent />
           <ListManagerEventsComponent />
