@@ -1,41 +1,70 @@
 import React from 'react';
+import { Form, Container, Row, Col } from 'react-bootstrap';
+import { ETHDecimals } from '../../../config';
+
+const BigNumber = require('bignumber.js');
 const func = require("../../../functions/TreasuryFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AssignWithdrawComponent extends React.Component {
     state = {
-        amount : 0
+        amount : ""
       };
     
     handleAssignDividends = async (event) => {
         event.preventDefault();
       await func.AssignDividends();
+      await loadFunc.LoadTreasuryFunc();
+      this.props.refresh();
     };
 
     handleWithdraw = async (event) => {
-        event.preventDefault();
-      await func.WithdrawAmount(this.state.amount);
-      this.setState({amount: 0});
+      event.preventDefault();
+      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(new BigNumber("1000000000000000000"))).toString());
+      this.setState({amount: ""});
+      await loadFunc.LoadTreasuryFunc();
+      this.props.refresh();
     };
 
     render(){
       return (
         <div>
-          <p><b>Aggregated Balance :</b> {func.TreasuryAggregatedBalance}</p>
-          <br />
-          <p><b>Contract Balance :</b> {func.TreasuryBalance}</p>
-          <br />
-          <p><b>Your current Balance :</b> {func.AccountBalance}</p>
-          <form onSubmit={this.handleAssignDividends}>
-            <button type="submit">Assign Dividends</button>
-          </form>
-          <form onSubmit={this.handleWithdraw}>
-            <input type="integer" name="Amount" placeholder="amount" 
-                        value={this.state.amount}
-                        onChange={event => this.setState({ amount: event.target.value })}/>
-            <button type="submit">Withdraw Amount</button>
-          </form>
-          <br />
+          <div class="border border-0">
+            <h3>Treasury Balances</h3>
+            <Container style={{margin: '10px 50px 50px 50px' }}>
+              <Row>
+                <Col><b>Aggregated Balance (ETH) :</b></Col> 
+                <Col>{func.TreasuryAggregatedBalance.dividedBy(ETHDecimals).toString()}</Col>
+              </Row>
+              <Row>
+                <Col><b>Contract Balance (ETH) :</b></Col> 
+                <Col>{func.TreasuryBalance.dividedBy(ETHDecimals).toString()}</Col>
+              </Row>
+              <Row>
+                <Col><b>Your Last Assigned (ETH) :</b></Col> 
+                <Col>{func.LastAssigned.dividedBy(ETHDecimals).toString()}</Col>
+              </Row>
+              <Row>
+                <Col><b>Your current Balance (ETH) :</b></Col> 
+                <Col>{func.AccountBalance.dividedBy(ETHDecimals).toString()}</Col>
+              </Row>
+              <br />
+              <button type="button" class="btn btn-secondary" onClick={this.handleAssignDividends}>Assign</button>
+            </Container>
+          </div>
+          <div class="border border border-0">
+            <Form onSubmit={this.handleWithdraw} style={{margin: '50px 50px 50px 50px' }}>
+              <Form.Group  className="mb-3">
+                <Form.Control type="string" name="Amount" placeholder="Amount in ETH" 
+                  value={this.state.amount}
+                  onChange={event => this.setState({ amount: event.target.value })}/>
+              </Form.Group>
+              <button class="btn btn-secondary">Withdraw Amount</button>
+            </Form>
+          </div>
+          <hr class="bg-secondary"/>
         </div>
+
       );
     }
   }

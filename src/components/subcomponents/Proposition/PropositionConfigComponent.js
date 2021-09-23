@@ -2,22 +2,30 @@ import React from 'react';
 import ListPropositionConfigComponent from './ListPropositionConfigComponent.js';
 import UpgradePropositionConfigComponent from './UpgradePropositionConfigComponent.js';
 import ListPendingPropositionConfigComponent from './ListPendingPropositionConfigComponent.js';
-import ValidatePropositionConfigComponent from './ValidatePropositionConfigComponent.js';
-import RejectPropositionConfigComponent from './RejectPropositionConfigComponent.js';
+
+const certFunc = require("../../../functions/CertisFunctions.js");
 
 class PropositionConfigComponent extends React.Component{
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh() {
+    this.props.refresh();
+  }
+
        render(){
          return (
            <div>
             <ListPropositionConfigComponent contractType={this.props.contractType}/>
             <br/>
-            <UpgradePropositionConfigComponent contractType={this.props.contractType}/>
-            <br/>
-            <ListPendingPropositionConfigComponent contractType={this.props.contractType}/>
+            {certFunc.isOwner ? (
+              <UpgradePropositionConfigComponent contractType={this.props.contractType} refresh={this.refresh}/>): null}
             <br />
-            <ValidatePropositionConfigComponent contractType={this.props.contractType}/>
-            <RejectPropositionConfigComponent contractType={this.props.contractType}/>
-            <br/>
+            {certFunc.isOwner ? (
+              <ListPendingPropositionConfigComponent contractType={this.props.contractType} refresh={this.refresh}/>): null}
+            <br />
            </div>
          );
        }

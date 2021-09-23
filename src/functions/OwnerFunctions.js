@@ -2,7 +2,11 @@
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 const ProviderPool = require("./ProviderPoolFunctions.js");
+const load = require("./LoadFunctions.js");
 
+export var isPublicOwner;
+export var isPrivateOwner;
+export var isProviderOwner;
 export var publicMinOwners = ""
 export var publicPendingMinOwners = ""
 export var publicTotalOwners = ""
@@ -48,34 +52,100 @@ export async function AddOwner(address, info, contractType){
   }
 
   export async function RetrieveOwners(contractType){
-    if(1 == contractType){
-      publicMinOwners = await Contracts.publicPool.methods.retrieveMinOwners().call()
-      publicOwners = await Contracts.publicPool.methods.retrieveAllOwners().call()
-      publicTotalOwners = publicOwners.length
+    try{
+      if(1 == contractType){
+        isPublicOwner = false;
+        publicMinOwners = await Contracts.publicPool.methods.retrieveMinOwners().call()
+        publicOwners = await Contracts.publicPool.methods.retrieveAllOwners().call()
+        publicTotalOwners = publicOwners.length
+  
+        pendingPublicOwnersAdd = []
+        let pendingPublicOwnersAddAddresses = await Contracts.publicPool.methods.retrievePendingOwners(true).call();
+        for (let i = 0; i < pendingPublicOwnersAddAddresses.length; i++) {
+          let {0:Info} = await Contracts.publicPool.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingPublicOwnersAddAddresses[i])).call();
+          pendingPublicOwnersAdd[i] = [pendingPublicOwnersAddAddresses[i], Info]
+        }
+  
+        pendingPublicOwnersRemove = []
+        let pendingPublicOwnersRemoveAddresses = await Contracts.publicPool.methods.retrievePendingOwners(false).call();
+        for (let i = 0; i < pendingPublicOwnersRemoveAddresses.length; i++) {
+          let {0:Info} = await Contracts.publicPool.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingPublicOwnersRemoveAddresses[i])).call();
+          pendingPublicOwnersRemove[i] = [pendingPublicOwnersRemoveAddresses[i], Info]
+        }
+  
+        publicPendingMinOwners = await Contracts.publicPool.methods.retrievePendingMinOwners().call();
 
-      pendingPublicOwnersAdd = await Aux.RetrievePendings(Contracts.publicPool.methods.retrievePendingOwners(true).call());
-      pendingPublicOwnersRemove = await Aux.RetrievePendings(Contracts.publicPool.methods.retrievePendingOwners(false).call());
-      publicPendingMinOwners = await Contracts.publicPool.methods.retrievePendingMinOwners().call();
-    }
-    else if(2 == contractType){
-      
-      privateMinOwners = await ProviderPool.privatePool.methods.retrieveMinOwners().call()
-      privateOwners = await ProviderPool.privatePool.methods.retrieveAllOwners().call()
-      privateTotalOwners = privateOwners.length
+        if(load.Admin){
+          let resultPublic = await Contracts.publicPool.methods.retrieveOwner(Aux.account).call();
+          isPublicOwner = resultPublic[1];
+        }
+        else {
+          isPublicOwner = true;
+        }
+        
+      }
+      else if(2 == contractType){
+        isPrivateOwner = false;
+        privateMinOwners = await ProviderPool.privatePool.methods.retrieveMinOwners().call()
+        privateOwners = await ProviderPool.privatePool.methods.retrieveAllOwners().call()
+        privateTotalOwners = privateOwners.length
+  
+        pendingPrivateOwnersAdd = []
+        let pendingPrivateOwnersAddAddresses = await ProviderPool.privatePool.methods.retrievePendingOwners(true).call();
+        for (let i = 0; i < pendingPrivateOwnersAddAddresses.length; i++) {
+          let {0:Info} = await ProviderPool.privatePool.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingPrivateOwnersAddAddresses[i])).call();
+          pendingPrivateOwnersAdd[i] = [pendingPrivateOwnersAddAddresses[i], Info]
+        }
+  
+        pendingPrivateOwnersRemove = []
+        let pendingPrivateOwnersRemoveAddresses = await ProviderPool.privatePool.methods.retrievePendingOwners(false).call();
+        for (let i = 0; i < pendingPrivateOwnersRemoveAddresses.length; i++) {
+          let {0:Info} = await ProviderPool.privatePool.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingPrivateOwnersRemoveAddresses[i])).call();
+          pendingPrivateOwnersRemove[i] = [pendingPrivateOwnersRemoveAddresses[i], Info]
+        }
+  
+        privatePendingMinOwners = await ProviderPool.privatePool.methods.retrievePendingMinOwners().call();
 
-      pendingPrivateOwnersAdd = await Aux.RetrievePendings(ProviderPool.privatePool.methods.retrievePendingOwners(true).call());
-      pendingPrivateOwnersRemove = await Aux.RetrievePendings(ProviderPool.privatePool.methods.retrievePendingOwners(false).call());
-      privatePendingMinOwners = await ProviderPool.privatePool.methods.retrievePendingMinOwners().call();
-    }
-    else{
-      providerMinOwners = await ProviderPool.provider.methods.retrieveMinOwners().call()
-      providerOwners = await ProviderPool.provider.methods.retrieveAllOwners().call()
-      providerTotalOwners = providerOwners.length
+        if(load.Admin){
+          let resultPrivate = await ProviderPool.privatePool.methods.retrieveOwner(Aux.account).call();
+          isPrivateOwner = resultPrivate[1];
+        }
+        else {
+          isPrivateOwner = true;
+        }
+      }
+      else{
+        isProviderOwner = false;
+        providerMinOwners = await ProviderPool.provider.methods.retrieveMinOwners().call()
+        providerOwners = await ProviderPool.provider.methods.retrieveAllOwners().call()
+        providerTotalOwners = providerOwners.length
+  
+        pendingProviderOwnersAdd = []
+        let pendingProviderOwnersAddAddresses = await ProviderPool.provider.methods.retrievePendingOwners(true).call();
+        for (let i = 0; i < pendingProviderOwnersAddAddresses.length; i++) {
+          let {0:Info} = await ProviderPool.provider.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingProviderOwnersAddAddresses[i])).call();
+          pendingProviderOwnersAdd[i] = [pendingProviderOwnersAddAddresses[i], Info]
+        }
+  
+        pendingProviderOwnersRemove = []
+        let pendingProviderOwnersRemoveAddresses = await ProviderPool.provider.methods.retrievePendingOwners(false).call();
+        for (let i = 0; i < pendingProviderOwnersRemoveAddresses.length; i++) {
+          let {0:Info} = await ProviderPool.provider.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingProviderOwnersRemoveAddresses[i])).call();
+          pendingProviderOwnersRemove[i] = [pendingProviderOwnersRemoveAddresses[i], Info]
+        }
+  
+        providerPendingMinOwners = await ProviderPool.provider.methods.retrievePendingMinOwners().call();
 
-      pendingProviderOwnersAdd = await Aux.RetrievePendings(ProviderPool.provider.methods.retrievePendingOwners(true).call());
-      pendingProviderOwnersRemove = await Aux.RetrievePendings(ProviderPool.provider.methods.retrievePendingOwners(false).call());
-      providerPendingMinOwners = await ProviderPool.provider.methods.retrievePendingMinOwners().call();
+        if(load.Admin){
+          let resultProvider = await ProviderPool.provider.methods.retrieveOwner(Aux.account).call();
+          isProviderOwner = resultProvider[1];
+        }
+        else {
+          isProviderOwner = true;
+        }
+      }
     }
+    catch(e){}
   }
 
   export async function UpdateMinOwner(minOwner, contractType){

@@ -3,10 +3,12 @@ const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
+const BigNumber = require('bignumber.js');
 
-export var AccountBalance = "";
-export var TreasuryBalance = "";
-export var TreasuryAggregatedBalance = "";
+export var LastAssigned = new BigNumber(0);
+export var AccountBalance = new BigNumber(0);
+export var TreasuryBalance = new BigNumber(0);
+export var TreasuryAggregatedBalance = new BigNumber(0);
 
 export var PublicPriceUSD = "";
 export var PrivatePriceUSD = "";
@@ -33,12 +35,12 @@ export var PendingOwnerRefundFeeUSD = "";
     ProviderPriceUSD = response[2];
     CertificatePriceUSD = response[3];
     OwnerRefundFeeUSD = response[4];
-    
-    PublicPriceWei = await PriceConverter.USDToEther(PublicPriceUSD);
-    PrivatePriceWei = await PriceConverter.USDToEther(PrivatePriceUSD);
-    ProviderPriceWei = await PriceConverter.USDToEther(ProviderPriceUSD);
-    CertificatePriceWei = await PriceConverter.USDToEther(CertificatePriceUSD);
-    OwnerRefundFeeWei = await PriceConverter.USDToEther(OwnerRefundFeeUSD);
+    let exchangeRate = await PriceConverter.USDToEther(1);
+    PublicPriceWei = PublicPriceUSD * exchangeRate;
+    PrivatePriceWei = PrivatePriceUSD * exchangeRate;
+    ProviderPriceWei = ProviderPriceUSD * exchangeRate;
+    CertificatePriceWei = CertificatePriceUSD * exchangeRate;
+    OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
   }
 
   export async function RetrievePendingPricesTreasury(){
@@ -52,16 +54,26 @@ export var PendingOwnerRefundFeeUSD = "";
     
 
   export async function UpgradePricesTreasury(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD){
-    await Aux.CallBackFrame(Contracts.Treasury.methods.updatePrices(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD).send({from: Aux.account }));
+    await Aux.CallBackFrame(Contracts.Treasury.methods.updatePrices(
+      (new BigNumber(100 * NewPublicPriceUSD)).decimalPlaces(0),
+      (new BigNumber(100 * NewPrivatePriceUSD)).decimalPlaces(0), 
+      (new BigNumber(100 * NewProviderPriceUSD)).decimalPlaces(0),
+      (new BigNumber(100 * NewCertificatePriceUSD)).decimalPlaces(0), 
+      (new BigNumber(100 * NewOwnerRefundFeeUSD)).decimalPlaces(0)
+    ).send({from: Aux.account }));
+  }
+
+  export async function RetrieveLastAssigned(address){
+    LastAssigned = new BigNumber(await Contracts.Treasury.methods.retrieveLastAssigned(address).call());
   }
 
   export async function RetrieveBalance(address){
-    AccountBalance = await Contracts.Treasury.methods.retrieveBalance(address).call();
+    AccountBalance = new BigNumber(await Contracts.Treasury.methods.retrieveBalance(address).call());
   }
 
   export async function RetrieveTreasuryBalance(){
-    TreasuryBalance = await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy);
-    TreasuryAggregatedBalance = await Contracts.Treasury.methods.retrieveAggregatedAmount().call();
+    TreasuryBalance = new BigNumber(await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy));
+    TreasuryAggregatedBalance = new BigNumber(await Contracts.Treasury.methods.retrieveAggregatedAmount().call());
   }
 
   export async function AssignDividends(){

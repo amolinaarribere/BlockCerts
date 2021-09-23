@@ -1,37 +1,41 @@
 import React from 'react';
+import {  ETHDecimals } from '../../../config';
+import { Form, Container, Row, Col } from 'react-bootstrap';
 const func = require("../../../functions/PriceConverterFunctions.js");
 
 class PriceConvertToWeiComponent extends React.Component {
     state = {
-      PriceUSDText : "",
-      PriceUSD : 0,
-      PriceWei : 0
+      AmountUSDText : "",
+      AmountUSD : 0,
+      AmountWei : 0
     };
 
     Convert = async (event) => {
       event.preventDefault();
-
-      if(this.state.PriceUSDText != "") this.state.PriceUSD = this.state.PriceUSDText;
-
-      this.state.PriceWei = await func.USDToEther(this.state.PriceUSD);
-
-      this.setState({ PriceUSDText: ""})
+      if(this.state.AmountUSDText != "") this.state.AmountUSD = this.state.AmountUSDText;
+      this.state.AmountWei = await func.USDToEther(this.state.AmountUSD);
+      this.setState({ AmountUSDText: ""})
     };
     
     render(){
       return (
         <div>
-          <br />
-          <form onSubmit={this.Convert}>
-            <p>
-              <input type="integer" name="PriceUSD" placeholder="PriceUSD" 
-                  value={this.state.PriceUSDText}
-                  onChange={event => this.setState({ PriceUSDText: event.target.value })}/>
-            </p>
-              <button>Convert</button>
-          </form>
-          <br />
-          <p><b>Price In Wei :</b> {this.state.PriceWei} ({this.state.PriceUSD}USD)</p>
+         <h3>Convert</h3>
+         <Form onSubmit={this.Convert} style={{margin: '50px 50px 50px 50px' }}>
+            <Form.Group  className="mb-3">
+              <Form.Control type="number" step="0.01" name="AmountUSD" placeholder="Amount in USD" 
+                  value={this.state.AmountUSDText}
+                  onChange={event => this.setState({ AmountUSDText: event.target.value })}/>
+            </Form.Group>
+            <button class="btn btn-secondary">Convert</button> 
+          </Form>
+          <Container style={{margin: '10px 50px 50px 50px' }}>
+              <Row>
+                <Col><b>Amount In ETH :</b></Col> 
+                <Col>{this.state.AmountWei / ETHDecimals} ({this.state.AmountUSD}USD)</Col>
+              </Row>
+          </Container>
+          <hr class="bg-secondary"/>
         </div>
       );
     }

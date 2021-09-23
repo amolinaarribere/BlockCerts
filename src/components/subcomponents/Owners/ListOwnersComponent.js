@@ -1,55 +1,37 @@
 import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+
 const func = require("../../../functions/OwnerFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 class ListOwnersComponent extends React.Component{
     render(){
-      if (this.props.contractType == 1){
-        return(
-          <div>
-            <p><b>Total Public Owners :</b> {func.publicTotalOwners}</p>
-            <p><b>Min Public Owners :</b> {func.publicMinOwners}</p>
-            <p><b>Public Owners :</b>
-              <ol>
-                {func.publicOwners.map(publicOwner => (
-                <li key={publicOwner}>{Aux.Bytes32ToAddress(publicOwner)}</li>
-                ))}
-              </ol>
-            </p>
-          </div>
-        );
-      }
-      else if (this.props.contractType == 2){
-        return(
-          <div>
-            <p><b>Total Private Owners :</b> {func.privateTotalOwners}</p>
-            <p><b>Min Private Owners :</b> {func.privateMinOwners}</p>
-            <p><b>Private Owners :</b>
-              <ol>
-                {func.privateOwners.map(privateOwner => (
-                <li key={privateOwner}>{Aux.Bytes32ToAddress(privateOwner)}</li>
-                ))}
-              </ol>
-            </p>
-          </div>
-        );
-      }
-      else{
-        return(
-          <div>
-            <p><b>Total Provider Owners :</b> {func.providerTotalOwners}</p>
-            <p><b>Min Provider Owners :</b> {func.providerMinOwners}</p>
-            <p><b>Provider Owners :</b>
-              <ol>
-                {func.providerOwners.map(providerOwner => (
-                <li key={providerOwner}>{Aux.Bytes32ToAddress(providerOwner)}</li>
-                ))}
-              </ol>
-            </p>
-          </div>
-        );
-      }
-      
+      return(
+          <div class="border border-0">
+            <h3>Owners</h3>
+            <Container style={{margin: '10px 50px 50px 50px' }}>
+              {(this.props.contractType == 1) ? 
+                      func.publicOwners.map(publicOwner => (
+                        <Row key={publicOwner}>{Aux.Bytes32ToAddress(publicOwner)}</Row>
+                        )) : 
+                (this.props.contractType == 2) ? 
+                      func.privateOwners.map(privateOwner => (
+                        <Row class="border-0" key={privateOwner}>{Aux.Bytes32ToAddress(privateOwner)}</Row>
+                        )) : 
+                      func.providerOwners.map(providerOwner => (
+                        <Row class="border-0" key={providerOwner}>{Aux.Bytes32ToAddress(providerOwner)}</Row>
+                        ))}
+                <br />
+                 <Row>
+                  <Col><b>Min Public Owners :</b></Col>
+                  <Col>{(this.props.contractType == 1) ? func.publicMinOwners : 
+                        (this.props.contractType == 2) ? func.privateMinOwners : 
+                        func.providerMinOwners}</Col>
+                </Row>
+            </Container>
+        </div>
+      );
+       
     }
     
   }

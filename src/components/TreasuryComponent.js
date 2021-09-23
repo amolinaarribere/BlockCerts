@@ -1,29 +1,30 @@
 import React from 'react';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
-import CurrentAddressComponent from './subcomponents/CurrentAddressComponent.js';
 import PricePropositionComponent from './subcomponents/Treasury/PricePropositionComponent.js';
 import AssignWithdrawComponent from './subcomponents/Treasury/AssignWithdrawComponent.js';
-const func = require("../functions/LoadFunctions.js");
 
 class TreasuryComponent extends React.Component {
-    componentWillMount() {
-      func.LoadBlockchain()
-      //func.SwitchContext()
-   }
     state = {
       contractType : 2
     };
+
+    constructor(props) {
+      super(props)
+      this.refresh = this.refresh.bind(this)
+    }
+    
+    refresh() {
+      this.setState({})
+    }
     
     render(){
       return (
         <div>
-          <CurrentAddressComponent />
+          <AssignWithdrawComponent refresh={this.refresh}/>
           <br />
-          <AssignWithdrawComponent />
+          <PricePropositionComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <PricePropositionComponent />
-          <br />
-          <PropositionConfigComponent contractType={this.state.contractType}/>
+          <PropositionConfigComponent contractType={this.state.contractType} refresh={this.refresh}/>
         </div>
       );
     }

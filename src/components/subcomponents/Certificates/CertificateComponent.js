@@ -1,12 +1,23 @@
 import React from 'react';
 import ListPendingCertificatesComponent from './ListPendingCertificatesComponent';
-import ValidateCertificateComponent from './ValidateCertificateComponent';
-import RejectCertificateComponent from './RejectCertificateComponent';
+import VoteCertificateComponent from './VoteCertificateComponent';
+import { Form, Container, Row, Col } from 'react-bootstrap';
+
+
 const func = require("../../../functions/CertificateFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 
 class CertificateComponent extends React.Component{
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh() {
+    this.props.refresh();
+  }
+
     state = {
       certificateHash : "",
       holderAddress: "",
@@ -50,63 +61,65 @@ class CertificateComponent extends React.Component{
       if(3 != this.props.contractType){
         return (
           <div>
-            <h4 class="text-primary">Certificates</h4>
-            <br />
-            <form onSubmit={this.handleAddCertificate}>
-                <input type="file" onChange={this.captureFile} className="input-file" />
-                <br />
-                <input type="text" name="HolderAddress" placeholder="holder address" 
+            <h3>Certificates</h3>
+            <Form onSubmit={this.handleAddCertificate} style={{margin: '50px 50px 50px 50px' }}>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Control type="file" onChange={this.captureFile}/>
+                <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
-                <br />
-                <button type="submit">Add Certificate</button>
-                <button type="button" onClick={this.handleCheckCertificate}>Check Certificate</button>
-            </form>
-            <br />
-            <p>{func.certificateProvider}</p>
-            <br />
-            <br/>
-            <form onSubmit={this.handleRetrieveByHolder}>
-                <input type="text" name="RetreiveByHolder" placeholder="holder address" 
+              </Form.Group>
+              <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
+              <button type="button" class="btn btn-secondary" onClick={this.handleCheckCertificate}>Check Certificate</button> 
+            </Form>
+
+            <Container>
+              <Row>
+                <Col>{func.certificateProvider}</Col>
+              </Row>
+            </Container>
+
+            <Form onSubmit={this.handleRetrieveByHolder} style={{margin: '50px 50px 50px 50px' }}>
+              <Form.Group  className="mb-3">
+                <Form.Control type="text" name="RetreiveByHolder" placeholder="holder address" 
                     value={this.state.retrieveholderAddress}
                     onChange={event => this.setState({ retrieveholderAddress: event.target.value })}/>
-                <button>Retrieve By Holder</button>
-            </form>
-            <br />
-            <p><b>Certificates for Holder : {func.currentHolder}</b>
-              <ol>
-                {func.certificatesByHolder.map(certificateByHolder => (
-                <li key={certificateByHolder}>{certificateByHolder}</li>
-                ))}
-              </ol>
-            </p>
+              </Form.Group>
+              <button class="btn btn-secondary">Retrieve By Holder</button>
+            </Form>
+
+            <Container>
+              {(func.certificatesByHolder.length > 0)? (<Row><Col><b>Certificates for Holder :</b></Col> <Col>{func.currentHolder}</Col></Row>):null}
+              {(func.certificatesByHolder.length == 0 && func.currentHolder != "")? (<Row><Col><b>No Certificates for Holder :</b></Col>  <Col>{func.currentHolder}</Col></Row>):null}
+              {func.certificatesByHolder.map(certificateByHolder => (
+                <Row key={certificateByHolder}>{certificateByHolder}</Row>
+              ))}
+            </Container>
+            <hr class="bg-secondary"/>
+
           </div>
         );
       }
       else{
         return (
           <div>
-            <h4 class="text-primary">Certificates</h4>
-            <br />
-            <form onSubmit={this.handleAddCertificate}>
-                <input type="file" onChange={this.captureFile} className="input-file" />
-                <br />
-                <input type="text" name="HolderAddress" placeholder="holder address" 
+            <h3>Certificates</h3>
+            <Form onSubmit={this.handleAddCertificate} style={{margin: '50px 50px 50px 50px' }}>
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Control type="file" onChange={this.captureFile}/>
+                <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
-                <br />
-                <input type="text" name="PoolAddress" placeholder="pool address" 
+                <Form.Control type="text" name="PoolAddress" placeholder="pool address" 
                     value={this.state.poolAddress}
                     onChange={event => this.setState({ poolAddress: event.target.value })}/>
-                <br />
-                <button type="submit">Add Certificate</button>
-            </form>
-            <br />
-            <ValidateCertificateComponent />
-            <br />
-            <RejectCertificateComponent />
+              </Form.Group>
+              <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
+            </Form>
+            <VoteCertificateComponent refresh={this.refresh}/>
             <br />
             <ListPendingCertificatesComponent />
+            <hr class="bg-secondary"/>
           </div>
         );
       }

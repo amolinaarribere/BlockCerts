@@ -1,12 +1,11 @@
 import React from 'react';
-const func = require("../../functions/AuxiliaryFunctions.js");
+const func = require("../functions/AuxiliaryFunctions.js");
 
 class CurrentAddressComponent extends React.Component{
     render(){
       return(
         <div>
-          <h3>Current Address : {func.account}</h3>
-          <br />
+          <h6 class="text-white">Your Address : {func.account}</h6>
         </div>
       );
     }
