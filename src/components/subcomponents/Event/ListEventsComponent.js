@@ -14,13 +14,13 @@ class ListEventsComponent extends React.Component {
 
     handleStopEvents = async (event) => {
       event.preventDefault();
-      EventsFunc.StopEvents();
+      await EventsFunc.StopEvents();
       this.setState({ EventsActivated: false });
     }
 
     handleStartEvents = async (event) => {
       event.preventDefault();
-      EventsFunc.StartEvents();
+      await EventsFunc.StartEvents();
       this.setState({ EventsActivated: true });
     }
 

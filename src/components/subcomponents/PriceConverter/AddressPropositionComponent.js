@@ -9,6 +9,16 @@ const loadFunc = require("../../../functions/LoadFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 
 class AddressPropositionComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh = async (event) => {
+    await loadFunc.LoadPriceConverterFunc();
+    this.props.refresh()
+  }
+
     state = {
       NewRegistryAddress : "",
       isUpdateRegistryShown: false,
@@ -32,8 +42,7 @@ class AddressPropositionComponent extends React.Component {
       if(this.state.NewRegistryAddress != "") NRA = this.state.NewRegistryAddress;
       await func.UpgradeRegistryAddress(NRA);
       this.setState({ NewRegistryAddress: ""})
-      await loadFunc.LoadPriceConverterFunc();
-      this.props.refresh();
+      await this.refresh();
     };
     
     render(){
@@ -84,7 +93,7 @@ class AddressPropositionComponent extends React.Component {
                         </Row>
                         < br/>
                         <Row>
-                          <VoteForPropositionComponent contractType={this.props.contractType}/>
+                          <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
                         </Row>
                       </Container>
                     </div>) : null}

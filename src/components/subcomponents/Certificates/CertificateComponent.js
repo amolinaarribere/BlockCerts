@@ -9,6 +9,15 @@ const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 
 class CertificateComponent extends React.Component{
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh() {
+    this.props.refresh();
+  }
+
     state = {
       certificateHash : "",
       holderAddress: "",
@@ -109,7 +118,7 @@ class CertificateComponent extends React.Component{
               </Form.Group>
               <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
             </Form>
-            <VoteCertificateComponent />
+            <VoteCertificateComponent refresh={this.refresh}/>
             <br />
             <ListPendingCertificatesComponent />
             <hr class="bg-secondary"/>

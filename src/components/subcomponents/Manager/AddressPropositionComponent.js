@@ -10,6 +10,16 @@ const address_0 = "0x0000000000000000000000000000000000000000";
 const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AddressPropositionComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh = async (event) => {
+    await loadFunc.LoadManagerFunc();
+    this.props.refresh()
+  }
+
     state = {
       NewPublicPoolAddress : "",
       NewTreasuryAddress : "",
@@ -66,9 +76,10 @@ class AddressPropositionComponent extends React.Component {
         NewProviderAddress: "",
         NewPriceConverterAddress: ""})
 
-      await loadFunc.LoadManagerFunc();
-      this.props.refresh();
+      await this.refresh()
       };
+
+    
     
     render(){
       return (
@@ -230,7 +241,7 @@ class AddressPropositionComponent extends React.Component {
                       </Row>
                       < br/>
                       <Row>
-                        <VoteForPropositionComponent contractType={this.props.contractType}/>
+                        <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
                       </Row>
                     </Container> 
                   </div>) : null}

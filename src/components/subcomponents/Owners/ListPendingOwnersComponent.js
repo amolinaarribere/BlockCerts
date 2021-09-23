@@ -6,6 +6,15 @@ const func = require("../../../functions/OwnerFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 class ListPendingOwnersComponent extends React.Component{
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+  
+  refresh() {
+    this.props.refresh()
+  }
+  
   state = {
     isPendingMinOwnersShown: false,
     isPendingOwnersAddShown: false,
@@ -61,7 +70,7 @@ class ListPendingOwnersComponent extends React.Component{
                       </Row>
                       < br/>
                       <Row>
-                        <VoteForMinOwnersComponent contractType={this.props.contractType}/>
+                        <VoteForMinOwnersComponent contractType={this.props.contractType} refresh={this.refresh}/>
                       </Row>
                     </Container>
                   </div>) : null} 

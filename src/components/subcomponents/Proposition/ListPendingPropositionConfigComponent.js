@@ -5,6 +5,14 @@ import VoteForPropositionComponent from './VoteForPropositionComponent.js';
 const func = require("../../../functions/PropositionFunctions.js");
 
 class ListPendingPropositionConfigComponent extends React.Component{
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+
+  refresh() {
+    this.props.refresh();
+  }
 
   state = {
     isPendingPropositionConfigShown: false
@@ -44,7 +52,7 @@ class ListPendingPropositionConfigComponent extends React.Component{
                     </Row>
                     < br/>
                     <Row>
-                      <VoteForPropositionComponent contractType={this.props.contractType}/>
+                      <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
                     </Row>
                   </Container>
                 </div>) : null}      

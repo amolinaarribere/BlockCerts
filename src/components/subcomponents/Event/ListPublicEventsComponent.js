@@ -50,13 +50,13 @@ class ListPublicEventsComponent extends React.Component {
                   <br />
 
                   {(this.state.listingPublicEvents  && 
-                        this.state.PublicEvents.length > 0) ? (
+                        this.state.PublicEvents != null) ? (
                   <Container style={{margin: '10px 50px 50px 50px' }}>
                     <Row>
                       <Col><h2>New Proposals</h2></Col>
                     </Row>
 
-                    {(this.state.PublicEvents[EventsFunc.NewProposalId].length > 0 && 
+                    {(this.state.PublicEvents[EventsFunc.NewProposalId] != null && 
                           EventsFunc.PublicNewProposalConnected) ? (
                       <div>
                         
@@ -64,8 +64,8 @@ class ListPublicEventsComponent extends React.Component {
                               <div>
                                   <Row>
                                     <p>
-                                      <b>Account </b>{NewProposal[0]} &nbsp;
-                                      <b>Info</b> {NewProposal[1]}
+                                      <b>Account </b>{NewProposal.Provider} &nbsp;
+                                      <b>Info</b> {NewProposal.Info}
                                     </p>
                                   </Row>
                                 <br />
@@ -83,7 +83,7 @@ class ListPublicEventsComponent extends React.Component {
                       <Col><h2>Add Certificates</h2></Col>
                     </Row>
 
-                    {(this.state.PublicEvents[EventsFunc.AddCertificateId].length > 0 && 
+                    {(this.state.PublicEvents[EventsFunc.AddCertificateId] != null && 
                           EventsFunc.PublicAddCertificatesConnected) ? (
                       <div>
     
@@ -91,9 +91,9 @@ class ListPublicEventsComponent extends React.Component {
                               <div>
                                 <Row>
                                     <p>
-                                      <b>Provider </b>{AddCertificateId[0]} &nbsp;
-                                      <b>Holder</b> {AddCertificateId[1]} &nbsp;
-                                      <b>Certificate</b> {AddCertificateId[2]}
+                                      <b>Provider </b>{AddCertificateId.Provider} &nbsp;
+                                      <b>Holder</b> {AddCertificateId.Holder} &nbsp;
+                                      <b>Certificate</b> {AddCertificateId.Certificate}
                                     </p>
                                 </Row>
                                 <br />

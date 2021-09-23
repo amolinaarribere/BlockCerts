@@ -50,27 +50,27 @@ class ListManagerEventsComponent extends React.Component {
                   <br />
 
                   {(this.state.listingManagerEvents  && 
-                        this.state.ManagerEvents.length > 0) ? (
+                        this.state.ManagerEvents != null) ? (
                   <Container style={{margin: '10px 50px 50px 50px' }}>
                     <Row>
                       <Col><h2>New Contracts</h2></Col>
                     </Row>
 
-                    {(this.state.ManagerEvents[EventsFunc.NewContractsId].length > 0 && 
+                    {(this.state.ManagerEvents[EventsFunc.NewContractsId] != null && 
                           EventsFunc.ManagerNewContractsConnected) ? (
                       <div>
                           {(this.state.ManagerEvents[EventsFunc.NewContractsId]).map(NewContracts => (
                                <div>
                                   <Row>
                                     <p>
-                                      <b>Public </b>{NewContracts[0]} &nbsp;
-                                      <b>Certis</b> {NewContracts[1]} &nbsp;
-                                      <b>Treasury</b> {NewContracts[2]} &nbsp;
-                                      <b>Private Factory : </b>{NewContracts[3]} &nbsp;
-                                      <b>Private : </b>{NewContracts[4]} &nbsp;
-                                      <b>Provider Factory : </b>{NewContracts[5]} &nbsp;
-                                      <b>Provider : </b>{NewContracts[6]} &nbsp;
-                                      <b>Price Converter : </b>{NewContracts[7]}
+                                      <b>Public </b>{NewContracts.Public} &nbsp;
+                                      <b>Certis</b> {NewContracts.Certis} &nbsp;
+                                      <b>Treasury</b> {NewContracts.Treasury} &nbsp;
+                                      <b>Private Factory : </b>{NewContracts.PrivateFactory} &nbsp;
+                                      <b>Private : </b>{NewContracts.Private} &nbsp;
+                                      <b>Provider Factory : </b>{NewContracts.ProviderFactory} &nbsp;
+                                      <b>Provider : </b>{NewContracts.Provider} &nbsp;
+                                      <b>Price Converter : </b>{NewContracts.PriceConverter}
                                     </p>
                                   </Row>
                                   <br />  
@@ -87,7 +87,7 @@ class ListManagerEventsComponent extends React.Component {
                       <Col><h2>Added Proposition</h2></Col>
                     </Row>
 
-                    {(this.state.ManagerEvents[EventsFunc.AddedPropositionId].length > 0 && 
+                    {(this.state.ManagerEvents[EventsFunc.AddedPropositionId] != null && 
                           EventsFunc.ManagerAddedPropositionConnected) ? (
                       <div>
     

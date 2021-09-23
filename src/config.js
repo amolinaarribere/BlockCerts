@@ -1,4 +1,4 @@
-export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0xa7932359D55D2Eb225617770e51c63611093bb20'
+export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0xd2Aeb2354C79a36D1edAE94f38AEC7863A5465Ce'
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;
@@ -31,25 +31,25 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Deadline",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Threshold",
         "type": "uint256"
       }
     ],
@@ -62,13 +62,13 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       }
     ],
@@ -81,49 +81,49 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Public",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Treasury",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Certis",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "PrivateFactory",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Private",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "ProviderFactory",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Provider",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "PriceConverter",
         "type": "address"
       }
     ],
@@ -136,25 +136,25 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesFor",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesAgainst",
         "type": "uint256"
       }
     ],
@@ -167,25 +167,25 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesFor",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesAgainst",
         "type": "uint256"
       }
     ],
@@ -198,25 +198,25 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Voter",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "bool",
-        "name": "",
+        "name": "Vote",
         "type": "bool"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "AmountTokens",
         "type": "uint256"
       }
     ],
@@ -229,25 +229,25 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "From",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "To",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       }
     ],
@@ -919,19 +919,19 @@ export const PUBLIC_ABI = [
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Provider",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Holder",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "bytes32",
-        "name": "",
+        "name": "Certificate",
         "type": "bytes32"
       }
     ],
@@ -943,18 +943,118 @@ export const PUBLIC_ABI = [
     "inputs": [
       {
         "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_AddItemRejection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_AddItemValidation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Provider",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "string",
-        "name": "",
+        "name": "Info",
         "type": "string"
       }
     ],
     "name": "_NewProposal",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_RemoveItemRejection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_RemoveItemValidation",
     "type": "event"
   },
   {
@@ -1588,31 +1688,31 @@ export const PRIVATEFACTORY_ABI = [
       {
         "indexed": true,
         "internalType": "string",
-        "name": "",
+        "name": "Factory",
         "type": "string"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Creator",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Element",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "string",
-        "name": "",
+        "name": "Name",
         "type": "string"
       }
     ],
@@ -1731,31 +1831,31 @@ export const PROVIDERFACTORY_ABI = [
       {
         "indexed": true,
         "internalType": "string",
-        "name": "",
+        "name": "Factory",
         "type": "string"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Creator",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Element",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "string",
-        "name": "",
+        "name": "Name",
         "type": "string"
       }
     ],
@@ -1874,25 +1974,25 @@ export const TREASURY_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Deadline",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Threshold",
         "type": "uint256"
       }
     ],
@@ -1905,19 +2005,19 @@ export const TREASURY_ABI = [
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Recipient",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "TotalSupply",
         "type": "uint256"
       }
     ],
@@ -1930,13 +2030,13 @@ export const TREASURY_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       }
     ],
@@ -1949,31 +2049,31 @@ export const TREASURY_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Public",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Private",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Provider",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Certificate",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "OwnerRefund",
         "type": "uint256"
       }
     ],
@@ -1986,19 +2086,19 @@ export const TREASURY_ABI = [
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Payer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "AggregatedAmount",
         "type": "uint256"
       }
     ],
@@ -2011,25 +2111,25 @@ export const TREASURY_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesFor",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesAgainst",
         "type": "uint256"
       }
     ],
@@ -2042,25 +2142,25 @@ export const TREASURY_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesFor",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesAgainst",
         "type": "uint256"
       }
     ],
@@ -2073,25 +2173,25 @@ export const TREASURY_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Voter",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "bool",
-        "name": "",
+        "name": "Vote",
         "type": "bool"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "AmountTokens",
         "type": "uint256"
       }
     ],
@@ -2104,19 +2204,19 @@ export const TREASURY_ABI = [
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Owner",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "TotalOwners",
         "type": "uint256"
       }
     ],
@@ -2129,25 +2229,25 @@ export const TREASURY_ABI = [
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "From",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "To",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       }
     ],
@@ -2160,13 +2260,13 @@ export const TREASURY_ABI = [
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Recipient",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       }
     ],
@@ -2992,23 +3092,123 @@ export const PRIVATE_ABI =  [
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Provider",
         "type": "address"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Holder",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "bytes32",
-        "name": "",
+        "name": "Certificate",
         "type": "bytes32"
       }
     ],
     "name": "_AddCertificate",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_AddItemRejection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_AddItemValidation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_RemoveItemRejection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_RemoveItemValidation",
     "type": "event"
   },
   {
@@ -3616,7 +3816,107 @@ export const PRIVATE_ABI =  [
   }
 ]
 
-export const PROVIDER_ABI =  [
+export const PROVIDER_ABI =   [
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_AddItemRejection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_AddItemValidation",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_RemoveItemRejection",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "ItemType",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "Item",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "string",
+        "name": "Info",
+        "type": "string"
+      }
+    ],
+    "name": "_RemoveItemValidation",
+    "type": "event"
+  },
   {
     "inputs": [
       {
@@ -4258,25 +4558,25 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Deadline",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Threshold",
         "type": "uint256"
       }
     ],
@@ -4289,13 +4589,13 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       }
     ],
@@ -4308,7 +4608,7 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "Registry",
         "type": "address"
       }
     ],
@@ -4321,25 +4621,25 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesFor",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesAgainst",
         "type": "uint256"
       }
     ],
@@ -4352,25 +4652,25 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Proposer",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesFor",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "VotesAgainst",
         "type": "uint256"
       }
     ],
@@ -4383,25 +4683,25 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": true,
         "internalType": "address",
-        "name": "",
+        "name": "Voter",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "bool",
-        "name": "",
+        "name": "Vote",
         "type": "bool"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "AmountTokens",
         "type": "uint256"
       }
     ],
@@ -4414,25 +4714,25 @@ export const PRICECONVERTER_ABI = [
       {
         "indexed": true,
         "internalType": "uint256",
-        "name": "",
+        "name": "Id",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "From",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "address",
-        "name": "",
+        "name": "To",
         "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "",
+        "name": "Amount",
         "type": "uint256"
       }
     ],
