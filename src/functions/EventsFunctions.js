@@ -109,7 +109,7 @@ const NewProposalInputs = [
     "type": "address"
   },
   {
-    "indexed": true,
+    "indexed": false,
     "internalType": "string",
     "name": "Info",
     "type": "string"
