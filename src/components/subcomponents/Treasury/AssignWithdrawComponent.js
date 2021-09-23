@@ -2,12 +2,13 @@ import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { ETHDecimals } from '../../../config';
 
+const BigNumber = require('bignumber.js');
 const func = require("../../../functions/TreasuryFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AssignWithdrawComponent extends React.Component {
     state = {
-        amount : 0
+        amount : ""
       };
     
     handleAssignDividends = async (event) => {
@@ -18,9 +19,9 @@ class AssignWithdrawComponent extends React.Component {
     };
 
     handleWithdraw = async (event) => {
-        event.preventDefault();
-      await func.WithdrawAmount(this.state.amount);
-      this.setState({amount: 0});
+      event.preventDefault();
+      await func.WithdrawAmount((new BigNumber(this.state.amount)).toString());
+      this.setState({amount: ""});
       await loadFunc.LoadTreasuryFunc();
       this.props.refresh();
     };
@@ -33,19 +34,19 @@ class AssignWithdrawComponent extends React.Component {
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Aggregated Balance (ETH) :</b></Col> 
-                <Col>{func.TreasuryAggregatedBalance / ETHDecimals}</Col>
+                <Col>{func.TreasuryAggregatedBalance.dividedBy(ETHDecimals).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Contract Balance (ETH) :</b></Col> 
-                <Col>{func.TreasuryBalance / ETHDecimals}</Col>
+                <Col>{func.TreasuryBalance.dividedBy(ETHDecimals).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Your Last Assigned (ETH) :</b></Col> 
-                <Col>{func.LastAssigned / ETHDecimals}</Col>
+                <Col>{func.LastAssigned.dividedBy(ETHDecimals).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Your current Balance (ETH) :</b></Col> 
-                <Col>{func.AccountBalance / ETHDecimals}</Col>
+                <Col>{func.AccountBalance.dividedBy(ETHDecimals).toString()}</Col>
               </Row>
               <br />
               <button type="button" class="btn btn-secondary" onClick={this.handleAssignDividends}>Assign</button>
@@ -54,7 +55,7 @@ class AssignWithdrawComponent extends React.Component {
           <div class="border border border-0">
             <Form onSubmit={this.handleWithdraw} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="integer" name="Amount" placeholder="Amount in Wei" 
+                <Form.Control type="string" name="Amount" placeholder="Amount in Wei" 
                   value={this.state.amount}
                   onChange={event => this.setState({ amount: event.target.value })}/>
               </Form.Group>

@@ -3,11 +3,12 @@ const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
+const BigNumber = require('bignumber.js');
 
-export var LastAssigned = "";
-export var AccountBalance = "";
-export var TreasuryBalance = "";
-export var TreasuryAggregatedBalance = "";
+export var LastAssigned = new BigNumber(0);
+export var AccountBalance = new BigNumber(0);
+export var TreasuryBalance = new BigNumber(0);
+export var TreasuryAggregatedBalance = new BigNumber(0);
 
 export var PublicPriceUSD = "";
 export var PrivatePriceUSD = "";
@@ -57,16 +58,16 @@ export var PendingOwnerRefundFeeUSD = "";
   }
 
   export async function RetrieveLastAssigned(address){
-    LastAssigned = await Contracts.Treasury.methods.retrieveLastAssigned(address).call();
+    LastAssigned = new BigNumber(await Contracts.Treasury.methods.retrieveLastAssigned(address).call());
   }
 
   export async function RetrieveBalance(address){
-    AccountBalance = await Contracts.Treasury.methods.retrieveBalance(address).call();
+    AccountBalance = new BigNumber(await Contracts.Treasury.methods.retrieveBalance(address).call());
   }
 
   export async function RetrieveTreasuryBalance(){
-    TreasuryBalance = await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy);
-    TreasuryAggregatedBalance = await Contracts.Treasury.methods.retrieveAggregatedAmount().call();
+    TreasuryBalance = new BigNumber(await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy));
+    TreasuryAggregatedBalance = new BigNumber(await Contracts.Treasury.methods.retrieveAggregatedAmount().call());
   }
 
   export async function AssignDividends(){
