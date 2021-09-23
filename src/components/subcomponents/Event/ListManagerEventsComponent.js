@@ -39,11 +39,6 @@ class ListManagerEventsComponent extends React.Component {
 
                   <div class="border border-primary border-5">
                   <Form onSubmit={this.handleManagerEvents} style={{margin: '50px 50px 50px 50px' }}>
-                    <Form.Group  className="mb-3">
-                      <Form.Control type="integer" name="ManagerEventBlock" placeholder="ManagerEventBlock" 
-                          value={this.state.ManagerEventBlock}
-                          onChange={event => this.setState({ ManagerEventBlock: event.target.value })}/>
-                    </Form.Group>
                       <button class="btn btn-secondary">{(this.state.listingManagerEvents) ? "Refresh" : "List Events"}</button>
                   </Form>
                 
@@ -52,66 +47,67 @@ class ListManagerEventsComponent extends React.Component {
                   {(this.state.listingManagerEvents  && 
                         this.state.ManagerEvents != null) ? (
                   <Container style={{margin: '10px 50px 50px 50px' }}>
-                    <Row>
-                      <Col><h2>New Contracts</h2></Col>
-                    </Row>
+                     <div>
+                      <Row>
+                        <Col><h2>New Contracts</h2></Col>
+                      </Row>
 
-                    {(this.state.ManagerEvents[EventsFunc.NewContractsId] != null && 
-                          EventsFunc.ManagerNewContractsConnected) ? (
-                      <div>
-                          {(this.state.ManagerEvents[EventsFunc.NewContractsId]).map(NewContracts => (
-                               <div>
+                      {(this.state.ManagerEvents[EventsFunc.NewContractsId] != null) ? (
+                        <div>
+                            {(this.state.ManagerEvents[EventsFunc.NewContractsId]).map(NewContracts => (
+                                <div>
+                                    <Row>
+                                      <p>
+                                        <b>Public </b>{NewContracts.Public} &nbsp;
+                                        <b>Certis</b> {NewContracts.Certis} &nbsp;
+                                        <b>Treasury</b> {NewContracts.Treasury} &nbsp;
+                                        <b>Private Factory : </b>{NewContracts.PrivateFactory} &nbsp;
+                                        <b>Private : </b>{NewContracts.Private} &nbsp;
+                                        <b>Provider Factory : </b>{NewContracts.ProviderFactory} &nbsp;
+                                        <b>Provider : </b>{NewContracts.Provider} &nbsp;
+                                        <b>Price Converter : </b>{NewContracts.PriceConverter}
+                                      </p>
+                                    </Row>
+                                    <br />  
+                                  </div>
+                            ))}
+                          </div>
+                        ):null}
+
+                      <br />  
+                      <hr class="bg-secondary"/>
+                      <br />
+                    </div>
+
+                     <div>
+                      <Row>
+                        <Col><h2>Added Proposition</h2></Col>
+                      </Row>
+
+                      {(this.state.ManagerEvents[EventsFunc.AddedPropositionId] != null) ? (
+                        <div>
+      
+                          {(this.state.ManagerEvents[EventsFunc.AddedPropositionId]).map(AddedProposition => (
+                                <div>
                                   <Row>
                                     <p>
-                                      <b>Public </b>{NewContracts.Public} &nbsp;
-                                      <b>Certis</b> {NewContracts.Certis} &nbsp;
-                                      <b>Treasury</b> {NewContracts.Treasury} &nbsp;
-                                      <b>Private Factory : </b>{NewContracts.PrivateFactory} &nbsp;
-                                      <b>Private : </b>{NewContracts.Private} &nbsp;
-                                      <b>Provider Factory : </b>{NewContracts.ProviderFactory} &nbsp;
-                                      <b>Provider : </b>{NewContracts.Provider} &nbsp;
-                                      <b>Price Converter : </b>{NewContracts.PriceConverter}
+                                        <b>ID </b>{AddedProposition[0]} &nbsp;
+                                        <b>Proposer</b> {AddedProposition[1]} &nbsp;
+                                        <b>DeadLine</b> {AddedProposition[2]} &nbsp;
+                                        <b>Threshold : </b>{AddedProposition[3]} 
                                     </p>
                                   </Row>
-                                  <br />  
+                                  <br />
                                 </div>
                           ))}
-                        </div>
-                      ):null}
+                          
+                          </div>
+                        ):null}
 
-                    <br />  
-                    <hr class="bg-secondary"/>
-                    <br />
-
-                    <Row>
-                      <Col><h2>Added Proposition</h2></Col>
-                    </Row>
-
-                    {(this.state.ManagerEvents[EventsFunc.AddedPropositionId] != null && 
-                          EventsFunc.ManagerAddedPropositionConnected) ? (
-                      <div>
-    
-                        {(this.state.ManagerEvents[EventsFunc.AddedPropositionId]).map(AddedProposition => (
-                              <div>
-                                <Row>
-                                  <p>
-                                      <b>ID </b>{AddedProposition[0]} &nbsp;
-                                      <b>Proposer</b> {AddedProposition[1]} &nbsp;
-                                      <b>DeadLine</b> {AddedProposition[2]} &nbsp;
-                                      <b>Threshold : </b>{AddedProposition[3]} 
-                                  </p>
-                                </Row>
-                                <br />
-                              </div>
-                        ))}
-                        
-                        </div>
-                      ):null}
-
-                    <br />  
-                    <hr class="bg-secondary"/>
-                    <br />
-
+                      <br />  
+                      <hr class="bg-secondary"/>
+                      <br />
+                    </div>
                   </Container>) : null}
                   </div>
 

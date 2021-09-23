@@ -47,7 +47,7 @@ class PricePropositionComponent extends React.Component {
       var NPPUSD3 = 0;
       var NCPUSD = 0;
       var NORUSD = 0;
-
+      
       if(this.state.NewPublicPriceUSD != "") NPPUSD = this.state.NewPublicPriceUSD;
       if(this.state.NewPrivatePriceUSD != "") NPPUSD2 = this.state.NewPrivatePriceUSD;
       if(this.state.NewProviderPriceUSD != "") NPPUSD3 = this.state.NewProviderPriceUSD;
@@ -55,7 +55,6 @@ class PricePropositionComponent extends React.Component {
       if(this.state.NewOwnerRefundFeeUSD != "") NORUSD = this.state.NewOwnerRefundFeeUSD;
 
       await func.UpgradePricesTreasury(NPPUSD, NPPUSD2, NPPUSD3, NCPUSD, NORUSD);
-
       this.setState({ NewPublicPriceUSD: "",
       NewPrivatePriceUSD: "",
       NewProviderPriceUSD: "",
@@ -105,19 +104,19 @@ class PricePropositionComponent extends React.Component {
               <div class="border border-primary border-5">
                 <Form onSubmit={this.handleUpgradePrices} style={{margin: '50px 50px 50px 50px' }}>
                   <Form.Group  className="mb-3">
-                    <Form.Control type="integer" name="NewPublicPriceUSD" placeholder="NewPublicPrice in USD cents" 
+                    <Form.Control type="number" step="0.01" name="NewPublicPriceUSD" placeholder="NewPublicPrice in USD" 
                       value={this.state.NewPublicPriceUSD}
                       onChange={event => this.setState({ NewPublicPriceUSD: event.target.value })}/>
-                    <Form.Control type="integer" name="NewPrivatePriceUSD" placeholder="NewPrivatePrice in USD cents" 
+                    <Form.Control type="number" step="0.01" name="NewPrivatePriceUSD" placeholder="NewPrivatePrice in USD" 
                       value={this.state.NewPrivatePriceUSD}
                       onChange={event => this.setState({ NewPrivatePriceUSD: event.target.value })}/>
-                    <Form.Control type="integer" name="NewProviderPriceUSD" placeholder="NewProviderPrice in USD cents" 
+                    <Form.Control type="number" step="0.01" name="NewProviderPriceUSD" placeholder="NewProviderPrice in USD" 
                       value={this.state.NewProviderPriceUSD}
                       onChange={event => this.setState({ NewProviderPriceUSD: event.target.value })}/>
-                    <Form.Control type="integer" name="NewCertificatePriceUSD" placeholder="NewCertificatePrice in USD cents" 
+                    <Form.Control type="number" step="0.01" name="NewCertificatePriceUSD" placeholder="NewCertificatePrice in USD" 
                       value={this.state.NewCertificatePriceUSD}
                       onChange={event => this.setState({ NewCertificatePriceUSD: event.target.value })}/>
-                    <Form.Control type="integer" name="NewOwnerRefundFeeUSD" placeholder="NewOwnerRefundFee in USD cents" 
+                    <Form.Control type="number" step="0.01" name="NewOwnerRefundFeeUSD" placeholder="NewOwnerRefundFee in USD" 
                       value={this.state.NewOwnerRefundFeeUSD}
                       onChange={event => this.setState({ NewOwnerRefundFeeUSD: event.target.value })}/>
                   </Form.Group>

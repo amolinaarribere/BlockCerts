@@ -17,17 +17,17 @@ class ManageOwnerComponent extends React.Component{
     };
     handleRemoveOwner = async (event) => {
         event.preventDefault();
-      await func.RemoveOwner(this.state.removeOwner, this.props.contractType)
+      await func.RemoveOwner(this.state.Owner, this.props.contractType)
       await this.reset();
     };
     handleValidateOwner = async (event) => {
         event.preventDefault();
-      await func.ValidateOwner(this.state.validateOwner, this.props.contractType)
+      await func.ValidateOwner(this.state.Owner, this.props.contractType)
       await this.reset();
     };
     handleRejectOwner = async (event) => {
         event.preventDefault();
-      await func.RejectOwner(this.state.rejectOwner, this.props.contractType)
+      await func.RejectOwner(this.state.Owner, this.props.contractType)
       await this.reset();
     };
     

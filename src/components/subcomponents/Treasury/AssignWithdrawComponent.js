@@ -20,7 +20,7 @@ class AssignWithdrawComponent extends React.Component {
 
     handleWithdraw = async (event) => {
       event.preventDefault();
-      await func.WithdrawAmount((new BigNumber(this.state.amount)).toString());
+      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(new BigNumber("1000000000000000000"))).toString());
       this.setState({amount: ""});
       await loadFunc.LoadTreasuryFunc();
       this.props.refresh();
@@ -55,7 +55,7 @@ class AssignWithdrawComponent extends React.Component {
           <div class="border border border-0">
             <Form onSubmit={this.handleWithdraw} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="string" name="Amount" placeholder="Amount in Wei" 
+                <Form.Control type="string" name="Amount" placeholder="Amount in ETH" 
                   value={this.state.amount}
                   onChange={event => this.setState({ amount: event.target.value })}/>
               </Form.Group>

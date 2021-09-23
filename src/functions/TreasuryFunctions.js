@@ -54,7 +54,13 @@ export var PendingOwnerRefundFeeUSD = "";
     
 
   export async function UpgradePricesTreasury(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD){
-    await Aux.CallBackFrame(Contracts.Treasury.methods.updatePrices(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD).send({from: Aux.account }));
+    await Aux.CallBackFrame(Contracts.Treasury.methods.updatePrices(
+      (new BigNumber(100 * NewPublicPriceUSD)).decimalPlaces(0),
+      (new BigNumber(100 * NewPrivatePriceUSD)).decimalPlaces(0), 
+      (new BigNumber(100 * NewProviderPriceUSD)).decimalPlaces(0),
+      (new BigNumber(100 * NewCertificatePriceUSD)).decimalPlaces(0), 
+      (new BigNumber(100 * NewOwnerRefundFeeUSD)).decimalPlaces(0)
+    ).send({from: Aux.account }));
   }
 
   export async function RetrieveLastAssigned(address){

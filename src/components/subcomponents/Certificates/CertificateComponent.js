@@ -107,8 +107,6 @@ class CertificateComponent extends React.Component{
             <Form onSubmit={this.handleAddCertificate} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Control type="file" onChange={this.captureFile}/>
-              </Form.Group>
-              <Form.Group  className="mb-3">
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
