@@ -21,7 +21,7 @@ class FundProviderComponent extends React.Component{
               <h3>Fund Provider</h3>
                 <Form onSubmit={this.handleFundProvider} style={{margin: '50px 50px 50px 50px' }}>
                     <Form.Group  className="mb-3">
-                        <Form.Control type="interger" name="Amount" placeholder="amount" 
+                        <Form.Control type="integer" name="Amount" placeholder="amount" 
                             value={this.state.Amount}
                             onChange={event => this.setState({ Amount: event.target.value })}/>
                     </Form.Group>
