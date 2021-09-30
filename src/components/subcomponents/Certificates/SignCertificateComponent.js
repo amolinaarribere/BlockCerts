@@ -10,12 +10,14 @@ class SignCertificateComponent extends React.Component{
     state = {
       certificateHash : "",
       holderAddress: "",
-      deadLine : 0,
+      date: "",
+      time: "",
 
       certificateHash_2 : "",
       holderAddress_2: "",
       providerAddress_2: "",
-      deadLine_2 : 0,
+      date_2: "",
+      time_2: "",
       signature_2: "",
       
       signatureDisplayed : false,
@@ -41,16 +43,17 @@ class SignCertificateComponent extends React.Component{
     };
 
     resetState() {
-      this.setState({ certificateHash: "",  holderAddress: "", deadLine: 0, 
-        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "",  deadLine_2: 0, signature_2: ""})
+      this.setState({ certificateHash: "",  holderAddress: "", date: "", time: "",
+        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "", signature_2: "",  date_2: "", time_2: ""})
     }
 
     handleSubmitSignature = async (event) => {
       event.preventDefault();
+      let deadline = Math.ceil(new Date(this.state.date_2 + " " + this.state.time_2) / 1000);
     await func.AddCertificateOnBehalfOf(this.state.providerAddress_2, 
         this.state.certificateHash_2, 
         this.state.holderAddress_2,
-        this.state.deadline_2,
+        deadline,
         this.state.signature_2,
         this.props.privateEnv);
     this.resetState()
@@ -61,8 +64,7 @@ class SignCertificateComponent extends React.Component{
       event.preventDefault();
 
       try{
-        //let deadline = Math.ceil(Date.now() / 1000) + 120;
-        let deadline = this.state.deadLine
+        let deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
         let nonce = 0;
 
         // domain hash
@@ -93,7 +95,7 @@ class SignCertificateComponent extends React.Component{
         this.state.displayCertificateHash = this.state.certificateHash;
         this.state.displayHolder = this.state.holderAddress;
         this.state.displayProvider = Aux.account;
-        this.state.displayDeadline = deadline;
+        this.state.displayDeadline = (new Date(this.state.date + " " + this.state.time)).toString();
         this.state.displaySignature = signature;
 
         this.state.signatureDisplayed = true;
@@ -114,9 +116,12 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
-                <Form.Control type="integer" name="deadLine" placeholder="deadLine" 
-                    value={this.state.deadLine}
-                    onChange={event => this.setState({ deadLine: event.target.value })}/>
+                <Form.Control type="date" name="date" placeholder="date" 
+                    value={this.state.date}
+                    onChange={event => this.setState({ date: event.target.value })}/>
+                <Form.Control type="time" name="time" placeholder="time"
+                    value={this.state.time}
+                    onChange={event => this.setState({ time: event.target.value })}/>
               </Form.Group>
                  <button type="submit" class="btn btn-primary">Sign Certificate</button> &nbsp;&nbsp;
             </Form>
@@ -158,9 +163,12 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="ProviderAddress_2" placeholder="provider address" 
                     value={this.state.providerAddress_2}
                     onChange={event => this.setState({ providerAddress_2: event.target.value })}/>
-                <Form.Control type="integer" name="deadLine_2" placeholder="deadLine" 
-                    value={this.state.deadLine_2}
-                    onChange={event => this.setState({ deadLine_2: event.target.value })}/>
+                <Form.Control type="date" name="date_2" placeholder="date" 
+                    value={this.state.date_2}
+                    onChange={event => this.setState({ date_2: event.target.value })}/>
+                <Form.Control type="time" name="time_2" placeholder="time"
+                    value={this.state.time_2}
+                    onChange={event => this.setState({ time_2: event.target.value })}/>
                 <Form.Control type="text" name="Signature_2" placeholder="signature" 
                     value={this.state.signature_2}
                     onChange={event => this.setState({ signature_2: event.target.value })}/>
