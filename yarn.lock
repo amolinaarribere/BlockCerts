@@ -3230,6 +3230,11 @@
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/bn.js/-/bn.js-4.12.0.tgz"
   "version" "4.12.0"
 
+"bn.js@^4.11.8":
+  "integrity" "sha1-d1s/J477uXGO7HNh9IP7Nvu/6og="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/bn.js/-/bn.js-4.12.0.tgz"
+  "version" "4.12.0"
+
 "bn.js@^5.0.0", "bn.js@^5.1.1":
   "integrity" "sha1-NYhgZ0OWxpl3canQUfzBtX1K4AI="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/bn.js/-/bn.js-5.2.0.tgz"
@@ -5452,6 +5457,16 @@
     "elliptic" "^6.4.0"
     "xhr-request-promise" "^0.1.2"
 
+"eth-sig-util@^3.0.1":
+  "integrity" "sha1-h1MpfIOj9YNGvRNUe1nEss0RDJY="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/eth-sig-util/-/eth-sig-util-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+    "ethereumjs-abi" "^0.6.8"
+    "ethereumjs-util" "^5.1.1"
+    "tweetnacl" "^1.0.3"
+    "tweetnacl-util" "^0.15.0"
+
 "ethereum-bloom-filters@^1.0.6":
   "integrity" "sha1-PKB/Su1pjnW9E0WEhQJgJGpf7Yo="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/ethereum-bloom-filters/-/ethereum-bloom-filters-1.0.10.tgz"
@@ -5480,6 +5495,14 @@
     "secp256k1" "^4.0.1"
     "setimmediate" "^1.0.5"
 
+"ethereumjs-abi@^0.6.8":
+  "integrity" "sha1-cbwVLbCZ9w5i8Qi3zfyhs2LG/K4="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/ethereumjs-abi/-/ethereumjs-abi-0.6.8.tgz"
+  "version" "0.6.8"
+  dependencies:
+    "bn.js" "^4.11.8"
+    "ethereumjs-util" "^6.0.0"
+
 "ethereumjs-common@^1.3.2", "ethereumjs-common@^1.5.0":
   "integrity" "sha1-IGXb6SFOhQ8ulVqA5lDLaZkGaXk="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/ethereumjs-common/-/ethereumjs-common-1.5.2.tgz"
@@ -5492,6 +5515,19 @@
   dependencies:
     "ethereumjs-common" "^1.5.0"
     "ethereumjs-util" "^6.0.0"
+
+"ethereumjs-util@^5.1.1":
+  "integrity" "sha1-qDPw5fyn5bNhOE3HYwGnIfU3v2U="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/ethereumjs-util/-/ethereumjs-util-5.2.1.tgz"
+  "version" "5.2.1"
+  dependencies:
+    "bn.js" "^4.11.0"
+    "create-hash" "^1.1.2"
+    "elliptic" "^6.5.2"
+    "ethereum-cryptography" "^0.1.3"
+    "ethjs-util" "^0.1.3"
+    "rlp" "^2.0.0"
+    "safe-buffer" "^5.1.1"
 
 "ethereumjs-util@^6.0.0":
   "integrity" "sha1-/LTk3Vzqy50jBUJqsaXNk+MWO2k="
@@ -5514,7 +5550,7 @@
     "bn.js" "4.11.6"
     "number-to-bn" "1.7.0"
 
-"ethjs-util@0.1.6":
+"ethjs-util@^0.1.3", "ethjs-util@0.1.6":
   "integrity" "sha1-8wi2Lxhfn+YjcTL7KpgYhmpc1TY="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/ethjs-util/-/ethjs-util-0.1.6.tgz"
   "version" "0.1.6"
@@ -10969,7 +11005,7 @@
     "hash-base" "^3.0.0"
     "inherits" "^2.0.1"
 
-"rlp@^2.2.3":
+"rlp@^2.0.0", "rlp@^2.2.3":
   "integrity" "sha1-yAumJmrHpIPvHmno4vBWZW3i+yw="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/rlp/-/rlp-2.2.6.tgz"
   "version" "2.2.6"
@@ -12283,10 +12319,20 @@
   dependencies:
     "safe-buffer" "^5.0.1"
 
+"tweetnacl-util@^0.15.0":
+  "integrity" "sha1-uA/Ntcl7zFCL4YxEpL5Q8CLuoAs="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/tweetnacl-util/-/tweetnacl-util-0.15.1.tgz"
+  "version" "0.15.1"
+
 "tweetnacl@^0.14.3", "tweetnacl@~0.14.0":
   "integrity" "sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/tweetnacl/-/tweetnacl-0.14.5.tgz"
   "version" "0.14.5"
+
+"tweetnacl@^1.0.3":
+  "integrity" "sha1-rAr3FoBFjYpjeNDQ0FCrFAfTVZY="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/tweetnacl/-/tweetnacl-1.0.3.tgz"
+  "version" "1.0.3"
 
 "type-check@^0.4.0", "type-check@~0.4.0":
   "integrity" "sha1-B7ggO/pwVsBlcFDjzNLDdzC6uPE="
