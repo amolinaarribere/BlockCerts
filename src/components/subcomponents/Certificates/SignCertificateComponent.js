@@ -117,13 +117,16 @@ class SignCertificateComponent extends React.Component{
           else return result.result
         });
 
-      this.state.displayCertificateHash = this.state.certificateHash;
-      this.state.displayHolder = this.state.holderAddress;
-      this.state.displayProvider = Aux.account;
-      this.state.displayDeadline = (new Date(this.state.date + " " + this.state.time)).toString();
-      this.state.displaySignature = signature;
+      if(signature != null && signature != "undefined"){
+        this.state.displayCertificateHash = this.state.certificateHash;
+        this.state.displayHolder = this.state.holderAddress;
+        this.state.displayProvider = Aux.account;
+        this.state.displayDeadline = (new Date(this.state.date + " " + this.state.time)).toString();
+        this.state.displaySignature = signature;
 
-      this.state.signatureDisplayed = true
+        this.state.signatureDisplayed = true
+      }
+      
     }
     catch(e){
       window.alert("error : " + e)
