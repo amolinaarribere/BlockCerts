@@ -6,9 +6,7 @@ const Aux = require("./AuxiliaryFunctions.js");
 const OwnersFunc = require("./OwnerFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const Treasury = require("./TreasuryFunctions.js");
-
-export const privatePoolKey = 'privatePool';
-export const providerKey = 'provider';
+const BrowserStorageFunction = require("./BrowserStorageFunction.js");
 
 export var privatePool = "";
 export var provider = "";
@@ -164,6 +162,6 @@ export async function AddProviderPool(address, Info, subscribe, contractType){
   }
 
   export function ReadKeys(){
-    privatePoolAddress = sessionStorage.getItem(privatePoolKey);
-    providerAddress = sessionStorage.getItem(providerKey);
+    privatePoolAddress = BrowserStorageFunction.ReadKey(BrowserStorageFunction.privatePoolKey);
+    providerAddress = BrowserStorageFunction.ReadKey(BrowserStorageFunction.providerKey);
   }

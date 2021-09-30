@@ -33,7 +33,9 @@ class PublicComponent extends React.Component {
         <div>
           <SendNewProposalComponent contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <CertificateComponent contractType={this.state.contractType} privateEnv={this.state.privateEnv} refresh={this.refresh}/>
+          <CertificateComponent contractType={this.state.contractType} 
+            privateEnv={this.state.privateEnv} 
+            refresh={this.refresh}/>
           <br />
           {
            (Ownerfunc.isPublicOwner)?(

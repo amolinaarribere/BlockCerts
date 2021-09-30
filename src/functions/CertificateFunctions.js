@@ -71,3 +71,4 @@ export async function AddCertificate(hash, holder, isPrivate, contractType, pool
     catch(e) { window.alert("here " + e); }
     
   }
+
