@@ -271,7 +271,15 @@ export async function StartEvents(){
 }
 
 export async function StopEvents(){
-    await Aux.web3.eth.clearSubscriptions()
+  try{
+    if(Aux.web3){
+      await Aux.web3.eth.clearSubscriptions()
+    }
+  }
+  catch(e){
+    window.alert("error clearing subscription : " + e.message)
+  }
+    
 }
 
 
