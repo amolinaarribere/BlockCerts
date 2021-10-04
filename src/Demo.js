@@ -29,9 +29,9 @@ const Event = "Events";
 
 
 class Demo extends React.Component {
- /* componentWillMount() {
+  componentWillMount() {
     loadFunc.LoadBlockchain();
- }*/
+ }
 
   state = {
     value : 0,

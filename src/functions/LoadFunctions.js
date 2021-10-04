@@ -11,27 +11,42 @@ const Contracts = require("./Contracts.js");
 const ManagerFunc = require("./ManagerFunctions.js");
 const PriceConverterFunc = require("./PriceConverterFunctions.js");
 const Aux = require("./AuxiliaryFunctions.js");
+const BrowserStorageFunc = require("./BrowserStorageFunctions.js");
 
 export var chairPerson = ""
 export var balance = ""
 export var Network = ""
 export var Admin = AdminRights;
-export var connected = false;
 
+export async function ReadAccount(){
+  try{
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    window.ethereum.on('accountsChanged', function (accounts) {
+      window.location.reload();
+    })
+    window.ethereum.on('chainChanged', function (chainId) {
+      window.location.reload();
+    });
+    window.ethereum.on('disconnect', function () {
+      Aux.setAccount("");
+    });
+    Aux.LoadWeb3();
+    Aux.setAccount(accounts[0]);
+  }
+  catch(e){
+    if (e.code === 4001) {
+      window.alert('Please connect to MetaMask in order to use the dApp.');
+    } else {
+      window.alert(e);
+    }
+  }
+  
+}
 
 export async function LoadBlockchain() {
-  Aux.LoadWeb3();
-
   if (window.ethereum) {
     try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      //const accounts = await window.ethereum.send("eth_requestAccounts");
-      connected = true;
-      window.alert("success")
-      window.ethereum.on('accountsChanged', function (accounts) {
-        window.location.reload();
-      })
-      Aux.setAccount(accounts[0]);
+      await ReadAccount();
       Network = await Aux.web3.eth.net.getNetworkType();
 
       ProviderPoolFunc.ReadKeys();
@@ -46,17 +61,18 @@ export async function LoadBlockchain() {
       Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
       Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
 
-      LoadProviderPoolFunc(1);
-      LoadProviderPoolFunc(2);
-      LoadProviderPoolFunc(3);
-      LoadOwnersFunc(1);
-      LoadOwnersFunc(2);
-      LoadOwnersFunc(3);
-      LoadFactoriesFunc();
-      LoadPropositionFunc();
-      LoadCertisFunc();
-      LoadTreasuryFunc();
-      LoadPriceConverterFunc();
+      await Promise.all([
+        LoadProviderPoolFunc(1),
+        LoadProviderPoolFunc(2),
+        LoadProviderPoolFunc(3),
+        LoadOwnersFunc(1),
+        LoadOwnersFunc(2),
+        LoadOwnersFunc(3),
+        LoadFactoriesFunc(),
+        LoadPropositionFunc(),
+        LoadCertisFunc(),
+        LoadTreasuryFunc(),
+        LoadPriceConverterFunc()])
 
     } catch (err) {
       window.alert("User cancelled " + JSON.stringify(err));
@@ -67,24 +83,17 @@ export async function LoadBlockchain() {
     window.alert("You should connect your wallet for the dAPP to work")
   }
   
-
-  
 }
 
 export async function LoadManagerFunc() {
   await Promise.all([ManagerFunc.RetrieveContractsAddresses(), 
     ManagerFunc.RetrievePendingContractsAddresses()]);
-  //await ManagerFunc.RetrieveContractsAddresses();
-  //await ManagerFunc.RetrievePendingContractsAddresses();
 }
 
 export async function LoadCertisFunc() {
   await Promise.all([CertisFunc.isTokenOwner(Aux.account), 
     CertisFunc.totalSupply(),
     CertisFunc.balanceOf(Aux.account)]);
-  /*await CertisFunc.isTokenOwner(Aux.account);
-  await CertisFunc.totalSupply();
-  await CertisFunc.balanceOf(Aux.account);*/
 }
 
 export async function LoadPropositionFunc() {
@@ -94,12 +103,6 @@ export async function LoadPropositionFunc() {
     PropositionFunc.RetrievePendingProposition(1),
     PropositionFunc.RetrievePendingProposition(2),
     PropositionFunc.RetrievePendingProposition(3)]);
-  /*await PropositionFunc.RetrieveProposition(1);
-  await PropositionFunc.RetrieveProposition(2);
-  await PropositionFunc.RetrieveProposition(3);
-  await PropositionFunc.RetrievePendingProposition(1);
-  await PropositionFunc.RetrievePendingProposition(2);
-  await PropositionFunc.RetrievePendingProposition(3);*/
 }
 
 export async function LoadTreasuryFunc() {
@@ -108,18 +111,11 @@ export async function LoadTreasuryFunc() {
     TreasuryFunc.RetrieveLastAssigned(Aux.account),
     TreasuryFunc.RetrieveBalance(Aux.account),
     TreasuryFunc.RetrieveTreasuryBalance()]);
-  /*await TreasuryFunc.RetrievePricesTreasury();
-  await TreasuryFunc.RetrievePendingPricesTreasury();
-  await TreasuryFunc.RetrieveLastAssigned(Aux.account);
-  await TreasuryFunc.RetrieveBalance(Aux.account);
-  await TreasuryFunc.RetrieveTreasuryBalance();*/
 }
 
 export async function LoadPriceConverterFunc() {
   await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(),
     PriceConverterFunc.RetrievePendingRegistryAddress()]);
- /* await PriceConverterFunc.RetrieveRegistryAddress();
-  await PriceConverterFunc.RetrievePendingRegistryAddress();*/
 }
 
 export async function LoadProviderPoolFunc(ContractId) {

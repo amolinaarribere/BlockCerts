@@ -6,7 +6,7 @@ import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
-const BrowserStorageFunction = require("../functions/BrowserStorageFunction.js");
+const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
 
   class IssuerComponent extends React.Component {
@@ -35,7 +35,7 @@ const Ownerfunc = require("../functions/OwnerFunctions.js");
           <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
           <br />
-          <ListPoolsIssuers contractType={this.state.contractType} Key={BrowserStorageFunction.providerKey} refresh={this.refresh}/>
+          <ListPoolsIssuers contractType={this.state.contractType} Key={BrowserStorageFunctions.providerKey} refresh={this.refresh}/>
           <br />
           {
            (Ownerfunc.isProviderOwner)?(

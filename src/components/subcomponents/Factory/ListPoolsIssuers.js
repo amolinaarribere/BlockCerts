@@ -3,7 +3,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/FactoriesFunctions.js");
 const ProviderPoolFunctions = require("../../../functions/ProviderPoolFunctions.js");
-const BrowserStorageFunction = require("../../../functions/BrowserStorageFunction.js");
+const BrowserStorageFunctions = require("../../../functions/BrowserStorageFunctions.js");
 
 class FundProviderComponent extends React.Component{
     state = {
@@ -40,7 +40,7 @@ class SelectPoolIssuerComponent extends React.Component{
     
       handleSelectProviderPool = async (event) => {
         event.preventDefault();
-        BrowserStorageFunction.WriteKey(this.props.Key, this.state.ProviderPool);
+        BrowserStorageFunctions.WriteKey(this.props.Key, this.state.ProviderPool);
 
         await ProviderPoolFunctions.SelectProviderPool(this.state.ProviderPool, this.props.contractType);
         this.setState({ ProviderPool: "" })

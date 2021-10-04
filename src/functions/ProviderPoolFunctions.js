@@ -6,7 +6,7 @@ const Aux = require("./AuxiliaryFunctions.js");
 const OwnersFunc = require("./OwnerFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const Treasury = require("./TreasuryFunctions.js");
-const BrowserStorageFunction = require("./BrowserStorageFunction.js");
+const BrowserStorageFunction = require("./BrowserStorageFunctions.js");
 
 export var privatePool = "";
 export var provider = "";

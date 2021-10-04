@@ -1,5 +1,6 @@
 export const privatePoolKey = 'privatePool';
 export const providerKey = 'provider';
+export const connectedKey = 'connected';
 
 
 export function ReadKey(key){

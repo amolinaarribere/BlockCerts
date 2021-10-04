@@ -21,7 +21,6 @@ class CertificateComponent extends React.Component{
       certificateHash : "",
       holderAddress: "",
       poolAddress: "",
-      deadLine : 0,
 
       retrieveholderAddress: "" 
     };
@@ -41,7 +40,7 @@ class CertificateComponent extends React.Component{
     };
 
     resetState() {
-      this.setState({ certificateHash: "",  holderAddress: "", poolAddress: "",  deadLine: 0})
+      this.setState({ certificateHash: "",  holderAddress: "", poolAddress: ""})
     }
   
     handleAddCertificate = async (event) => {
@@ -73,9 +72,6 @@ class CertificateComponent extends React.Component{
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
-                <Form.Control type="integer" name="deadLine" placeholder="deadLine" 
-                    value={this.state.deadLine}
-                    onChange={event => this.setState({ deadLine: event.target.value })}/>
               </Form.Group>
                  <button type="submit" class="btn btn-success">Add Certificate</button> &nbsp;&nbsp;
                  <button type="button" class="btn btn-secondary" onClick={this.handleCheckCertificate}>Check Certificate</button>

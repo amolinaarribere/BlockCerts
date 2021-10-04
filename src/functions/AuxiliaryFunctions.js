@@ -8,10 +8,7 @@ export function setAccount(_value){
   account = _value;
 }
 
-export async function LoadWeb3(){
-  if(window.ethereum) {
-    await window.ethereum.enable();
-  }
+export function LoadWeb3(){
   web3 = new Web3(window.ethereum)
 }
 

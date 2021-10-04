@@ -4,8 +4,6 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 const func = require("../../../functions/CertificateFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const Contracts = require("../../../functions/Contracts.js");
-const sigUtil = require("eth-sig-util");
-const ethUtil = require('ethereumjs-util');
 
 class SignCertificateComponent extends React.Component{
 
@@ -146,12 +144,18 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
-                <Form.Control type="date" name="date" placeholder="date" 
-                    value={this.state.date}
-                    onChange={event => this.setState({ date: event.target.value })}/>
-                <Form.Control type="time" name="time" placeholder="time"
-                    value={this.state.time}
-                    onChange={event => this.setState({ time: event.target.value })}/>
+                <Row>
+                  <Col>
+                    <Form.Control type="date" name="date" placeholder="date" 
+                      value={this.state.date}
+                      onChange={event => this.setState({ date: event.target.value })}/>
+                  </Col>
+                  <Col>
+                    <Form.Control type="time" name="time" placeholder="time"
+                      value={this.state.time}
+                      onChange={event => this.setState({ time: event.target.value })}/>
+                  </Col>
+                </Row>
               </Form.Group>
                  <button type="submit" class="btn btn-primary">Sign Certificate</button> &nbsp;&nbsp;
             </Form>
@@ -193,12 +197,18 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="ProviderAddress_2" placeholder="provider address" 
                     value={this.state.providerAddress_2}
                     onChange={event => this.setState({ providerAddress_2: event.target.value })}/>
-                <Form.Control type="date" name="date_2" placeholder="date" 
-                    value={this.state.date_2}
-                    onChange={event => this.setState({ date_2: event.target.value })}/>
-                <Form.Control type="time" name="time_2" placeholder="time"
-                    value={this.state.time_2}
-                    onChange={event => this.setState({ time_2: event.target.value })}/>
+                <Row>
+                  <Col>
+                      <Form.Control type="date"  name="date_2" placeholder="date" 
+                          value={this.state.date_2}
+                          onChange={event => this.setState({ date_2: event.target.value })}/>
+                  </Col>
+                  <Col>
+                      <Form.Control type="time" name="time_2" placeholder="time"
+                          value={this.state.time_2}
+                          onChange={event => this.setState({ time_2: event.target.value })}/>
+                  </Col>     
+                </Row>
                 <Form.Control type="text" name="Signature_2" placeholder="signature" 
                     value={this.state.signature_2}
                     onChange={event => this.setState({ signature_2: event.target.value })}/>

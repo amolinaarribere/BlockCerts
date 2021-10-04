@@ -6,7 +6,7 @@ import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
-const BrowserStorageFunction = require("../functions/BrowserStorageFunction.js");
+const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
 const Certificatefunc = require("../functions/CertificateFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
 
@@ -38,7 +38,7 @@ class PrivateComponent extends React.Component {
           <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
           <br />
-          <ListPoolsIssuers contractType={this.state.contractType} Key={BrowserStorageFunction.privatePoolKey} refresh={this.refresh}/>
+          <ListPoolsIssuers contractType={this.state.contractType} Key={BrowserStorageFunctions.privatePoolKey} refresh={this.refresh}/>
           <br />
           <CertificateComponent contractType={this.state.contractType} 
             privateEnv={this.state.privateEnv} 
