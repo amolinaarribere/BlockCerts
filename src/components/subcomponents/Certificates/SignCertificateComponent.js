@@ -4,6 +4,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 const func = require("../../../functions/CertificateFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const Contracts = require("../../../functions/Contracts.js");
+const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 
 class SignCertificateComponent extends React.Component{
 
@@ -67,53 +68,18 @@ class SignCertificateComponent extends React.Component{
       let Deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
       let Nonce = 0;
 
-      let Domain = {
-        chainId: await Aux.web3.eth.getChainId(),
-        name: 'Public Certificate Pool',
-        verifyingContract: Contracts.publicPool._address,
-        version: '1.0',
-      }
+      let Domain = SignatureFunc.Domain('Public Certificate Pool', Contracts.publicPool._address, '1.0');
 
       let Message = {
         provider: from,
-        CertificateHash: this.state.certificateHash,
+        certificateHash: this.state.certificateHash,
         holder: this.state.holderAddress,
         nonce: Nonce,
         deadline: Deadline
       }
-
-      const msgParams = JSON.stringify({
-        domain: Domain,
-        message: Message,
-        primaryType: 'addCertificateOnBehalfOf',
-        types: {
-          // TODO: Clarify if EIP712Domain refers to the domain the contract is hosted on
-          EIP712Domain: [
-            { name: 'name', type: 'string' },
-            { name: 'version', type: 'string' },
-            { name: 'chainId', type: 'uint256' },
-            { name: 'verifyingContract', type: 'address' },
-          ],
-          // Refer to PrimaryType
-          addCertificateOnBehalfOf: [
-            { name: 'provider', type: 'address' },
-            { name: 'CertificateHash', type: 'bytes32' },
-            { name: 'holder', type: 'address' },
-            { name: 'nonce', type: 'uint256' },
-            { name: 'deadline', type: 'uint256' }
-          ]
-        }
-      });
     
-      var params = [from, msgParams];
-      var method = 'eth_signTypedData_v4';
-    
-      let signature = await Aux.web3.currentProvider.send({method,params,from}, 
-        (err, result) => {
-          if (err) window.alert("error " + err);
-          else if (result.error)  window.alert("error " + result.error);
-          else return result.result
-        });
+      var params = [from, SignatureFunc.AddCertificatesMsgParams(Domain, Message)];
+      let signature = SignatureFunc.SignMessage(params, from);
 
       if(signature != null && signature != "undefined"){
         this.state.displayCertificateHash = this.state.certificateHash;
