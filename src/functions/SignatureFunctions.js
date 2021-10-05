@@ -1,7 +1,7 @@
 
 const Aux = require("./AuxiliaryFunctions.js");
 
-const method = 'eth_signTypedData_v4';
+export const method = 'eth_signTypedData_v4';
 
   export function AddCertificatesMsgParams(_domain, _msg){
       return JSON.stringify({
@@ -34,22 +34,21 @@ const method = 'eth_signTypedData_v4';
       ]
 }
 
-  export function SignMessage(_params, _from){
-    let signature = await Aux.web3.currentProvider.send({method,_params,_from}, 
-        (err, result) => {
-          if (err) window.alert("error " + err);
-          else if (result.error)  window.alert("error " + result.error);
-          else return result.result
-        });
-
-    return signature;
+  export async function Domain(_name, _contract, _version){
+    return {
+        name: _name,
+        version: _version,
+        chainId: await Aux.web3.eth.getChainId(),
+        verifyingContract: _contract
+      }
   }
 
-  export function Domain(_name, _contract, _version){
+  export function AddCertificateOnBehalfOfMessage(_from, _certificateHash, _holder, _nonce, _deadline){
     return {
-        chainId: await Aux.web3.eth.getChainId(),
-        name: _name,
-        verifyingContract: _contract,
-        version: _version,
-      }
+      provider: _from,
+      certificateHash: _certificateHash,
+      holder: _holder,
+      nonce: _nonce,
+      deadline: _deadline
+    }
   }

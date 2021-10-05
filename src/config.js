@@ -1,4 +1,4 @@
-export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0x99cbaC5091633B027D815980757F9be51c3324BB'
+export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0x98216AdA379880DF60a01Dd0Fe2f4561774b268F'
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;
@@ -1068,6 +1068,16 @@ export const PUBLIC_ABI = [
         "internalType": "uint256",
         "name": "minOwners",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "MultiSigCertPool_init",
@@ -1107,6 +1117,64 @@ export const PUBLIC_ABI = [
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "CertificateHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      }
+    ],
+    "name": "addCertificate",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "CertificateHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "addCertificateOnBehalfOf",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -1283,6 +1351,25 @@ export const PUBLIC_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -1303,6 +1390,31 @@ export const PUBLIC_ABI = [
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -1560,6 +1672,16 @@ export const PUBLIC_ABI = [
         "internalType": "address",
         "name": "managerContractAddress",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "PublicCertPool_init",
@@ -1581,25 +1703,6 @@ export const PUBLIC_ABI = [
       }
     ],
     "name": "addProvider",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function",
-    "payable": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "CertificateHash",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "holder",
-        "type": "address"
-      }
-    ],
-    "name": "addCertificate",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function",
@@ -3222,6 +3325,16 @@ export const PRIVATE_ABI =  [
         "internalType": "uint256",
         "name": "minOwners",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "MultiSigCertPool_init",
@@ -3276,6 +3389,45 @@ export const PRIVATE_ABI =  [
       }
     ],
     "name": "addCertificate",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "CertificateHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "addCertificateOnBehalfOf",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function",
@@ -3535,12 +3687,56 @@ export const PRIVATE_ABI =  [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveMinOwners",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -3807,6 +4003,16 @@ export const PRIVATE_ABI =  [
         "internalType": "uint256",
         "name": "minOwners",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "PrivateCertPool_init",

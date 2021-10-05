@@ -11,12 +11,14 @@ class SignCertificateComponent extends React.Component{
     state = {
       certificateHash : "",
       holderAddress: "",
+      nonce: 0,
       date: "",
       time: "",
 
       certificateHash_2 : "",
       holderAddress_2: "",
       providerAddress_2: "",
+      nonce_2: 0,
       date_2: "",
       time_2: "",
       signature_2: "",
@@ -25,6 +27,7 @@ class SignCertificateComponent extends React.Component{
       displayCertificateHash: "",
       displayHolder: "",
       displayProvider: "",
+      displayNonce: 0,
       displayDeadline: "",
       displaySignature: ""
     };
@@ -54,6 +57,7 @@ class SignCertificateComponent extends React.Component{
     await func.AddCertificateOnBehalfOf(this.state.providerAddress_2, 
         this.state.certificateHash_2, 
         this.state.holderAddress_2,
+        this.state.nonce_2,
         deadline,
         this.state.signature_2,
         this.props.privateEnv);
@@ -66,28 +70,29 @@ class SignCertificateComponent extends React.Component{
     try{
       let from = Aux.account;
       let Deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
-      let Nonce = 0;
+      let Nonce = this.state.nonce;
 
-      let Domain = SignatureFunc.Domain('Public Certificate Pool', Contracts.publicPool._address, '1.0');
-
-      let Message = {
-        provider: from,
-        certificateHash: this.state.certificateHash,
-        holder: this.state.holderAddress,
-        nonce: Nonce,
-        deadline: Deadline
-      }
+      let Domain = await SignatureFunc.Domain('Public Certificate Pool', Contracts.publicPool._address, '1.0');
+      let Message = SignatureFunc.AddCertificateOnBehalfOfMessage(from, this.state.certificateHash, this.state.holderAddress, Nonce, Deadline)
     
-      var params = [from, SignatureFunc.AddCertificatesMsgParams(Domain, Message)];
-      let signature = SignatureFunc.SignMessage(params, from);
-
+      let params = [from, SignatureFunc.AddCertificatesMsgParams(Domain, Message)];
+      let method = SignatureFunc.method;
+      let signature = await Aux.web3.currentProvider.send({method,params,from}, 
+        (err, result) => {
+          if (err) window.alert("error " + err)
+          else if (result.error)  window.alert("result error " + result.error)
+          else return result.result
+        });
+        
+      signature = signature.substr(0, 130) + (signature.substr(130) == "00" ? "1b" : "1c");
+      
       if(signature != null && signature != "undefined"){
         this.state.displayCertificateHash = this.state.certificateHash;
         this.state.displayHolder = this.state.holderAddress;
         this.state.displayProvider = Aux.account;
+        this.state.displayNonce = this.state.nonce;
         this.state.displayDeadline = (new Date(this.state.date + " " + this.state.time)).toString();
         this.state.displaySignature = signature;
-
         this.state.signatureDisplayed = true
       }
       
@@ -110,6 +115,9 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address" 
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
+                <Form.Control type="integer" name="Nonce" placeholder="nonce" 
+                    value={this.state.nonce}
+                    onChange={event => this.setState({ nonce: event.target.value })}/>
                 <Row>
                   <Col>
                     <Form.Control type="date" name="date" placeholder="date" 
@@ -141,6 +149,10 @@ class SignCertificateComponent extends React.Component{
                   <Col>{this.state.displayProvider}</Col>
                 </Row>
                 <Row>
+                  <Col><b>Nonce :</b></Col> 
+                  <Col>{this.state.displayNonce}</Col>
+                </Row>
+                <Row>
                   <Col><b>Dead line :</b></Col> 
                   <Col>{this.state.displayDeadline}</Col>
                 </Row>
@@ -163,6 +175,9 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="ProviderAddress_2" placeholder="provider address" 
                     value={this.state.providerAddress_2}
                     onChange={event => this.setState({ providerAddress_2: event.target.value })}/>
+                <Form.Control type="integer" name="nonce_2" placeholder="nonce" 
+                    value={this.state.nonce_2}
+                    onChange={event => this.setState({ nonce_2: event.target.value })}/>
                 <Row>
                   <Col>
                       <Form.Control type="date"  name="date_2" placeholder="date" 

@@ -26,9 +26,9 @@ export async function AddCertificate(hash, holder, isPrivate, contractType, pool
     
   }
 
-  export async function AddCertificateOnBehalfOf(provider, hash, holder, deadline, signature, isPrivate){
-    if(true == isPrivate) await Aux.CallBackFrame(ProviderPool.privatePool.methods.addCertificateOnBehalfOf(provider, hash, holder, deadline, signature).send({from: Aux.account }));
-    else await Aux.CallBackFrame(Contracts.publicPool.methods.addCertificateOnBehalfOf(provider, hash, holder, deadline, signature).send({from: Aux.account , value: Treasury.CertificatePriceWei}));
+  export async function AddCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature, isPrivate){
+    if(true == isPrivate) await Aux.CallBackFrame(ProviderPool.privatePool.methods.addCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature).send({from: Aux.account }));
+    else await Aux.CallBackFrame(Contracts.publicPool.methods.addCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature).send({from: Aux.account , value: Treasury.CertificatePriceWei}));
   }
 
   export async function ValidateCertificate(pool, hash, holder){
