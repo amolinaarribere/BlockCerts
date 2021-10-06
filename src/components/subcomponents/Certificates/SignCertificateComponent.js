@@ -47,8 +47,8 @@ class SignCertificateComponent extends React.Component{
     };
 
     resetState() {
-      this.setState({ certificateHash: "",  holderAddress: "", date: "", time: "",
-        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "", signature_2: "",  date_2: "", time_2: ""})
+      this.setState({ certificateHash: "",  holderAddress: "", date: "", time: "", nonce: 0,
+        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: 0})
     }
 
     handleSubmitSignature = async (event) => {
@@ -83,9 +83,7 @@ class SignCertificateComponent extends React.Component{
           else if (result.error)  window.alert("result error " + result.error)
           else return result.result
         });
-        
-      signature = signature.substr(0, 130) + (signature.substr(130) == "00" ? "1b" : "1c");
-      
+              
       if(signature != null && signature != "undefined"){
         this.state.displayCertificateHash = this.state.certificateHash;
         this.state.displayHolder = this.state.holderAddress;
