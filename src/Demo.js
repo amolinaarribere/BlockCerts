@@ -29,14 +29,22 @@ const Event = "Events";
 
 
 class Demo extends React.Component {
-  componentWillMount() {
-    loadFunc.LoadBlockchain();
+  async componentWillMount() {
+    this.state.loading = true;
+    await loadFunc.LoadBlockchain();
+    this.state.loading = false;
+    this.refresh();
  }
 
   state = {
     value : 0,
+    loading : false,
     Component : "Home"
   };
+
+  refresh(){
+    this.setState({});
+  }
 
   toggleMenu(newValue){
     this.setState({Component: newValue});
@@ -46,7 +54,6 @@ class Demo extends React.Component {
   render(){
     return (
       <div style={{backgroundColor: 'White'}}>
-
         <Navbar bg="dark" variant="dark">
             <Container>
               <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
@@ -64,8 +71,8 @@ class Demo extends React.Component {
             </Container>
         </Navbar>
         <br />
-        
-        <div class="mx-auto w-75">
+        {(false == this.state.loading) ? 
+          <div class="mx-auto w-75">
           {(() => {
               switch (this.state.Component) {
                 case Manager:
@@ -106,7 +113,12 @@ class Demo extends React.Component {
                     )
               }
           })()}
+      </div>
+        : 
+        <div>
+          Loading....
         </div>
+        }
         
       </div>
     );

@@ -13,28 +13,28 @@ class ManageOwnerComponent extends React.Component{
     handleAddOwner = async (event) => {
         event.preventDefault();
       await func.AddOwner(this.state.Owner, "", this.props.contract)
-      await this.reset();
+      await this.refresh();
     };
     handleRemoveOwner = async (event) => {
         event.preventDefault();
       await func.RemoveOwner(this.state.Owner, this.props.contract)
-      await this.reset();
+      await this.refresh();
     };
     handleValidateOwner = async (event) => {
         event.preventDefault();
       await func.ValidateOwner(this.state.Owner, this.props.contract)
-      await this.reset();
+      await this.refresh();
     };
     handleRejectOwner = async (event) => {
         event.preventDefault();
       await func.RejectOwner(this.state.Owner, this.props.contract)
-      await this.reset();
+      await this.refresh();
     };
     
-    reset = async() =>{
+    async refresh() {
       this.setState({ Owner: "" })
-      await loadFunc.LoadOwnersFunc(this.props.contract);
-      this.props.refresh();
+      //await loadFunc.LoadOwnersFunc(this.props.contract);
+      await this.props.refresh();
     }
 
     toggleManageOwners = () => {

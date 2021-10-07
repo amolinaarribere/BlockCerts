@@ -4,6 +4,7 @@ import PricePropositionComponent from './subcomponents/Treasury/PriceProposition
 import AssignWithdrawComponent from './subcomponents/Treasury/AssignWithdrawComponent.js';
 
 const Contracts = require("../functions/Contracts.js");
+const loadFunc = require("../functions/LoadFunctions.js");
 
 class TreasuryComponent extends React.Component {
     state = {
@@ -12,10 +13,12 @@ class TreasuryComponent extends React.Component {
 
     constructor(props) {
       super(props)
+      loadFunc.LoadTreasuryFunc(Contracts.Treasury);
       this.refresh = this.refresh.bind(this)
     }
     
-    refresh() {
+    async refresh() {
+      await loadFunc.LoadTreasuryFunc(Contracts.Treasury);
       this.setState({})
     }
     

@@ -14,8 +14,8 @@ class CertisTransferComponent extends React.Component {
       event.preventDefault();
       await func.transfer(this.state.recipient, this.state.amount, this.props.contract);
       this.setState({amount: 0, recipient: ""});
-      await loadFunc.LoadCertisFunc(this.props.contract);
-      this.props.refresh();
+      //await loadFunc.LoadCertisFunc(this.props.contract);
+      await this.props.refresh();
     };
     
     render(){

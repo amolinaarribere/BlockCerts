@@ -9,58 +9,92 @@ const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
 const Contracts = require("../functions/Contracts.js");
+const LoadFunc = require("../functions/LoadFunctions.js");
+const TreasuryFunc = require("../functions/TreasuryFunctions.js");
+
 
 
   class IssuerComponent extends React.Component {
-    componentWillMount() {
-      if(ProviderPoolFunc.providerAddress != null && ProviderPoolFunc.providerAddress !== "" && ProviderPoolFunc.providerAddress !== "undefined"){
-        ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.providerAddress, this.state.contractType);
+    async componentWillMount() {
+      this.state.loading = true;
+      await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory);
+      await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.provider);
+      await LoadFunc.LoadOwnersFunc(Contracts.provider);
+      await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.provider);
+      ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey);
+      if(this.NotEmpty(ProviderPoolFunc.Address)){
+        ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
       }
+      this.state.loading = false;
+      this.refresh();
    }
 
+   
    constructor(props) {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
+  async refresh() {
+    ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey);
+    await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory);
+    await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.provider);
+    await LoadFunc.LoadOwnersFunc(Contracts.provider);
+    await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.provider);
     this.setState({})
   }
 
     state = {
+      loading : false,
       contractType : 3
     };
+
+    NotEmpty(value){
+      if(value != null && value !== "" && value !== "undefined"){
+        return true
+      }
+      return false;
+    }
     
     render(){
       return (
         <div>
-          <CreatePoolIssuer contract={Contracts.provider}
-            contractType={this.state.contractType} 
-            refresh={this.refresh}/>
-          <br />
-          <br />
-          <ListPoolsIssuers contract={Contracts.provider}
-            contractType={this.state.contractType} 
-            Key={BrowserStorageFunctions.providerKey} 
-            refresh={this.refresh}/>
-          <br />
-          {
-           (Ownerfunc.isProviderOwner)?(
-             <div>
-              <CertificateComponent contract={Contracts.provider}
+          {(false == this.state.loading)? 
+            <div>
+              <CreatePoolIssuer contract={Contracts.providerFactory}
+                price={TreasuryFunc.ProviderPriceWei}
                 contractType={this.state.contractType} 
-                refresh={this.refresh}
-                price={0}/>
+                refresh={this.refresh}/>
               <br />
-              <OwnerComponent contract={Contracts.provider}
+              <br />
+              <ListPoolsIssuers contract={Contracts.providerFactory}
                 contractType={this.state.contractType} 
+                Key={BrowserStorageFunctions.providerKey} 
                 refresh={this.refresh}/>
-              <br/>
-              <ProviderPoolComponent contract={Contracts.provider}
-                contractType={this.state.contractType} 
-                refresh={this.refresh}/>
+              <br />
+              {
+              (Ownerfunc.isOwner)?(
+                <div>
+                  <CertificateComponent contract={Contracts.provider}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}
+                    price={0}/>
+                  <br />
+                  <OwnerComponent contract={Contracts.provider}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}/>
+                  <br/>
+                  <ProviderPoolComponent contract={Contracts.provider}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}/>
+                </div>
+              ):null}
             </div>
-           ):null}
+           :
+            <div>
+            Loading....
+            </div>
+          }
         </div>
       );
     }

@@ -8,11 +8,21 @@ const Certificatefunc = require("../functions/CertificateFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
 const Contracts = require("../functions/Contracts.js");
 const Treasury = require("../functions/TreasuryFunctions.js");
+const LoadFunc = require("../functions/LoadFunctions.js");
+
 
 class PublicComponent extends React.Component {
     componentWillMount() {
       Certificatefunc.SwitchContext()
    }
+
+   constructor(props) {
+    super(props)
+    LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.publicPool);
+    LoadFunc.LoadOwnersFunc(Contracts.publicPool);
+    LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.publicPool);
+    this.refresh = this.refresh.bind(this)
+  }
 
     state = {
       newProvider : "",
@@ -20,13 +30,11 @@ class PublicComponent extends React.Component {
       privateEnv : false,
       contractType : 1
     };
-
-    constructor(props) {
-      super(props)
-      this.refresh = this.refresh.bind(this)
-    }
     
-    refresh() {
+    async refresh() {
+      await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.publicPool);
+      await LoadFunc.LoadOwnersFunc(Contracts.publicPool);
+      await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.publicPool);
       this.setState({})
     }
   
@@ -34,6 +42,7 @@ class PublicComponent extends React.Component {
       return (
         <div>
           <SendNewProposalComponent contract={Contracts.publicPool}  
+            price={Treasury.PublicPriceWei}
             contractType={this.state.contractType} 
             refresh={this.refresh}/>
           <br />
@@ -44,7 +53,7 @@ class PublicComponent extends React.Component {
             price={Treasury.CertificatePriceWei}/>
           <br />
           {
-           (Ownerfunc.isPublicOwner)?(
+           (Ownerfunc.isOwner)?(
              <div>
               <OwnerComponent contract={Contracts.publicPool} 
                 contractType={this.state.contractType} 

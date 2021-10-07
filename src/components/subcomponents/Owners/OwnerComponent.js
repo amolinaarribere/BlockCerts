@@ -10,13 +10,11 @@ const LoadFunc = require('../../../functions/LoadFunctions.js');
 class OwnerComponent extends React.Component{
   constructor(props) {
     super(props)
-    await LoadFunc.LoadOwnersFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
-    await LoadFunc.LoadOwnersFunc(this.props.contract);
-    this.props.refresh()
+  async refresh() {
+    await this.props.refresh()
   }
 
     render(){

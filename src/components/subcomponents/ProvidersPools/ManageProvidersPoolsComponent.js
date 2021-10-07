@@ -33,10 +33,10 @@ class ManageProvidersPoolsComponent extends React.Component{
       await this.reset();
     };
 
-    reset = async () =>{
+    async reset() {
       this.setState({ ProviderPool: "", addProviderPoolInfo: "", subscribe: false })
       await loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
-      this.props.refresh();
+      await this.props.refresh();
     }
 
     toggleManageProvidersPools = () => {

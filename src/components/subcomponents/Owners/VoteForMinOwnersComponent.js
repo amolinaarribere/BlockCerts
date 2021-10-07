@@ -16,9 +16,9 @@ class VoteForMinOwnersComponent extends React.Component{
         await this.reset();
       };
 
-    reset = async () =>{
-        await loadFunc.LoadOwnersFunc(this.props.contract);
-        this.props.refresh();
+    async reset(){
+        //await loadFunc.LoadOwnersFunc(this.props.contract);
+        await this.props.refresh();
       }
   
     render(){

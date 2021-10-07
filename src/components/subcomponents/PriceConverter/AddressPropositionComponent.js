@@ -11,12 +11,13 @@ const address_0 = "0x0000000000000000000000000000000000000000";
 class AddressPropositionComponent extends React.Component {
   constructor(props) {
     super(props)
+    //loadFunc.LoadPriceConverterFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh = async (event) => {
-    await loadFunc.LoadPriceConverterFunc(this.props.contract);
-    this.props.refresh()
+  async refresh() {
+    //await loadFunc.LoadPriceConverterFunc(this.props.contract);
+    await this.props.refresh()
   }
 
     state = {

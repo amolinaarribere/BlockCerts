@@ -8,13 +8,11 @@ const LoadFunc = require('../../../functions/LoadFunctions.js');
 class ProviderPoolComponent extends React.Component{
   constructor(props) {
     super(props)
-    await LoadFunc.LoadProviderPoolFunc(this.props.ContractType, this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
-    await LoadFunc.LoadProviderPoolFunc(this.props.ContractType, this.props.contract);
-    this.props.refresh()
+  async refresh() {
+    await this.props.refresh()
   }
 
     render(){

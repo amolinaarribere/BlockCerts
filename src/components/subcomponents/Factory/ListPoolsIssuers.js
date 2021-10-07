@@ -5,7 +5,13 @@ const func = require("../../../functions/FactoriesFunctions.js");
 const ProviderPoolFunctions = require("../../../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../../../functions/BrowserStorageFunctions.js");
 
+
 class FundProviderComponent extends React.Component{
+    constructor(props) {
+        super(props)
+        this.refresh = this.refresh.bind(this)
+    }
+
     state = {
       Amount : 0
     };
@@ -68,16 +74,11 @@ class SelectPoolIssuerComponent extends React.Component{
 
 class ListPoolsIssuers extends React.Component {
     render(){
-        var text = "Private Pool";
-        var addresses = func.privatePoolAddresses;
-        var selectedAddress = ProviderPoolFunctions.privatePoolAddress;
+        var text = (this.props.contractType == 3) ? "Provider" : "Private Pool";
+        var addresses = func.Addresses;
+        var selectedAddress = ProviderPoolFunctions.Address;
         var Provider = false;
-        if (this.props.contractType == 3) {
-            text = "Provider";
-            addresses = func.providerAddresses;
-            selectedAddress = ProviderPoolFunctions.providerAddress;
-            Provider = true;
-        }
+
         return(
             <div>
                 <h3>{text} Addresses :</h3> 
@@ -89,7 +90,10 @@ class ListPoolsIssuers extends React.Component {
                         ))}
                 </Container>
                 <br />
-                <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key} refresh={this.props.refresh}/>
+                <SelectPoolIssuerComponent contract={this.props.contract}
+                    contractType={this.props.contractType} 
+                    Key={this.props.Key} 
+                    refresh={this.props.refresh}/>
                 <hr class="bg-secondary"/>
                 <br />
                 <h2 class="text-primary"> Selected {text} : {selectedAddress}</h2>
@@ -103,7 +107,7 @@ class ListPoolsIssuers extends React.Component {
                             </Row>
                         </Container>
                         <br />
-                        <FundProviderComponent />
+                        <FundProviderComponent contract={this.props.contract}/>
                     </div>): null}
             </div>
         );

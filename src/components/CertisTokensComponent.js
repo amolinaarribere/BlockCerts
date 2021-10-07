@@ -3,14 +3,17 @@ import CertisBalancesComponents from './subcomponents/CertisToken/CertisBalances
 import CertisTransferComponent from './subcomponents/CertisToken/CertisTransferComponent.js';
 
 const Contracts = require("../functions/Contracts.js");
+const loadFunc = require("../functions/LoadFunctions.js");
 
 class CertisTokensComponent extends React.Component {
   constructor(props) {
     super(props)
+    loadFunc.LoadCertisFunc(Contracts.CertisToken);
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
+  async refresh() {
+    await loadFunc.LoadCertisFunc(Contracts.CertisToken);
     this.setState({})
   }
 

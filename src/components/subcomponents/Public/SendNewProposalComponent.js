@@ -5,18 +5,28 @@ const ProviderPoolFunc = require("../../../functions/ProviderPoolFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class SendNewProposalComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
+    this.refresh = this.refresh.bind(this)
+  }
+
     state = {
         newProvider : "",
         newProviderInfo : ""
     };
 
+    async refresh() {
+      await this.props.refresh()
+    }
+
     handleNewProposal = async (event) => {
-        event.preventDefault();
-      await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType, this.props.contract)
+      event.preventDefault();
+      await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType, this.props.price, this.props.contract)
       this.setState({ newProvider: "" })
       this.setState({ newProviderInfo: "" })
       await loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
-      this.props.refresh();
+      await this.refresh()
     };
 
     render(){

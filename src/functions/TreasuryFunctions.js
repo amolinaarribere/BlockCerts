@@ -2,6 +2,7 @@
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
+const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
 
 export var LastAssigned = new BigNumber(0);
@@ -34,7 +35,7 @@ export var PendingOwnerRefundFeeUSD = "";
     ProviderPriceUSD = response[2];
     CertificatePriceUSD = response[3];
     OwnerRefundFeeUSD = response[4];
-    let exchangeRate = await PriceConverter.USDToEther(1);
+    let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
     PublicPriceWei = PublicPriceUSD * exchangeRate;
     PrivatePriceWei = PrivatePriceUSD * exchangeRate;
     ProviderPriceWei = ProviderPriceUSD * exchangeRate;

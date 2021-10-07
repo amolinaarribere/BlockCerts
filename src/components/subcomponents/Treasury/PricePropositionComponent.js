@@ -10,13 +10,13 @@ const certFunc = require("../../../functions/CertisFunctions.js");
 class PricePropositionComponent extends React.Component {
   constructor(props) {
     super(props)
-    await loadFunc.LoadTreasuryFunc(this.props.contract);
+    //loadFunc.LoadTreasuryFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh = async (event) => {
-    await loadFunc.LoadTreasuryFunc(this.props.contract);
-    this.props.refresh()
+  async refresh() {
+    //await loadFunc.LoadTreasuryFunc(this.props.contract);
+    await this.props.refresh()
   }
 
     state = {

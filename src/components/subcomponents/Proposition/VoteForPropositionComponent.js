@@ -17,9 +17,9 @@ class VoteForPropositionComponent extends React.Component{
         await this.reset();
       };
     
-      reset = async () =>{
-        await loadFunc.LoadPropositionFunc(this.props.contract);
-        this.props.refresh();
+     async reset(){
+        //await loadFunc.LoadPropositionFunc(this.props.contract);
+        await this.props.refresh();
       }
   
     render(){

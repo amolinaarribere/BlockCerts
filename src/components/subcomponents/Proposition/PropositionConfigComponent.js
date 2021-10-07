@@ -9,13 +9,13 @@ const LoadFunc = require('../../../functions/LoadFunctions.js');
 class PropositionConfigComponent extends React.Component{
   constructor(props) {
     super(props)
-    await LoadFunc.LoadPropositionFunc(this.props.contract);
+    LoadFunc.LoadPropositionFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
+  async refresh() {
     await LoadFunc.LoadPropositionFunc(this.props.contract);
-    this.props.refresh();
+    await this.props.refresh();
   }
 
        render(){

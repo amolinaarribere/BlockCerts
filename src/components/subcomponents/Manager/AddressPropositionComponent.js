@@ -12,6 +12,7 @@ const loadFunc = require("../../../functions/LoadFunctions.js");
 class AddressPropositionComponent extends React.Component {
   constructor(props) {
     super(props)
+    loadFunc.LoadManagerFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   

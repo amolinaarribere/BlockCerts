@@ -1,8 +1,17 @@
 // Proposition
 const Aux = require("./AuxiliaryFunctions.js");
 
+export var PropositionLifeTime = "";
+export var PropositionThresholdPercentage = "";
+export var MinWeightToProposePercentage = "";
 
-export var ManagerPropositionLifeTime = "";
+export var PendingPropositionLifeTime = "";
+export var PendingPropositionThresholdPercentage = "";
+export var PendingMinWeightToProposePercentage = "";
+
+export var PendingProp = "";
+
+/*export var ManagerPropositionLifeTime = "";
 export var ManagerPropositionThresholdPercentage = "";
 export var ManagerMinWeightToProposePercentage = "";
 export var TreasuryPropositionLifeTime = "";
@@ -24,7 +33,7 @@ export var PendingPCMinWeightToProposePercentage = "";
 
 export var PendingManagerProp = "";
 export var PendingTreasuryProp = "";
-export var PendingPCProp = "";
+export var PendingPCProp = "";*/
 
 export var ContractName = ""
 export var ContractVersion = ""

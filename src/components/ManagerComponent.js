@@ -3,10 +3,12 @@ import AddressPropositionComponent from './subcomponents/Manager/AddressProposit
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
 
 const Contracts = require("../functions/Contracts.js");
+const loadFunc = require("../functions/LoadFunctions.js");
 
 class ManagerComponent extends React.Component {
   constructor(props) {
     super(props)
+    loadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
     this.refresh = this.refresh.bind(this)
   }
   
@@ -14,7 +16,8 @@ class ManagerComponent extends React.Component {
      contractType : 1
     };
     
-    refresh() {
+    async refresh() {
+      await loadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
       this.setState({})
     }
   

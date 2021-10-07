@@ -47,9 +47,7 @@ export async function LoadBlockchain() {
     try {
       await ReadAccount();
       Network = await Aux.web3.eth.net.getNetworkType();
-
-      ProviderPoolFunc.ReadKeys();
-
+      
       Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
       await LoadManagerFunc(Contracts.certificatePoolManager);
 
@@ -60,18 +58,8 @@ export async function LoadBlockchain() {
       Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
       Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
 
-      /*await Promise.all([
-        LoadProviderPoolFunc(1),
-        LoadProviderPoolFunc(2),
-        LoadProviderPoolFunc(3),
-        LoadOwnersFunc(1),
-        LoadOwnersFunc(2),
-        LoadOwnersFunc(3),
-        LoadFactoriesFunc(),
-        LoadPropositionFunc(),
-        LoadCertisFunc(),
-        LoadTreasuryFunc(),
-        LoadPriceConverterFunc()])*/
+      await LoadPriceConverterFunc(Contracts.PriceConverter);
+      await LoadTreasuryFunc(Contracts.Treasury);
 
     } catch (err) {
       window.alert("User cancelled " + JSON.stringify(err));
@@ -92,7 +80,7 @@ export async function LoadManagerFunc(contract) {
 export async function LoadCertisFunc(contract) {
   await Promise.all([CertisFunc.isTokenOwner(Aux.account, contract), 
     CertisFunc.totalSupply(contract),
-    CertisFunc.balanceOf(Aux.account, contracts)]);
+    CertisFunc.balanceOf(Aux.account, contract)]);
 }
 
 export async function LoadPropositionFunc(contract) {
