@@ -8,6 +8,8 @@ import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
+const Contracts = require("../functions/Contracts.js");
+
 
   class IssuerComponent extends React.Component {
     componentWillMount() {
@@ -32,19 +34,31 @@ const Ownerfunc = require("../functions/OwnerFunctions.js");
     render(){
       return (
         <div>
-          <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
+          <CreatePoolIssuer contract={Contracts.provider}
+            contractType={this.state.contractType} 
+            refresh={this.refresh}/>
           <br />
           <br />
-          <ListPoolsIssuers contractType={this.state.contractType} Key={BrowserStorageFunctions.providerKey} refresh={this.refresh}/>
+          <ListPoolsIssuers contract={Contracts.provider}
+            contractType={this.state.contractType} 
+            Key={BrowserStorageFunctions.providerKey} 
+            refresh={this.refresh}/>
           <br />
           {
            (Ownerfunc.isProviderOwner)?(
              <div>
-              <CertificateComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <CertificateComponent contract={Contracts.provider}
+                contractType={this.state.contractType} 
+                refresh={this.refresh}
+                price={0}/>
               <br />
-              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <OwnerComponent contract={Contracts.provider}
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
               <br/>
-              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <ProviderPoolComponent contract={Contracts.provider}
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
             </div>
            ):null}
         </div>

@@ -9,6 +9,7 @@ const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
 const Certificatefunc = require("../functions/CertificateFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
+const Contracts = require("../functions/Contracts.js");
 
 class PrivateComponent extends React.Component {
     componentWillMount() {
@@ -35,21 +36,30 @@ class PrivateComponent extends React.Component {
     render(){
       return (
         <div>
-          <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
-          <br />
-          <br />
-          <ListPoolsIssuers contractType={this.state.contractType} Key={BrowserStorageFunctions.privatePoolKey} refresh={this.refresh}/>
-          <br />
-          <CertificateComponent contractType={this.state.contractType} 
-            privateEnv={this.state.privateEnv} 
+          <CreatePoolIssuer contract={Contracts.privatePool}
+            contractType={this.state.contractType} 
             refresh={this.refresh}/>
+          <br />
+          <br />
+          <ListPoolsIssuers contract={Contracts.privatePool}
+            contractType={this.state.contractType} Key={BrowserStorageFunctions.privatePoolKey} refresh={this.refresh}/>
+          <br />
+          <CertificateComponent contract={Contracts.privatePool}  
+            contractType={this.state.contractType}
+            privateEnv={this.state.privateEnv} 
+            refresh={this.refresh}
+            price={0}/>
           <br />
           {
            (Ownerfunc.isPrivateOwner)?(
              <div>
-              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <OwnerComponent contract={Contracts.privatePool} 
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
               <br/>
-              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <ProviderPoolComponent contract={Contracts.privatePool} 
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
             </div>
            ):null}
         </div>

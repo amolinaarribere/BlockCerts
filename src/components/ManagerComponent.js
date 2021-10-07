@@ -2,6 +2,8 @@ import React from 'react';
 import AddressPropositionComponent from './subcomponents/Manager/AddressPropositionComponent.js';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
 
+const Contracts = require("../functions/Contracts.js");
+
 class ManagerComponent extends React.Component {
   constructor(props) {
     super(props)
@@ -19,9 +21,12 @@ class ManagerComponent extends React.Component {
     render(){
       return (
         <div>
-          <AddressPropositionComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          <AddressPropositionComponent contract={Contracts.certificatePoolManager}
+          contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <PropositionConfigComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          <PropositionConfigComponent contract={Contracts.certificatePoolManager}
+            contractType={this.state.contractType} 
+            refresh={this.refresh}/>
           <br/>
         </div>
       );

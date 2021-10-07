@@ -1,10 +1,17 @@
 // Owner
-const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
-const ProviderPool = require("./ProviderPoolFunctions.js");
 const load = require("./LoadFunctions.js");
 
-export var isPublicOwner;
+export var isOwner;
+export var MinOwners = ""
+export var PendingMinOwners = ""
+export var TotalOwners = ""
+export var Owners = []
+export var pendingOwnersAdd = []
+export var pendingOwnersRemove = []
+
+
+/*export var isPublicOwner;
 export var isPrivateOwner;
 export var isProviderOwner;
 export var publicMinOwners = ""
@@ -24,36 +31,68 @@ export var pendingPublicOwnersRemove = []
 export var pendingPrivateOwnersAdd = [] 
 export var pendingPrivateOwnersRemove = []
 export var pendingProviderOwnersAdd = []
-export var pendingProviderOwnersRemove = []
+export var pendingProviderOwnersRemove = []*/
 
-export async function AddOwner(address, info, contractType){
-    if(1 == contractType) await Aux.CallBackFrame(Contracts.publicPool.methods.addOwner(address, info).send({from: Aux.account }));
+export async function AddOwner(address, info, contract){
+    await Aux.CallBackFrame(contract.methods.addOwner(address, info).send({from: Aux.account }));
+    /*if(1 == contractType) await Aux.CallBackFrame(Contracts.publicPool.methods.addOwner(address, info).send({from: Aux.account }));
     else if(2 == contractType) await Aux.CallBackFrame(ProviderPool.privatePool.methods.addOwner(address, info).send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.addOwner(address, info).send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.addOwner(address, info).send({from: Aux.account }));*/
   }
   
-  export async function RemoveOwner(address, contractType){
-    if(1 == contractType) await Aux.CallBackFrame(Contracts.publicPool.methods.removeOwner(address).send({from: Aux.account }));
+  export async function RemoveOwner(address, contract){
+    await Aux.CallBackFrame(contract.methods.removeOwner(address).send({from: Aux.account }));
+    /*if(1 == contractType) await Aux.CallBackFrame(Contracts.publicPool.methods.removeOwner(address).send({from: Aux.account }));
     else if(2 == contractType) await Aux.CallBackFrame(ProviderPool.privatePool.methods.removeOwner(address).send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.removeOwner(address).send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.removeOwner(address).send({from: Aux.account }));*/
 
   }
 
-  export async function ValidateOwner(address, contractType){
-    if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.validateOwner(address).send({from: Aux.account }));
+  export async function ValidateOwner(address, contract){
+    await Aux.CallBackFrame(contract.methods.validateOwner(address).send({from: Aux.account }));
+    /*if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.validateOwner(address).send({from: Aux.account }));
     else if(2 == contractType)await Aux.CallBackFrame(ProviderPool.privatePool.methods.validateOwner(address).send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.validateOwner(address).send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.validateOwner(address).send({from: Aux.account }));*/
   }
 
-  export async function RejectOwner(address, contractType){
-    if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.rejectOwner(address).send({from: Aux.account }));
+  export async function RejectOwner(address, contract){
+    await Aux.CallBackFrame(contract.methods.rejectOwner(address).send({from: Aux.account }));
+    /*if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.rejectOwner(address).send({from: Aux.account }));
     else if(2 == contractType)await Aux.CallBackFrame(ProviderPool.privatePool.methods.rejectOwner(address).send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.rejectOwner(address).send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.rejectOwner(address).send({from: Aux.account }));*/
   }
 
-  export async function RetrieveOwners(contractType){
+  export async function RetrieveOwners(contract){
     try{
-      if(1 == contractType){
+        isOwner = false;
+        MinOwners = await contract.methods.retrieveMinOwners().call()
+        Owners = await contract.methods.retrieveAllOwners().call()
+        TotalOwners = Owners.length
+  
+        pendingOwnersAdd = []
+        let pendingOwnersAddAddresses = await contract.methods.retrievePendingOwners(true).call();
+        for (let i = 0; i < pendingOwnersAddAddresses.length; i++) {
+          let {0:Info} = await contract.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingOwnersAddAddresses[i])).call();
+          pendingOwnersAdd[i] = [pendingOwnersAddAddresses[i], Info]
+        }
+  
+        pendingOwnersRemove = []
+        let pendingOwnersRemoveAddresses = await contract.methods.retrievePendingOwners(false).call();
+        for (let i = 0; i < pendingOwnersRemoveAddresses.length; i++) {
+          let {0:Info} = await contract.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingOwnersRemoveAddresses[i])).call();
+          pendingOwnersRemove[i] = [pendingOwnersRemoveAddresses[i], Info]
+        }
+  
+        PendingMinOwners = await contract.methods.retrievePendingMinOwners().call();
+
+        if(load.Admin){
+          let result = await contract.methods.retrieveOwner(Aux.account).call();
+          isOwner = result[1];
+        }
+        else {
+          isOwner = true;
+        }
+      /*if(1 == contractType){
         isPublicOwner = false;
         publicMinOwners = await Contracts.publicPool.methods.retrieveMinOwners().call()
         publicOwners = await Contracts.publicPool.methods.retrieveAllOwners().call()
@@ -143,25 +182,28 @@ export async function AddOwner(address, info, contractType){
         else {
           isProviderOwner = true;
         }
-      }
+      }*/
     }
     catch(e){}
   }
 
-  export async function UpdateMinOwner(minOwner, contractType){
-    if(1 == contractType) await Aux.CallBackFrame(Contracts.publicPool.methods.changeMinOwners(minOwner).send({from: Aux.account }));
+  export async function UpdateMinOwner(minOwner, contract){
+    await Aux.CallBackFrame(contract.methods.changeMinOwners(minOwner).send({from: Aux.account }));
+    /*if(1 == contractType) await Aux.CallBackFrame(Contracts.publicPool.methods.changeMinOwners(minOwner).send({from: Aux.account }));
     else if(2 == contractType) await Aux.CallBackFrame(ProviderPool.privatePool.methods.changeMinOwners(minOwner).send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.changeMinOwners(minOwner).send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.changeMinOwners(minOwner).send({from: Aux.account }));*/
   }
 
-  export async function ValidateMinOwner(contractType){
-    if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.validateMinOwners().send({from: Aux.account }));
+  export async function ValidateMinOwner(contract){
+    await Aux.CallBackFrame(contract.methods.validateMinOwners().send({from: Aux.account }));
+    /*if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.validateMinOwners().send({from: Aux.account }));
     else if(2 == contractType)await Aux.CallBackFrame(ProviderPool.privatePool.methods.validateMinOwners().send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.validateMinOwners().send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.validateMinOwners().send({from: Aux.account }));*/
   }
 
-  export async function RejectMinOwner(contractType){
-    if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.rejectMinOwners().send({from: Aux.account }));
+  export async function RejectMinOwner(contract){
+    await Aux.CallBackFrame(contract.methods.rejectMinOwners().send({from: Aux.account }));
+    /*if(1 == contractType)await Aux.CallBackFrame(Contracts.publicPool.methods.rejectMinOwners().send({from: Aux.account }));
     else if(2 == contractType)await Aux.CallBackFrame(ProviderPool.privatePool.methods.rejectMinOwners().send({from: Aux.account }));
-    else await Aux.CallBackFrame(ProviderPool.provider.methods.rejectMinOwners().send({from: Aux.account }));
+    else await Aux.CallBackFrame(ProviderPool.provider.methods.rejectMinOwners().send({from: Aux.account }));*/
   }

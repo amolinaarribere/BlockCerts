@@ -13,9 +13,9 @@ class CreatePoolIssuer extends React.Component {
     
       handleNewPrivatePoolProvider = async (event) => {
           event.preventDefault();
-        await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.props.contractType)
+        await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.props.contract, this.props.price)
         this.setState({ minOwners: 0, listOfOwners: [], name : "" })
-        await loadFunc.LoadFactoriesFunc();
+        await loadFunc.LoadFactoriesFunc(this.props.contract);
         this.props.refresh();
       };
 

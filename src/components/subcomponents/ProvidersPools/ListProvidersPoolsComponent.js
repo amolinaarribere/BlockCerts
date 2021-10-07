@@ -6,16 +6,16 @@ const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 class ListProvidersPoolsComponent extends React.Component{
     render(){
-      var text = "Providers";
-      var ProvidersPools = func.publicProviders;
+      var text = (this.props.contractType == 3)? "Pools" : "Providers";
+      var ProvidersPools = func.Items;
 
-      if(this.props.contractType == 2){
+      /*if(this.props.contractType == 2){
         ProvidersPools = func.privateProviders;
       }
       else if(this.props.contractType == 3){
         text = "Pools";
-        ProvidersPools = func.providerPools;
-      }
+        //ProvidersPools = func.providerPools;
+      }*/
 
       return(
         <div class="border border-0">

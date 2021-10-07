@@ -14,9 +14,10 @@ export function LoadWeb3(){
 
 export async function CallBackFrame(callback){
     try{
-      await callback;
+      let result = await callback;
+      return result;
      }
-     catch(e) { window.alert(e); }
+     catch(e) { window.alert(JSON.stringify(e)); }
 }
   
 export function Bytes32ToAddress(bytes){

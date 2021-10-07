@@ -2,6 +2,8 @@
 const Aux = require("./AuxiliaryFunctions.js");
 
 export const method = 'eth_signTypedData_v4';
+export var ContractName = ""
+export var ContractVersion = ""
 
   export function AddCertificatesMsgParams(_domain, _msg){
       return JSON.stringify({
@@ -14,6 +16,18 @@ export const method = 'eth_signTypedData_v4';
         }
       });
   }
+
+  export function VoteMsgParams(_domain, _msg){
+    return JSON.stringify({
+      domain: _domain,
+      message: _msg,
+      primaryType: 'votePropositionOnBehalfOf',
+      types: {
+        EIP712Domain: EIP712Domain(),
+        votePropositionOnBehalfOf: VoteDomain()
+      }
+    });
+}
 
   function EIP712Domain(){
       return  [
@@ -32,7 +46,17 @@ export const method = 'eth_signTypedData_v4';
         { name: 'nonce', type: 'uint256' },
         { name: 'deadline', type: 'uint256' }
       ]
-}
+  } 
+
+  function VoteDomain(){
+    return  [
+        { name: 'voter', type: 'address' },
+        { name: 'propID', type: 'uint256' },
+        { name: 'vote', type: 'bool' },
+        { name: 'nonce', type: 'uint256' },
+        { name: 'deadline', type: 'uint256' }
+      ]
+  } 
 
   export async function Domain(_name, _contract, _version){
     return {
@@ -51,4 +75,24 @@ export const method = 'eth_signTypedData_v4';
       nonce: _nonce,
       deadline: _deadline
     }
+  }
+
+  export function VoteOnBehalfOfMessage(_from, _propID, _vote, _nonce, _deadline){
+    return {
+      voter: _from,
+      propID: _propID,
+      vote: _vote,
+      nonce: _nonce,
+      deadline: _deadline
+    }
+  }
+
+  export async function retrieveContractConfig(contract){
+    try{
+      let result = await contract.methods.retrieveContractConfig().call({from: Aux.account });
+      ContractName = result[0];
+      ContractVersion = result[1];
+      window.alert(ContractName + " " + ContractVersion)
+    }
+    catch(e) { window.alert("here " + e); }
   }

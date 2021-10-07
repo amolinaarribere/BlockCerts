@@ -15,7 +15,7 @@ class AddressPropositionComponent extends React.Component {
   }
   
   refresh = async (event) => {
-    await loadFunc.LoadPriceConverterFunc();
+    await loadFunc.LoadPriceConverterFunc(this.props.contract);
     this.props.refresh()
   }
 
@@ -40,7 +40,7 @@ class AddressPropositionComponent extends React.Component {
       var NRA = address_0;
 
       if(this.state.NewRegistryAddress != "") NRA = this.state.NewRegistryAddress;
-      await func.UpgradeRegistryAddress(NRA);
+      await func.UpgradeRegistryAddress(NRA, this.props.contract);
       this.setState({ NewRegistryAddress: ""})
       await this.refresh();
     };
@@ -93,7 +93,9 @@ class AddressPropositionComponent extends React.Component {
                         </Row>
                         < br/>
                         <Row>
-                          <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
+                          <VoteForPropositionComponent contract={this.props.contract}
+                            contractType={this.props.contractType} 
+                            refresh={this.refresh}/>
                         </Row>
                       </Container>
                     </div>) : null}

@@ -6,6 +6,8 @@ import SendNewProposalComponent from './subcomponents/Public/SendNewProposalComp
 
 const Certificatefunc = require("../functions/CertificateFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
+const Contracts = require("../functions/Contracts.js");
+const Treasury = require("../functions/TreasuryFunctions.js");
 
 class PublicComponent extends React.Component {
     componentWillMount() {
@@ -31,18 +33,26 @@ class PublicComponent extends React.Component {
     render(){
       return (
         <div>
-          <SendNewProposalComponent contractType={this.state.contractType} refresh={this.refresh}/>
-          <br />
-          <CertificateComponent contractType={this.state.contractType} 
-            privateEnv={this.state.privateEnv} 
+          <SendNewProposalComponent contract={Contracts.publicPool}  
+            contractType={this.state.contractType} 
             refresh={this.refresh}/>
+          <br />
+          <CertificateComponent contract={Contracts.publicPool} 
+            contractType={this.state.contractType}
+            privateEnv={this.state.privateEnv} 
+            refresh={this.refresh}
+            price={Treasury.CertificatePriceWei}/>
           <br />
           {
            (Ownerfunc.isPublicOwner)?(
              <div>
-              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <OwnerComponent contract={Contracts.publicPool} 
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
               <br/>
-              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <ProviderPoolComponent contract={Contracts.publicPool} 
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
             </div>
            ):null}
 

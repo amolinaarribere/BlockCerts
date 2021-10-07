@@ -35,12 +35,12 @@ class ListPendingOwnersComponent extends React.Component{
   };
 
     render(){
-      var text = "Public";
-      var minOwners = func.publicPendingMinOwners;
-      var pendingOwnersAdd = func.pendingPublicOwnersAdd;
-      var pendingOwnersRemove = func.pendingPublicOwnersRemove;
+      var text = (this.props.contractType == 3) ? "Provider" : "Public";
+      var minOwners = func.PendingMinOwners;
+      var pendingOwnersAdd = func.pendingOwnersAdd;
+      var pendingOwnersRemove = func.pendingOwnersRemove;
 
-      if (this.props.contractType == 2){
+      /*if (this.props.contractType == 2){
         text = "Private";
         minOwners = func.privatePendingMinOwners;
         pendingOwnersAdd = func.pendingPrivateOwnersAdd;
@@ -52,7 +52,7 @@ class ListPendingOwnersComponent extends React.Component{
         minOwners = func.providerPendingMinOwners;
         pendingOwnersAdd = func.pendingProviderOwnersAdd;
         pendingOwnersRemove = func.pendingProviderOwnersRemove;
-      }
+      }*/
 
       return(
         <div>
@@ -70,7 +70,9 @@ class ListPendingOwnersComponent extends React.Component{
                       </Row>
                       < br/>
                       <Row>
-                        <VoteForMinOwnersComponent contractType={this.props.contractType} refresh={this.refresh}/>
+                        <VoteForMinOwnersComponent contract={this.props.contract}
+                          contractType={this.props.contractType} 
+                          refresh={this.refresh}/>
                       </Row>
                     </Container>
                   </div>) : null} 

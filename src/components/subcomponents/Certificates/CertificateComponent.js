@@ -45,19 +45,19 @@ class CertificateComponent extends React.Component{
   
     handleAddCertificate = async (event) => {
         event.preventDefault();
-      await func.AddCertificate(this.state.certificateHash, this.state.holderAddress, this.props.privateEnv, this.props.contractType, this.state.poolAddress);
+      await func.AddCertificate(this.state.certificateHash, this.state.holderAddress, this.props.price, this.props.contract, this.state.poolAddress);
       this.resetState()
     };
   
     handleCheckCertificate = async (event) => {
         event.preventDefault();
-      await func.CheckCertificate(this.state.certificateHash, this.state.holderAddress, this.props.privateEnv);
+      await func.CheckCertificate(this.state.certificateHash, this.state.holderAddress, this.props.contract);
       this.resetState()
     };
   
     handleRetrieveByHolder = async (event) => {
         event.preventDefault();
-      await func.retrieveCertificatesByHolder(this.state.retrieveholderAddress, 0, 99, this.props.privateEnv)
+      await func.retrieveCertificatesByHolder(this.state.retrieveholderAddress, 0, 99, this.props.contract)
       this.setState({ retrieveholderAddress: ""})
     };
   
@@ -83,7 +83,8 @@ class CertificateComponent extends React.Component{
               </Row>
             </Container>
 
-           <SignCertificateComponent privateEnv={this.props.privateEnv} />
+           <SignCertificateComponent contract={this.props.contract} 
+            price={this.props.price}/>
 
             <Form onSubmit={this.handleRetrieveByHolder} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
@@ -122,9 +123,10 @@ class CertificateComponent extends React.Component{
               </Form.Group>
               <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
             </Form>
-            <VoteCertificateComponent refresh={this.refresh}/>
+            <VoteCertificateComponent contract={this.props.contract}
+              refresh={this.refresh} />
             <br />
-            <ListPendingCertificatesComponent />
+            <ListPendingCertificatesComponent contract={this.props.contract}/>
             <hr class="bg-secondary"/>
           </div>
         );

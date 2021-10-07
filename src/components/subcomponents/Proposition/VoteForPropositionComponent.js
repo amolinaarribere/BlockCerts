@@ -7,18 +7,18 @@ class VoteForPropositionComponent extends React.Component{
 
     handleValidatePropConfig = async (event) => {
       event.preventDefault();
-      await func.VoteProposition(true, this.props.contractType);
+      await func.VoteProposition(true, this.props.contract);
       await this.reset();
     };
 
     handleRejectPropConfig = async (event) => {
         event.preventDefault();
-        await func.VoteProposition(false, this.props.contractType);
+        await func.VoteProposition(false, this.props.contract);
         await this.reset();
       };
     
       reset = async () =>{
-        await loadFunc.LoadPropositionFunc();
+        await loadFunc.LoadPropositionFunc(this.props.contract);
         this.props.refresh();
       }
   

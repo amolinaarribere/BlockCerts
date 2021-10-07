@@ -11,7 +11,6 @@ const Contracts = require("./Contracts.js");
 const ManagerFunc = require("./ManagerFunctions.js");
 const PriceConverterFunc = require("./PriceConverterFunctions.js");
 const Aux = require("./AuxiliaryFunctions.js");
-const BrowserStorageFunc = require("./BrowserStorageFunctions.js");
 
 export var chairPerson = ""
 export var balance = ""
@@ -52,7 +51,7 @@ export async function LoadBlockchain() {
       ProviderPoolFunc.ReadKeys();
 
       Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
-      await LoadManagerFunc();
+      await LoadManagerFunc(Contracts.certificatePoolManager);
 
       Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
       Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
@@ -61,7 +60,7 @@ export async function LoadBlockchain() {
       Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
       Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
 
-      await Promise.all([
+      /*await Promise.all([
         LoadProviderPoolFunc(1),
         LoadProviderPoolFunc(2),
         LoadProviderPoolFunc(3),
@@ -72,7 +71,7 @@ export async function LoadBlockchain() {
         LoadPropositionFunc(),
         LoadCertisFunc(),
         LoadTreasuryFunc(),
-        LoadPriceConverterFunc()])
+        LoadPriceConverterFunc()])*/
 
     } catch (err) {
       window.alert("User cancelled " + JSON.stringify(err));
@@ -85,53 +84,49 @@ export async function LoadBlockchain() {
   
 }
 
-export async function LoadManagerFunc() {
-  await Promise.all([ManagerFunc.RetrieveContractsAddresses(), 
-    ManagerFunc.RetrievePendingContractsAddresses()]);
+export async function LoadManagerFunc(contract) {
+  await Promise.all([ManagerFunc.RetrieveContractsAddresses(contract), 
+    ManagerFunc.RetrievePendingContractsAddresses(contract)]);
 }
 
-export async function LoadCertisFunc() {
-  await Promise.all([CertisFunc.isTokenOwner(Aux.account), 
-    CertisFunc.totalSupply(),
-    CertisFunc.balanceOf(Aux.account)]);
+export async function LoadCertisFunc(contract) {
+  await Promise.all([CertisFunc.isTokenOwner(Aux.account, contract), 
+    CertisFunc.totalSupply(contract),
+    CertisFunc.balanceOf(Aux.account, contracts)]);
 }
 
-export async function LoadPropositionFunc() {
-  await Promise.all([PropositionFunc.RetrieveProposition(1), 
-    PropositionFunc.RetrieveProposition(2),
-    PropositionFunc.RetrieveProposition(3),
-    PropositionFunc.RetrievePendingProposition(1),
-    PropositionFunc.RetrievePendingProposition(2),
-    PropositionFunc.RetrievePendingProposition(3)]);
+export async function LoadPropositionFunc(contract) {
+  await Promise.all([PropositionFunc.RetrieveProposition(contract),
+    PropositionFunc.RetrievePendingProposition(contract)]);
 }
 
-export async function LoadTreasuryFunc() {
-  await Promise.all([TreasuryFunc.RetrievePricesTreasury(), 
-    TreasuryFunc.RetrievePendingPricesTreasury(),
-    TreasuryFunc.RetrieveLastAssigned(Aux.account),
-    TreasuryFunc.RetrieveBalance(Aux.account),
-    TreasuryFunc.RetrieveTreasuryBalance()]);
+export async function LoadTreasuryFunc(contract) {
+  await Promise.all([TreasuryFunc.RetrievePricesTreasury(contract), 
+    TreasuryFunc.RetrievePendingPricesTreasury(contract),
+    TreasuryFunc.RetrieveLastAssigned(Aux.account, contract),
+    TreasuryFunc.RetrieveBalance(Aux.account, contract),
+    TreasuryFunc.RetrieveTreasuryBalance(contract)]);
 }
 
-export async function LoadPriceConverterFunc() {
-  await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(),
-    PriceConverterFunc.RetrievePendingRegistryAddress()]);
+export async function LoadPriceConverterFunc(contract) {
+  await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(contract),
+    PriceConverterFunc.RetrievePendingRegistryAddress(contract)]);
 }
 
-export async function LoadProviderPoolFunc(ContractId) {
-  await ProviderPoolFunc.RetrieveProviderPool(ContractId);
+export async function LoadProviderPoolFunc(ContractId, contract) {
+  await ProviderPoolFunc.RetrieveProviderPool(ContractId, contract);
 }
 
-export async function LoadOwnersFunc(ContractId) {
-  await OwnersFunc.RetrieveOwners(ContractId);
+export async function LoadOwnersFunc(contract) {
+  await OwnersFunc.RetrieveOwners(contract);
 }
 
-export async function LoadFactoriesFunc() {
-  await FactoriesFunc.RetrieveFactories();
+export async function LoadFactoriesFunc(contract) {
+  await FactoriesFunc.RetrieveFactories(contract);
 }
 
-export async function LoadCertificateFunc() {
-  await CertificateFunc.RetrievePendingCertificates();
+export async function LoadCertificateFunc(contract) {
+  await CertificateFunc.RetrievePendingCertificates(contract);
 }
 
 

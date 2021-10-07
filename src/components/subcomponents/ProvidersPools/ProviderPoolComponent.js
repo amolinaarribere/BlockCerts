@@ -3,13 +3,17 @@ import ListProvidersPoolsComponent from './ListProvidersPoolsComponent.js';
 import ListPendingProvidersPoolsComponent from './ListPendingProvidersPoolsComponent.js';
 import ManageProvidersPoolsComponent from './ManageProvidersPoolsComponent.js';
 
+const LoadFunc = require('../../../functions/LoadFunctions.js');
+
 class ProviderPoolComponent extends React.Component{
   constructor(props) {
     super(props)
+    await LoadFunc.LoadProviderPoolFunc(this.props.ContractType, this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
   refresh() {
+    await LoadFunc.LoadProviderPoolFunc(this.props.ContractType, this.props.contract);
     this.props.refresh()
   }
 
@@ -17,11 +21,15 @@ class ProviderPoolComponent extends React.Component{
         return(
           <div>
             <br />
-            <ListProvidersPoolsComponent contractType={this.props.contractType} />
+            <ListProvidersPoolsComponent contract={this.props.contract}
+              contractType={this.props.contractType} />
             <br/>
-            <ManageProvidersPoolsComponent contractType={this.props.contractType} refresh={this.refresh}/>
+            <ManageProvidersPoolsComponent contract={this.props.contract}
+              contractType={this.props.contractType} 
+              refresh={this.refresh}/>
             <br/>
-            <ListPendingProvidersPoolsComponent contractType={this.props.contractType} />
+            <ListPendingProvidersPoolsComponent contract={this.props.contract}
+              contractType={this.props.contractType} />
             <br/>
           </div>
         );

@@ -3,6 +3,8 @@ import PropositionConfigComponent from './subcomponents/Proposition/PropositionC
 import PricePropositionComponent from './subcomponents/Treasury/PricePropositionComponent.js';
 import AssignWithdrawComponent from './subcomponents/Treasury/AssignWithdrawComponent.js';
 
+const Contracts = require("../functions/Contracts.js");
+
 class TreasuryComponent extends React.Component {
     state = {
       contractType : 2
@@ -20,11 +22,16 @@ class TreasuryComponent extends React.Component {
     render(){
       return (
         <div>
-          <AssignWithdrawComponent refresh={this.refresh}/>
+          <AssignWithdrawComponent contract={Contracts.Treasury} 
+            refresh={this.refresh}/>
           <br />
-          <PricePropositionComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          <PricePropositionComponent contract={Contracts.Treasury}
+            contractType={this.state.contractType} 
+            refresh={this.refresh}/>
           <br />
-          <PropositionConfigComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          <PropositionConfigComponent contract={Contracts.Treasury}
+            contractType={this.state.contractType} 
+            refresh={this.refresh}/>
         </div>
       );
     }

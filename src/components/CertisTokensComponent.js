@@ -2,6 +2,8 @@ import React from 'react';
 import CertisBalancesComponents from './subcomponents/CertisToken/CertisBalancesComponents.js';
 import CertisTransferComponent from './subcomponents/CertisToken/CertisTransferComponent.js';
 
+const Contracts = require("../functions/Contracts.js");
+
 class CertisTokensComponent extends React.Component {
   constructor(props) {
     super(props)
@@ -15,9 +17,10 @@ class CertisTokensComponent extends React.Component {
     render(){
       return (
         <div>
-          <CertisBalancesComponents />
+          <CertisBalancesComponents contract={Contracts.CertisToken}/>
           <br />
-          <CertisTransferComponent refresh={this.refresh}/>
+          <CertisTransferComponent contract={Contracts.CertisToken}
+            refresh={this.refresh}/>
           <br />
         </div>
       );

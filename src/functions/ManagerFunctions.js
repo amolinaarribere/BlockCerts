@@ -1,5 +1,4 @@
 // Manager
-const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 
 export var publicPoolAddress = ""
@@ -27,26 +26,26 @@ export var PendingCertisTokenAddress = ""
 export var PendingPriceConverterAddress = ""
 
 
-export async function RetrieveContractsAddresses(){
-    publicPoolAddressProxy = await Contracts.certificatePoolManager.methods.retrievePublicCertificatePoolProxy().call();
-    privatePoolFactoryAddressProxy = await Contracts.certificatePoolManager.methods.retrievePrivatePoolFactoryProxy().call();
-    providerFactoryAddressProxy = await Contracts.certificatePoolManager.methods.retrieveProviderFactoryProxy().call();
-    TreasuryAddressProxy = await Contracts.certificatePoolManager.methods.retrieveTreasuryProxy().call();
-    CertisTokenAddressProxy = await Contracts.certificatePoolManager.methods.retrieveCertisTokenProxy().call();
-    PriceConverterAddressProxy = await Contracts.certificatePoolManager.methods.retrievePriceConverterProxy().call();
+export async function RetrieveContractsAddresses(contract){
+    publicPoolAddressProxy = await contract.methods.retrievePublicCertificatePoolProxy().call();
+    privatePoolFactoryAddressProxy = await contract.methods.retrievePrivatePoolFactoryProxy().call();
+    providerFactoryAddressProxy = await contract.methods.retrieveProviderFactoryProxy().call();
+    TreasuryAddressProxy = await contract.methods.retrieveTreasuryProxy().call();
+    CertisTokenAddressProxy = await contract.methods.retrieveCertisTokenProxy().call();
+    PriceConverterAddressProxy = await contract.methods.retrievePriceConverterProxy().call();
   
-    publicPoolAddress = await Contracts.certificatePoolManager.methods.retrievePublicCertificatePool().call();
-    privatePoolFactoryAddress = await Contracts.certificatePoolManager.methods.retrievePrivatePoolFactory().call();
-    privatePoolImplAddress = await Contracts.certificatePoolManager.methods.retrievePrivatePool().call();
-    providerFactoryAddress = await Contracts.certificatePoolManager.methods.retrieveProviderFactory().call();
-    providerImplAddress = await Contracts.certificatePoolManager.methods.retrieveProvider().call();
-    TreasuryAddress = await Contracts.certificatePoolManager.methods.retrieveTreasury().call();
-    CertisTokenAddress = await Contracts.certificatePoolManager.methods.retrieveCertisToken().call();
-    PriceConverterAddress = await Contracts.certificatePoolManager.methods.retrievePriceConverter().call();
+    publicPoolAddress = await contract.methods.retrievePublicCertificatePool().call();
+    privatePoolFactoryAddress = await contract.methods.retrievePrivatePoolFactory().call();
+    privatePoolImplAddress = await contract.methods.retrievePrivatePool().call();
+    providerFactoryAddress = await contract.methods.retrieveProviderFactory().call();
+    providerImplAddress = await contract.methods.retrieveProvider().call();
+    TreasuryAddress = await contract.methods.retrieveTreasury().call();
+    CertisTokenAddress = await contract.methods.retrieveCertisToken().call();
+    PriceConverterAddress = await contract.methods.retrievePriceConverter().call();
   }
   
-  export async function UpgradeContracts(NewPublicPoolAddress, NewTreasuryAddress, NewCertisTokenAddress, NewPrivatePoolFactoryAddress, NewPrivatePoolAddress, NewProviderFactoryAddress, NewProviderAddress, NewPriceConverterAddress){
-    await Aux.CallBackFrame(Contracts.certificatePoolManager.methods.upgradeContracts({
+  export async function UpgradeContracts(NewPublicPoolAddress, NewTreasuryAddress, NewCertisTokenAddress, NewPrivatePoolFactoryAddress, NewPrivatePoolAddress, NewProviderFactoryAddress, NewProviderAddress, NewPriceConverterAddress, contract){
+    await Aux.CallBackFrame(contract.methods.upgradeContracts({
                 "NewPublicPoolAddress": NewPublicPoolAddress,
                 "NewTreasuryAddress": NewTreasuryAddress,
                 "NewCertisTokenAddress": NewCertisTokenAddress,
@@ -64,7 +63,7 @@ export async function RetrieveContractsAddresses(){
             }).send({from: Aux.account }));
   }
   
-  export async function RetrievePendingContractsAddresses(){
+  export async function RetrievePendingContractsAddresses(contract){
     [PendingPublicPoolAddress,
       PendingTreasuryAddress,
       PendingCertisTokenAddress,
@@ -72,5 +71,5 @@ export async function RetrieveContractsAddresses(){
       PendingPrivatePoolImplAddress,
       PendingProviderFactoryAddress,
       PendingProviderImplAddress,
-      PendingPriceConverterAddress] = await Contracts.certificatePoolManager.methods.retrieveProposition().call({from: Aux.account });
+      PendingPriceConverterAddress] = await contract.methods.retrieveProposition().call({from: Aux.account });
   }

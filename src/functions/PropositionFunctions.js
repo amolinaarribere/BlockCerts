@@ -1,5 +1,4 @@
 // Proposition
-const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 
 
@@ -27,8 +26,12 @@ export var PendingManagerProp = "";
 export var PendingTreasuryProp = "";
 export var PendingPCProp = "";
 
-export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage, contractType){
-    if(contractType == 1){
+export var ContractName = ""
+export var ContractVersion = ""
+
+export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage, contract){
+  await Aux.CallBackFrame(contract.methods.updateProp(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage).send({from: Aux.account }));
+    /*if(contractType == 1){
       await Aux.CallBackFrame(Contracts.certificatePoolManager.methods.updateProp(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage).send({from: Aux.account }));
     }
     else if(contractType == 2){
@@ -36,11 +39,12 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
     }
     else if(contractType == 3){
       await Aux.CallBackFrame(Contracts.PriceConverter.methods.updateProp(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage).send({from: Aux.account }));
-    }
+    }*/
   }
   
-  export async function VoteProposition(Vote, contractType){
-    if(contractType == 1){
+  export async function VoteProposition(Vote, contract){
+    await Aux.CallBackFrame(contract.methods.voteProposition(Vote).send({from: Aux.account }));
+    /*if(contractType == 1){
       await Aux.CallBackFrame(Contracts.certificatePoolManager.methods.voteProposition(Vote).send({from: Aux.account }));
     }
     else if(contractType == 2){
@@ -48,11 +52,30 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
     }
     else if(contractType == 3){
       await Aux.CallBackFrame(Contracts.PriceConverter.methods.voteProposition(Vote).send({from: Aux.account }));
+    }*/
+  }
+
+  export async function VotePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature, contract){
+    await Aux.CallBackFrame(contract.methods.votePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature).send({from: Aux.account }));
+    /*if(contractType == 1){
+      await Aux.CallBackFrame(Contracts.certificatePoolManager.methods.votePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature).send({from: Aux.account }));
     }
+    else if(contractType == 2){
+      await Aux.CallBackFrame(Contracts.Treasury.methods.votePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature).send({from: Aux.account }));
+    }
+    else if(contractType == 3){
+      await Aux.CallBackFrame(Contracts.PriceConverter.methods.votePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature).send({from: Aux.account }));
+    }*/
   }
   
-  export async function RetrievePendingProposition(contractType){
-    if(contractType == 1){
+  export async function RetrievePendingProposition(contract){
+    let response = await contract.methods.retrievePendingPropConfig().call();
+    PendingPropositionLifeTime = response[0];
+    PendingPropositionThresholdPercentage = response[1];
+    PendingMinWeightToProposePercentage = response[2];
+    PendingProp = response[3];
+
+    /*if(contractType == 1){
       let response = await Contracts.certificatePoolManager.methods.retrievePendingPropConfig().call();
       PendingManagerPropositionLifeTime = response[0];
       PendingManagerPropositionThresholdPercentage = response[1];
@@ -72,11 +95,16 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
       PendingPCPropositionThresholdPercentage = response[1];
       PendingPCMinWeightToProposePercentage = response[2];
       PendingPCProp = response[3];
-    }
+    }*/
   }
   
-  export async function RetrieveProposition(contractType){
-    if(contractType == 1){
+  export async function RetrieveProposition(contract){
+    let response = await contract.methods.retrievePropConfig().call();
+      PropositionLifeTime = response[0];
+      PropositionThresholdPercentage = response[1];
+      MinWeightToProposePercentage = response[2];
+
+    /*if(contractType == 1){
       let response = await Contracts.certificatePoolManager.methods.retrievePropConfig().call();
       ManagerPropositionLifeTime = response[0];
       ManagerPropositionThresholdPercentage = response[1];
@@ -93,5 +121,5 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
       PCPropositionLifeTime = response[0];
       PCPropositionThresholdPercentage = response[1];
       PCMinWeightToProposePercentage = response[2];
-    }
+    }*/
   }

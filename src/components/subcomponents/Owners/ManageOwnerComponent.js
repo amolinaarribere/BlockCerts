@@ -12,28 +12,28 @@ class ManageOwnerComponent extends React.Component{
 
     handleAddOwner = async (event) => {
         event.preventDefault();
-      await func.AddOwner(this.state.Owner, "", this.props.contractType)
+      await func.AddOwner(this.state.Owner, "", this.props.contract)
       await this.reset();
     };
     handleRemoveOwner = async (event) => {
         event.preventDefault();
-      await func.RemoveOwner(this.state.Owner, this.props.contractType)
+      await func.RemoveOwner(this.state.Owner, this.props.contract)
       await this.reset();
     };
     handleValidateOwner = async (event) => {
         event.preventDefault();
-      await func.ValidateOwner(this.state.Owner, this.props.contractType)
+      await func.ValidateOwner(this.state.Owner, this.props.contract)
       await this.reset();
     };
     handleRejectOwner = async (event) => {
         event.preventDefault();
-      await func.RejectOwner(this.state.Owner, this.props.contractType)
+      await func.RejectOwner(this.state.Owner, this.props.contract)
       await this.reset();
     };
     
     reset = async() =>{
       this.setState({ Owner: "" })
-      await loadFunc.LoadOwnersFunc(this.props.contractType);
+      await loadFunc.LoadOwnersFunc(this.props.contract);
       this.props.refresh();
     }
 

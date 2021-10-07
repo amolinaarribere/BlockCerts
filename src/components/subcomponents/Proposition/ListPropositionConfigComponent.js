@@ -10,21 +10,15 @@ class ListPropositionConfigComponent extends React.Component{
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Proposition Life Time :</b></Col> 
-                <Col>{(this.props.contractType == 1)? func.ManagerPropositionLifeTime : 
-                      (this.props.contractType == 2)? func.TreasuryPropositionLifeTime :
-                      func.PCPropositionLifeTime}</Col>
+                <Col>{func.PropositionLifeTime}</Col>
               </Row>
               <Row>
                 <Col><b>Proposition Threshold Percentage :</b></Col> 
-                <Col>{(this.props.contractType == 1)? func.ManagerPropositionThresholdPercentage :
-                      (this.props.contractType == 2)? func.TreasuryPropositionThresholdPercentage :
-                      func.PCPropositionThresholdPercentage}</Col>
+                <Col>{func.PropositionThresholdPercentage}</Col>
               </Row>
               <Row>
                 <Col><b>Min Weight To Propose Percentage :</b></Col> 
-                <Col>{(this.props.contractType == 1)? func.ManagerMinWeightToProposePercentage :
-                      (this.props.contractType == 2)? func.TreasuryMinWeightToProposePercentage :
-                      func.PCMinWeightToProposePercentage}</Col>
+                <Col>{func.MinWeightToProposePercentage}</Col>
               </Row>
             </Container>
           </div>

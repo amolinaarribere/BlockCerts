@@ -10,11 +10,12 @@ const certFunc = require("../../../functions/CertisFunctions.js");
 class PricePropositionComponent extends React.Component {
   constructor(props) {
     super(props)
+    await loadFunc.LoadTreasuryFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
   refresh = async (event) => {
-    await loadFunc.LoadTreasuryFunc();
+    await loadFunc.LoadTreasuryFunc(this.props.contract);
     this.props.refresh()
   }
 
@@ -54,7 +55,7 @@ class PricePropositionComponent extends React.Component {
       if(this.state.NewCertificatePriceUSD != "") NCPUSD = this.state.NewCertificatePriceUSD;
       if(this.state.NewOwnerRefundFeeUSD != "") NORUSD = this.state.NewOwnerRefundFeeUSD;
 
-      await func.UpgradePricesTreasury(NPPUSD, NPPUSD2, NPPUSD3, NCPUSD, NORUSD);
+      await func.UpgradePricesTreasury(NPPUSD, NPPUSD2, NPPUSD3, NCPUSD, NORUSD, this.props.contract);
       this.setState({ NewPublicPriceUSD: "",
       NewPrivatePriceUSD: "",
       NewProviderPriceUSD: "",
@@ -164,7 +165,9 @@ class PricePropositionComponent extends React.Component {
                   </Row>
                   < br/>
                   <Row>
-                    <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
+                    <VoteForPropositionComponent contract={this.props.contract}
+                      contractType={this.props.contractType} 
+                      refresh={this.refresh}/>
                   </Row>
                 </Container>
               </div>

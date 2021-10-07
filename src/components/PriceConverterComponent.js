@@ -3,6 +3,8 @@ import PropositionConfigComponent from './subcomponents/Proposition/PropositionC
 import AddressPropositionComponent from './subcomponents/PriceConverter/AddressPropositionComponent.js';
 import PriceConvertToWeiComponent from './subcomponents/PriceConverter/PriceConvertToWeiComponent.js';
 
+const Contracts = require("../functions/Contracts.js");
+
 class PriceConverterComponent extends React.Component {
     state = {
         contractType : 3
@@ -22,9 +24,12 @@ class PriceConverterComponent extends React.Component {
         <div>
           <PriceConvertToWeiComponent />
           <br/>
-          <AddressPropositionComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          <AddressPropositionComponent contract={Contracts.PriceConverter} 
+          contractType={this.state.contractType} refresh={this.refresh}/>
           <br />
-          <PropositionConfigComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          <PropositionConfigComponent contract={Contracts.PriceConverter}
+            contractType={this.state.contractType} 
+            refresh={this.refresh}/>
           <br />
         </div>
       );

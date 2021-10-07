@@ -3,9 +3,6 @@ import ListPublicEventsComponent from './ListPublicEventsComponent.js';
 import ListManagerEventsComponent from './ListManagerEventsComponent.js';
 
 const EventsFunc = require("../../../functions/EventsFunctions.js");
-const Aux = require("../../../functions/AuxiliaryFunctions.js");
-const ManagerFunc = require("../../../functions/ManagerFunctions.js");
-
 
 class ListEventsComponent extends React.Component {
     state = {

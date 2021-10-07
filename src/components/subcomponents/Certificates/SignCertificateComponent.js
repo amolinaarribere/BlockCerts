@@ -3,7 +3,6 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/CertificateFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
-const Contracts = require("../../../functions/Contracts.js");
 const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 
 class SignCertificateComponent extends React.Component{
@@ -60,7 +59,8 @@ class SignCertificateComponent extends React.Component{
         this.state.nonce_2,
         deadline,
         this.state.signature_2,
-        this.props.privateEnv);
+        this.props.contract,
+        this.props.price);
     this.resetState()
   };
 
@@ -72,7 +72,8 @@ class SignCertificateComponent extends React.Component{
       let Deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
       let Nonce = this.state.nonce;
 
-      let Domain = await SignatureFunc.Domain('Public Certificate Pool', Contracts.publicPool._address, '1.0');
+      await SignatureFunc.retrieveContractConfig(this.props.contract);
+      let Domain = await SignatureFunc.Domain(SignatureFunc.ContractName, this.props.contract._address, SignatureFunc.ContractVersion);
       let Message = SignatureFunc.AddCertificateOnBehalfOfMessage(from, this.state.certificateHash, this.state.holderAddress, Nonce, Deadline)
     
       let params = [from, SignatureFunc.AddCertificatesMsgParams(Domain, Message)];

@@ -2,8 +2,6 @@
 const Aux = require("./AuxiliaryFunctions.js");
 const Contracts = require("./Contracts.js");
 
-
-
 export var eventlogs = [];
 
 // Generic

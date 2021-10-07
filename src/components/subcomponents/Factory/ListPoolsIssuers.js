@@ -12,7 +12,7 @@ class FundProviderComponent extends React.Component{
   
     handleFundProvider = async (event) => {
       event.preventDefault();
-      await ProviderPoolFunctions.FundProvider(this.state.Amount);
+      await ProviderPoolFunctions.FundProvider(this.state.Amount, this.props.contract);
       this.setState({ Amount: 0 })
     };
     

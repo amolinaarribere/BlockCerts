@@ -12,10 +12,10 @@ class SendNewProposalComponent extends React.Component {
 
     handleNewProposal = async (event) => {
         event.preventDefault();
-      await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType)
+      await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType, this.props.contract)
       this.setState({ newProvider: "" })
       this.setState({ newProviderInfo: "" })
-      await loadFunc.LoadProviderPoolFunc(this.props.contractType);
+      await loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
       this.props.refresh();
     };
 

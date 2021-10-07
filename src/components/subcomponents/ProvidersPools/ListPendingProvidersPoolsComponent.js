@@ -20,11 +20,11 @@ class ListPendingProvidersPoolsComponent extends React.Component{
   };
 
     render(){
-      var text = "Providers";
-      var pendingProvidersPoolsAdd = func.pendingPublicProvidersAdd;
-      var pendingProvidersPoolsRemove = func.pendingPublicProvidersRemove;
+      var text = (this.props.contractType == 3)? "Pools" : "Providers";
+      var pendingProvidersPoolsAdd = func.pendingAdd;
+      var pendingProvidersPoolsRemove = func.pendingRemove;
 
-      if (this.props.contractType == 2){
+      /*if (this.props.contractType == 2){
         pendingProvidersPoolsAdd = func.pendingPrivateProvidersAdd;
         pendingProvidersPoolsRemove = func.pendingPrivateProvidersRemove;
       }
@@ -33,7 +33,7 @@ class ListPendingProvidersPoolsComponent extends React.Component{
         text = "Pools";
         pendingProvidersPoolsAdd = func.pendingProviderPoolsAdd;
         pendingProvidersPoolsRemove = func.pendingProviderPoolsRemove;
-      }
+      }*/
 
       return(
         <div>
