@@ -34,8 +34,8 @@ export var isOwner;
     try{
       isOwner = false;
       if(load.Admin){
-        let tokens = await balanceOf(address, contract);
-        if(tokens > 0 ) isOwner = true;
+        await balanceOf(address, contract);
+        if(TokensBalance > 0 ) isOwner = true;
       }
       else {
         isOwner = true;

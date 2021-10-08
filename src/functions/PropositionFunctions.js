@@ -1,6 +1,8 @@
 // Proposition
 const Aux = require("./AuxiliaryFunctions.js");
 
+export var CurrentPropositionID = ""
+
 export var PropositionLifeTime = "";
 export var PropositionThresholdPercentage = "";
 export var MinWeightToProposePercentage = "";
@@ -52,3 +54,17 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
     }
     
   }
+
+  export async function RetrievePropositionID(contract){
+    try{
+      let response = await contract.methods.retrieveNextPropId().call();
+      if(response > 0) CurrentPropositionID = response - 1;
+    }
+    catch(e) { 
+      window.alert("error retrieving the current proposition ID : " + JSON.stringify(e)); 
+    }
+    
+  }
+
+
+  

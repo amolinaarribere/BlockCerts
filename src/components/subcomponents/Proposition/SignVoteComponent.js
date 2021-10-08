@@ -29,23 +29,9 @@ class SignVoteComponent extends React.Component{
         displaySignature: ""
       };
   
-    captureFile = (event) => {
-      event.stopPropagation();
-      event.preventDefault();
-      const file = event.target.files[0];
-      let reader = new window.FileReader();
-      reader.readAsArrayBuffer(file);
-      reader.onloadend = () => this.convertToBuffer(reader);
-    };
-  
-    convertToBuffer = async (reader) => {
-      const buffer = await Buffer.from(reader.result);
-      this.setState({certificateHash: Aux.web3.utils.keccak256(buffer)});
-    };
-
     resetState() {
-      this.setState({ certificateHash: "",  holderAddress: "", date: "", time: "", nonce: 0,
-        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: 0})
+      this.setState({ date: "", time: "", nonce: 0,
+      voter_2: "",  propId_2: "", vote_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: 0})
     }
 
     handleSubmitSignature = async (event) => {
@@ -60,20 +46,19 @@ class SignVoteComponent extends React.Component{
           this.props.contract);
       this.resetState()
     };
-  
-    handleSignVote = async (event, vote) => {
-      event.preventDefault();
-  
+
+    async SignVote(vote){
       try{
         let from = Aux.account;
         let Deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
         let Nonce = this.state.nonce;
+        await func.RetrievePropositionID(this.props.contract)
   
         await SignatureFunc.retrieveContractConfig(this.props.contract);
         let Domain = await SignatureFunc.Domain(SignatureFunc.ContractName, this.props.contract._address, SignatureFunc.ContractVersion);
-        let Message = SignatureFunc.VoteOnBehalfOfMessage(from, this.state.certificateHash, this.state.holderAddress, Nonce, Deadline)
+        let Message = SignatureFunc.VoteOnBehalfOfMessage(from, func.CurrentPropositionID, vote, Nonce, Deadline)
       
-        let params = [from, SignatureFunc.AddCertificatesMsgParams(Domain, Message)];
+        let params = [from, SignatureFunc.VoteMsgParams(Domain, Message)];
         let method = SignatureFunc.method;
         let signature = await Aux.web3.currentProvider.send({method,params,from}, 
           (err, result) => {
@@ -83,9 +68,9 @@ class SignVoteComponent extends React.Component{
           });
                 
         if(signature != null && signature != "undefined"){
-          this.state.displayCertificateHash = this.state.certificateHash;
-          this.state.displayHolder = this.state.holderAddress;
-          this.state.displayProvider = Aux.account;
+          this.state.displayVoter = Aux.account;
+          this.state.displayPropID = func.CurrentPropositionID;
+          this.state.displayVote = vote;
           this.state.displayNonce = this.state.nonce;
           this.state.displayDeadline = (new Date(this.state.date + " " + this.state.time)).toString();
           this.state.displaySignature = signature;
@@ -98,14 +83,23 @@ class SignVoteComponent extends React.Component{
       }
       
       this.resetState()
-    
+    }
+  
+    handleSignVoteFor = async (event) => {
+      event.preventDefault();
+      await this.SignVote(true);
+    }
+
+    handleSignVoteAgainst = async (event) => {
+      event.preventDefault();
+      await this.SignVote(false);
     }
     
   
     render(){
         return (
           <div>
-            <Form onSubmit={this.handleSignVote(true)} style={{margin: '50px 50px 50px 50px' }}>
+            <Form onSubmit={this.handleSignVote} style={{margin: '50px 0px 50px 0px' }}>
               <Form.Group  className="mb-3">
                 <Form.Control type="integer" name="Nonce" placeholder="nonce" 
                     value={this.state.nonce}
@@ -123,8 +117,8 @@ class SignVoteComponent extends React.Component{
                   </Col>
                 </Row>
               </Form.Group>
-                 <button type="submit" class="btn btn-primary">Sign Validation</button> &nbsp;&nbsp;
-                 <button type="button" onClick="handleSignVote(false)" class="btn btn-primary">Sign Rejection</button> 
+                 <button type="submit" class="btn btn-success">Sign Validation</button> &nbsp;&nbsp;
+                 <button type="button" onClick={this.handleSignVote} class="btn btn-danger">Sign Rejection</button> 
             </Form>
 
             {(this.state.signatureDisplayed)? 
@@ -157,7 +151,7 @@ class SignVoteComponent extends React.Component{
             : null}
             
 
-            <Form onSubmit={this.handleSubmitSignature} style={{margin: '50px 50px 50px 50px' }}>
+            <Form onSubmit={this.handleSubmitSignature}  style={{margin: '50px 0px 50px 0px' }}>
               <Form.Group className="mb-3">
                 <Form.Control type="text" name="voter_2" placeholder="Voter" 
                       value={this.state.voter_2}

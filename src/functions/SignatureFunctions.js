@@ -89,12 +89,20 @@ export var ContractVersion = ""
 
   export async function retrieveContractConfig(contract){
     try{
-      let result = await contract.methods.retrieveContractConfig().call({from: Aux.account });
+      let result = await contract.methods.retrieveContractConfig().call();
       ContractName = result[0];
       ContractVersion = result[1];
-      window.alert(ContractName + " " + ContractVersion)
     }
     catch(e) { 
       window.alert("error retrieving the contract's signature configuration :  " + e); 
+    }
+  }
+
+  export async function retrieveNonce(contract, address, nonce){
+    try{
+      return await contract.methods.retrieveNonce(address, nonce).call();
+    }
+    catch(e) { 
+      window.alert("error retrieving the nonce :  " + e); 
     }
   }

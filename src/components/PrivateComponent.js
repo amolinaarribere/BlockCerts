@@ -4,6 +4,7 @@ import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
 import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolComponent.js';
 import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
+import LoadingComponent from './subcomponents/LoadingComponent.js';
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
@@ -17,12 +18,12 @@ const TreasuryFunc = require("../functions/TreasuryFunctions.js");
 
 class PrivateComponent extends React.Component {
   async componentWillMount() {
+    Certificatefunc.SwitchContext()
     await this.refresh();
   }
 
   constructor(props) {
     super(props)
-    Certificatefunc.SwitchContext()
     this.refresh = this.refresh.bind(this)
   }
 
@@ -93,7 +94,7 @@ class PrivateComponent extends React.Component {
             </div>
           : 
             <div>
-              Loading....
+              <LoadingComponent />
             </div>
           }
 

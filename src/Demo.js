@@ -11,6 +11,7 @@ import ManagerComponent from './components/ManagerComponent.js';
 import PriceConverterComponent from './components/PriceConverterComponent.js';
 import CurrentAddressComponent from './components/CurrentAddressComponent.js';
 import EventsComponent from './components/EventsComponent.js';
+import LoadingComponent from './components/subcomponents/LoadingComponent.js';
 
 
 const certFunc = require("./functions/CertisFunctions.js");
@@ -71,42 +72,41 @@ class Demo extends React.Component {
             </Container>
         </Navbar>
         <br />
-        {(false == this.state.loading) ? 
-          <div class="mx-auto w-75">
+        <div class="mx-auto w-75">
           {(() => {
               switch (this.state.Component) {
                 case Manager:
                     return (
-                      <ManagerComponent />
+                      ((false == this.state.loading) ? <ManagerComponent /> : <LoadingComponent />)
                     )
                 case Public:
                     return (
-                      <PublicComponent />
+                      ((false == this.state.loading) ? <PublicComponent /> : <LoadingComponent />)
                     )
                 case Private:
                     return (
-                        <PrivateComponent />
-                      )
+                      ((false == this.state.loading) ? <PrivateComponent /> : <LoadingComponent />)
+                    )
                 case Provider:
                     return (
-                      <IssuerComponent />
+                      ((false == this.state.loading) ? <IssuerComponent /> : <LoadingComponent />)
                     )
                 case PriceConverter:
                     return (
-                      <PriceConverterComponent />
+                      ((false == this.state.loading) ? <PriceConverterComponent /> : <LoadingComponent />)
                     )
                 case Treasury:
                     return (
-                      <TreasuryComponent />
+                      ((false == this.state.loading) ? <TreasuryComponent /> : <LoadingComponent />)
                     )
                 case CertisToken:
                     return (
-                      <CertisTokensComponent />
+                      ((false == this.state.loading) ? <CertisTokensComponent /> : <LoadingComponent />)
                     )
                 case Event:
-                      return (
-                        <EventsComponent />
-                      )
+                    return (
+                      ((false == this.state.loading) ? <EventsComponent /> : <LoadingComponent />)
+                    )
                 default:
                     return (
                       <HomeComponent />
@@ -114,11 +114,6 @@ class Demo extends React.Component {
               }
           })()}
       </div>
-        : 
-        <div>
-          Loading....
-        </div>
-        }
         
       </div>
     );

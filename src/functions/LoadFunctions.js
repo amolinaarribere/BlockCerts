@@ -59,7 +59,8 @@ export async function LoadBlockchain() {
       Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
 
       await LoadPriceConverterFunc(Contracts.PriceConverter);
-      await LoadTreasuryFunc(Contracts.Treasury);
+      await LoadTreasuryFunc(Contracts.Treasury)
+      await LoadCertisFunc(Contracts.CertisToken)
 
     } catch (e) {
       window.alert("error retrieving the main contract addresses " + JSON.stringify(e));

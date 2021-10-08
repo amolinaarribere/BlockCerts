@@ -14,7 +14,7 @@ const TreasuryFunc = require("../functions/TreasuryFunctions.js");
 
 
 
-  class IssuerComponent extends React.Component {
+class IssuerComponent extends React.Component {
     async componentWillMount() {
       await this.refresh();
     }
@@ -22,6 +22,18 @@ const TreasuryFunc = require("../functions/TreasuryFunctions.js");
    constructor(props) {
     super(props)
     this.refresh = this.refresh.bind(this)
+  }
+
+  state = {
+    loading : false,
+    contractType : 3
+  };
+
+  NotEmpty(value){
+    if(value != null && value !== "" && value !== "undefined"){
+      return true
+    }
+    return false;
   }
 
   async refresh() {
@@ -35,19 +47,7 @@ const TreasuryFunc = require("../functions/TreasuryFunctions.js");
     this.state.loading = false;
     this.setState({})
   }
-
-    state = {
-      loading : false,
-      contractType : 3
-    };
-
-    NotEmpty(value){
-      if(value != null && value !== "" && value !== "undefined"){
-        return true
-      }
-      return false;
-    }
-    
+ 
     render(){
       return (
         <div>
