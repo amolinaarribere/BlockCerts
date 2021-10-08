@@ -94,5 +94,7 @@ export var ContractVersion = ""
       ContractVersion = result[1];
       window.alert(ContractName + " " + ContractVersion)
     }
-    catch(e) { window.alert("here " + e); }
+    catch(e) { 
+      window.alert("error retrieving the contract's signature configuration :  " + e); 
+    }
   }

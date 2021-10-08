@@ -5,16 +5,33 @@ export var RegistryAddress = "";
 export var PendingRegistryAddress = "";
 
   export async function USDToEther(amount, contract){
-    let result = await contract.methods.fromUSDToETH((new BigNumber(100 * amount)).decimalPlaces(0)).call({from: Aux.account });
-    return result;
+    try{
+      let result = await contract.methods.fromUSDToETH((new BigNumber(100 * amount)).decimalPlaces(0)).call({from: Aux.account });
+      return result;
+    }
+    catch(e) { 
+      window.alert("error getting the USD to Ether excahgne rate : " + JSON.stringify(e)); 
+    }
   }
 
   export async function RetrieveRegistryAddress(contract){
-    RegistryAddress = await contract.methods.retrieveRegistryAddress().call({from: Aux.account });
+    try{
+      RegistryAddress = await contract.methods.retrieveRegistryAddress().call({from: Aux.account });
+    }
+    catch(e) { 
+      window.alert("error retrieving the registry address : " + JSON.stringify(e)); 
+    }
+    
   }
 
   export async function RetrievePendingRegistryAddress(contract){
-    [PendingRegistryAddress] = await contract.methods.retrieveProposition().call({from: Aux.account });
+    try{
+      [PendingRegistryAddress] = await contract.methods.retrieveProposition().call({from: Aux.account });
+    }
+    catch(e) { 
+      window.alert("error retrieving the pending registry address : " + JSON.stringify(e)); 
+    }
+    
   }
 
   export async function UpgradeRegistryAddress(NewRegistryAddress, contract){

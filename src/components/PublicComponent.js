@@ -25,6 +25,7 @@ class PublicComponent extends React.Component {
   }
 
     state = {
+      loading : false,
       newProvider : "",
       newProviderInfo : "",
       privateEnv : false,

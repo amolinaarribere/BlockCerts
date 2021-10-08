@@ -8,12 +8,17 @@
 }
 
  export async function RetrieveFactories(contract){
-  let TotalPool = await contract.methods.retrieveTotal().call()
-  Addresses = []
+  try{
+      let Total = await contract.methods.retrieveTotal().call()
+      Addresses = []
 
-  for (let i = 0; i < TotalPool; i++) {
-    let Address = await contract.methods.retrieve(i).call()
-    Addresses[i] = Address
+      for (let i = 0; i < Total; i++) {
+        let Address = await contract.methods.retrieve(i).call()
+        Addresses[i] = Address
+      }
+   }
+  catch(e){
+    window.alert("error retrieving the factories items : " + JSON.stringify(e))
   }
 
   }

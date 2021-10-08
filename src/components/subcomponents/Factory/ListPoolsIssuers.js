@@ -47,10 +47,9 @@ class SelectPoolIssuerComponent extends React.Component{
       handleSelectProviderPool = async (event) => {
         event.preventDefault();
         BrowserStorageFunctions.WriteKey(this.props.Key, this.state.ProviderPool);
-
         await ProviderPoolFunctions.SelectProviderPool(this.state.ProviderPool, this.props.contractType);
         this.setState({ ProviderPool: "" })
-        this.props.refresh();
+        await this.props.refresh();
       };
       
       render(){
@@ -72,7 +71,31 @@ class SelectPoolIssuerComponent extends React.Component{
       }
 }
 
+class UnSelectPoolIssuerComponent extends React.Component{
+  
+    handleUnSelectProviderPool = async (event) => {
+        event.preventDefault();
+        BrowserStorageFunctions.WriteKey(this.props.Key, "");
+        await ProviderPoolFunctions.UnSelectProviderPool(this.props.contractType);
+        this.setState({})
+        await this.props.refresh();
+      };
+    
+    render(){
+      var text = "Pool";
+      if (this.props.contractType == 3)text = "Provider";
+      return (
+          <div>
+              <Form onSubmit={this.handleUnSelectProviderPool} style={{margin: '50px 50px 50px 50px' }}>
+                <button type="submit" class="btn btn-secondary">UnSelect {text}</button>
+              </Form>
+          </div>
+      );
+    }
+}
+
 class ListPoolsIssuers extends React.Component {
+
     render(){
         var text = (this.props.contractType == 3) ? "Provider" : "Private Pool";
         var addresses = func.Addresses;
@@ -96,7 +119,10 @@ class ListPoolsIssuers extends React.Component {
                     refresh={this.props.refresh}/>
                 <hr class="bg-secondary"/>
                 <br />
-                <h2 class="text-primary"> Selected {text} : {selectedAddress}</h2>
+                <h3 class="text-primary"> Selected {text} : {selectedAddress}</h3>
+                <UnSelectPoolIssuerComponent contractType={this.props.contractType} 
+                    Key={this.props.Key} 
+                    refresh={this.props.refresh}/>
                 <br />
                 {Provider ? (
                     <div>

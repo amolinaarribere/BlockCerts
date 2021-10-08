@@ -13,6 +13,7 @@ class ManagerComponent extends React.Component {
   }
   
    state = {
+      loading : false,
      contractType : 1
     };
     

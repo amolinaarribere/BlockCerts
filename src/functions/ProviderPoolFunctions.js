@@ -48,7 +48,6 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
       let Addresses = (3 != contractType)? 
         await contract.methods.retrieveAllProviders().call():
         await contract.methods.retrieveAllPools().call();
-
       Total = Addresses.length
       Items = []
 
@@ -59,7 +58,6 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
 
         Items[i] = [Addresses[i], Info]
       }
-
       pendingAdd = []
       let pendingAddAddresses = (3 != contractType)?
         await contract.methods.retrievePendingProviders(true).call():
@@ -71,7 +69,6 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
           await contract.methods.retrievePool(Aux.Bytes32ToAddress(pendingAddAddresses[i])).call();;
         pendingAdd[i] = [pendingAddAddresses[i], Info]
       }
-
       pendingRemove = []
       let pendingRemoveAddresses = (3 != contractType)?
         await contract.methods.retrievePendingProviders(false).call():
@@ -85,32 +82,50 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
       }
 
     }
-    catch(e){}
+    catch(e){
+      window.alert("error retrieving the providers or pools : " + JSON.stringify(e))
+    }
     
   }
 
   export async function SelectProviderPool(address, contractType){
-    
     try{
       Address = address
       if(2 == contractType){
         privatePool = await new Aux.web3.eth.Contract(PRIVATE_ABI, Address)
         Contracts.setPrivatePool(privatePool);
-        RetrieveProviderPool(contractType, privatePool);
-        OwnersFunc.RetrieveOwners(contractType, privatePool);
+        await RetrieveProviderPool(contractType, privatePool)
+        await OwnersFunc.RetrieveOwners(privatePool)
       }
       else{
         provider = await new Aux.web3.eth.Contract(PROVIDER_ABI, Address)
         Contracts.setProvider(provider);
         Balance = await Aux.web3.eth.getBalance(Address);
-        RetrieveProviderPool(contractType, provider);
-        OwnersFunc.RetrieveOwners(contractType, provider);
-        CertificateFunc.RetrievePendingCertificates(provider);
+        await RetrieveProviderPool(contractType, provider)
+        await OwnersFunc.RetrieveOwners(provider)
+        await CertificateFunc.RetrievePendingCertificates(provider)
       }
-      
-
     }
-    catch(e) { window.alert(e); }
+    catch(e) { 
+      window.alert("error selecting the providers or pools : " + JSON.stringify(e)); 
+    }
+  }
+
+  export async function UnSelectProviderPool(contractType){
+    try{
+      Address = ""
+      if(2 == contractType){
+        privatePool = ""
+        Contracts.setPrivatePool(privatePool);
+      }
+      else{
+        provider = ""
+        Contracts.setProvider(provider);
+      }  
+    }
+    catch(e) { 
+      window.alert("error unselecting the providers or pools : " + JSON.stringify(e)); 
+    }
   }
 
   export async function FundProvider(amount){

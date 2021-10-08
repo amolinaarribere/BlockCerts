@@ -61,8 +61,8 @@ export async function LoadBlockchain() {
       await LoadPriceConverterFunc(Contracts.PriceConverter);
       await LoadTreasuryFunc(Contracts.Treasury);
 
-    } catch (err) {
-      window.alert("User cancelled " + JSON.stringify(err));
+    } catch (e) {
+      window.alert("error retrieving the main contract addresses " + JSON.stringify(e));
     }
     
   }

@@ -8,6 +8,7 @@ const loadFunc = require("../functions/LoadFunctions.js");
 
 class TreasuryComponent extends React.Component {
     state = {
+      loading : false,
       contractType : 2
     };
 

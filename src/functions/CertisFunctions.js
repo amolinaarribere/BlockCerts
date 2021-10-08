@@ -7,11 +7,23 @@ export var TokensBalance = "";
 export var isOwner;
 
  export async function totalSupply(contract){
-    TokensTotalSupply = await contract.methods.totalSupply().call({from: Aux.account });
+   try{
+    TokensTotalSupply = await contract.methods.totalSupply().call();
+   }
+   catch(e){
+    window.alert("error retrieving the total token supply : " + JSON.stringify(e))
+  }
+    
   }
 
   export async function balanceOf(address, contract){
-    TokensBalance = await contract.methods.balanceOf(address).call({from: Aux.account });
+    try{
+      TokensBalance = await contract.methods.balanceOf(address).call();
+    }
+    catch(e){
+      window.alert("error retrieving the account's balance : " + JSON.stringify(e))
+    }
+    
   }
 
   export async function transfer(address, amount, contract){
@@ -19,12 +31,18 @@ export var isOwner;
   }
 
   export async function isTokenOwner(address, contract){
-    isOwner = false;
-    if(load.Admin){
-      let tokens = await contract.methods.balanceOf(address).call({from: Aux.account });
-      if(tokens > 0 ) isOwner = true;
+    try{
+      isOwner = false;
+      if(load.Admin){
+        let tokens = await balanceOf(address, contract);
+        if(tokens > 0 ) isOwner = true;
+      }
+      else {
+        isOwner = true;
+      }
     }
-    else {
-      isOwner = true;
+    catch(e){
+      window.alert("error checking account's ownership : " + JSON.stringify(e))
     }
+    
   }

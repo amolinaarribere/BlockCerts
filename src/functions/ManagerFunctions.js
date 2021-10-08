@@ -64,12 +64,18 @@ export async function RetrieveContractsAddresses(contract){
   }
   
   export async function RetrievePendingContractsAddresses(contract){
-    [PendingPublicPoolAddress,
-      PendingTreasuryAddress,
-      PendingCertisTokenAddress,
-      PendingPrivatePoolFactoryAddress,
-      PendingPrivatePoolImplAddress,
-      PendingProviderFactoryAddress,
-      PendingProviderImplAddress,
-      PendingPriceConverterAddress] = await contract.methods.retrieveProposition().call({from: Aux.account });
+    try{
+      [PendingPublicPoolAddress,
+        PendingTreasuryAddress,
+        PendingCertisTokenAddress,
+        PendingPrivatePoolFactoryAddress,
+        PendingPrivatePoolImplAddress,
+        PendingProviderFactoryAddress,
+        PendingProviderImplAddress,
+        PendingPriceConverterAddress] = await contract.methods.retrieveProposition().call();
+    }
+    catch(e){
+      window.alert("error retrieving the pending contract addresses : " + JSON.stringify(e))
+    }
+    
   }

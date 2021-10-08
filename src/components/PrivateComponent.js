@@ -17,18 +17,8 @@ const TreasuryFunc = require("../functions/TreasuryFunctions.js");
 
 class PrivateComponent extends React.Component {
   async componentWillMount() {
-    this.state.loading = true;
-    await LoadFunc.LoadFactoriesFunc(Contracts.privatePoolFactory);
-    await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.privatePool);
-    await LoadFunc.LoadOwnersFunc(Contracts.privatePool);
-    await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.privatePool);
-    ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.privatePoolKey);
-    if(this.NotEmpty(ProviderPoolFunc.Address)){
-      ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
-    }
-    this.state.loading = false;
-    this.refresh();
- }
+    await this.refresh();
+  }
 
   constructor(props) {
     super(props)
@@ -50,11 +40,14 @@ class PrivateComponent extends React.Component {
     }
       
     async refresh() {
+      this.state.loading = true;
       ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.privatePoolKey);
-      await LoadFunc.LoadFactoriesFunc(Contracts.privatePoolFactory);
-      await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.privatePool);
-      await LoadFunc.LoadOwnersFunc(Contracts.privatePool);
-      await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.privatePool);
+      await LoadFunc.LoadFactoriesFunc(Contracts.privatePoolFactory); 
+      Ownerfunc.resetOwners();    
+      if(this.NotEmpty(ProviderPoolFunc.Address)){
+        await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
+      }
+      this.state.loading = false;
       this.setState({})
     }
   

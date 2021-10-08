@@ -29,29 +29,39 @@ export var PendingProviderPriceUSD = "";
 export var PendingOwnerRefundFeeUSD = "";
 
   export async function RetrievePricesTreasury(contract){
-    let response = await contract.methods.retrievePrices().call();
-    PublicPriceUSD = response[0];
-    PrivatePriceUSD = response[1];
-    ProviderPriceUSD = response[2];
-    CertificatePriceUSD = response[3];
-    OwnerRefundFeeUSD = response[4];
-    let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
-    PublicPriceWei = PublicPriceUSD * exchangeRate;
-    PrivatePriceWei = PrivatePriceUSD * exchangeRate;
-    ProviderPriceWei = ProviderPriceUSD * exchangeRate;
-    CertificatePriceWei = CertificatePriceUSD * exchangeRate;
-    OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
+    try{
+      let response = await contract.methods.retrievePrices().call();
+      PublicPriceUSD = response[0];
+      PrivatePriceUSD = response[1];
+      ProviderPriceUSD = response[2];
+      CertificatePriceUSD = response[3];
+      OwnerRefundFeeUSD = response[4];
+      let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
+      PublicPriceWei = PublicPriceUSD * exchangeRate;
+      PrivatePriceWei = PrivatePriceUSD * exchangeRate;
+      ProviderPriceWei = ProviderPriceUSD * exchangeRate;
+      CertificatePriceWei = CertificatePriceUSD * exchangeRate;
+      OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
+    }
+    catch(e){
+      window.alert("error retrieving the prices : " + JSON.stringify(e))
+    }
   }
 
   export async function RetrievePendingPricesTreasury(contract){
-    let response = await contract.methods.retrieveProposition().call();
-    PendingPublicPriceUSD = Number(response[0]);
-    PendingPrivatePriceUSD = Number(response[1]);
-    PendingProviderPriceUSD = Number(response[2]);
-    PendingCertificatePriceUSD = Number(response[3]);
-    PendingOwnerRefundFeeUSD = Number(response[4]);
-  }
+    try{
+      let response = await contract.methods.retrieveProposition().call();
+      PendingPublicPriceUSD = Number(response[0]);
+      PendingPrivatePriceUSD = Number(response[1]);
+      PendingProviderPriceUSD = Number(response[2]);
+      PendingCertificatePriceUSD = Number(response[3]);
+      PendingOwnerRefundFeeUSD = Number(response[4]);
+    }
+    catch(e){
+      window.alert("error retrieving the pending prices : " + JSON.stringify(e))
+    }
     
+  }
 
   export async function UpgradePricesTreasury(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD, contract){
     await Aux.CallBackFrame(contract.methods.updatePrices(
@@ -64,16 +74,31 @@ export var PendingOwnerRefundFeeUSD = "";
   }
 
   export async function RetrieveLastAssigned(address, contract){
-    LastAssigned = new BigNumber(await contract.methods.retrieveLastAssigned(address).call());
+    try{
+      LastAssigned = new BigNumber(await contract.methods.retrieveLastAssigned(address).call());
+    }
+    catch(e){
+      window.alert("error retrieving the last assigned : " + JSON.stringify(e))
+    }
   }
 
   export async function RetrieveBalance(address, contract){
-    AccountBalance = new BigNumber(await contract.methods.retrieveBalance(address).call());
+    try{
+      AccountBalance = new BigNumber(await contract.methods.retrieveBalance(address).call());
+    }
+    catch(e){
+      window.alert("error retrieving the account's balance : " + JSON.stringify(e))
+    }
   }
 
   export async function RetrieveTreasuryBalance(contract){
-    TreasuryBalance = new BigNumber(await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy));
-    TreasuryAggregatedBalance = new BigNumber(await contract.methods.retrieveAggregatedAmount().call());
+    try{
+      TreasuryBalance = new BigNumber(await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy));
+      TreasuryAggregatedBalance = new BigNumber(await contract.methods.retrieveAggregatedAmount().call());
+    }
+    catch(e){
+      window.alert("error retrieving the treasury balance : " + JSON.stringify(e))
+    }
   }
 
   export async function AssignDividends(contract){

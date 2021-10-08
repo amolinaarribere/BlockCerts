@@ -8,7 +8,8 @@ const loadFunc = require("../functions/LoadFunctions.js");
 
 class PriceConverterComponent extends React.Component {
     state = {
-        contractType : 3
+      loading : false,
+      contractType : 3
     };
 
     constructor(props) {

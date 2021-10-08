@@ -11,6 +11,10 @@ class CertisTokensComponent extends React.Component {
     loadFunc.LoadCertisFunc(Contracts.CertisToken);
     this.refresh = this.refresh.bind(this)
   }
+
+  state = {
+    loading : false
+  }
   
   async refresh() {
     await loadFunc.LoadCertisFunc(Contracts.CertisToken);
