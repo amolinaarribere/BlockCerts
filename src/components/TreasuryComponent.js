@@ -23,9 +23,9 @@ class TreasuryComponent extends React.Component {
     }
     
     async refresh() {
-      this.state.loading = true;
+      //this.state.loading = true;
       await loadFunc.LoadTreasuryFunc(Contracts.Treasury);
-      this.state.loading = false;
+      //this.state.loading = false;
       this.setState({})
     }
     
