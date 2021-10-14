@@ -8,14 +8,14 @@ const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 class SignVoteComponent extends React.Component{
 
     state = {
-        nonce: 0,
+        nonce: "",
         date: "",
         time: "",
   
         voter_2 : "",
         propId_2: "",
         vote_2: "",
-        nonce_2: 0,
+        nonce_2: "",
         date_2: "",
         time_2: "",
         signature_2: "",
@@ -24,14 +24,14 @@ class SignVoteComponent extends React.Component{
         displayVoter: "",
         displayPropID: "",
         displayVote: "",
-        displayNonce: 0,
+        displayNonce: "",
         displayDeadline: "",
         displaySignature: ""
       };
   
     resetState() {
-      this.setState({ date: "", time: "", nonce: 0,
-      voter_2: "",  propId_2: "", vote_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: 0})
+      this.setState({ date: "", time: "", nonce: "",
+      voter_2: "",  propId_2: "", vote_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: ""})
     }
 
     handleSubmitSignature = async (event) => {
@@ -99,7 +99,7 @@ class SignVoteComponent extends React.Component{
     render(){
         return (
           <div>
-            <Form onSubmit={this.handleSignVote} style={{margin: '50px 0px 50px 0px' }}>
+            <Form onSubmit={this.handleSignVoteFor} style={{margin: '50px 0px 50px 0px' }}>
               <Form.Group  className="mb-3">
                 <Form.Control type="integer" name="Nonce" placeholder="nonce" 
                     value={this.state.nonce}
@@ -118,7 +118,7 @@ class SignVoteComponent extends React.Component{
                 </Row>
               </Form.Group>
                  <button type="submit" class="btn btn-success">Sign Validation</button> &nbsp;&nbsp;
-                 <button type="button" onClick={this.handleSignVote} class="btn btn-danger">Sign Rejection</button> 
+                 <button type="button" onClick={this.handleSignVoteAgainst} class="btn btn-danger">Sign Rejection</button> 
             </Form>
 
             {(this.state.signatureDisplayed)? 
@@ -133,7 +133,7 @@ class SignVoteComponent extends React.Component{
                 </Row>
                 <Row>
                   <Col><b>Vote :</b></Col> 
-                  <Col>{this.state.displayVote}</Col>
+                  <Col>{this.state.displayVote.toString()}</Col>
                 </Row>
                 <Row>
                   <Col><b>Nonce :</b></Col> 
@@ -156,12 +156,9 @@ class SignVoteComponent extends React.Component{
                 <Form.Control type="text" name="voter_2" placeholder="Voter" 
                       value={this.state.voter_2}
                       onChange={event => this.setState({ voter_2: event.target.value })}/>
-                <Form.Control type="text" name="PropID_2" placeholder="Proposition ID" 
+                <Form.Control type="integer" name="PropID_2" placeholder="Proposition ID" 
                       value={this.state.propId_2}
                     onChange={event => this.setState({ propId_2: event.target.value })}/>
-                <Form.Control type="text" name="vote_2" placeholder="Vote" 
-                    value={this.state.vote_2}
-                    onChange={event => this.setState({ vote_2: event.target.value })}/>
                 <Form.Control type="integer" name="nonce_2" placeholder="nonce" 
                     value={this.state.nonce_2}
                     onChange={event => this.setState({ nonce_2: event.target.value })}/>
@@ -175,6 +172,11 @@ class SignVoteComponent extends React.Component{
                       <Form.Control type="time" name="time_2" placeholder="time"
                           value={this.state.time_2}
                           onChange={event => this.setState({ time_2: event.target.value })}/>
+                  </Col>
+                  <Col>
+                      <Form.Check type="checkbox" name="vote_2" label="Validate the Proposition"
+                        checked={this.state.vote_2}
+                        onChange={event => this.setState({ vote_2: event.target.checked })} />
                   </Col>     
                 </Row>
                 <Form.Control type="text" name="Signature_2" placeholder="signature" 

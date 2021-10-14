@@ -26,7 +26,7 @@ class VoteForPropositionComponent extends React.Component{
         <div>
           <button type="button" class="btn btn-success" onClick={this.handleValidatePropConfig}>Validate Proposition</button> &nbsp;&nbsp;
           <button type="button" class="btn btn-danger" onClick={this.handleRejectPropConfig}>Reject Proposition</button>
-          <SignVoteComponent />
+          <SignVoteComponent contract={this.props.contract}/>
         </div>
       );
     }

@@ -10,14 +10,14 @@ class SignCertificateComponent extends React.Component{
     state = {
       certificateHash : "",
       holderAddress: "",
-      nonce: 0,
+      nonce: "",
       date: "",
       time: "",
 
       certificateHash_2 : "",
       holderAddress_2: "",
       providerAddress_2: "",
-      nonce_2: 0,
+      nonce_2: "",
       date_2: "",
       time_2: "",
       signature_2: "",
@@ -26,7 +26,7 @@ class SignCertificateComponent extends React.Component{
       displayCertificateHash: "",
       displayHolder: "",
       displayProvider: "",
-      displayNonce: 0,
+      displayNonce: "",
       displayDeadline: "",
       displaySignature: ""
     };
@@ -46,8 +46,8 @@ class SignCertificateComponent extends React.Component{
     };
 
     resetState() {
-      this.setState({ certificateHash: "",  holderAddress: "", date: "", time: "", nonce: 0,
-        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: 0})
+      this.setState({ certificateHash: "",  holderAddress: "", date: "", time: "", nonce: "",
+        certificateHash_2: "",  holderAddress_2: "", providerAddress_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: ""})
     }
 
     handleSubmitSignature = async (event) => {
