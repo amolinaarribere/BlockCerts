@@ -14,7 +14,7 @@ class SignVoteComponent extends React.Component{
   
         voter_2 : "",
         propId_2: "",
-        vote_2: "",
+        vote_2: false,
         nonce_2: "",
         date_2: "",
         time_2: "",
@@ -31,7 +31,7 @@ class SignVoteComponent extends React.Component{
   
     resetState() {
       this.setState({ date: "", time: "", nonce: "",
-      voter_2: "",  propId_2: "", vote_2: "", signature_2: "",  date_2: "", time_2: "", nonce_2: ""})
+      voter_2: "",  propId_2: "", vote_2: false, signature_2: "",  date_2: "", time_2: "", nonce_2: ""})
     }
 
     handleSubmitSignature = async (event) => {

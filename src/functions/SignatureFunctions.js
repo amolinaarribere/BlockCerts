@@ -21,10 +21,10 @@ export var ContractVersion = ""
     return JSON.stringify({
       domain: _domain,
       message: _msg,
-      primaryType: 'votePropositionOnBehalfOf',
+      primaryType: 'voting',
       types: {
         EIP712Domain: EIP712Domain(),
-        votePropositionOnBehalfOf: VoteDomain()
+        voting: VoteDomain()
       }
     });
 }
