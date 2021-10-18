@@ -1,4 +1,4 @@
-export const CERTIFICATE_POOL_MANAGER_ADDRESS =  '0xEb5Ac1f36ddA7184Cf4E42b3C1528965e66F8c9f'//'0x9cC6F9C99B772783FA85D407C631233E6Ae99B95'
+export const CERTIFICATE_POOL_MANAGER_ADDRESS =  '0xfdea19872A0b47D4de1cEaaB7EC2310C1af8F573'//'0xEb5Ac1f36ddA7184Cf4E42b3C1528965e66F8c9f'//'0x9cC6F9C99B772783FA85D407C631233E6Ae99B95'
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;
@@ -2692,7 +2692,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2728,7 +2729,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2746,7 +2748,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2759,7 +2762,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2772,7 +2776,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2796,7 +2801,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2824,7 +2830,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2847,7 +2854,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2880,7 +2888,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2904,7 +2913,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3092,7 +3102,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3105,7 +3116,8 @@ export const TREASURY_ABI = [
     "name": "pay",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -3162,7 +3174,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3172,7 +3185,7 @@ export const TREASURY_ABI = [
         "type": "address"
       }
     ],
-    "name": "retrieveBalance",
+    "name": "retrieveFullBalance",
     "outputs": [
       {
         "internalType": "uint256",
@@ -3181,7 +3194,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3214,7 +3228,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3227,7 +3242,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
