@@ -21,7 +21,7 @@ export var ContractVersion = ""
     return JSON.stringify({
       domain: _domain,
       message: _msg,
-      primaryType: 'voting',
+      primaryType: 'voteOnBehalfOf',
       types: {
         EIP712Domain: EIP712Domain(),
         voting: VoteDomain()
