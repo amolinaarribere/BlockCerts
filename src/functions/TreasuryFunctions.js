@@ -5,7 +5,6 @@ const PriceConverter = require("./PriceConverterFunctions.js");
 const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
 
-export var LastAssigned = new BigNumber(0);
 export var AccountBalance = new BigNumber(0);
 export var TreasuryBalance = new BigNumber(0);
 export var TreasuryAggregatedBalance = new BigNumber(0);
@@ -73,18 +72,9 @@ export var PendingOwnerRefundFeeUSD = "";
     ).send({from: Aux.account }));
   }
 
-  export async function RetrieveLastAssigned(address, contract){
-    try{
-      LastAssigned = new BigNumber(await contract.methods.retrieveLastAssigned(address).call());
-    }
-    catch(e){
-      window.alert("error retrieving the last assigned : " + JSON.stringify(e))
-    }
-  }
-
   export async function RetrieveBalance(address, contract){
     try{
-      AccountBalance = new BigNumber(await contract.methods.retrieveBalance(address).call());
+      AccountBalance = new BigNumber(await contract.methods.retrieveFullBalance(address).call());
     }
     catch(e){
       window.alert("error retrieving the account's balance : " + JSON.stringify(e))
@@ -107,4 +97,8 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function WithdrawAmount(amount, contract){
     await Aux.CallBackFrame(contract.methods.withdraw(amount).send({from: Aux.account }));
+  }
+
+  export async function WithdrawAll(contract){
+    await Aux.CallBackFrame(contract.methods.withdrawAll().send({from: Aux.account }));
   }

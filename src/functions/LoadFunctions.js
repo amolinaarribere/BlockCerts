@@ -92,7 +92,6 @@ export async function LoadPropositionFunc(contract) {
 export async function LoadTreasuryFunc(contract) {
   await Promise.all([TreasuryFunc.RetrievePricesTreasury(contract), 
     TreasuryFunc.RetrievePendingPricesTreasury(contract),
-    TreasuryFunc.RetrieveLastAssigned(Aux.account, contract),
     TreasuryFunc.RetrieveBalance(Aux.account, contract),
     TreasuryFunc.RetrieveTreasuryBalance(contract)]);
 }
