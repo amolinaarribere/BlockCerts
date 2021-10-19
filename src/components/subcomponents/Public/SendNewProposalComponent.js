@@ -3,6 +3,7 @@ import { Form} from 'react-bootstrap';
 
 const ProviderPoolFunc = require("../../../functions/ProviderPoolFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class SendNewProposalComponent extends React.Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class SendNewProposalComponent extends React.Component {
 
     handleNewProposal = async (event) => {
       event.preventDefault();
-      await ProviderPoolFunc.AddProviderPool(this.state.newProvider, this.state.newProviderInfo, false, this.props.contractType, this.props.price, this.props.contract)
+      let Address = await ENSFunc.ENSResolution(this.state.newProvider);
+      await ProviderPoolFunc.AddProviderPool(Address, this.state.newProviderInfo, false, this.props.contractType, this.props.price, this.props.contract)
       this.setState({ newProvider: "" })
       this.setState({ newProviderInfo: "" })
       await loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
@@ -35,7 +37,7 @@ class SendNewProposalComponent extends React.Component {
          <h3>New Proposal</h3>
          <Form onSubmit={this.handleNewProposal} style={{margin: '50px 50px 50px 50px' }}>
             <Form.Group  className="mb-3">
-               <Form.Control type="text" name="newProvider" placeholder="address" 
+               <Form.Control type="text" name="newProvider" placeholder="address or ENS name" 
                     value={this.state.newProvider}
                     onChange={event => this.setState({ newProvider: event.target.value })}/>
                 <Form.Control type="text" name="newProviderInfo" placeholder="Info" 
