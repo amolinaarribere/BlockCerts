@@ -5,18 +5,33 @@ const EmptyAddress = "0x0000000000000000000000000000000000000000"
 var ens = ""
 
 
-export async function ENSResolution(name){
-    initENS();
-    var address = await ens.name(name).getAddress();
-    if(EmptyAddress == address)address = name;
-    return address;
+export async function Resolution(name){
+    try{
+        initENS();
+        var address = await ens.name(name).getAddress();
+        if(EmptyAddress == address)address = name;
+        return address;
+    }
+    catch(e){
+        window.alert("error reversing the address : " + e)
+        return name;
+    }
+    
 }
 
-export async function ENSReverseResolution(address){
-    initENS();
-    var name = await ens.getName(address)
-    if(address != await ens.name(name).getAddress()) name = address;
-    return name;
+export async function ReverseResolution(address){
+    try{
+        initENS();
+        var name = await ens.getName(address)
+        if(name.name == null ||
+             address != await ens.name(name.name).getAddress()) name = address;
+        return name;
+    }
+    catch(e){
+        window.alert("error reversing the address : " + e)
+        return address;
+    }
+   
 }
 
 function initENS(){

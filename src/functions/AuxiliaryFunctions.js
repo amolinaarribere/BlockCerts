@@ -21,7 +21,7 @@ export async function CallBackFrame(callback){
 }
   
 export function Bytes32ToAddress(bytes){
-      return ("0x" + (bytes.toString()).substring(26));
+    return ("0x" + (bytes.toString()).substring(26));
 }
 
 

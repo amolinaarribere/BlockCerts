@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/ProviderPoolFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class ListPendingProvidersPoolsComponent extends React.Component{
   state = {
@@ -24,17 +25,6 @@ class ListPendingProvidersPoolsComponent extends React.Component{
       var pendingProvidersPoolsAdd = func.pendingAdd;
       var pendingProvidersPoolsRemove = func.pendingRemove;
 
-      /*if (this.props.contractType == 2){
-        pendingProvidersPoolsAdd = func.pendingPrivateProvidersAdd;
-        pendingProvidersPoolsRemove = func.pendingPrivateProvidersRemove;
-      }
-
-      else if(this.props.contractType == 3){
-        text = "Pools";
-        pendingProvidersPoolsAdd = func.pendingProviderPoolsAdd;
-        pendingProvidersPoolsRemove = func.pendingProviderPoolsRemove;
-      }*/
-
       return(
         <div>
            <button
@@ -47,7 +37,7 @@ class ListPendingProvidersPoolsComponent extends React.Component{
                     <Container style={{margin: '10px 50px 50px 50px' }}>
                         {pendingProvidersPoolsAdd.map(pendingProviderPoolAdd => (
                         <Row>
-                          <Col key={pendingProviderPoolAdd[0]}> {Aux.Bytes32ToAddress(pendingProviderPoolAdd[0])}</Col>
+                          <Col key={pendingProviderPoolAdd[0]}> {pendingProviderPoolAdd[0]}</Col>
                           <Col>{pendingProviderPoolAdd[1]}</Col>
                         </Row>
                         ))}

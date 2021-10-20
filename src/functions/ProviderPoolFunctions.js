@@ -6,6 +6,7 @@ const Aux = require("./AuxiliaryFunctions.js");
 const OwnersFunc = require("./OwnerFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const BrowserStorageFunction = require("./BrowserStorageFunctions.js");
+const ENSFunc = require("./ENSFunctions.js");
 
 export var privatePool = "";
 export var provider = "";
@@ -66,8 +67,9 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
       for (let i = 0; i < pendingAddAddresses.length; i++) {
         let {0:Info} = (3 != contractType)?
           await contract.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingAddAddresses[i])).call():
-          await contract.methods.retrievePool(Aux.Bytes32ToAddress(pendingAddAddresses[i])).call();;
-        pendingAdd[i] = [pendingAddAddresses[i], Info]
+          await contract.methods.retrievePool(Aux.Bytes32ToAddress(pendingAddAddresses[i])).call();
+          let address = await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(pendingAddAddresses[i]));
+        pendingAdd[i] = [address, Info]
       }
       pendingRemove = []
       let pendingRemoveAddresses = (3 != contractType)?

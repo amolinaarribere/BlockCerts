@@ -23,7 +23,7 @@ class SendNewProposalComponent extends React.Component {
 
     handleNewProposal = async (event) => {
       event.preventDefault();
-      let Address = await ENSFunc.ENSResolution(this.state.newProvider);
+      let Address = await ENSFunc.Resolution(this.state.newProvider);
       await ProviderPoolFunc.AddProviderPool(Address, this.state.newProviderInfo, false, this.props.contractType, this.props.price, this.props.contract)
       this.setState({ newProvider: "" })
       this.setState({ newProviderInfo: "" })
