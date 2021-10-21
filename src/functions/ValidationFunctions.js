@@ -18,7 +18,7 @@ export function validateSignature(_value){
 
 export function validateAddress(_value){
     if("0x" == _value.substring(0,2) && 
-    _value.length == 22)return true
+    _value.length == 42)return true
 
     return false
 }

@@ -5,15 +5,19 @@ const func = require("../../../functions/CertificateFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 const ValFunc = require("../../../functions/ValidationFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class SignCertificateComponent extends React.Component{
 
     state = {
       errors: {
         certificateHash: true,
+        holderAddress: true,
         nonce: true,
         deadline: true,
         certificateHash_2: true,
+        holderAddress_2: true,
+        providerAddress_2: true,
         nonce_2: true,
         deadline_2: true,
         signature_2: true
@@ -21,9 +25,12 @@ class SignCertificateComponent extends React.Component{
 
       highlights: {
         certificateHash: '',
+        holderAddress: '',
         nonce: '',
         deadline: '',
         certificateHash_2: '',
+        holderAddress_2: '',
+        providerAddress_2: '',
         nonce_2: '',
         deadline_2: '',
         signature_2: ''
@@ -80,17 +87,21 @@ class SignCertificateComponent extends React.Component{
       try{
         let deadline = Math.ceil(new Date(this.state.date_2 + " " + this.state.time_2) / 1000);
         let Nonce = parseInt(this.state.nonce_2);
+        let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress_2);
+        let ProviderAddress = await ENSFunc.Resolution(this.state.providerAddress_2);
 
         this.state.errors.certificateHash_2 = ValFunc.validateHash(this.state.certificateHash_2);
         this.state.errors.nonce_2 = ValFunc.validateInteger(Nonce);
         this.state.errors.deadline_2 = ValFunc.validateInteger(deadline);
         this.state.errors.signature_2 = ValFunc.validateSignature(this.state.signature_2);
+        this.state.errors.holderAddress_2 = ValFunc.validateAddress(HolderAddress);
+        this.state.errors.providerAddress_2 = ValFunc.validateAddress(ProviderAddress);
 
         if(ValFunc.validate(this.state.errors)){
           let deadline = Math.ceil(new Date(this.state.date_2 + " " + this.state.time_2) / 1000);
-          await func.AddCertificateOnBehalfOf(this.state.providerAddress_2, 
+          await func.AddCertificateOnBehalfOf(ProviderAddress, 
               this.state.certificateHash_2, 
-              this.state.holderAddress_2,
+              HolderAddress,
               Nonce,
               deadline,
               this.state.signature_2,
@@ -120,16 +131,18 @@ class SignCertificateComponent extends React.Component{
     try{
       let from = Aux.account;
       let Deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
+      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress);
       let Nonce = parseInt(this.state.nonce);
 
       this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
       this.state.errors.nonce = ValFunc.validateInteger(Nonce);
       this.state.errors.deadline = ValFunc.validateInteger(Deadline);
+      this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
 
       if(ValFunc.validate(this.state.errors)){
         await SignatureFunc.retrieveContractConfig(this.props.contract);
         let Domain = await SignatureFunc.Domain(SignatureFunc.ContractName, this.props.contract._address, SignatureFunc.ContractVersion);
-        let Message = SignatureFunc.AddCertificateOnBehalfOfMessage(from, this.state.certificateHash, this.state.holderAddress, Nonce, Deadline)
+        let Message = SignatureFunc.AddCertificateOnBehalfOfMessage(from, this.state.certificateHash, HolderAddress, Nonce, Deadline)
       
         let params = [from, SignatureFunc.AddCertificatesMsgParams(Domain, Message)];
         let method = SignatureFunc.method;
@@ -142,7 +155,7 @@ class SignCertificateComponent extends React.Component{
                 
         if(signature != null && signature != "undefined"){
           this.state.displayCertificateHash = this.state.certificateHash;
-          this.state.displayHolder = this.state.holderAddress;
+          this.state.displayHolder = HolderAddress;
           this.state.displayProvider = Aux.account;
           this.state.displayNonce = this.state.nonce;
           this.state.displayDeadline = (new Date(this.state.date + " " + this.state.time)).toString();
@@ -171,7 +184,7 @@ class SignCertificateComponent extends React.Component{
             <Form onSubmit={this.handleSignCertificate} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Control type="file" onChange={this.captureFile} className={this.state.highlights.certificateHash}/>
-                <Form.Control type="text" name="holderAddress" placeholder="holder address" 
+                <Form.Control type="text" name="holderAddress" placeholder="holder address or ENS name" className={this.state.highlights.holderAddress}
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
                 <Form.Control type="integer" name="nonce" placeholder="nonce" className={this.state.highlights.nonce}
@@ -228,10 +241,10 @@ class SignCertificateComponent extends React.Component{
                 <Form.Control type="text" name="certificateHash_2" placeholder="Hash" className={this.state.highlights.certificateHash_2}
                       value={this.state.certificateHash_2}
                       onChange={event => this.setState({ certificateHash_2: event.target.value })}/>
-                <Form.Control type="text" name="HolderAddress_2" placeholder="holder address" 
+                <Form.Control type="text" name="HolderAddress_2" placeholder="holder address or ENS name" className={this.state.highlights.holderAddress_2}
                       value={this.state.holderAddress_2}
                     onChange={event => this.setState({ holderAddress_2: event.target.value })}/>
-                <Form.Control type="text" name="ProviderAddress_2" placeholder="provider address" 
+                <Form.Control type="text" name="ProviderAddress_2" placeholder="provider address or ENS name" className={this.state.highlights.providerAddress_2}
                     value={this.state.providerAddress_2}
                     onChange={event => this.setState({ providerAddress_2: event.target.value })}/>
                 <Form.Control type="integer" name="nonce_2" placeholder="nonce" className={this.state.highlights.nonce_2}
