@@ -3,8 +3,6 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 
 const EventsFunc = require("../../../functions/EventsFunctions.js");
 
-
-
 class ListPublicEventsComponent extends React.Component {
     state = {
      isPublicEventsShown: false,

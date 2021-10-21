@@ -2,11 +2,10 @@ import React from 'react';
 import ListPendingCertificatesComponent from './ListPendingCertificatesComponent';
 import VoteCertificateComponent from './VoteCertificateComponent';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-
+import SignCertificateComponent from './SignCertificateComponent';
 
 const func = require("../../../functions/CertificateFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
-
 
 class CertificateComponent extends React.Component{
   constructor(props) {
@@ -22,7 +21,8 @@ class CertificateComponent extends React.Component{
       certificateHash : "",
       holderAddress: "",
       poolAddress: "",
-      retrieveholderAddress: ""
+
+      retrieveholderAddress: "" 
     };
   
     captureFile = (event) => {
@@ -38,22 +38,26 @@ class CertificateComponent extends React.Component{
       const buffer = await Buffer.from(reader.result);
       this.setState({certificateHash: Aux.web3.utils.keccak256(buffer)});
     };
+
+    resetState() {
+      this.setState({ certificateHash: "",  holderAddress: "", poolAddress: ""})
+    }
   
     handleAddCertificate = async (event) => {
         event.preventDefault();
-      await func.AddCertificate(this.state.certificateHash, this.state.holderAddress, this.props.privateEnv, this.props.contractType, this.state.poolAddress);
-      this.setState({ certificateHash: "",  holderAddress: "", poolAddress: ""})
+      await func.AddCertificate(this.state.certificateHash, this.state.holderAddress, this.props.price, this.props.contract, this.state.poolAddress);
+      this.resetState()
     };
   
     handleCheckCertificate = async (event) => {
         event.preventDefault();
-      await func.CheckCertificate(this.state.certificateHash, this.state.holderAddress, this.props.privateEnv);
-      this.setState({ certificateHash: "",  holderAddress: "", poolAddress: ""})
+      await func.CheckCertificate(this.state.certificateHash, this.state.holderAddress, this.props.contract);
+      this.resetState()
     };
   
     handleRetrieveByHolder = async (event) => {
         event.preventDefault();
-      await func.retrieveCertificatesByHolder(this.state.retrieveholderAddress, 0, 99, this.props.privateEnv)
+      await func.retrieveCertificatesByHolder(this.state.retrieveholderAddress, 0, 99, this.props.contract)
       this.setState({ retrieveholderAddress: ""})
     };
   
@@ -69,8 +73,8 @@ class CertificateComponent extends React.Component{
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
               </Form.Group>
-              <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
-              <button type="button" class="btn btn-secondary" onClick={this.handleCheckCertificate}>Check Certificate</button> 
+                 <button type="submit" class="btn btn-success">Add Certificate</button> &nbsp;&nbsp;
+                 <button type="button" class="btn btn-secondary" onClick={this.handleCheckCertificate}>Check Certificate</button>
             </Form>
 
             <Container>
@@ -78,6 +82,9 @@ class CertificateComponent extends React.Component{
                 <Col>{func.certificateProvider}</Col>
               </Row>
             </Container>
+
+           <SignCertificateComponent contract={this.props.contract} 
+            price={this.props.price}/>
 
             <Form onSubmit={this.handleRetrieveByHolder} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
@@ -116,9 +123,10 @@ class CertificateComponent extends React.Component{
               </Form.Group>
               <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
             </Form>
-            <VoteCertificateComponent refresh={this.refresh}/>
+            <VoteCertificateComponent contract={this.props.contract}
+              refresh={this.refresh} />
             <br />
-            <ListPendingCertificatesComponent />
+            <ListPendingCertificatesComponent contract={this.props.contract}/>
             <hr class="bg-secondary"/>
           </div>
         );

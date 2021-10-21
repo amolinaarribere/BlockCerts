@@ -1,5 +1,7 @@
 export var certificatePoolManager = "";
 export var publicPool = "";
+export var privatePool = "";
+export var provider = "";
 export var privatePoolFactory = "";
 export var providerFactory = "";
 export var Treasury = "";
@@ -12,6 +14,14 @@ export function setCertificatePoolManager(_value){
 
 export function setPublicPool(_value){
     publicPool = _value;
+}
+
+export function setPrivatePool(_value){
+    privatePool = _value;
+}
+
+export function setProvider(_value){
+    provider = _value;
 }
 
 export function setPrivatePoolFactory(_value){

@@ -1,5 +1,4 @@
  // Certis Tokens
-const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
 const load = require("./LoadFunctions.js");
 
@@ -7,25 +6,43 @@ export var TokensTotalSupply = "";
 export var TokensBalance = "";
 export var isOwner;
 
- export async function totalSupply(){
-    TokensTotalSupply = await Contracts.CertisToken.methods.totalSupply().call({from: Aux.account });
+ export async function totalSupply(contract){
+   try{
+    TokensTotalSupply = await contract.methods.totalSupply().call();
+   }
+   catch(e){
+    window.alert("error retrieving the total token supply : " + JSON.stringify(e))
+  }
+    
   }
 
-  export async function balanceOf(address){
-    TokensBalance = await Contracts.CertisToken.methods.balanceOf(address).call({from: Aux.account });
-  }
-
-  export async function transfer(address, amount){
-    await Aux.CallBackFrame(Contracts.CertisToken.methods.transfer(address, amount).send({from: Aux.account }));
-  }
-
-  export async function isTokenOwner(address){
-    isOwner = false;
-    if(load.Admin){
-      let tokens = await Contracts.CertisToken.methods.balanceOf(address).call({from: Aux.account });
-      if(tokens > 0 ) isOwner = true;
+  export async function balanceOf(address, contract){
+    try{
+      TokensBalance = await contract.methods.balanceOf(address).call();
     }
-    else {
-      isOwner = true;
+    catch(e){
+      window.alert("error retrieving the account's balance : " + JSON.stringify(e))
     }
+    
+  }
+
+  export async function transfer(address, amount, contract){
+    await Aux.CallBackFrame(contract.methods.transfer(address, amount).send({from: Aux.account }));
+  }
+
+  export async function isTokenOwner(address, contract){
+    try{
+      isOwner = false;
+      if(load.Admin){
+        await balanceOf(address, contract);
+        if(TokensBalance > 0 ) isOwner = true;
+      }
+      else {
+        isOwner = true;
+      }
+    }
+    catch(e){
+      window.alert("error checking account's ownership : " + JSON.stringify(e))
+    }
+    
   }

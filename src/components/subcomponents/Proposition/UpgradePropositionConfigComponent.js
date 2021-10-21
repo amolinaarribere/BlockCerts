@@ -28,12 +28,12 @@ class UpgradePropositionConfigComponent extends React.Component{
          if(this.state.NewPropositionThresholdPercentage != "") NPTP = this.state.NewPropositionThresholdPercentage;
          if(this.state.NewMinWeightToProposePercentage != "") NMWP = this.state.NewMinWeightToProposePercentage;
    
-         await func.UpgradeProposition(NPLT, NPTP, NMWP, this.props.contractType);
+         await func.UpgradeProposition(NPLT, NPTP, NMWP, this.props.contract);
    
          this.setState({ NewPropositionLifeTime: "",
          NewPropositionThresholdPercentage: "",
          NewMinWeightToProposePercentage: ""})
-         await loadFunc.LoadPropositionFunc();
+         await loadFunc.LoadPropositionFunc(this.props.contract);
          this.props.refresh();
        };
      

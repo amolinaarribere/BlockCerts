@@ -11,18 +11,18 @@ class AssignWithdrawComponent extends React.Component {
         amount : ""
       };
     
-    handleAssignDividends = async (event) => {
+      handleWithdrawAll = async (event) => {
         event.preventDefault();
-      await func.AssignDividends();
-      await loadFunc.LoadTreasuryFunc();
+      await func.WithdrawAll(this.props.contract);
+      await loadFunc.LoadTreasuryFunc(this.props.contract);
       this.props.refresh();
     };
 
     handleWithdraw = async (event) => {
       event.preventDefault();
-      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(new BigNumber("1000000000000000000"))).toString());
+      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(new BigNumber("1000000000000000000"))).toString(), this.props.contract);
       this.setState({amount: ""});
-      await loadFunc.LoadTreasuryFunc();
+      await loadFunc.LoadTreasuryFunc(this.props.contract);
       this.props.refresh();
     };
 
@@ -41,15 +41,11 @@ class AssignWithdrawComponent extends React.Component {
                 <Col>{func.TreasuryBalance.dividedBy(ETHDecimals).toString()}</Col>
               </Row>
               <Row>
-                <Col><b>Your Last Assigned (ETH) :</b></Col> 
-                <Col>{func.LastAssigned.dividedBy(ETHDecimals).toString()}</Col>
-              </Row>
-              <Row>
                 <Col><b>Your current Balance (ETH) :</b></Col> 
                 <Col>{func.AccountBalance.dividedBy(ETHDecimals).toString()}</Col>
               </Row>
               <br />
-              <button type="button" class="btn btn-secondary" onClick={this.handleAssignDividends}>Assign</button>
+              <button type="button" class="btn btn-secondary" onClick={this.handleWithdrawAll}>Withdraw All</button>
             </Container>
           </div>
           <div class="border border border-0">

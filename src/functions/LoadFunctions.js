@@ -17,90 +17,104 @@ export var balance = ""
 export var Network = ""
 export var Admin = AdminRights;
 
+export async function ReadAccount(){
+  try{
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    window.ethereum.on('accountsChanged', function (accounts) {
+      window.location.reload();
+    })
+    window.ethereum.on('chainChanged', function (chainId) {
+      window.location.reload();
+    });
+    window.ethereum.on('disconnect', function () {
+      Aux.setAccount("");
+    });
+    Aux.LoadWeb3();
+    Aux.setAccount(accounts[0]);
+  }
+  catch(e){
+    if (e.code === 4001) {
+      window.alert('Please connect to MetaMask in order to use the dApp.');
+    } else {
+      window.alert(e);
+    }
+  }
+  
+}
 
 export async function LoadBlockchain() {
-  Aux.LoadWeb3();
+  if (window.ethereum) {
+    try {
+      await ReadAccount();
+      Network = await Aux.web3.eth.net.getNetworkType();
+      
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
+      await LoadManagerFunc(Contracts.certificatePoolManager);
+
+      Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
+      Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
+      Contracts.setProviderFactory(await new Aux.web3.eth.Contract(PROVIDERFACTORY_ABI, ManagerFunc.providerFactoryAddressProxy))
+      Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
+      Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
+      Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
+
+      await LoadPriceConverterFunc(Contracts.PriceConverter);
+      await LoadTreasuryFunc(Contracts.Treasury)
+      await LoadCertisFunc(Contracts.CertisToken)
+
+    } catch (e) {
+      window.alert("error retrieving the main contract addresses " + JSON.stringify(e));
+    }
+    
+  }
+  else{
+    window.alert("You should connect your wallet for the dAPP to work")
+  }
   
-  const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-  window.ethereum.on('accountsChanged', function (accounts) {
-    window.location.reload();
-  })
-  Aux.setAccount(accounts[0]);
-
-  Network = await Aux.web3.eth.net.getNetworkType();
-
-  ProviderPoolFunc.ReadKeys();
-
-  Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
-  await LoadManagerFunc();
-
-  Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
-  Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
-  Contracts.setProviderFactory(await new Aux.web3.eth.Contract(PROVIDERFACTORY_ABI, ManagerFunc.providerFactoryAddressProxy))
-  Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
-  Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
-  Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
-
-  await LoadProviderPoolFunc(1);
-  await LoadProviderPoolFunc(2);
-  await LoadProviderPoolFunc(3);
-  await LoadOwnersFunc(1);
-  await LoadOwnersFunc(2);
-  await LoadOwnersFunc(3);
-  await LoadFactoriesFunc();
-  await LoadPropositionFunc();
-  await LoadCertisFunc();
-  await LoadTreasuryFunc();
-  await LoadPriceConverterFunc();
 }
 
-export async function LoadManagerFunc() {
-  await ManagerFunc.RetrieveContractsAddresses();
-  await ManagerFunc.RetrievePendingContractsAddresses();
+export async function LoadManagerFunc(contract) {
+  await Promise.all([ManagerFunc.RetrieveContractsAddresses(contract), 
+    ManagerFunc.RetrievePendingContractsAddresses(contract)]);
 }
 
-export async function LoadCertisFunc() {
-  await CertisFunc.isTokenOwner(Aux.account);
-  await CertisFunc.totalSupply();
-  await CertisFunc.balanceOf(Aux.account);
+export async function LoadCertisFunc(contract) {
+  await Promise.all([CertisFunc.isTokenOwner(Aux.account, contract), 
+    CertisFunc.totalSupply(contract),
+    CertisFunc.balanceOf(Aux.account, contract)]);
 }
 
-export async function LoadPropositionFunc() {
-  await PropositionFunc.RetrieveProposition(1);
-  await PropositionFunc.RetrieveProposition(2);
-  await PropositionFunc.RetrieveProposition(3);
-  await PropositionFunc.RetrievePendingProposition(1);
-  await PropositionFunc.RetrievePendingProposition(2);
-  await PropositionFunc.RetrievePendingProposition(3);
+export async function LoadPropositionFunc(contract) {
+  await Promise.all([PropositionFunc.RetrieveProposition(contract),
+    PropositionFunc.RetrievePendingProposition(contract)]);
 }
 
-export async function LoadTreasuryFunc() {
-  await TreasuryFunc.RetrievePricesTreasury();
-  await TreasuryFunc.RetrievePendingPricesTreasury();
-  await TreasuryFunc.RetrieveLastAssigned(Aux.account);
-  await TreasuryFunc.RetrieveBalance(Aux.account);
-  await TreasuryFunc.RetrieveTreasuryBalance();
+export async function LoadTreasuryFunc(contract) {
+  await Promise.all([TreasuryFunc.RetrievePricesTreasury(contract), 
+    TreasuryFunc.RetrievePendingPricesTreasury(contract),
+    TreasuryFunc.RetrieveBalance(Aux.account, contract),
+    TreasuryFunc.RetrieveTreasuryBalance(contract)]);
 }
 
-export async function LoadPriceConverterFunc() {
-  await PriceConverterFunc.RetrieveRegistryAddress();
-  await PriceConverterFunc.RetrievePendingRegistryAddress();
+export async function LoadPriceConverterFunc(contract) {
+  await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(contract),
+    PriceConverterFunc.RetrievePendingRegistryAddress(contract)]);
 }
 
-export async function LoadProviderPoolFunc(ContractId) {
-  await ProviderPoolFunc.RetrieveProviderPool(ContractId);
+export async function LoadProviderPoolFunc(ContractId, contract) {
+  await ProviderPoolFunc.RetrieveProviderPool(ContractId, contract);
 }
 
-export async function LoadOwnersFunc(ContractId) {
-  await OwnersFunc.RetrieveOwners(ContractId);
+export async function LoadOwnersFunc(contract) {
+  await OwnersFunc.RetrieveOwners(contract);
 }
 
-export async function LoadFactoriesFunc() {
-  await FactoriesFunc.RetrieveFactories();
+export async function LoadFactoriesFunc(contract) {
+  await FactoriesFunc.RetrieveFactories(contract);
 }
 
-export async function LoadCertificateFunc() {
-  await CertificateFunc.RetrievePendingCertificates();
+export async function LoadCertificateFunc(contract) {
+  await CertificateFunc.RetrievePendingCertificates(contract);
 }
 
 

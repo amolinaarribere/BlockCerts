@@ -7,18 +7,18 @@ class VoteForMinOwnersComponent extends React.Component{
 
     handleValidateMinOwner = async (event) => {
       event.preventDefault();
-      await func.ValidateMinOwner(this.props.contractType)
+      await func.ValidateMinOwner(this.props.contract)
       await this.reset();
     };
     handleRejectMinOwner = async (event) => {
         event.preventDefault();
-        await func.RejectMinOwner(this.props.contractType)
+        await func.RejectMinOwner(this.props.contract)
         await this.reset();
       };
 
-    reset = async () =>{
-        await loadFunc.LoadOwnersFunc(this.props.contractType);
-        this.props.refresh();
+    async reset(){
+        //await loadFunc.LoadOwnersFunc(this.props.contract);
+        await this.props.refresh();
       }
   
     render(){

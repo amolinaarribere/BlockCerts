@@ -11,6 +11,7 @@ import ManagerComponent from './components/ManagerComponent.js';
 import PriceConverterComponent from './components/PriceConverterComponent.js';
 import CurrentAddressComponent from './components/CurrentAddressComponent.js';
 import EventsComponent from './components/EventsComponent.js';
+import LoadingComponent from './components/subcomponents/LoadingComponent.js';
 
 
 const certFunc = require("./functions/CertisFunctions.js");
@@ -29,14 +30,22 @@ const Event = "Events";
 
 
 class Demo extends React.Component {
-  componentWillMount() {
-    loadFunc.LoadBlockchain();
+  async componentWillMount() {
+    this.state.loading = true;
+    await loadFunc.LoadBlockchain();
+    this.state.loading = false;
+    this.refresh();
  }
 
   state = {
     value : 0,
+    loading : false,
     Component : "Home"
   };
+
+  refresh(){
+    this.setState({});
+  }
 
   toggleMenu(newValue){
     this.setState({Component: newValue});
@@ -46,7 +55,6 @@ class Demo extends React.Component {
   render(){
     return (
       <div style={{backgroundColor: 'White'}}>
-
         <Navbar bg="dark" variant="dark">
             <Container>
               <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
@@ -64,49 +72,48 @@ class Demo extends React.Component {
             </Container>
         </Navbar>
         <br />
-        
         <div class="mx-auto w-75">
           {(() => {
               switch (this.state.Component) {
                 case Manager:
                     return (
-                      <ManagerComponent />
+                      ((false == this.state.loading) ? <ManagerComponent /> : <LoadingComponent />)
                     )
                 case Public:
                     return (
-                      <PublicComponent />
+                      ((false == this.state.loading) ? <PublicComponent /> : <LoadingComponent />)
                     )
                 case Private:
                     return (
-                        <PrivateComponent />
-                      )
+                      ((false == this.state.loading) ? <PrivateComponent /> : <LoadingComponent />)
+                    )
                 case Provider:
                     return (
-                      <IssuerComponent />
+                      ((false == this.state.loading) ? <IssuerComponent /> : <LoadingComponent />)
                     )
                 case PriceConverter:
                     return (
-                      <PriceConverterComponent />
+                      ((false == this.state.loading) ? <PriceConverterComponent /> : <LoadingComponent />)
                     )
                 case Treasury:
                     return (
-                      <TreasuryComponent />
+                      ((false == this.state.loading) ? <TreasuryComponent /> : <LoadingComponent />)
                     )
                 case CertisToken:
                     return (
-                      <CertisTokensComponent />
+                      ((false == this.state.loading) ? <CertisTokensComponent /> : <LoadingComponent />)
                     )
                 case Event:
-                      return (
-                        <EventsComponent />
-                      )
+                    return (
+                      ((false == this.state.loading) ? <EventsComponent /> : <LoadingComponent />)
+                    )
                 default:
                     return (
                       <HomeComponent />
                     )
               }
           })()}
-        </div>
+      </div>
         
       </div>
     );

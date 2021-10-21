@@ -4,27 +4,37 @@ import ListPendingOwnersComponent from './ListPendingOwnersComponent.js';
 import UpdateMinOwnerComponent from './UpdateMinOwnerComponent.js';
 import ManageOwnerComponent from './ManageOwnerComponent.js';
 
+const LoadFunc = require('../../../functions/LoadFunctions.js');
+
+
 class OwnerComponent extends React.Component{
   constructor(props) {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
-    this.props.refresh()
+  async refresh() {
+    await this.props.refresh()
   }
 
     render(){
       return(
         <div>
           <br />
-          <ListOwnersComponent contractType={this.props.contractType}/>
+          <ListOwnersComponent contract={this.props.contract}
+            contractType={this.props.contractType}/>
           <br />
-          <ManageOwnerComponent contractType={this.props.contractType} refresh={this.refresh}/>
+          <ManageOwnerComponent contract={this.props.contract}
+            contractType={this.props.contractType} 
+            refresh={this.refresh}/>
           <br/>
-          <UpdateMinOwnerComponent contractType={this.props.contractType} refresh={this.refresh}/>
+          <UpdateMinOwnerComponent contract={this.props.contract}
+            contractType={this.props.contractType} 
+            refresh={this.refresh}/>
           <br/>
-          <ListPendingOwnersComponent contractType={this.props.contractType} refresh={this.refresh}/>
+          <ListPendingOwnersComponent contract={this.props.contract}
+            contractType={this.props.contractType} 
+            refresh={this.refresh}/>
           <hr class="bg-secondary"/>
         </div>
       );

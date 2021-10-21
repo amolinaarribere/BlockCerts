@@ -13,12 +13,12 @@ class VoteCertificateComponent extends React.Component{
 
     handleValidateCertificate = async (event) => {
         event.preventDefault();
-      await func.ValidateCertificate(this.state.pool, this.state.hash, this.state.holder)
+      await func.ValidateCertificate(this.state.pool, this.state.hash, this.state.holder, this.props.contract)
       await this.reset();
     };
     handleRejectCertificate = async (event) => {
         event.preventDefault();
-      await func.RejectCertificate(this.state.pool, this.state.hash, this.state.holder)
+      await func.RejectCertificate(this.state.pool, this.state.hash, this.state.holder, this.props.contract)
       await this.reset();
     };
 

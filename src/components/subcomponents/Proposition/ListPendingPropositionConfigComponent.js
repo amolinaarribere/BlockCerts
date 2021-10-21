@@ -10,8 +10,8 @@ class ListPendingPropositionConfigComponent extends React.Component{
     this.refresh = this.refresh.bind(this)
   }
 
-  refresh() {
-    this.props.refresh();
+  async refresh() {
+    await this.props.refresh();
   }
 
   state = {
@@ -34,25 +34,21 @@ class ListPendingPropositionConfigComponent extends React.Component{
                   <Container style={{margin: '10px 50px 50px 50px' }}>
                     <Row>
                       <Col><b>Pending Proposition Life Time :</b></Col> 
-                      <Col>{(this.props.contractType == 1)? func.PendingManagerPropositionLifeTime : 
-                            (this.props.contractType == 2)? func.PendingTreasuryPropositionLifeTime :
-                            func.PendingPCPropositionLifeTime}</Col>
+                      <Col>{func.PendingPropositionLifeTime}</Col>
                     </Row>
                     <Row>
                       <Col><b>Pending Proposition Threshold Percentage :</b></Col> 
-                      <Col>{(this.props.contractType == 1)? func.PendingManagerPropositionThresholdPercentage :
-                            (this.props.contractType == 2)? func.PendingTreasuryPropositionThresholdPercentage :
-                            func.PendingPCPropositionThresholdPercentage}</Col>
+                      <Col>{func.PendingPropositionThresholdPercentage}</Col>
                     </Row>
                     <Row>
                       <Col><b>Pending Min Weight To Propose Percentage :</b></Col> 
-                      <Col>{(this.props.contractType == 1)? func.PendingManagerMinWeightToProposePercentage :
-                            (this.props.contractType == 2)? func.PendingTreasuryMinWeightToProposePercentage :
-                            func.PendingPCMinWeightToProposePercentage}</Col>
+                      <Col>{func.PendingMinWeightToProposePercentage}</Col>
                     </Row>
                     < br/>
                     <Row>
-                      <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
+                      <VoteForPropositionComponent contract={this.props.contract}
+                        contractType={this.props.contractType} 
+                        refresh={this.refresh}/>
                     </Row>
                   </Container>
                 </div>) : null}      

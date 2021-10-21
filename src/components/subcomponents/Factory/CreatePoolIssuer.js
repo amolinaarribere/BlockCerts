@@ -2,21 +2,30 @@ import React from 'react';
 import { Form} from 'react-bootstrap';
 
 const func = require("../../../functions/FactoriesFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
+const LoadFunc = require("../../../functions/LoadFunctions.js");
 
 class CreatePoolIssuer extends React.Component {
+    constructor(props) {
+        super(props)
+        this.refresh = this.refresh.bind(this)
+    }
+    
     state = {
         minOwners : 0,
         listOfOwners : [],
         name : ""
       };
+
+      async refresh() {
+        await this.props.refresh()
+      }
     
       handleNewPrivatePoolProvider = async (event) => {
           event.preventDefault();
-        await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.props.contractType)
+        await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.props.contract, this.props.price)
         this.setState({ minOwners: 0, listOfOwners: [], name : "" })
-        await loadFunc.LoadFactoriesFunc();
-        this.props.refresh();
+        await LoadFunc.LoadFactoriesFunc(this.props.contract);
+        await this.refresh()
       };
 
     render(){

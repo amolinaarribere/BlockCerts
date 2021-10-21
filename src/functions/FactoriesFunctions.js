@@ -1,30 +1,24 @@
  // Factories
- const Contracts = require("./Contracts.js");
  const Aux = require("./AuxiliaryFunctions.js");
- const Treasury = require("./TreasuryFunctions.js");
 
- export var privatePoolAddresses = []
- export var providerAddresses = []
+ export var Addresses = []
 
- export async function CreatenewPoolProvider(min, list, name, contractType){
-  if(2 == contractType) await Aux.CallBackFrame(Contracts.privatePoolFactory.methods.create(list, min, name).send({from: Aux.account , value: Treasury.PrivatePriceWei}));
-  else await Aux.CallBackFrame(Contracts.providerFactory.methods.create(list, min, name).send({from: Aux.account , value: Treasury.ProviderPriceWei}));
+ export async function CreatenewPoolProvider(min, list, name, contract, price){
+  await Aux.CallBackFrame(contract.methods.create(list, min, name).send({from: Aux.account , value: price}));
 }
 
- export async function RetrieveFactories(){
-    let privateTotalPool = await Contracts.privatePoolFactory.methods.retrieveTotal().call()
-    privatePoolAddresses = []
+ export async function RetrieveFactories(contract){
+  try{
+      let Total = await contract.methods.retrieveTotal().call()
+      Addresses = []
 
-    for (let i = 0; i < privateTotalPool; i++) {
-      let privatePoolAddress = await Contracts.privatePoolFactory.methods.retrieve(i).call()
-      privatePoolAddresses[i] = privatePoolAddress
-    }
+      for (let i = 0; i < Total; i++) {
+        let Address = await contract.methods.retrieve(i).call()
+        Addresses[i] = Address
+      }
+   }
+  catch(e){
+    window.alert("error retrieving the factories items : " + JSON.stringify(e))
+  }
 
-    let providerTotalPool = await Contracts.providerFactory.methods.retrieveTotal().call()
-    providerAddresses = []
-
-    for (let i = 0; i < providerTotalPool; i++) {
-      let providerAddress = await Contracts.providerFactory.methods.retrieve(i).call()
-      providerAddresses[i] = providerAddress
-    }
   }

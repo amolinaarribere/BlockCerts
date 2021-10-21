@@ -2,6 +2,8 @@ import React from 'react';
 const func = require("../functions/AuxiliaryFunctions.js");
 
 class CurrentAddressComponent extends React.Component{
+
+
     render(){
       return(
         <div>

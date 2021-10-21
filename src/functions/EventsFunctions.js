@@ -2,8 +2,6 @@
 const Aux = require("./AuxiliaryFunctions.js");
 const Contracts = require("./Contracts.js");
 
-
-
 export var eventlogs = [];
 
 // Generic
@@ -271,7 +269,15 @@ export async function StartEvents(){
 }
 
 export async function StopEvents(){
-    await Aux.web3.eth.clearSubscriptions()
+  try{
+    if(Aux.web3){
+      await Aux.web3.eth.clearSubscriptions()
+    }
+  }
+  catch(e){
+    window.alert("error clearing subscription : " + e.message)
+  }
+    
 }
 
 

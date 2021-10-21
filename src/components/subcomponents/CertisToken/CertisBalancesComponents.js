@@ -1,5 +1,6 @@
 import React from 'react';
 import {  Container, Row, Col } from 'react-bootstrap';
+
 const func = require("../../../functions/CertisFunctions.js");
 
 class CertisBalancesComponents extends React.Component {

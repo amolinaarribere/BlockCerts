@@ -1,4 +1,4 @@
-export const CERTIFICATE_POOL_MANAGER_ADDRESS = '0x99cbaC5091633B027D815980757F9be51c3324BB'
+export const CERTIFICATE_POOL_MANAGER_ADDRESS =  '0x069E5fA46b3b5261d409228baAB109Bb846d73EA'//'0xfdea19872A0b47D4de1cEaaB7EC2310C1af8F573'//'0xEb5Ac1f36ddA7184Cf4E42b3C1528965e66F8c9f'//'0x9cC6F9C99B772783FA85D407C631233E6Ae99B95'
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;
@@ -20,6 +20,16 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
         "internalType": "uint8",
         "name": "minWeightToProposePercentage",
         "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "stateMutability": "nonpayable",
@@ -314,6 +324,25 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -334,6 +363,31 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -491,6 +545,44 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "voter",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "propID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "vote",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "votePropositionOnBehalfOf",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "components": [
           {
             "internalType": "address",
@@ -561,6 +653,16 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
             "internalType": "bytes",
             "name": "NewPriceConverterData",
             "type": "bytes"
+          },
+          {
+            "internalType": "string",
+            "name": "NewPrivatePoolContractName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "NewPrivatePoolContractVersion",
+            "type": "string"
           }
         ],
         "internalType": "struct Library.ProposedContractsStruct",
@@ -646,6 +748,16 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
             "internalType": "bytes",
             "name": "NewPriceConverterData",
             "type": "bytes"
+          },
+          {
+            "internalType": "string",
+            "name": "NewPrivatePoolContractName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "NewPrivatePoolContractVersion",
+            "type": "string"
           }
         ],
         "internalType": "struct Library.ProposedContractsStruct",
@@ -1068,6 +1180,16 @@ export const PUBLIC_ABI = [
         "internalType": "uint256",
         "name": "minOwners",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "MultiSigCertPool_init",
@@ -1107,6 +1229,64 @@ export const PUBLIC_ABI = [
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "CertificateHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      }
+    ],
+    "name": "addCertificate",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "CertificateHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "addCertificateOnBehalfOf",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -1283,6 +1463,25 @@ export const PUBLIC_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -1303,6 +1502,31 @@ export const PUBLIC_ABI = [
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -1560,6 +1784,16 @@ export const PUBLIC_ABI = [
         "internalType": "address",
         "name": "managerContractAddress",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "PublicCertPool_init",
@@ -1581,25 +1815,6 @@ export const PUBLIC_ABI = [
       }
     ],
     "name": "addProvider",
-    "outputs": [],
-    "stateMutability": "payable",
-    "type": "function",
-    "payable": true
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "CertificateHash",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "address",
-        "name": "holder",
-        "type": "address"
-      }
-    ],
-    "name": "addCertificate",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function",
@@ -1693,6 +1908,44 @@ export const PRIVATEFACTORY_ABI = [
       },
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "Name",
+        "type": "string"
+      }
+    ],
+    "name": "_NewContractName",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "Factory",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "Version",
+        "type": "string"
+      }
+    ],
+    "name": "_NewContractVersion",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "Factory",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "Id",
         "type": "uint256"
@@ -1721,6 +1974,11 @@ export const PRIVATEFACTORY_ABI = [
   },
   {
     "inputs": [
+      {
+        "internalType": "string",
+        "name": "factoryName",
+        "type": "string"
+      },
       {
         "internalType": "address",
         "name": "managerContractAddress",
@@ -1759,6 +2017,30 @@ export const PRIVATEFACTORY_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -1784,6 +2066,32 @@ export const PRIVATEFACTORY_ABI = [
     "stateMutability": "view",
     "type": "function",
     "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      }
+    ],
+    "name": "updateContractName",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
+      }
+    ],
+    "name": "updateContractVersion",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [
@@ -1836,6 +2144,44 @@ export const PROVIDERFACTORY_ABI = [
       },
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "Name",
+        "type": "string"
+      }
+    ],
+    "name": "_NewContractName",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "Factory",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "Version",
+        "type": "string"
+      }
+    ],
+    "name": "_NewContractVersion",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "Factory",
+        "type": "string"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "Id",
         "type": "uint256"
@@ -1864,6 +2210,11 @@ export const PROVIDERFACTORY_ABI = [
   },
   {
     "inputs": [
+      {
+        "internalType": "string",
+        "name": "factoryName",
+        "type": "string"
+      },
       {
         "internalType": "address",
         "name": "managerContractAddress",
@@ -1902,6 +2253,30 @@ export const PROVIDERFACTORY_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -1927,6 +2302,32 @@ export const PROVIDERFACTORY_ABI = [
     "stateMutability": "view",
     "type": "function",
     "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      }
+    ],
+    "name": "updateContractName",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
+      }
+    ],
+    "name": "updateContractVersion",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
     "inputs": [
@@ -2333,6 +2734,25 @@ export const TREASURY_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -2353,6 +2773,31 @@ export const TREASURY_ABI = [
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -2510,6 +2955,44 @@ export const TREASURY_ABI = [
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "voter",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "propID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "vote",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "votePropositionOnBehalfOf",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "PublicPriceUSD",
         "type": "uint256"
@@ -2558,6 +3041,16 @@ export const TREASURY_ABI = [
         "internalType": "uint8",
         "name": "minWeightToProposePercentage",
         "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "Treasury_init",
@@ -2627,13 +3120,6 @@ export const TREASURY_ABI = [
     "payable": true
   },
   {
-    "inputs": [],
-    "name": "AssignDividends",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -2660,6 +3146,13 @@ export const TREASURY_ABI = [
       }
     ],
     "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawAll",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -2692,7 +3185,7 @@ export const TREASURY_ABI = [
         "type": "address"
       }
     ],
-    "name": "retrieveBalance",
+    "name": "retrieveFullBalance",
     "outputs": [
       {
         "internalType": "uint256",
@@ -3222,6 +3715,16 @@ export const PRIVATE_ABI =  [
         "internalType": "uint256",
         "name": "minOwners",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "MultiSigCertPool_init",
@@ -3276,6 +3779,45 @@ export const PRIVATE_ABI =  [
       }
     ],
     "name": "addCertificate",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function",
+    "payable": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "provider",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "CertificateHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "addCertificateOnBehalfOf",
     "outputs": [],
     "stateMutability": "payable",
     "type": "function",
@@ -3535,12 +4077,56 @@ export const PRIVATE_ABI =  [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveMinOwners",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -3807,6 +4393,16 @@ export const PRIVATE_ABI =  [
         "internalType": "uint256",
         "name": "minOwners",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "PrivateCertPool_init",
@@ -4799,6 +5395,25 @@ export const PRICECONVERTER_ABI = [
   },
   {
     "inputs": [],
+    "name": "retrieveContractConfig",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [],
     "name": "retrieveManagerContract",
     "outputs": [
       {
@@ -4819,6 +5434,31 @@ export const PRICECONVERTER_ABI = [
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      }
+    ],
+    "name": "retrieveNonce",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -4977,6 +5617,44 @@ export const PRICECONVERTER_ABI = [
     "inputs": [
       {
         "internalType": "address",
+        "name": "voter",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "propID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "vote",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nonce",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deadline",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "name": "votePropositionOnBehalfOf",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "registry",
         "type": "address"
       },
@@ -5004,6 +5682,16 @@ export const PRICECONVERTER_ABI = [
         "internalType": "uint8",
         "name": "minWeightToProposePercentage",
         "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
       }
     ],
     "name": "PriceConverter_init",

@@ -6,46 +6,87 @@ import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
+const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
 const Ownerfunc = require("../functions/OwnerFunctions.js");
+const Contracts = require("../functions/Contracts.js");
+const LoadFunc = require("../functions/LoadFunctions.js");
+const TreasuryFunc = require("../functions/TreasuryFunctions.js");
 
-  class IssuerComponent extends React.Component {
-    componentWillMount() {
-      if(ProviderPoolFunc.providerAddress != null && ProviderPoolFunc.providerAddress !== "" && ProviderPoolFunc.providerAddress !== "undefined"){
-        ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.providerAddress, this.state.contractType);
-      }
-   }
 
+
+class IssuerComponent extends React.Component {
+    async componentWillMount() {
+      await this.refresh();
+    }
+   
    constructor(props) {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
-  
-  refresh() {
-    this.setState({})
+
+  state = {
+    loading : false,
+    contractType : 3
+  };
+
+  NotEmpty(value){
+    if(value != null && value !== "" && value !== "undefined"){
+      return true
+    }
+    return false;
   }
 
-    state = {
-      contractType : 3
-    };
-    
+  async refresh() {
+    //this.state.loading = true;
+    ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey);
+    await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory); 
+    Ownerfunc.resetOwners();    
+    if(this.NotEmpty(ProviderPoolFunc.Address)){
+      await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
+    }
+    //this.state.loading = false;
+    this.setState({})
+  }
+ 
     render(){
       return (
         <div>
-          <CreatePoolIssuer contractType={this.state.contractType} refresh={this.refresh}/>
-          <br />
-          <br />
-          <ListPoolsIssuers contractType={this.state.contractType} Key={ProviderPoolFunc.providerKey} refresh={this.refresh}/>
-          <br />
-          {
-           (Ownerfunc.isProviderOwner)?(
-             <div>
-              <CertificateComponent contractType={this.state.contractType} refresh={this.refresh}/>
+          {(false == this.state.loading)? 
+            <div>
+              <CreatePoolIssuer contract={Contracts.providerFactory}
+                price={TreasuryFunc.ProviderPriceWei}
+                contractType={this.state.contractType} 
+                refresh={this.refresh}/>
               <br />
-              <OwnerComponent contractType={this.state.contractType} refresh={this.refresh}/>
-              <br/>
-              <ProviderPoolComponent contractType={this.state.contractType} refresh={this.refresh}/>
+              <br />
+              <ListPoolsIssuers contract={Contracts.providerFactory}
+                contractType={this.state.contractType} 
+                Key={BrowserStorageFunctions.providerKey} 
+                refresh={this.refresh}/>
+              <br />
+              {
+              (Ownerfunc.isOwner)?(
+                <div>
+                  <CertificateComponent contract={Contracts.provider}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}
+                    price={0}/>
+                  <br />
+                  <OwnerComponent contract={Contracts.provider}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}/>
+                  <br/>
+                  <ProviderPoolComponent contract={Contracts.provider}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}/>
+                </div>
+              ):null}
             </div>
-           ):null}
+           :
+            <div>
+            Loading....
+            </div>
+          }
         </div>
       );
     }

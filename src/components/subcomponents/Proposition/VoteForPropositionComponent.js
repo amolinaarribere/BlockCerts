@@ -1,25 +1,24 @@
 import React from 'react';
+import SignVoteComponent from './SignVoteComponent.js';
 
 const func = require("../../../functions/PropositionFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class VoteForPropositionComponent extends React.Component{
 
     handleValidatePropConfig = async (event) => {
       event.preventDefault();
-      await func.VoteProposition(true, this.props.contractType);
+      await func.VoteProposition(true, this.props.contract);
       await this.reset();
     };
 
     handleRejectPropConfig = async (event) => {
         event.preventDefault();
-        await func.VoteProposition(false, this.props.contractType);
+        await func.VoteProposition(false, this.props.contract);
         await this.reset();
       };
     
-      reset = async () =>{
-        await loadFunc.LoadPropositionFunc();
-        this.props.refresh();
+     async reset(){
+        await this.props.refresh();
       }
   
     render(){
@@ -27,6 +26,7 @@ class VoteForPropositionComponent extends React.Component{
         <div>
           <button type="button" class="btn btn-success" onClick={this.handleValidatePropConfig}>Validate Proposition</button> &nbsp;&nbsp;
           <button type="button" class="btn btn-danger" onClick={this.handleRejectPropConfig}>Reject Proposition</button>
+          <SignVoteComponent contract={this.props.contract}/>
         </div>
       );
     }

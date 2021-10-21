@@ -12,11 +12,12 @@ const loadFunc = require("../../../functions/LoadFunctions.js");
 class AddressPropositionComponent extends React.Component {
   constructor(props) {
     super(props)
+    loadFunc.LoadManagerFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
   refresh = async (event) => {
-    await loadFunc.LoadManagerFunc();
+    await loadFunc.LoadManagerFunc(this.props.contract);
     this.props.refresh()
   }
 
@@ -241,7 +242,9 @@ class AddressPropositionComponent extends React.Component {
                       </Row>
                       < br/>
                       <Row>
-                        <VoteForPropositionComponent contractType={this.props.contractType} refresh={this.refresh}/>
+                        <VoteForPropositionComponent contract={this.props.contract}
+                          contractType={this.props.contractType} 
+                          refresh={this.refresh}/>
                       </Row>
                     </Container> 
                   </div>) : null}

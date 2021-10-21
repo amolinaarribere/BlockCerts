@@ -3,15 +3,22 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/FactoriesFunctions.js");
 const ProviderPoolFunctions = require("../../../functions/ProviderPoolFunctions.js");
+const BrowserStorageFunctions = require("../../../functions/BrowserStorageFunctions.js");
+
 
 class FundProviderComponent extends React.Component{
+    constructor(props) {
+        super(props)
+        this.refresh = this.refresh.bind(this)
+    }
+
     state = {
       Amount : 0
     };
   
     handleFundProvider = async (event) => {
       event.preventDefault();
-      await ProviderPoolFunctions.FundProvider(this.state.Amount);
+      await ProviderPoolFunctions.FundProvider(this.state.Amount, this.props.contract);
       this.setState({ Amount: 0 })
     };
     
@@ -21,7 +28,7 @@ class FundProviderComponent extends React.Component{
               <h3>Fund Provider</h3>
                 <Form onSubmit={this.handleFundProvider} style={{margin: '50px 50px 50px 50px' }}>
                     <Form.Group  className="mb-3">
-                        <Form.Control type="interger" name="Amount" placeholder="amount" 
+                        <Form.Control type="integer" name="Amount" placeholder="amount" 
                             value={this.state.Amount}
                             onChange={event => this.setState({ Amount: event.target.value })}/>
                     </Form.Group>
@@ -39,11 +46,10 @@ class SelectPoolIssuerComponent extends React.Component{
     
       handleSelectProviderPool = async (event) => {
         event.preventDefault();
-        sessionStorage.setItem(this.props.Key, this.state.ProviderPool, { path: '/' });
-
+        BrowserStorageFunctions.WriteKey(this.props.Key, this.state.ProviderPool);
         await ProviderPoolFunctions.SelectProviderPool(this.state.ProviderPool, this.props.contractType);
         this.setState({ ProviderPool: "" })
-        this.props.refresh();
+        await this.props.refresh();
       };
       
       render(){
@@ -65,18 +71,37 @@ class SelectPoolIssuerComponent extends React.Component{
       }
 }
 
-class ListPoolsIssuers extends React.Component {
+class UnSelectPoolIssuerComponent extends React.Component{
+  
+    handleUnSelectProviderPool = async (event) => {
+        event.preventDefault();
+        BrowserStorageFunctions.WriteKey(this.props.Key, "");
+        await ProviderPoolFunctions.UnSelectProviderPool(this.props.contractType);
+        this.setState({})
+        await this.props.refresh();
+      };
+    
     render(){
-        var text = "Private Pool";
-        var addresses = func.privatePoolAddresses;
-        var selectedAddress = ProviderPoolFunctions.privatePoolAddress;
+      var text = "Pool";
+      if (this.props.contractType == 3)text = "Provider";
+      return (
+          <div>
+              <Form onSubmit={this.handleUnSelectProviderPool} style={{margin: '50px 50px 50px 50px' }}>
+                <button type="submit" class="btn btn-secondary">UnSelect {text}</button>
+              </Form>
+          </div>
+      );
+    }
+}
+
+class ListPoolsIssuers extends React.Component {
+
+    render(){
+        var text = (this.props.contractType == 3) ? "Provider" : "Private Pool";
+        var addresses = func.Addresses;
+        var selectedAddress = ProviderPoolFunctions.Address;
         var Provider = false;
-        if (this.props.contractType == 3) {
-            text = "Provider";
-            addresses = func.providerAddresses;
-            selectedAddress = ProviderPoolFunctions.providerAddress;
-            Provider = true;
-        }
+
         return(
             <div>
                 <h3>{text} Addresses :</h3> 
@@ -88,10 +113,16 @@ class ListPoolsIssuers extends React.Component {
                         ))}
                 </Container>
                 <br />
-                <SelectPoolIssuerComponent contractType={this.props.contractType} Key={this.props.Key} refresh={this.props.refresh}/>
+                <SelectPoolIssuerComponent contract={this.props.contract}
+                    contractType={this.props.contractType} 
+                    Key={this.props.Key} 
+                    refresh={this.props.refresh}/>
                 <hr class="bg-secondary"/>
                 <br />
-                <h2 class="text-primary"> Selected {text} : {selectedAddress}</h2>
+                <h3 class="text-primary"> Selected {text} : {selectedAddress}</h3>
+                <UnSelectPoolIssuerComponent contractType={this.props.contractType} 
+                    Key={this.props.Key} 
+                    refresh={this.props.refresh}/>
                 <br />
                 {Provider ? (
                     <div>
@@ -102,7 +133,7 @@ class ListPoolsIssuers extends React.Component {
                             </Row>
                         </Container>
                         <br />
-                        <FundProviderComponent />
+                        <FundProviderComponent contract={this.props.contract}/>
                     </div>): null}
             </div>
         );
