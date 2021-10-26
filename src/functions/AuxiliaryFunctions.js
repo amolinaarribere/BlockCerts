@@ -1,11 +1,20 @@
 // auxiliary
 import Web3 from 'web3';
 
+const ENSFunc = require("./ENSFunctions.js");
+
 export var account = "";
+export var accountResolved = "";
 export var web3 = "";
 
-export function setAccount(_value){
+export async function setAccount(_value){
   account = _value;
+  accountResolved = await ENSFunc.ReverseResolution(account)
+}
+
+export function removeAccount(){
+  account = "";
+  accountResolved = ""
 }
 
 export function LoadWeb3(){

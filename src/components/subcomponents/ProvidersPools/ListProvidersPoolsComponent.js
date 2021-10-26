@@ -9,22 +9,14 @@ class ListProvidersPoolsComponent extends React.Component{
       var text = (this.props.contractType == 3)? "Pools" : "Providers";
       var ProvidersPools = func.Items;
 
-      /*if(this.props.contractType == 2){
-        ProvidersPools = func.privateProviders;
-      }
-      else if(this.props.contractType == 3){
-        text = "Pools";
-        //ProvidersPools = func.providerPools;
-      }*/
-
       return(
         <div class="border border-0">
           <h3>{text}</h3>
           <Container style={{margin: '10px 50px 50px 50px' }}>
             {ProvidersPools.map(ProviderPool => (
                 <Row>
-                    <Col key={ProviderPool[0]}> {Aux.Bytes32ToAddress(ProviderPool[0])}</Col>
-                    <Col><i><b>{ProviderPool[1]}</b></i></Col>
+                    <Col key={ProviderPool[0]}> {ProviderPool[0]} {(ProviderPool[2])?<i>({ProviderPool[1]})</i>:""}</Col>
+                    <Col><i><b>{ProviderPool[3]}</b></i></Col>
                 </Row>
                 ))}
           </Container>

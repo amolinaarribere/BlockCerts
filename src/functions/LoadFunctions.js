@@ -27,10 +27,10 @@ export async function ReadAccount(){
       window.location.reload();
     });
     window.ethereum.on('disconnect', function () {
-      Aux.setAccount("");
+      Aux.removeAccount();
     });
     Aux.LoadWeb3();
-    Aux.setAccount(accounts[0]);
+    await Aux.setAccount(accounts[0]);
   }
   catch(e){
     if (e.code === 4001) {

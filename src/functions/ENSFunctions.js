@@ -23,13 +23,15 @@ export async function ReverseResolution(address){
     try{
         initENS();
         var name = await ens.getName(address)
+
         if(name.name == null ||
-             address != await ens.name(name.name).getAddress()) name = address;
-        return name;
+            Aux.web3.utils.toChecksumAddress(address) != await ens.name(name.name).getAddress()) return [address, false];
+        
+        return [name.name, true];
     }
     catch(e){
         window.alert("error reversing the address : " + e)
-        return address;
+        return [address, false];
     }
    
 }
