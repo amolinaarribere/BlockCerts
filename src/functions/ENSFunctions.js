@@ -25,7 +25,7 @@ export async function ReverseResolution(address){
         var name = await ens.getName(address)
 
         if(name.name == null ||
-            Aux.web3.utils.toChecksumAddress(address) != await ens.name(name.name).getAddress()) return [address, false];
+            Aux.web3.utils.toChecksumAddress(address) != Aux.web3.utils.toChecksumAddress(await ens.name(name.name).getAddress())) return [address, false];
         
         return [name.name, true];
     }
