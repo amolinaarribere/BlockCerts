@@ -29,7 +29,7 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function RetrievePricesTreasury(contract){
     try{
-      let response = await contract.methods.retrievePrices().call();
+      let response = await contract.methods.retrieveSettings().call();
       PublicPriceUSD = response[0];
       PrivatePriceUSD = response[1];
       ProviderPriceUSD = response[2];

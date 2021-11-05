@@ -7,6 +7,8 @@ export var providerFactory = "";
 export var Treasury = "";
 export var CertisToken = "";
 export var PriceConverter = "";
+export var PropositionSettings = "";
+export var ENS = "";
 
 export function setCertificatePoolManager(_value){
     certificatePoolManager = _value;
@@ -42,4 +44,12 @@ export function setCertisToken(_value){
 
 export function setPriceConverter(_value){
     PriceConverter = _value;
+}
+
+export function setPropositionSettings(_value){
+    PropositionSettings = _value;
+}
+
+export function setENS(_value){
+    ENS = _value;
 }

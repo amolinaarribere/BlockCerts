@@ -15,6 +15,10 @@ export var CertisTokenAddress = ""
 export var CertisTokenAddressProxy = ""
 export var PriceConverterAddress = ""
 export var PriceConverterAddressProxy = ""
+export var PropositionSettingsAddress = ""
+export var PropositionSettingsAddressProxy = ""
+export var ENSAddress = ""
+export var ENSAddressProxy = ""
 
 export var PendingPublicPoolAddress = ""
 export var PendingPrivatePoolFactoryAddress = ""
@@ -24,55 +28,69 @@ export var PendingProviderImplAddress = "";
 export var PendingTreasuryAddress = ""
 export var PendingCertisTokenAddress = ""
 export var PendingPriceConverterAddress = ""
+export var PendingPropositionSettingsAddress = ""
+export var PendingENSAddress = ""
 
 
 export async function RetrieveContractsAddresses(contract){
-    publicPoolAddressProxy = await contract.methods.retrievePublicCertificatePoolProxy().call();
-    privatePoolFactoryAddressProxy = await contract.methods.retrievePrivatePoolFactoryProxy().call();
-    providerFactoryAddressProxy = await contract.methods.retrieveProviderFactoryProxy().call();
-    TreasuryAddressProxy = await contract.methods.retrieveTreasuryProxy().call();
-    CertisTokenAddressProxy = await contract.methods.retrieveCertisTokenProxy().call();
-    PriceConverterAddressProxy = await contract.methods.retrievePriceConverterProxy().call();
+  let TransparentProxies = await contract.methods.retrieveTransparentProxies().call({from: Aux.account});
+  let TransparentImpl = await contract.methods.retrieveTransparentProxiesImpl().call({from: Aux.account});
+  let BeaconsImpl = await contract.methods.retrieveBeaconsImpl().call({from: Aux.account});
+
+  publicPoolAddressProxy = TransparentProxies[0];
+  TreasuryAddressProxy = TransparentProxies[1];
+  CertisTokenAddressProxy = TransparentProxies[2];
+  privatePoolFactoryAddressProxy = TransparentProxies[3];
+  providerFactoryAddressProxy = TransparentProxies[4];
+  PriceConverterAddressProxy = TransparentProxies[5];
+  PropositionSettingsAddressProxy = TransparentProxies[6];
+  ENSAddressProxy = TransparentProxies[7];
+
+  publicPoolAddress = TransparentImpl[0];
+  TreasuryAddress = TransparentImpl[1];
+  CertisTokenAddress = TransparentImpl[2];
+  privatePoolFactoryAddress = TransparentImpl[3];
+  providerFactoryAddress = TransparentImpl[4];
+  PriceConverterAddress = TransparentImpl[5];
+  PropositionSettingsAddress = TransparentImpl[6];
+  ENSAddress = TransparentImpl[7];
+
+  privatePoolImplAddress = BeaconsImpl[0];
+  providerImplAddress = BeaconsImpl[1];
+}
   
-    publicPoolAddress = await contract.methods.retrievePublicCertificatePool().call();
-    privatePoolFactoryAddress = await contract.methods.retrievePrivatePoolFactory().call();
-    privatePoolImplAddress = await contract.methods.retrievePrivatePool().call();
-    providerFactoryAddress = await contract.methods.retrieveProviderFactory().call();
-    providerImplAddress = await contract.methods.retrieveProvider().call();
-    TreasuryAddress = await contract.methods.retrieveTreasury().call();
-    CertisTokenAddress = await contract.methods.retrieveCertisToken().call();
-    PriceConverterAddress = await contract.methods.retrievePriceConverter().call();
-  }
-  
-  export async function UpgradeContracts(NewPublicPoolAddress, NewTreasuryAddress, NewCertisTokenAddress, NewPrivatePoolFactoryAddress, NewPrivatePoolAddress, NewProviderFactoryAddress, NewProviderAddress, NewPriceConverterAddress, contract){
-    await Aux.CallBackFrame(contract.methods.upgradeContracts({
-                "NewPublicPoolAddress": NewPublicPoolAddress,
-                "NewTreasuryAddress": NewTreasuryAddress,
-                "NewCertisTokenAddress": NewCertisTokenAddress,
-                "NewPrivatePoolFactoryAddress": NewPrivatePoolFactoryAddress,
-                "NewPrivatePoolAddress": NewPrivatePoolAddress,
-                "NewProviderFactoryAddress": NewProviderFactoryAddress,
-                "NewProviderAddress": NewProviderAddress,
-                "NewPriceConverterAddress": NewPriceConverterAddress,
-                "NewPublicPoolData": "0x",
-                "NewTreasuryData":  "0x",
-                "NewCertisTokenData": "0x",
-                "NewPrivatePoolFactoryData": "0x",
-                "NewProviderFactoryData":  "0x",
-                "NewPriceConverterData":  "0x"
+  export async function UpgradeContracts(NewPublicPoolAddress, NewTreasuryAddress, NewCertisTokenAddress, NewPrivatePoolFactoryAddress, NewPrivatePoolAddress, NewProviderFactoryAddress, NewProviderAddress, NewPriceConverterAddress, NewPropositionSettingsAddress, NewENSAddress, contract){
+    await Aux.CallBackFrame(contract.methods.sendProposition({
+                "TransparentAddresses": [Aux.AddressToBytes32(NewPublicPoolAddress), 
+                  Aux.AddressToBytes32(NewTreasuryAddress), 
+                  Aux.AddressToBytes32(NewCertisTokenAddress), 
+                  Aux.AddressToBytes32(NewPrivatePoolFactoryAddress), 
+                  Aux.AddressToBytes32(NewProviderFactoryAddress), 
+                  Aux.AddressToBytes32(NewPriceConverterAddress), 
+                  Aux.AddressToBytes32(NewPropositionSettingsAddress), 
+                  Aux.AddressToBytes32(NewENSAddress)],
+                "BeaconAddresses": [Aux.AddressToBytes32(NewPrivatePoolAddress), 
+                  Aux.AddressToBytes32(NewProviderAddress)],
+                "TransparentData": ["0x", "0x", "0x", "0x", "0x", "0x", "0x", "0x"],
+                "PrivatePoolContractName": "0x",
+                "PrivatePoolContractVersion": "0x"
             }).send({from: Aux.account }));
   }
   
   export async function RetrievePendingContractsAddresses(contract){
     try{
-      [PendingPublicPoolAddress,
-        PendingTreasuryAddress,
-        PendingCertisTokenAddress,
-        PendingPrivatePoolFactoryAddress,
-        PendingPrivatePoolImplAddress,
-        PendingProviderFactoryAddress,
-        PendingProviderImplAddress,
-        PendingPriceConverterAddress] = await contract.methods.retrieveProposition().call();
+      let result = await contract.methods.retrieveProposition().call();
+
+      PendingPublicPoolAddress = Aux.Bytes32ToAddress(result[2]);
+      PendingTreasuryAddress = Aux.Bytes32ToAddress(result[3]);
+      PendingCertisTokenAddress = Aux.Bytes32ToAddress(result[4]);
+      PendingPrivatePoolFactoryAddress = Aux.Bytes32ToAddress(result[5]);
+      PendingProviderFactoryAddress = Aux.Bytes32ToAddress(result[6]);
+      PendingPriceConverterAddress = Aux.Bytes32ToAddress(result[7]);
+      PendingPropositionSettingsAddress = Aux.Bytes32ToAddress(result[8]);
+      PendingENSAddress = Aux.Bytes32ToAddress(result[9]);
+      PendingPrivatePoolImplAddress = Aux.Bytes32ToAddress(result[10]);
+      PendingProviderImplAddress = Aux.Bytes32ToAddress(result[11]);
     }
     catch(e){
       window.alert("error retrieving the pending contract addresses : " + JSON.stringify(e))
