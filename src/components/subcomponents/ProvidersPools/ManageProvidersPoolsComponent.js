@@ -14,7 +14,7 @@ class ManageProvidersPoolsComponent extends React.Component{
 
     handleAddProvider = async (event) => {
         event.preventDefault();
-      await func.AddProviderPool(this.state.ProviderPool, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType, this.props.contract)
+      await func.AddProviderPool(this.state.ProviderPool, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType, 0, this.props.contract)
       await this.reset();
     };
     handleRemoveProviderPool = async (event) => {
