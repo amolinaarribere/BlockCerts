@@ -1,5 +1,5 @@
   // Treasury
-import { USDDecimals, ETHDecimals } from '../config';
+import { USDDecimals } from '../config';
 
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");

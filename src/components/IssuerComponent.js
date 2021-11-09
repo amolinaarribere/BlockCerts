@@ -37,14 +37,12 @@ class IssuerComponent extends React.Component {
   }
 
   async refresh() {
-    //this.state.loading = true;
     ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey);
     await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory); 
     Ownerfunc.resetOwners();    
     if(this.NotEmpty(ProviderPoolFunc.Address)){
       await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
     }
-    //this.state.loading = false;
     this.setState({})
   }
  

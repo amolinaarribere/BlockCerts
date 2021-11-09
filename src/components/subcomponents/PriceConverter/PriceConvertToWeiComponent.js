@@ -20,7 +20,7 @@ class PriceConvertToWeiComponent extends React.Component {
     render(){
       return (
         <div>
-         <h3>Check ETH/USD Exchange Rate</h3>
+         <h3>Check USD/ETH Exchange Rate</h3>
          <Form onSubmit={this.Convert} style={{margin: '50px 50px 50px 50px' }}>
             <Form.Group  className="mb-3">
               <Form.Control type="number" step="0.01" name="AmountUSD" placeholder="Amount in USD" 

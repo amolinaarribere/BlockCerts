@@ -1,5 +1,5 @@
 // Provider - Pool
-import {PRIVATE_ABI, PROVIDER_ABI } from '../config'
+import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals } from '../config'
 
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
@@ -7,6 +7,7 @@ const OwnersFunc = require("./OwnerFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const BrowserStorageFunction = require("./BrowserStorageFunctions.js");
 const ENSFunc = require("./ENSFunctions.js");
+const BigNumber = require('bignumber.js');
 
 export var privatePool = "";
 export var provider = "";
@@ -22,7 +23,7 @@ export var Items = []
 
 export async function AddProviderPool(address, Info, subscribe, contractType, price, contract){
   (3 != contractType)? 
-      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: price})) :
+      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: price * ETHDecimals})) :
       await Aux.CallBackFrame(contract.methods.addPool(address, Info, subscribe).send({from: Aux.account }));
   }
   
