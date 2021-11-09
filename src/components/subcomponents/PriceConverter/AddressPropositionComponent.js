@@ -3,20 +3,16 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
-const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 
 class AddressPropositionComponent extends React.Component {
   constructor(props) {
     super(props)
-    //loadFunc.LoadPriceConverterFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
   async refresh() {
-    //await loadFunc.LoadPriceConverterFunc(this.props.contract);
     await this.props.refresh()
   }
 
@@ -90,12 +86,11 @@ class AddressPropositionComponent extends React.Component {
                       <Container style={{margin: '10px 50px 50px 50px' }}>
                         <Row>
                           <Col><b>Pending Registry Address :</b></Col> 
-                          <Col>{Aux.Bytes32ToAddress(func.PendingRegistryAddress)}</Col>
+                          <Col>{func.PendingRegistryAddress}</Col>
                         </Row>
                         < br/>
                         <Row>
                           <VoteForPropositionComponent contract={this.props.contract}
-                            contractType={this.props.contractType} 
                             refresh={this.refresh}/>
                         </Row>
                       </Container>

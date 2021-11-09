@@ -1,13 +1,13 @@
 import React from 'react';
-import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
-import PricePropositionComponent from './subcomponents/Treasury/PricePropositionComponent.js';
 import AssignWithdrawComponent from './subcomponents/Treasury/AssignWithdrawComponent.js';
+import CertisTokensComponent from './subcomponents/CertisToken/CertisTokensComponent.js';
+import PriceConverterComponent from './subcomponents/PriceConverter/PriceConverterComponent.js';
 import LoadingComponent from './subcomponents/LoadingComponent.js';
 
 const Contracts = require("../functions/Contracts.js");
 const loadFunc = require("../functions/LoadFunctions.js");
 
-class TreasuryComponent extends React.Component {
+class DividendsComponent extends React.Component {
   async componentWillMount() {
     await this.refresh();
   }
@@ -23,7 +23,8 @@ class TreasuryComponent extends React.Component {
     }
     
     async refresh() {
-      await loadFunc.LoadTreasuryFunc(Contracts.Treasury);
+      await loadFunc.LoadTreasuryStateFunc(Contracts.Treasury);
+      await loadFunc.LoadCertisFunc(Contracts.CertisToken);
       this.setState({})
     }
     
@@ -34,13 +35,9 @@ class TreasuryComponent extends React.Component {
             <div>
               <AssignWithdrawComponent contract={Contracts.Treasury} 
                 refresh={this.refresh}/>
-              <br />
-              <PricePropositionComponent contract={Contracts.Treasury}
-                contractType={this.state.contractType} 
+              <CertisTokensComponent contract={Contracts.CertisToken} 
                 refresh={this.refresh}/>
-              <br />
-              <PropositionConfigComponent contract={Contracts.Treasury}
-                contractType={this.state.contractType} 
+              <PriceConverterComponent contract={Contracts.PriceConverter} 
                 refresh={this.refresh}/>
             </div>
           :
@@ -53,4 +50,4 @@ class TreasuryComponent extends React.Component {
     }
   }
   
-export default TreasuryComponent;
+export default DividendsComponent;

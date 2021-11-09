@@ -47,7 +47,6 @@ class ListPendingPropositionConfigComponent extends React.Component{
                     < br/>
                     <Row>
                       <VoteForPropositionComponent contract={this.props.contract}
-                        contractType={this.props.contractType} 
                         refresh={this.refresh}/>
                     </Row>
                   </Container>

@@ -4,11 +4,10 @@ import { Container, Navbar, Nav } from 'react-bootstrap';
 import HomeComponent from './components/HomeComponent.js';
 import PublicComponent from './components/PublicComponent.js';
 import PrivateComponent from './components/PrivateComponent.js';
-import CertisTokensComponent from './components/CertisTokensComponent.js';
 import IssuerComponent from './components/IssuerComponent.js';
-import TreasuryComponent from './components/TreasuryComponent.js';
-import ManagerComponent from './components/ManagerComponent.js';
-import PriceConverterComponent from './components/PriceConverterComponent.js';
+import DividendsComponent from './components/DividendsComponent.js';
+import SettingsComponent from './components/SettingsComponent.js';
+//import PriceConverterComponent from './components/PriceConverterComponent.js';
 import CurrentAddressComponent from './components/CurrentAddressComponent.js';
 import EventsComponent from './components/EventsComponent.js';
 import LoadingComponent from './components/subcomponents/LoadingComponent.js';
@@ -18,13 +17,12 @@ const certFunc = require("./functions/CertisFunctions.js");
 const loadFunc = require("./functions/LoadFunctions.js");
 
 const Home = "Home";
-const Manager = "Manager";
+const Settings = "Settings";
 const Public = "Public";
 const Private = "Private";
 const Provider = "Provider";
-const PriceConverter = "Price Converter";
-const Treasury = "Treasury";
-const CertisToken = "Certis Token";
+//const PriceConverter = "Price Converter";
+const Dividends = "Dividends";
 const Event = "Events";
 
 
@@ -59,13 +57,11 @@ class Demo extends React.Component {
             <Container>
               <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
               <Nav className="me-auto">
-                <Nav.Link onClick={() => this.toggleMenu(Manager)}>{Manager}</Nav.Link>
+                <Nav.Link onClick={() => this.toggleMenu(Settings)}>{Settings}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Public)}>{Public}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Private)}>{Private}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Provider)}>{Provider}</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu(PriceConverter)}>{PriceConverter}</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu(Treasury)}>{Treasury}</Nav.Link>
-                {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(CertisToken)}>{CertisToken}</Nav.Link>) : null}
+                {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(Dividends)}>{Dividends}</Nav.Link>) : null}
                 <Nav.Link onClick={() => this.toggleMenu(Event)}>{Event}</Nav.Link>
               </Nav>
               <CurrentAddressComponent />
@@ -75,9 +71,9 @@ class Demo extends React.Component {
         <div class="mx-auto w-75">
           {(() => {
               switch (this.state.Component) {
-                case Manager:
+                case Settings:
                     return (
-                      ((false == this.state.loading) ? <ManagerComponent /> : <LoadingComponent />)
+                      ((false == this.state.loading) ? <SettingsComponent /> : <LoadingComponent />)
                     )
                 case Public:
                     return (
@@ -91,17 +87,9 @@ class Demo extends React.Component {
                     return (
                       ((false == this.state.loading) ? <IssuerComponent /> : <LoadingComponent />)
                     )
-                case PriceConverter:
+                case Dividends:
                     return (
-                      ((false == this.state.loading) ? <PriceConverterComponent /> : <LoadingComponent />)
-                    )
-                case Treasury:
-                    return (
-                      ((false == this.state.loading) ? <TreasuryComponent /> : <LoadingComponent />)
-                    )
-                case CertisToken:
-                    return (
-                      ((false == this.state.loading) ? <CertisTokensComponent /> : <LoadingComponent />)
+                      ((false == this.state.loading) ? <DividendsComponent /> : <LoadingComponent />)
                     )
                 case Event:
                     return (

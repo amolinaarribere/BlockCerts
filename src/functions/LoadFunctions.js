@@ -1,4 +1,13 @@
-import { CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS, PUBLIC_ABI, PRIVATEFACTORY_ABI, PROVIDERFACTORY_ABI, TREASURY_ABI, CERTIS_ABI, PRICECONVERTER_ABI, AdminRights } from '../config'
+import { ADMIN_ABI, ADMIN_ADDRESS, CERTIFICATE_POOL_MANAGER_ABI, 
+  PUBLIC_ABI, 
+  PRIVATEFACTORY_ABI, 
+  PROVIDERFACTORY_ABI, 
+  TREASURY_ABI, 
+  CERTIS_ABI, 
+  PRICECONVERTER_ABI, 
+  PROPOSITIONSETTINGS_ABI,
+  ENS_ABI,
+  AdminRights } from '../config'
 
 const ProviderPoolFunc = require("./ProviderPoolFunctions.js");
 const OwnersFunc = require("./OwnerFunctions.js");
@@ -9,7 +18,10 @@ const CertisFunc = require("./CertisFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const Contracts = require("./Contracts.js");
 const ManagerFunc = require("./ManagerFunctions.js");
+const AdminFunc = require("./AdminFunctions.js");
 const PriceConverterFunc = require("./PriceConverterFunctions.js");
+const ENSFunc = require("./ENSFunctions.js");
+
 const Aux = require("./AuxiliaryFunctions.js");
 
 export var chairPerson = ""
@@ -48,7 +60,10 @@ export async function LoadBlockchain() {
       await ReadAccount();
       Network = await Aux.web3.eth.net.getNetworkType();
       
-      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, CERTIFICATE_POOL_MANAGER_ADDRESS))
+      Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ADMIN_ADDRESS));
+      await LoadAdminFunc(Contracts.admin);
+
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, AdminFunc.ManagerAddressProxy))
       await LoadManagerFunc(Contracts.certificatePoolManager);
 
       Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
@@ -57,9 +72,12 @@ export async function LoadBlockchain() {
       Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
       Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
       Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
+      Contracts.setPropositionSettings(await new Aux.web3.eth.Contract(PROPOSITIONSETTINGS_ABI, ManagerFunc.PropositionSettingsAddressProxy))
+      Contracts.setENS(await new Aux.web3.eth.Contract(ENS_ABI, ManagerFunc.ENSAddressProxy))
 
+      await LoadPropositionFunc(Contracts.PropositionSettings);
       await LoadPriceConverterFunc(Contracts.PriceConverter);
-      await LoadTreasuryFunc(Contracts.Treasury)
+      await LoadTreasuryConfigFunc(Contracts.Treasury)
       await LoadCertisFunc(Contracts.CertisToken)
 
     } catch (e) {
@@ -71,6 +89,10 @@ export async function LoadBlockchain() {
     window.alert("You should connect your wallet for the dAPP to work")
   }
   
+}
+
+export async function LoadAdminFunc(contract) {
+  await AdminFunc.RetrieveManagerAddresses(contract);
 }
 
 export async function LoadManagerFunc(contract) {
@@ -89,16 +111,26 @@ export async function LoadPropositionFunc(contract) {
     PropositionFunc.RetrievePendingProposition(contract)]);
 }
 
-export async function LoadTreasuryFunc(contract) {
+export async function LoadTreasuryStateFunc(contract) {
   await Promise.all([TreasuryFunc.RetrievePricesTreasury(contract), 
     TreasuryFunc.RetrievePendingPricesTreasury(contract),
     TreasuryFunc.RetrieveBalance(Aux.account, contract),
     TreasuryFunc.RetrieveTreasuryBalance(contract)]);
 }
 
+export async function LoadTreasuryConfigFunc(contract) {
+  await Promise.all([TreasuryFunc.RetrievePricesTreasury(contract), 
+    TreasuryFunc.RetrievePendingPricesTreasury(contract)]);
+}
+
 export async function LoadPriceConverterFunc(contract) {
   await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(contract),
     PriceConverterFunc.RetrievePendingRegistryAddress(contract)]);
+}
+
+export async function LoadENSFunc(contract) {
+  await Promise.all([ENSFunc.RetrieveENSConfig(contract),
+    ENSFunc.RetrievePendingENSConfig(contract)]);
 }
 
 export async function LoadProviderPoolFunc(ContractId, contract) {

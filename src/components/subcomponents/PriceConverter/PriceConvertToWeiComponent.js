@@ -1,5 +1,4 @@
 import React from 'react';
-import {  ETHDecimals } from '../../../config';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
@@ -21,7 +20,7 @@ class PriceConvertToWeiComponent extends React.Component {
     render(){
       return (
         <div>
-         <h3>Convert</h3>
+         <h3>Check ETH/USD Exchange Rate</h3>
          <Form onSubmit={this.Convert} style={{margin: '50px 50px 50px 50px' }}>
             <Form.Group  className="mb-3">
               <Form.Control type="number" step="0.01" name="AmountUSD" placeholder="Amount in USD" 
@@ -33,7 +32,7 @@ class PriceConvertToWeiComponent extends React.Component {
           <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Amount In ETH :</b></Col> 
-                <Col>{this.state.AmountWei / ETHDecimals} ({this.state.AmountUSD}USD)</Col>
+                <Col>{this.state.AmountWei} ({this.state.AmountUSD}USD)</Col>
               </Row>
           </Container>
           <hr class="bg-secondary"/>

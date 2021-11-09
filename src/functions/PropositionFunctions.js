@@ -15,9 +15,9 @@ export var ContractName = ""
 export var ContractVersion = ""
 
 export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage, contract){
-  await Aux.CallBackFrame(contract.methods.sendProposition(Aux.IntToBytes32(NewPropositionLifeTime),
+  await Aux.CallBackFrame(contract.methods.sendProposition([Aux.IntToBytes32(NewPropositionLifeTime),
                             Aux.IntToBytes32(NewPropositionThresholdPercentage), 
-                            Aux.IntToBytes32(NewMinWeightToProposePercentage)).send({from: Aux.account }));
+                            Aux.IntToBytes32(NewMinWeightToProposePercentage)]).send({from: Aux.account }));
   }
   
   export async function VoteProposition(Vote, contract){
@@ -31,9 +31,13 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
   export async function RetrievePendingProposition(contract){
     try{
       let response = await contract.methods.retrieveProposition().call();
-      PendingPropositionLifeTime = Number(response[0]);
-      PendingPropositionThresholdPercentage = Number(response[1]);
-      PendingMinWeightToProposePercentage = Number(response[2]);
+      PendingPropositionLifeTime = "-";
+      PendingPropositionThresholdPercentage = "-";
+      PendingMinWeightToProposePercentage = "-";
+
+      if(response[0] != undefined)PendingPropositionLifeTime = Number(response[0]);
+      if(response[1] != undefined)PendingPropositionThresholdPercentage = Number(response[1]);
+      if(response[2] != undefined)PendingMinWeightToProposePercentage = Number(response[2]);
     }
     catch(e) { 
       window.alert("error retrieving the pending propositions : " + JSON.stringify(e)); 

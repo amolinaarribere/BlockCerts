@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-import { CERTIFICATE_POOL_MANAGER_ADDRESS} from '../../../config';
+import { ADMIN_ADDRESS} from '../../../config';
 import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
 
-const func = require("../../../functions/ManagerFunctions.js");
-const Aux = require("../../../functions/AuxiliaryFunctions.js");
+const AdminFunc = require("../../../functions/AdminFunctions.js");
+const ManagerFunc = require("../../../functions/ManagerFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 const loadFunc = require("../../../functions/LoadFunctions.js");
@@ -17,7 +17,6 @@ class AddressPropositionComponent extends React.Component {
   }
   
   refresh = async (event) => {
-    await loadFunc.LoadManagerFunc(this.props.contract);
     this.props.refresh()
   }
 
@@ -30,6 +29,8 @@ class AddressPropositionComponent extends React.Component {
       NewProviderFactoryAddress : "",
       NewProviderAddress : "",
       NewPriceConverterAddress : "",
+      NewPropositionSettingsAddress : "",
+      NewENSAddress : "",
 
       isUpdateContractsShown: false,
       isPendingContractsShown: false
@@ -56,6 +57,8 @@ class AddressPropositionComponent extends React.Component {
       var NPFA = address_0;
       var NPA = address_0;
       var NPCA = address_0;
+      var NPSA = address_0;
+      var NEA = address_0;
 
       if(this.state.NewPublicPoolAddress != "") NPPA = this.state.NewPublicPoolAddress;
       if(this.state.NewTreasuryAddress != "") NTA = this.state.NewTreasuryAddress;
@@ -65,8 +68,10 @@ class AddressPropositionComponent extends React.Component {
       if(this.state.NewProviderFactoryAddress != "") NPFA = this.state.NewProviderFactoryAddress;
       if(this.state.NewProviderAddress != "") NPA = this.state.NewProviderAddress;
       if(this.state.NewPriceConverterAddress != "") NPCA = this.state.NewPriceConverterAddress;
+      if(this.state.NewPropositionSettingsAddress != "") NPSA = this.state.NewPropositionSettingsAddress;
+      if(this.state.NewENSAddress != "") NEA = this.state.NewENSAddress;
 
-      await func.UpgradeContracts(NPPA, NTA, NCTA, NPPFA, NPPA2, NPFA, NPA, NPCA);
+      await ManagerFunc.UpgradeContracts(NPPA, NTA, NCTA, NPPFA, NPPA2, NPFA, NPA, NPCA, NPSA, NEA, this.props.contract);
 
       this.setState({ NewPublicPoolAddress: "",
         NewTreasuryAddress: "",
@@ -75,7 +80,9 @@ class AddressPropositionComponent extends React.Component {
         NewPrivatePoolAddress: "",
         NewProviderFactoryAddress: "",
         NewProviderAddress: "",
-        NewPriceConverterAddress: ""})
+        NewPriceConverterAddress: "",
+        NewPropositionSettingsAddress: "",
+        NewENSAddress: ""})
 
       await this.refresh()
       };
@@ -89,71 +96,94 @@ class AddressPropositionComponent extends React.Component {
           <h3>Contract Proxies Addresses</h3>
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
+                <Col><b>Admin Address :</b></Col> 
+                <Col>{ADMIN_ADDRESS}</Col>
+              </Row>
+              <Row>
                 <Col><b>Manager Address :</b></Col> 
-                <Col>{CERTIFICATE_POOL_MANAGER_ADDRESS}</Col>
+                <Col>{AdminFunc.ManagerAddressProxy}</Col>
               </Row>
               <Row>
                 <Col><b>Public Address :</b></Col> 
-                <Col>{func.publicPoolAddressProxy}</Col>
+                <Col>{ManagerFunc.publicPoolAddressProxy}</Col>
               </Row>
               <Row>
                 <Col><b>Private Factory Address :</b></Col> 
-                <Col>{func.privatePoolFactoryAddressProxy}</Col>
+                <Col>{ManagerFunc.privatePoolFactoryAddressProxy}</Col>
               </Row>
               <Row>
                 <Col><b>Provider Factory Address  :</b></Col> 
-                <Col>{func.providerFactoryAddressProxy}</Col>
+                <Col>{ManagerFunc.providerFactoryAddressProxy}</Col>
               </Row>
               <Row>
                 <Col><b>Treasury Address :</b></Col> 
-                <Col>{func.TreasuryAddressProxy}</Col>
+                <Col>{ManagerFunc.TreasuryAddressProxy}</Col>
               </Row>
               <Row>
                 <Col><b>Certis Token Address :</b></Col> 
-                <Col>{func.CertisTokenAddressProxy}</Col>
+                <Col>{ManagerFunc.CertisTokenAddressProxy}</Col>
               </Row>
               <Row>
                 <Col><b>Price Converter Address :</b></Col> 
-                <Col>{func.PriceConverterAddressProxy}</Col>
+                <Col>{ManagerFunc.PriceConverterAddressProxy}</Col>
+              </Row>
+              <Row>
+                <Col><b>Proposition Settings Address :</b></Col> 
+                <Col>{ManagerFunc.PropositionSettingsAddressProxy}</Col>
+              </Row>
+              <Row>
+                <Col><b>ENS Address :</b></Col> 
+                <Col>{ManagerFunc.ENSAddressProxy}</Col>
               </Row>
             </Container>
           </div>
-          <hr class="bg-secondary"/>
 
           <div class="border border-0">
           <h3>Contract Implementation Addresses</h3>
             <Container style={{margin: '10px 50px 50px 50px' }}>
+            <Row>
+                <Col><b>Manager Address :</b></Col> 
+                <Col>{AdminFunc.ManagerAddress}</Col>
+              </Row>
               <Row>
                 <Col><b>Public Address :</b></Col> 
-                <Col>{func.publicPoolAddress}</Col>
+                <Col>{ManagerFunc.publicPoolAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Private Factory Address :</b></Col> 
-                <Col>{func.privatePoolFactoryAddress}</Col>
+                <Col>{ManagerFunc.privatePoolFactoryAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Private Address :</b></Col> 
-                <Col>{func.privatePoolImplAddress}</Col>
+                <Col>{ManagerFunc.privatePoolImplAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Provider Factory Address  :</b></Col> 
-                <Col>{func.providerFactoryAddress}</Col>
+                <Col>{ManagerFunc.providerFactoryAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Provider Address  :</b></Col> 
-                <Col>{func.providerImplAddress}</Col>
+                <Col>{ManagerFunc.providerImplAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Treasury Address :</b></Col> 
-                <Col>{func.TreasuryAddress}</Col>
+                <Col>{ManagerFunc.TreasuryAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Certis Token Address :</b></Col> 
-                <Col>{func.CertisTokenAddress}</Col>
+                <Col>{ManagerFunc.CertisTokenAddress}</Col>
               </Row>
               <Row>
                 <Col><b>Price Converter Address :</b></Col> 
-                <Col>{func.PriceConverterAddress}</Col>
+                <Col>{ManagerFunc.PriceConverterAddress}</Col>
+              </Row>
+              <Row>
+                <Col><b>Proposition Settings Address :</b></Col> 
+                <Col>{ManagerFunc.PropositionSettingsAddress}</Col>
+              </Row>
+              <Row>
+                <Col><b>ENS Address :</b></Col> 
+                <Col>{ManagerFunc.ENSAddress}</Col>
               </Row>
             </Container>
           </div>
@@ -192,6 +222,12 @@ class AddressPropositionComponent extends React.Component {
                       <Form.Control type="text" name="NewPriceConverterAddress" placeholder="NewPriceConverterAddress" 
                           value={this.state.NewPriceConverterAddress}
                           onChange={event => this.setState({ NewPriceConverterAddress: event.target.value })}/>
+                      <Form.Control type="text" name="NewPropositionSettingsAddress" placeholder="NewPropositionSettingsAddress" 
+                          value={this.state.NewPropositionSettingsAddress}
+                          onChange={event => this.setState({ NewPropositionSettingsAddress: event.target.value })}/>
+                      <Form.Control type="text" name="NewENSAddress" placeholder="NewENSAddress" 
+                          value={this.state.NewENSAddress}
+                          onChange={event => this.setState({ NewENSAddress: event.target.value })}/>
                     </Form.Group>
                       <button class="btn btn-primary">Submit Contracts</button>
                   </Form>
@@ -210,40 +246,47 @@ class AddressPropositionComponent extends React.Component {
                     <Container style={{margin: '10px 50px 50px 50px' }}>
                       <Row>
                         <Col><b>Pending Public Pool Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingPublicPoolAddress)}</Col>
+                        <Col>{ManagerFunc.PendingPublicPoolAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Treasury Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingTreasuryAddress)}</Col>
+                        <Col>{ManagerFunc.PendingTreasuryAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Certis Token Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingCertisTokenAddress)}</Col>
+                        <Col>{ManagerFunc.PendingCertisTokenAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Private Factory Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingPrivatePoolFactoryAddress)}</Col>
+                        <Col>{ManagerFunc.PendingPrivatePoolFactoryAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Private Pool Impl Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingPrivatePoolImplAddress)}</Col>
+                        <Col>{ManagerFunc.PendingPrivatePoolImplAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Provider Factory Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingProviderFactoryAddress)}</Col>
+                        <Col>{ManagerFunc.PendingProviderFactoryAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Provider Impl Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingProviderImplAddress)}</Col>
+                        <Col>{ManagerFunc.PendingProviderImplAddress}</Col>
                       </Row>
                       <Row>
                         <Col><b>Pending Price Converter Address :</b></Col> 
-                        <Col>{Aux.Bytes32ToAddress(func.PendingPriceConverterAddress)}</Col>
+                        <Col>{ManagerFunc.PendingPriceConverterAddress}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending Proposition Settings Address :</b></Col> 
+                        <Col>{ManagerFunc.PendingPropositionSettingsAddress}</Col>
+                      </Row>
+                      <Row>
+                        <Col><b>Pending ENS Address :</b></Col> 
+                        <Col>{ManagerFunc.PendingENSAddress}</Col>
                       </Row>
                       < br/>
                       <Row>
                         <VoteForPropositionComponent contract={this.props.contract}
-                          contractType={this.props.contractType} 
                           refresh={this.refresh}/>
                       </Row>
                     </Container> 

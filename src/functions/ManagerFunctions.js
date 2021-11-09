@@ -60,7 +60,7 @@ export async function RetrieveContractsAddresses(contract){
 }
   
   export async function UpgradeContracts(NewPublicPoolAddress, NewTreasuryAddress, NewCertisTokenAddress, NewPrivatePoolFactoryAddress, NewPrivatePoolAddress, NewProviderFactoryAddress, NewProviderAddress, NewPriceConverterAddress, NewPropositionSettingsAddress, NewENSAddress, contract){
-    await Aux.CallBackFrame(contract.methods.sendProposition({
+    /*await Aux.CallBackFrame(contract.methods.sendProposition({
                 "TransparentAddresses": [Aux.AddressToBytes32(NewPublicPoolAddress), 
                   Aux.AddressToBytes32(NewTreasuryAddress), 
                   Aux.AddressToBytes32(NewCertisTokenAddress), 
@@ -74,23 +74,48 @@ export async function RetrieveContractsAddresses(contract){
                 "TransparentData": ["0x", "0x", "0x", "0x", "0x", "0x", "0x", "0x"],
                 "PrivatePoolContractName": "0x",
                 "PrivatePoolContractVersion": "0x"
-            }).send({from: Aux.account }));
+            }).send({from: Aux.account }));*/
+        await Aux.CallBackFrame(contract.methods.sendProposition([
+          Aux.IntToBytes32(0),
+          Aux.IntToBytes32(0),
+          Aux.AddressToBytes32(NewPublicPoolAddress),
+          Aux.AddressToBytes32(NewTreasuryAddress),
+          Aux.AddressToBytes32(NewCertisTokenAddress),
+          Aux.AddressToBytes32(NewPrivatePoolFactoryAddress),
+          Aux.AddressToBytes32(NewProviderFactoryAddress),
+          Aux.AddressToBytes32(NewPriceConverterAddress),
+          Aux.AddressToBytes32(NewPropositionSettingsAddress),
+          Aux.AddressToBytes32(NewENSAddress),
+          Aux.AddressToBytes32(NewPrivatePoolAddress),
+          Aux.AddressToBytes32(NewProviderAddress),
+          "0x", "0x", "0x", "0x", "0x", "0x", "0x", "0x", "0x", "0x"
+        ]).send({from: Aux.account }));
   }
   
   export async function RetrievePendingContractsAddresses(contract){
     try{
       let result = await contract.methods.retrieveProposition().call();
+      PendingPublicPoolAddress = "-";
+      PendingTreasuryAddress = "-";
+      PendingCertisTokenAddress = "-";
+      PendingPrivatePoolFactoryAddress = "-";
+      PendingProviderFactoryAddress = "-";
+      PendingPriceConverterAddress = "-";
+      PendingPropositionSettingsAddress = "-";
+      PendingENSAddress = "-";
+      PendingPrivatePoolImplAddress = "-";
+      PendingProviderImplAddress = "-";
 
-      PendingPublicPoolAddress = Aux.Bytes32ToAddress(result[2]);
-      PendingTreasuryAddress = Aux.Bytes32ToAddress(result[3]);
-      PendingCertisTokenAddress = Aux.Bytes32ToAddress(result[4]);
-      PendingPrivatePoolFactoryAddress = Aux.Bytes32ToAddress(result[5]);
-      PendingProviderFactoryAddress = Aux.Bytes32ToAddress(result[6]);
-      PendingPriceConverterAddress = Aux.Bytes32ToAddress(result[7]);
-      PendingPropositionSettingsAddress = Aux.Bytes32ToAddress(result[8]);
-      PendingENSAddress = Aux.Bytes32ToAddress(result[9]);
-      PendingPrivatePoolImplAddress = Aux.Bytes32ToAddress(result[10]);
-      PendingProviderImplAddress = Aux.Bytes32ToAddress(result[11]);
+      if(result[2] != undefined)PendingPublicPoolAddress = Aux.Bytes32ToAddress(result[2]);
+      if(result[3] != undefined)PendingTreasuryAddress = Aux.Bytes32ToAddress(result[3]);
+      if(result[4] != undefined)PendingCertisTokenAddress = Aux.Bytes32ToAddress(result[4]);
+      if(result[5] != undefined)PendingPrivatePoolFactoryAddress = Aux.Bytes32ToAddress(result[5]);
+      if(result[6] != undefined)PendingProviderFactoryAddress = Aux.Bytes32ToAddress(result[6]);
+      if(result[7] != undefined)PendingPriceConverterAddress = Aux.Bytes32ToAddress(result[7]);
+      if(result[8] != undefined)PendingPropositionSettingsAddress = Aux.Bytes32ToAddress(result[8]);
+      if(result[9] != undefined)PendingENSAddress = Aux.Bytes32ToAddress(result[9]);
+      if(result[10] != undefined)PendingPrivatePoolImplAddress = Aux.Bytes32ToAddress(result[10]);
+      if(result[11] != undefined)PendingProviderImplAddress = Aux.Bytes32ToAddress(result[11]);
     }
     catch(e){
       window.alert("error retrieving the pending contract addresses : " + JSON.stringify(e))

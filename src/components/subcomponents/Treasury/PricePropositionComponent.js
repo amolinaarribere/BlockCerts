@@ -1,5 +1,4 @@
 import React from 'react';
-import { USDDecimals, ETHDecimals } from '../../../config';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
 
@@ -10,12 +9,10 @@ const certFunc = require("../../../functions/CertisFunctions.js");
 class PricePropositionComponent extends React.Component {
   constructor(props) {
     super(props)
-    //loadFunc.LoadTreasuryFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
   
   async refresh() {
-    //await loadFunc.LoadTreasuryFunc(this.props.contract);
     await this.props.refresh()
   }
 
@@ -73,23 +70,23 @@ class PricePropositionComponent extends React.Component {
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Submit New Provider to Public Pool Price :</b></Col> 
-                <Col>{func.PublicPriceUSD / USDDecimals} USD (approx. {func.PublicPriceWei / ETHDecimals} ETH)</Col>
+                <Col>{func.PublicPriceUSD} USD (approx. {func.PublicPriceWei} ETH)</Col>
               </Row>
               <Row>
                 <Col><b>Create New Private Pool Price :</b></Col> 
-                <Col>{func.PrivatePriceUSD / USDDecimals} USD (approx. {func.PrivatePriceWei / ETHDecimals} ETH)</Col>
+                <Col>{func.PrivatePriceUSD} USD (approx. {func.PrivatePriceWei} ETH)</Col>
               </Row>
               <Row>
                 <Col><b>Create New Provider Price :</b></Col> 
-                <Col>{func.ProviderPriceUSD / USDDecimals} USD (approx. {func.ProviderPriceWei / ETHDecimals} ETH)</Col>
+                <Col>{func.ProviderPriceUSD} USD (approx. {func.ProviderPriceWei} ETH)</Col>
               </Row>
               <Row>
                 <Col><b>Send Certificate to Public Pool Price :</b></Col> 
-                <Col>{func.CertificatePriceUSD / USDDecimals} USD (approx. {func.CertificatePriceWei / ETHDecimals} ETH)</Col>
+                <Col>{func.CertificatePriceUSD} USD (approx. {func.CertificatePriceWei} ETH)</Col>
               </Row>
               <Row>
                 <Col><b>Refund Fee :</b></Col> 
-                <Col>{func.OwnerRefundFeeUSD / USDDecimals} USD (approx. {func.OwnerRefundFeeWei / ETHDecimals} ETH)</Col>
+                <Col>{func.OwnerRefundFeeUSD} USD (approx. {func.OwnerRefundFeeWei} ETH)</Col>
               </Row>
             </Container>
           </div>
@@ -145,28 +142,27 @@ class PricePropositionComponent extends React.Component {
                 <Container style={{margin: '10px 50px 50px 50px' }}>
                   <Row>
                     <Col><b>Pending Public Price :</b></Col> 
-                    <Col>{func.PendingPublicPriceUSD / USDDecimals} USD</Col>
+                    <Col>{func.PendingPublicPriceUSD} USD</Col>
                   </Row>
                   <Row>
                     <Col><b>Pending Private Price :</b></Col> 
-                    <Col>{func.PendingPrivatePriceUSD / USDDecimals} USD</Col>
+                    <Col>{func.PendingPrivatePriceUSD} USD</Col>
                   </Row>
                   <Row>
                     <Col><b>Pending Provider Price :</b></Col> 
-                    <Col>{func.PendingProviderPriceUSD / USDDecimals} USD</Col>
+                    <Col>{func.PendingProviderPriceUSD} USD</Col>
                   </Row>
                   <Row>
                     <Col><b>Pending Certificate Price :</b></Col> 
-                    <Col>{func.PendingCertificatePriceUSD / USDDecimals} USD</Col>
+                    <Col>{func.PendingCertificatePriceUSD} USD</Col>
                   </Row>
                   <Row>
                     <Col><b>Pending Refund Fee :</b></Col> 
-                    <Col>{func.PendingOwnerRefundFeeUSD / USDDecimals} USD</Col>
+                    <Col>{func.PendingOwnerRefundFeeUSD} USD</Col>
                   </Row>
                   < br/>
                   <Row>
                     <VoteForPropositionComponent contract={this.props.contract}
-                      contractType={this.props.contractType} 
                       refresh={this.refresh}/>
                   </Row>
                 </Container>

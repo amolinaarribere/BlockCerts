@@ -1,3 +1,5 @@
+import {  ETHDecimals } from '../config';
+
 const Aux = require("./AuxiliaryFunctions.js");
 const BigNumber = require('bignumber.js');
 
@@ -7,7 +9,8 @@ export var PendingRegistryAddress = "";
   export async function USDToEther(amount, contract){
     try{
       let result = await contract.methods.fromUSDToETH((new BigNumber(100 * amount)).decimalPlaces(0)).call({from: Aux.account });
-      return result;
+      if(result != undefined)return result / ETHDecimals;
+      return "-";
     }
     catch(e) { 
       window.alert("error getting the USD to Ether excahgne rate : " + JSON.stringify(e)); 
@@ -27,7 +30,9 @@ export var PendingRegistryAddress = "";
   export async function RetrievePendingRegistryAddress(contract){
     try{
       let result = await contract.methods.retrieveProposition().call({from: Aux.account });
-      PendingRegistryAddress = Aux.Bytes32ToAddress(result[0])
+      PendingRegistryAddress = "-"
+      
+      if(result[0] != undefined)PendingRegistryAddress = Aux.Bytes32ToAddress(result[0])
     }
     catch(e) { 
       window.alert("error retrieving the pending registry address : " + JSON.stringify(e)); 
@@ -36,6 +41,6 @@ export var PendingRegistryAddress = "";
   }
 
   export async function UpgradeRegistryAddress(NewRegistryAddress, contract){
-    await Aux.CallBackFrame(contract.methods.sendProposition(Aux.AddressToBytes32(NewRegistryAddress)).send({from: Aux.account }));
+    await Aux.CallBackFrame(contract.methods.sendProposition([Aux.AddressToBytes32(NewRegistryAddress)]).send({from: Aux.account }));
   }
     
