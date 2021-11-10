@@ -22,7 +22,6 @@ class PropositionConfigComponent extends React.Component{
          return (
            <div>
             <ListPropositionConfigComponent contract={this.props.contract}/>
-            <br/>
             {certFunc.isOwner ? (
               <UpgradePropositionConfigComponent contract={this.props.contract} 
                 refresh={this.refresh}/>): null}
@@ -31,7 +30,6 @@ class PropositionConfigComponent extends React.Component{
               <ListPendingPropositionConfigComponent contract={this.props.contract}
                 contractType={this.props.contractType} 
                 refresh={this.refresh}/>): null}
-            <br />
             <hr class="bg-secondary"/>
            </div>
          );

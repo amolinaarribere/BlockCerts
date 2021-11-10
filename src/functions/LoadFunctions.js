@@ -1,4 +1,6 @@
-import { ADMIN_ABI, ADMIN_ADDRESS, CERTIFICATE_POOL_MANAGER_ABI, 
+import { ADMIN_ABI, 
+  MANAGER_PROXY_ADDRESS, 
+  CERTIFICATE_POOL_MANAGER_ABI, 
   PUBLIC_ABI, 
   PRIVATEFACTORY_ABI, 
   PROVIDERFACTORY_ABI, 
@@ -59,12 +61,12 @@ export async function LoadBlockchain() {
     try {
       await ReadAccount();
       Network = await Aux.web3.eth.net.getNetworkType();
-      
-      Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ADMIN_ADDRESS));
-      await LoadAdminFunc(Contracts.admin);
 
-      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, AdminFunc.ManagerAddressProxy))
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS))
       await LoadManagerFunc(Contracts.certificatePoolManager);
+      
+      Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ManagerFunc.ManagerAdminAddress));
+      await LoadAdminFunc(Contracts.admin);
 
       Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
       Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))

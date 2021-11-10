@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-import { ADMIN_ADDRESS} from '../../../config';
 import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
 
 const AdminFunc = require("../../../functions/AdminFunctions.js");
@@ -96,14 +95,6 @@ class AddressPropositionComponent extends React.Component {
           <h3>Contract Proxies Addresses</h3>
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
-                <Col><b>Admin Address :</b></Col> 
-                <Col>{ADMIN_ADDRESS}</Col>
-              </Row>
-              <Row>
-                <Col><b>Manager Address :</b></Col> 
-                <Col>{AdminFunc.ManagerAddressProxy}</Col>
-              </Row>
-              <Row>
                 <Col><b>Public Address :</b></Col> 
                 <Col>{ManagerFunc.publicPoolAddressProxy}</Col>
               </Row>
@@ -141,10 +132,6 @@ class AddressPropositionComponent extends React.Component {
           <div class="border border-0">
           <h3>Contract Implementation Addresses</h3>
             <Container style={{margin: '10px 50px 50px 50px' }}>
-            <Row>
-                <Col><b>Manager Address :</b></Col> 
-                <Col>{AdminFunc.ManagerAddress}</Col>
-              </Row>
               <Row>
                 <Col><b>Public Address :</b></Col> 
                 <Col>{ManagerFunc.publicPoolAddress}</Col>

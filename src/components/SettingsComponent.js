@@ -1,4 +1,5 @@
 import React from 'react';
+import AdminPropositionComponent from './subcomponents/Admin/AdminPropositionComponent.js';
 import ManagerAddressPropositionComponent from './subcomponents/Manager/AddressPropositionComponent.js';
 import PriceConverterAddressPropositionComponent from './subcomponents/PriceConverter/AddressPropositionComponent.js';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
@@ -40,6 +41,9 @@ class SettingsComponent extends React.Component {
         <div>
           {(false == this.state.loading)? 
             <div>
+              <AdminPropositionComponent contract={Contracts.ENS} 
+                refresh={this.refresh}/>
+              <br />
               <ManagerAddressPropositionComponent contract={Contracts.certificatePoolManager}
                 refresh={this.refresh}/>
               <br />

@@ -23,18 +23,18 @@ class ENSPropositionComponent extends React.Component {
       NewPrivatePoolNode: "",
       NewProviderNode: "",
 
-      isUpdateENSShown: false,
-      isPendingENSShown: false
+      isUpdateShown: false,
+      isPendingShown: false
     };
 
-    toggleUpdateENS = () => {
-      if(this.state.isUpdateENSShown)this.setState({ isUpdateENSShown: false })
-      else this.setState({ isUpdateENSShown: true })
+    toggleUpdate = () => {
+      if(this.state.isUpdateShown)this.setState({ isUpdateShown: false })
+      else this.setState({ isUpdateShown: true })
     };
 
-    togglePendingENS = () => {
-      if(this.state.isPendingENSShown)this.setState({ isPendingENSShown: false })
-      else this.setState({ isPendingENSShown: true })
+    togglePending = () => {
+      if(this.state.isPendingShown)this.setState({ isPendingShown: false })
+      else this.setState({ isPendingShown: true })
     };
 
     handleUpgradeContracts = async (event) => {
@@ -87,9 +87,9 @@ class ENSPropositionComponent extends React.Component {
               <div>
                    <button
                       className="btn btn-lg btn-primary center modal-button"
-                      onClick={this.toggleUpdateENS}>Manage ENS Config</button>
+                      onClick={this.toggleUpdate}>Manage ENS Config</button>
 
-                    {this.state.isUpdateENSShown ? (
+                    {this.state.isUpdateShown ? (
                       <div class="border border-primary border-5">
                         <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
                           <Form.Group  className="mb-3">
@@ -116,9 +116,9 @@ class ENSPropositionComponent extends React.Component {
 
                   <button
                     className="btn btn-lg btn-warning center modal-button"
-                    onClick={this.togglePendingENS}>Check Pending ENS Config</button>
+                    onClick={this.togglePending}>Check Pending ENS Config</button>
 
-                  {this.state.isPendingENSShown ? (
+                  {this.state.isPendingShown ? (
                     <div class="border border-warning border-5">
                       <Container style={{margin: '10px 50px 50px 50px' }}>
                         <Row>

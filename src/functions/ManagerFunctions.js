@@ -1,6 +1,7 @@
 // Manager
 const Aux = require("./AuxiliaryFunctions.js");
 
+export var ManagerAdminAddress = ""
 export var publicPoolAddress = ""
 export var publicPoolAddressProxy = ""
 export var privatePoolFactoryAddress = ""
@@ -36,6 +37,7 @@ export async function RetrieveContractsAddresses(contract){
   let TransparentProxies = await contract.methods.retrieveTransparentProxies().call({from: Aux.account});
   let TransparentImpl = await contract.methods.retrieveTransparentProxiesImpl().call({from: Aux.account});
   let BeaconsImpl = await contract.methods.retrieveBeaconsImpl().call({from: Aux.account});
+  ManagerAdminAddress = await contract.methods.retrieveManagerAdmin().call({from: Aux.account});
 
   publicPoolAddressProxy = TransparentProxies[0];
   TreasuryAddressProxy = TransparentProxies[1];
