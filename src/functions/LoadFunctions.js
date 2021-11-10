@@ -94,7 +94,8 @@ export async function LoadBlockchain() {
 }
 
 export async function LoadAdminFunc(contract) {
-  await AdminFunc.RetrieveManagerAddresses(contract);
+  await Promise.all([AdminFunc.RetrieveManagerAddresses(contract), 
+    AdminFunc.RetrievePendingAdminConfig(contract)]);
 }
 
 export async function LoadManagerFunc(contract) {

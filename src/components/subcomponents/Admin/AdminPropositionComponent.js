@@ -45,7 +45,7 @@ class AdminPropositionComponent extends React.Component {
       if(this.state.NewAdminAddress != "") NAA = this.state.NewAdminAddress;
 
 
-      await func.UpgradeENSConfig(NMA, NAA, this.props.contract);
+      await func.UpgradeAdminConfig(NMA, NAA, this.props.contract);
       this.setState({ NewManagerAddress: "",
       NewAdminAddress: ""})
       await this.refresh();
@@ -82,12 +82,12 @@ class AdminPropositionComponent extends React.Component {
                       <div class="border border-primary border-5">
                         <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
                           <Form.Group  className="mb-3">
+                          <Form.Control type="text" name="NewAdminAddress" placeholder="NewAdminAddress" 
+                              value={this.state.NewAdminAddress}
+                              onChange={event => this.setState({ NewAdminAddress: event.target.value })}/>
                             <Form.Control type="text" name="NewManagerAddress" placeholder="NewManagerAddress" 
                               value={this.state.NewManagerAddress}
                               onChange={event => this.setState({ NewManagerAddress: event.target.value })}/>
-                            <Form.Control type="text" name="NewAdminAddress" placeholder="NewAdminAddress" 
-                              value={this.state.NewAdminAddress}
-                              onChange={event => this.setState({ NewAdminAddress: event.target.value })}/>
                           </Form.Group>
                           <button class="btn btn-primary">Upgrade Admin</button>
                         </Form>
@@ -105,12 +105,12 @@ class AdminPropositionComponent extends React.Component {
                     <div class="border border-warning border-5">
                       <Container style={{margin: '10px 50px 50px 50px' }}>
                         <Row>
-                          <Col><b>Pending Manager Address :</b></Col> 
-                          <Col>{func.PendingManagerAddress}</Col>
-                        </Row>
-                        <Row>
                           <Col><b>Pending Admin Address :</b></Col> 
                           <Col>{func.PendingAdminAddress}</Col>
+                        </Row>
+                        <Row>
+                          <Col><b>Pending Manager Address :</b></Col> 
+                          <Col>{func.PendingManagerAddress}</Col>
                         </Row>
                         < br/>
                         <Row>

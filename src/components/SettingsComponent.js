@@ -41,7 +41,7 @@ class SettingsComponent extends React.Component {
         <div>
           {(false == this.state.loading)? 
             <div>
-              <AdminPropositionComponent contract={Contracts.ENS} 
+              <AdminPropositionComponent contract={Contracts.admin} 
                 refresh={this.refresh}/>
               <br />
               <ManagerAddressPropositionComponent contract={Contracts.certificatePoolManager}
