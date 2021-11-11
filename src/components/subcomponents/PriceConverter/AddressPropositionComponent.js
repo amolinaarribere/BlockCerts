@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
+import VoteForPropositionComponent from '../Vote/VoteForPropositionComponent.js';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");

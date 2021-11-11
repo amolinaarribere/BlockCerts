@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import VoteForPropositionComponent from './VoteForPropositionComponent.js';
+import VoteForPropositionComponent from '../Vote/VoteForPropositionComponent.js';
 
 const func = require("../../../functions/PropositionFunctions.js");
 

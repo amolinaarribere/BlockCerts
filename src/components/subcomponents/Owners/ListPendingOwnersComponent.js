@@ -40,20 +40,6 @@ class ListPendingOwnersComponent extends React.Component{
       var pendingOwnersAdd = func.pendingOwnersAdd;
       var pendingOwnersRemove = func.pendingOwnersRemove;
 
-      /*if (this.props.contractType == 2){
-        text = "Private";
-        minOwners = func.privatePendingMinOwners;
-        pendingOwnersAdd = func.pendingPrivateOwnersAdd;
-        pendingOwnersRemove = func.pendingPrivateOwnersRemove;
-      }
-
-      else if(this.props.contractType == 3){
-        text = "Provider";
-        minOwners = func.providerPendingMinOwners;
-        pendingOwnersAdd = func.pendingProviderOwnersAdd;
-        pendingOwnersRemove = func.pendingProviderOwnersRemove;
-      }*/
-
       return(
         <div>
           <button

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-import VoteForPropositionComponent from '../Proposition/VoteForPropositionComponent.js';
+import VoteForPropositionComponent from '../Vote/VoteForPropositionComponent.js';
 
 const AdminFunc = require("../../../functions/AdminFunctions.js");
 const ManagerFunc = require("../../../functions/ManagerFunctions.js");
