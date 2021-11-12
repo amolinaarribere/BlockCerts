@@ -28,12 +28,12 @@ class AdminPropositionComponent extends React.Component {
     await loadFunc.LoadAdminFunc(this.props.contract);
 
       if(certFunc.isOwner){
-        var adminStatus = await VoteFunc.PropositionStatus(this.props.contract);
-        var adminRemainingVotes = ((adminStatus[0] != address_0)?
+        var Status = await VoteFunc.PropositionStatus(this.props.contract);
+        var Votes = ((Status[0] != address_0)?
           await VoteFunc.PropositionRemainingVotes(this.props.contract)
           : 0);
-          this.setState({PropStatus: adminStatus,
-            RemainingVotes: adminRemainingVotes})
+          this.setState({PropStatus: Status,
+            RemainingVotes: Votes})
       }
   }
     

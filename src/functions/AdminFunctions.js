@@ -34,11 +34,3 @@ export async function RetrievePendingAdminConfig(contract){
   }
   
 }
-
-export async function UpgradeAdminConfig(NewManagerAddress, NewAdminAddress, contract){
-  await Aux.CallBackFrame(contract.methods.sendProposition(
-      [Aux.AddressToBytes32(NewManagerAddress),
-        "0x",
-      Aux.AddressToBytes32(NewAdminAddress)
-      ]).send({from: Aux.account }));
-}
