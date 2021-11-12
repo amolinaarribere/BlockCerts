@@ -4,6 +4,10 @@ import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
 import ProviderPoolComponent from './subcomponents/ProvidersPools/ProviderPoolComponent.js';
 import ListPoolsIssuers from './subcomponents/Factory/ListPoolsIssuers.js';
 import CreatePoolIssuer from './subcomponents/Factory/CreatePoolIssuer.js';
+import FundIssuerComponent from './subcomponents/Issuer/FundIssuerComponent.js';
+import IssuerBalanceComponent from './subcomponents/Issuer/IssuerBalanceComponent.js';
+import LoadingComponent from './subcomponents/LoadingComponent.js';
+
 
 const ProviderPoolFunc = require("../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../functions/BrowserStorageFunctions.js");
@@ -37,14 +41,12 @@ class IssuerComponent extends React.Component {
   }
 
   async refresh() {
-    //this.state.loading = true;
     ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey);
     await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory); 
     Ownerfunc.resetOwners();    
     if(this.NotEmpty(ProviderPoolFunc.Address)){
       await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
     }
-    //this.state.loading = false;
     this.setState({})
   }
  
@@ -67,6 +69,11 @@ class IssuerComponent extends React.Component {
               {
               (Ownerfunc.isOwner)?(
                 <div>
+                  <FundIssuerComponent contract={Contracts.provider}
+                    refresh={this.refresh}/>
+                  <IssuerBalanceComponent contract={Contracts.provider}
+                    refresh={this.refresh}/>
+                  <br />
                   <CertificateComponent contract={Contracts.provider}
                     contractType={this.state.contractType} 
                     refresh={this.refresh}
@@ -84,7 +91,7 @@ class IssuerComponent extends React.Component {
             </div>
            :
             <div>
-            Loading....
+              <LoadingComponent />
             </div>
           }
         </div>

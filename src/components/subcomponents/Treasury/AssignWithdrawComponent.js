@@ -14,7 +14,6 @@ class AssignWithdrawComponent extends React.Component {
       handleWithdrawAll = async (event) => {
         event.preventDefault();
       await func.WithdrawAll(this.props.contract);
-      await loadFunc.LoadTreasuryFunc(this.props.contract);
       this.props.refresh();
     };
 
@@ -22,7 +21,6 @@ class AssignWithdrawComponent extends React.Component {
       event.preventDefault();
       await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(new BigNumber("1000000000000000000"))).toString(), this.props.contract);
       this.setState({amount: ""});
-      await loadFunc.LoadTreasuryFunc(this.props.contract);
       this.props.refresh();
     };
 

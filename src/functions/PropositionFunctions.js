@@ -11,13 +11,13 @@ export var PendingPropositionLifeTime = "";
 export var PendingPropositionThresholdPercentage = "";
 export var PendingMinWeightToProposePercentage = "";
 
-export var PendingProp = "";
-
 export var ContractName = ""
 export var ContractVersion = ""
 
 export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage, contract){
-  await Aux.CallBackFrame(contract.methods.updateProp(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage).send({from: Aux.account }));
+  await Aux.CallBackFrame(contract.methods.sendProposition([Aux.IntToBytes32(NewPropositionLifeTime),
+                            Aux.IntToBytes32(NewPropositionThresholdPercentage), 
+                            Aux.IntToBytes32(NewMinWeightToProposePercentage)]).send({from: Aux.account }));
   }
   
   export async function VoteProposition(Vote, contract){
@@ -30,11 +30,14 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
   
   export async function RetrievePendingProposition(contract){
     try{
-      let response = await contract.methods.retrievePendingPropConfig().call();
-      PendingPropositionLifeTime = response[0];
-      PendingPropositionThresholdPercentage = response[1];
-      PendingMinWeightToProposePercentage = response[2];
-      PendingProp = response[3];
+      let response = await contract.methods.retrieveProposition().call();
+      PendingPropositionLifeTime = "-";
+      PendingPropositionThresholdPercentage = "-";
+      PendingMinWeightToProposePercentage = "-";
+
+      if(response[0] != undefined)PendingPropositionLifeTime = Number(response[0]);
+      if(response[1] != undefined)PendingPropositionThresholdPercentage = Number(response[1]);
+      if(response[2] != undefined)PendingMinWeightToProposePercentage = Number(response[2]);
     }
     catch(e) { 
       window.alert("error retrieving the pending propositions : " + JSON.stringify(e)); 
@@ -44,7 +47,7 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
   
   export async function RetrieveProposition(contract){
     try{
-      let response = await contract.methods.retrievePropConfig().call();
+      let response = await contract.methods.retrieveSettings().call();
       PropositionLifeTime = response[0];
       PropositionThresholdPercentage = response[1];
       MinWeightToProposePercentage = response[2];

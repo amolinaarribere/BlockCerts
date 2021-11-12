@@ -1,4 +1,6 @@
   // Treasury
+import { USDDecimals } from '../config';
+
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
@@ -29,18 +31,25 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function RetrievePricesTreasury(contract){
     try{
-      let response = await contract.methods.retrievePrices().call();
+      let response = await contract.methods.retrieveSettings().call();
       PublicPriceUSD = response[0];
       PrivatePriceUSD = response[1];
       ProviderPriceUSD = response[2];
       CertificatePriceUSD = response[3];
       OwnerRefundFeeUSD = response[4];
+
       let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
       PublicPriceWei = PublicPriceUSD * exchangeRate;
       PrivatePriceWei = PrivatePriceUSD * exchangeRate;
       ProviderPriceWei = ProviderPriceUSD * exchangeRate;
       CertificatePriceWei = CertificatePriceUSD * exchangeRate;
       OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
+
+      PublicPriceUSD = PublicPriceUSD / USDDecimals;
+      PrivatePriceUSD = PrivatePriceUSD / USDDecimals;
+      ProviderPriceUSD = ProviderPriceUSD / USDDecimals;
+      CertificatePriceUSD = CertificatePriceUSD / USDDecimals;
+      OwnerRefundFeeUSD = OwnerRefundFeeUSD / USDDecimals;
     }
     catch(e){
       window.alert("error retrieving the prices : " + JSON.stringify(e))
@@ -50,26 +59,22 @@ export var PendingOwnerRefundFeeUSD = "";
   export async function RetrievePendingPricesTreasury(contract){
     try{
       let response = await contract.methods.retrieveProposition().call();
-      PendingPublicPriceUSD = Number(response[0]);
-      PendingPrivatePriceUSD = Number(response[1]);
-      PendingProviderPriceUSD = Number(response[2]);
-      PendingCertificatePriceUSD = Number(response[3]);
-      PendingOwnerRefundFeeUSD = Number(response[4]);
+      PendingPublicPriceUSD = "-";
+      PendingPrivatePriceUSD = "-";
+      PendingProviderPriceUSD = "-";
+      PendingCertificatePriceUSD = "-";
+      PendingOwnerRefundFeeUSD = "-";
+
+      if(response[0] != undefined)PendingPublicPriceUSD = Number(response[0]) / USDDecimals;
+      if(response[1] != undefined)PendingPrivatePriceUSD = Number(response[1]) / USDDecimals;
+      if(response[2] != undefined)PendingProviderPriceUSD = Number(response[2]) / USDDecimals;
+      if(response[3] != undefined)PendingCertificatePriceUSD = Number(response[3]) / USDDecimals;
+      if(response[4] != undefined)PendingOwnerRefundFeeUSD = Number(response[4]) / USDDecimals;
     }
     catch(e){
       window.alert("error retrieving the pending prices : " + JSON.stringify(e))
     }
     
-  }
-
-  export async function UpgradePricesTreasury(NewPublicPriceUSD, NewPrivatePriceUSD, NewProviderPriceUSD, NewCertificatePriceUSD, NewOwnerRefundFeeUSD, contract){
-    await Aux.CallBackFrame(contract.methods.updatePrices(
-      (new BigNumber(100 * NewPublicPriceUSD)).decimalPlaces(0),
-      (new BigNumber(100 * NewPrivatePriceUSD)).decimalPlaces(0), 
-      (new BigNumber(100 * NewProviderPriceUSD)).decimalPlaces(0),
-      (new BigNumber(100 * NewCertificatePriceUSD)).decimalPlaces(0), 
-      (new BigNumber(100 * NewOwnerRefundFeeUSD)).decimalPlaces(0)
-    ).send({from: Aux.account }));
   }
 
   export async function RetrieveBalance(address, contract){

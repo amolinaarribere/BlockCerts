@@ -1,4 +1,6 @@
 // Certificate
+import {ETHDecimals} from '../config'
+
 const Aux = require("./AuxiliaryFunctions.js");
 
 export var pendingCertificates = []
@@ -14,12 +16,12 @@ export function SwitchContext(){
 
 export async function AddCertificate(hash, holder, price, contractType, contract, pool){
   (3 != contractType)? 
-    await Aux.CallBackFrame(contract.methods.addCertificate(hash, holder).send({from: Aux.account, value: price})) :
+    await Aux.CallBackFrame(contract.methods.addCertificate(hash, holder).send({from: Aux.account, value: price * ETHDecimals})) :
     await Aux.CallBackFrame(contract.methods.addCertificate(pool, hash, holder).send({from: Aux.account }));
   }
 
   export async function AddCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature, contract, price){
-    await Aux.CallBackFrame(contract.methods.addCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature).send({from: Aux.account, value: price }));
+    await Aux.CallBackFrame(contract.methods.addCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature).send({from: Aux.account, value: price * ETHDecimals}));
   }
 
   export async function ValidateCertificate(pool, hash, holder, contract){

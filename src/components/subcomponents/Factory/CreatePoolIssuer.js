@@ -13,7 +13,8 @@ class CreatePoolIssuer extends React.Component {
     state = {
         minOwners : 0,
         listOfOwners : [],
-        name : ""
+        name : "",
+        ensname : ""
       };
 
       async refresh() {
@@ -22,8 +23,8 @@ class CreatePoolIssuer extends React.Component {
     
       handleNewPrivatePoolProvider = async (event) => {
           event.preventDefault();
-        await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.props.contract, this.props.price)
-        this.setState({ minOwners: 0, listOfOwners: [], name : "" })
+        await func.CreatenewPoolProvider(this.state.minOwners, this.state.listOfOwners, this.state.name, this.state.ensname, this.props.contract, this.props.price)
+        this.setState({ minOwners: 0, listOfOwners: [], name : "", ensname: "" })
         await LoadFunc.LoadFactoriesFunc(this.props.contract);
         await this.refresh()
       };
@@ -45,6 +46,9 @@ class CreatePoolIssuer extends React.Component {
                         <Form.Control type="text" name="name" placeholder="Name" 
                             value={this.state.name}
                             onChange={event => this.setState({ name: event.target.value })}/>
+                        <Form.Control type="text" name="ensname" placeholder="ENSName" 
+                            value={this.state.ensname}
+                            onChange={event => this.setState({ ensname: event.target.value })}/>
                     </Form.Group>
                     <button  class="btn btn-secondary">Request New {text}</button>
                 </Form>

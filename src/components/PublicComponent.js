@@ -32,11 +32,9 @@ class PublicComponent extends React.Component {
     };
     
     async refresh() {
-      //this.state.loading = true;
       await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.publicPool);
       await LoadFunc.LoadOwnersFunc(Contracts.publicPool);
       await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.publicPool);
-      //this.state.loading = false;
       this.setState({})
     }
   
