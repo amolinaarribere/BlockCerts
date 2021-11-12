@@ -8,6 +8,9 @@ const func = require("../../../functions/AdminFunctions.js");
 const ManagerFunc = require("../../../functions/ManagerFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
 const Constants = require("../../../functions/Constants.js");
+const VoteFunc = require("../../../functions/VoteFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
+const address_0 = "0x0000000000000000000000000000000000000000"
 
 
 class AdminPropositionComponent extends React.Component {
@@ -15,9 +18,23 @@ class AdminPropositionComponent extends React.Component {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
+
+  state = {
+    PropStatus: [],
+    RemainingVotes: ""
+  }
   
   async refresh() {
-    await this.props.refresh()
+    await loadFunc.LoadAdminFunc(this.props.contract);
+
+      if(certFunc.isOwner){
+        var adminStatus = await VoteFunc.PropositionStatus(this.props.contract);
+        var adminRemainingVotes = ((adminStatus[0] != address_0)?
+          await VoteFunc.PropositionRemainingVotes(this.props.contract)
+          : 0);
+          this.setState({PropStatus: adminStatus,
+            RemainingVotes: adminRemainingVotes})
+      }
   }
     
     render(){
@@ -45,8 +62,8 @@ class AdminPropositionComponent extends React.Component {
                   text="Check Pending Config"
                   headers={["Pending Manager Address", "Manager Init", "Pending Admin Address "]}
                   values={[func.PendingManagerAddress, func.PendingManagerInit, func.PendingAdminAddress]}
-                  PropStatus={this.props.PropStatus}
-                  RemainingVotes={this.props.RemainingVotes}/>
+                  PropStatus={this.state.PropStatus}
+                  RemainingVotes={this.state.RemainingVotes}/>
 
               </div>):null}
               <hr class="bg-secondary"/>
