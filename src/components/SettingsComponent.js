@@ -40,8 +40,7 @@ class SettingsComponent extends React.Component {
             <div>
               <AdminPropositionComponent contract={Contracts.admin}/>
               <br />
-              <ManagerAddressPropositionComponent contract={Contracts.certificatePoolManager}
-                refresh={this.refresh}/>
+              <ManagerAddressPropositionComponent contract={Contracts.certificatePoolManager}/>
               <br />
               <PropositionConfigComponent contract={Contracts.PropositionSettings}
                 refresh={this.refresh}/>
