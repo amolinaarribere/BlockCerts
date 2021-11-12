@@ -7,6 +7,7 @@ const aux = require("../../../functions/AuxiliaryFunctions.js");
 const Constants = require("../../../functions/Constants.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
 const emptyBytes = "0x";
+const BigNumber = require('bignumber.js');
 
 
 class UpgradePropositionComponent extends React.Component{
@@ -62,6 +63,13 @@ class UpgradePropositionComponent extends React.Component{
           else if(this.props.dataType[i] == Constants.intDataType){
             if(this.state.values[i].length > 0){
               FinalValues.push(aux.IntToBytes32(this.state.values[i]));
+            }
+            else{FinalValues.push(aux.IntToBytes32(0));}
+          }
+
+          else if(this.props.dataType[i] == Constants.numberDataType){
+            if(this.state.values[i].length > 0){
+              FinalValues.push(aux.IntToBytes32(100 * this.state.values[i]));
             }
             else{FinalValues.push(aux.IntToBytes32(0));}
           }
