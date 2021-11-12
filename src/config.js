@@ -1,4 +1,4 @@
-export const MANAGER_PROXY_ADDRESS =  '0x1CC0f1d7407cA8791E9BF52Ee5ba9bE39e51cec8'
+export const MANAGER_PROXY_ADDRESS =  '0x74b6839781273b92A154cDafa87C45E5523D70dF'
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;

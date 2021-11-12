@@ -16,9 +16,10 @@ class ListPendingPropositionComponent extends React.Component{
     isPendingPropositionShown: false
   };
 
-  togglePendingPropositionConfig = () => {
+
+  togglePendingPropositionConfig = async () => {
     if(this.state.isPendingPropositionShown)this.setState({ isPendingPropositionShown: false })
-    else this.setState({ isPendingPropositionShown: true })
+    else this.setState({isPendingPropositionShown: true })
   };
 
   render(){
@@ -38,6 +39,32 @@ class ListPendingPropositionComponent extends React.Component{
                             </Row>
                           )
                       )}
+                    < br/>
+                    <Row>
+                        <Col><i>Proposer : </i></Col> 
+                        <Col>{this.props.PropStatus[0]}</Col>
+                    </Row>
+                    <Row>
+                        <Col><i>DeadLine : </i></Col> 
+                        <Col>{this.props.PropStatus[1]}</Col>
+                    </Row>
+                    <Row>
+                        <Col><i>Threshold : </i></Col> 
+                        <Col>{this.props.PropStatus[2]}</Col>
+                    </Row>
+                    <Row>
+                        <Col><i>Votes For : </i></Col> 
+                        <Col>{this.props.PropStatus[3]}</Col>
+                    </Row>
+                    <Row>
+                        <Col><i>Votes Against : </i></Col> 
+                        <Col>{this.props.PropStatus[4]}</Col>
+                    </Row>
+                    < br/>
+                    <Row>
+                        <Col><b>Your voting Rights : </b></Col> 
+                        <Col>{this.props.RemainingVotes}</Col>
+                    </Row>
                     < br/>
                     <Row>
                       <VoteForPropositionComponent contract={this.props.contract}

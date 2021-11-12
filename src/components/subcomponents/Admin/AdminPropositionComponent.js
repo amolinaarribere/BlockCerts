@@ -44,7 +44,9 @@ class AdminPropositionComponent extends React.Component {
                   refresh={this.refresh}
                   text="Check Pending Config"
                   headers={["Pending Manager Address", "Manager Init", "Pending Admin Address "]}
-                  values={[func.PendingManagerAddress, func.PendingManagerInit, func.PendingAdminAddress]}/>
+                  values={[func.PendingManagerAddress, func.PendingManagerInit, func.PendingAdminAddress]}
+                  PropStatus={this.props.PropStatus}
+                  RemainingVotes={this.props.RemainingVotes}/>
 
               </div>):null}
               <hr class="bg-secondary"/>

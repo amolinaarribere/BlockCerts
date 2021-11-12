@@ -7,9 +7,11 @@ import PricePropositionComponent from './subcomponents/Treasury/PriceProposition
 import ENSPropositionComponent from './subcomponents/ENS/ENSPropositionComponent.js';
 import LoadingComponent from './subcomponents/LoadingComponent.js';
 
-
 const Contracts = require("../functions/Contracts.js");
 const loadFunc = require("../functions/LoadFunctions.js");
+const VoteFunc = require("../functions/VoteFunctions.js");
+const certFunc = require("../functions/CertisFunctions.js");
+const address_0 = "0x0000000000000000000000000000000000000000"
 
 class SettingsComponent extends React.Component {
   async componentWillMount() {
@@ -22,18 +24,31 @@ class SettingsComponent extends React.Component {
   }
   
    state = {
+      adminPropStatus: [],
+      adminPropRemainingVotes: "",
       loading : false,
       contractType : 1
     };
     
     async refresh() {
       await loadFunc.LoadAdminFunc(Contracts.admin);
+
+      if(certFunc.isOwner){
+        var adminStatus = await VoteFunc.PropositionStatus(Contracts.admin);
+        var adminRemainingVotes = ((adminStatus[0] != address_0)?
+          await VoteFunc.PropositionRemainingVotes(Contracts.admin)
+          : 0);
+          this.setState({adminPropStatus: adminStatus,
+            adminPropRemainingVotes: adminRemainingVotes})
+      }
+     
+
       await loadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
       await loadFunc.LoadPropositionFunc(Contracts.PropositionSettings);
       await loadFunc.LoadTreasuryConfigFunc(Contracts.Treasury);
       await loadFunc.LoadPriceConverterFunc(Contracts.PriceConverter);
       await loadFunc.LoadENSFunc(Contracts.ENS);
-      this.setState({})
+      
     }
   
     render(){
@@ -42,7 +57,9 @@ class SettingsComponent extends React.Component {
           {(false == this.state.loading)? 
             <div>
               <AdminPropositionComponent contract={Contracts.admin} 
-                refresh={this.refresh}/>
+                refresh={this.refresh}
+                PropStatus={this.state.adminPropStatus}
+                RemainingVotes={this.state.adminPropRemainingVotes}/>
               <br />
               <ManagerAddressPropositionComponent contract={Contracts.certificatePoolManager}
                 refresh={this.refresh}/>
