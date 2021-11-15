@@ -39,7 +39,7 @@ class SignVoteComponent extends React.Component{
         let deadline = Math.ceil(new Date(this.state.date_2 + " " + this.state.time_2) / 1000);
       await func.VotePropositionOnBehalfOf(this.state.voter_2, 
           this.state.propId_2, 
-          this.state.vote_2,
+          (this.state.vote_2 == "true"),
           this.state.nonce_2,
           deadline,
           this.state.signature_2,
@@ -162,6 +162,11 @@ class SignVoteComponent extends React.Component{
                 <Form.Control type="integer" name="nonce_2" placeholder="nonce" 
                     value={this.state.nonce_2}
                     onChange={event => this.setState({ nonce_2: event.target.value })}/>
+                <Form.Control as="select" name="vote_2" placeholder="vote"
+                 onChange={event => this.setState({ vote_2: event.target.value })}>
+                    <option value="true">Validate</option>
+                    <option value="false">Reject</option>
+                </Form.Control>
                 <Row>
                   <Col>
                       <Form.Control type="date"  name="date_2" placeholder="date" 
@@ -172,12 +177,7 @@ class SignVoteComponent extends React.Component{
                       <Form.Control type="time" name="time_2" placeholder="time"
                           value={this.state.time_2}
                           onChange={event => this.setState({ time_2: event.target.value })}/>
-                  </Col>
-                  <Col>
-                      <Form.Check type="checkbox" name="vote_2" label="Validate the Proposition"
-                        checked={this.state.vote_2}
-                        onChange={event => this.setState({ vote_2: event.target.checked })} />
-                  </Col>     
+                  </Col>  
                 </Row>
                 <Form.Control type="text" name="Signature_2" placeholder="signature" 
                     value={this.state.signature_2}
