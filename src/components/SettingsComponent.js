@@ -27,9 +27,6 @@ class SettingsComponent extends React.Component {
     
     async refresh() {
       await loadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
-      
-      await loadFunc.LoadPriceConverterFunc(Contracts.PriceConverter);
-      await loadFunc.LoadENSFunc(Contracts.ENS);
     }
   
     render(){
@@ -45,11 +42,9 @@ class SettingsComponent extends React.Component {
               <br/>
               <PricePropositionComponent contract={Contracts.Treasury}/>
               <br/>
-              <PriceConverterAddressPropositionComponent contract={Contracts.PriceConverter} 
-                refresh={this.refresh}/>
+              <PriceConverterAddressPropositionComponent contract={Contracts.PriceConverter} />
               <br />
-              <ENSPropositionComponent contract={Contracts.ENS} 
-                refresh={this.refresh}/>
+              <ENSPropositionComponent contract={Contracts.ENS} />
               <br />
             </div>
           :

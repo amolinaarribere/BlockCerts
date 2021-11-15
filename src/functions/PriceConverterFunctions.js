@@ -39,8 +39,4 @@ export var PendingRegistryAddress = "";
     }
     
   }
-
-  export async function UpgradeRegistryAddress(NewRegistryAddress, contract){
-    await Aux.CallBackFrame(contract.methods.sendProposition([Aux.AddressToBytes32(NewRegistryAddress)]).send({from: Aux.account }));
-  }
     

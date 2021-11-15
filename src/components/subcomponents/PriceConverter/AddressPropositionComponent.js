@@ -1,100 +1,68 @@
 import React from 'react';
-import { Form, Container, Row, Col } from 'react-bootstrap';
-import VoteForPropositionComponent from '../Vote/VoteForPropositionComponent.js';
+import ListPendingPropositionComponent from '../Vote/ListPendingPropositionComponent.js';
+import UpgradePropositionComponent from '../Vote/UpgradePropositionComponent.js';
+import ConfigurationComponent from '../Configuration/ConfigurationComponent.js';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
+const Constants = require("../../../functions/Constants.js");
+const VoteFunc = require("../../../functions/VoteFunctions.js");
+const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AddressPropositionComponent extends React.Component {
   constructor(props) {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
-  
-  async refresh() {
-    await this.props.refresh()
+
+  state = {
+    PropStatus: [],
+    RemainingVotes: ""
   }
 
-    state = {
-      NewRegistryAddress : "",
-      isUpdateRegistryShown: false,
-      isPendingRegistryShown: false
-    };
+  async refresh() {
+    await loadFunc.LoadPriceConverterFunc(this.props.contract);
 
-    toggleUpdateRegistry = () => {
-      if(this.state.isUpdateRegistryShown)this.setState({ isUpdateRegistryShown: false })
-      else this.setState({ isUpdateRegistryShown: true })
-    };
-
-    togglePendingRegistry = () => {
-      if(this.state.isPendingRegistryShown)this.setState({ isPendingRegistryShown: false })
-      else this.setState({ isPendingRegistryShown: true })
-    };
-
-    handleUpgradeContracts = async (event) => {
-      event.preventDefault();
-      var NRA = address_0;
-
-      if(this.state.NewRegistryAddress != "") NRA = this.state.NewRegistryAddress;
-      await func.UpgradeRegistryAddress(NRA, this.props.contract);
-      this.setState({ NewRegistryAddress: ""})
-      await this.refresh();
-    };
+      if(certFunc.isOwner){
+        var Status = await VoteFunc.PropositionStatus(this.props.contract);
+        var Votes = ((Status[0] != address_0)?
+          await VoteFunc.PropositionRemainingVotes(this.props.contract)
+          : 0);
+          this.setState({PropStatus: Status,
+            RemainingVotes: Votes})
+      }
+  }
     
     render(){
       return (
         <div>
-          <div class="border border border-0">
-            <h3>ChainLink Feed Registry</h3>
-            <Container style={{margin: '10px 50px 50px 50px' }}>
-              <Row>
-                <Col><b>Registry Address :</b></Col> 
-                <Col>{func.RegistryAddress}</Col>
-              </Row>
-            </Container>
-          </div>
+
+        <ConfigurationComponent refresh={this.refresh}
+                  text="ChainLink Feed Registry"
+                  names={["Registry Address"]}
+                  values={[func.RegistryAddress]}/>
 
           {certFunc.isOwner ? (
               <div>
-                   <button
-                      className="btn btn-lg btn-primary center modal-button"
-                      onClick={this.toggleUpdateRegistry}>Manage Chain Link Feed Registry</button>
-
-                    {this.state.isUpdateRegistryShown ? (
-                      <div class="border border-primary border-5">
-                        <Form onSubmit={this.handleUpgradeContracts} style={{margin: '50px 50px 50px 50px' }}>
-                          <Form.Group  className="mb-3">
-                            <Form.Control type="text" name="NewRegistryAddress" placeholder="NewRegistryAddress" 
-                              value={this.state.NewRegistryAddress}
-                              onChange={event => this.setState({ NewRegistryAddress: event.target.value })}/>
-                          </Form.Group>
-                          <button class="btn btn-primary">Upgrade Registry</button>
-                        </Form>
-                        <br/>
-                      </div>) : null}
+                <UpgradePropositionComponent contract={this.props.contract}
+                  refresh={this.refresh}
+                  text="Manage Chain Link Feed Registry"
+                  textButton="Upgrade Registry"
+                  names={["NewRegistryAddress"]}
+                  types={["text"]}
+                  dataType={[Constants.addressDataType]}/>
 
                   <br />
-                  <br />
 
-                  <button
-                    className="btn btn-lg btn-warning center modal-button"
-                    onClick={this.togglePendingRegistry}>Check Pending Registry</button>
+                <ListPendingPropositionComponent contract={this.props.contract}
+                  refresh={this.refresh}
+                  text="Check Pending Registry"
+                  headers={["Pending Registry Address"]}
+                  values={[func.PendingRegistryAddress]}
+                  PropStatus={this.state.PropStatus}
+                  RemainingVotes={this.state.RemainingVotes}/>
 
-                  {this.state.isPendingRegistryShown ? (
-                    <div class="border border-warning border-5">
-                      <Container style={{margin: '10px 50px 50px 50px' }}>
-                        <Row>
-                          <Col><b>Pending Registry Address :</b></Col> 
-                          <Col>{func.PendingRegistryAddress}</Col>
-                        </Row>
-                        < br/>
-                        <Row>
-                          <VoteForPropositionComponent contract={this.props.contract}
-                            refresh={this.refresh}/>
-                        </Row>
-                      </Container>
-                    </div>) : null}
               </div>):null}
               <hr class="bg-secondary"/>
         </div>
