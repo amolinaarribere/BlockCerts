@@ -18,6 +18,9 @@ class AdminPropositionComponent extends React.Component {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
+  async componentWillMount() {
+    await this.LoadPropStatus();
+ }
 
   state = {
     PropStatus: [],
@@ -26,15 +29,18 @@ class AdminPropositionComponent extends React.Component {
   
   async refresh() {
     await loadFunc.LoadAdminFunc(this.props.contract);
+    await this.LoadPropStatus();
+  }
 
-      if(certFunc.isOwner){
-        var Status = await VoteFunc.PropositionStatus(this.props.contract);
-        var Votes = ((Status[0] != address_0)?
-          await VoteFunc.PropositionRemainingVotes(this.props.contract)
-          : 0);
-          this.setState({PropStatus: Status,
-            RemainingVotes: Votes})
-      }
+  async LoadPropStatus(){
+    if(certFunc.isOwner){
+      var Status = await VoteFunc.PropositionStatus(this.props.contract);
+      var Votes = ((Status[0] != address_0)?
+        await VoteFunc.PropositionRemainingVotes(this.props.contract)
+        : 0);
+        this.setState({PropStatus: Status,
+          RemainingVotes: Votes})
+    }
   }
     
     render(){

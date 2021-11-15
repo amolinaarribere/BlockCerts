@@ -46,7 +46,7 @@ class ListPendingPropositionComponent extends React.Component{
                     </Row>
                     <Row>
                         <Col><i>DeadLine : </i></Col> 
-                        <Col>{this.props.PropStatus[1]}</Col>
+                        <Col>{(0 < this.props.PropStatus[1])? (new Date(this.props.PropStatus[1] * 1000)).toString() : "-"}</Col>
                     </Row>
                     <Row>
                         <Col><i>Threshold : </i></Col> 

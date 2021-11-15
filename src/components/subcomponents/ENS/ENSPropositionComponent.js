@@ -6,7 +6,6 @@ import ConfigurationComponent from '../Configuration/ConfigurationComponent.js';
 const func = require("../../../functions/ENSFunctions.js");
 const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000";
-const emptyByte = "0x";
 const Constants = require("../../../functions/Constants.js");
 const VoteFunc = require("../../../functions/VoteFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
@@ -16,7 +15,9 @@ class ENSPropositionComponent extends React.Component {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
-
+  async componentWillMount() {
+    await this.LoadPropStatus();
+ }
 
     state = {
       PropStatus: [],
@@ -25,15 +26,18 @@ class ENSPropositionComponent extends React.Component {
 
     async refresh() {
       await loadFunc.LoadENSFunc(this.props.contract);
-  
-        if(certFunc.isOwner){
-          var Status = await VoteFunc.PropositionStatus(this.props.contract);
-          var Votes = ((Status[0] != address_0)?
-            await VoteFunc.PropositionRemainingVotes(this.props.contract)
-            : 0);
-            this.setState({PropStatus: Status,
-              RemainingVotes: Votes})
-        }
+      await this.LoadPropStatus();
+    }
+
+    async LoadPropStatus(){
+      if(certFunc.isOwner){
+        var Status = await VoteFunc.PropositionStatus(this.props.contract);
+        var Votes = ((Status[0] != address_0)?
+          await VoteFunc.PropositionRemainingVotes(this.props.contract)
+          : 0);
+          this.setState({PropStatus: Status,
+            RemainingVotes: Votes})
+      }
     }
     
     render(){

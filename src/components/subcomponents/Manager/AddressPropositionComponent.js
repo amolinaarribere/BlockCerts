@@ -16,6 +16,9 @@ class AddressPropositionComponent extends React.Component {
     loadFunc.LoadManagerFunc(this.props.contract);
     this.refresh = this.refresh.bind(this)
   }
+  async componentWillMount() {
+    await this.LoadPropStatus();
+ }
 
   state = {
     PropStatus: [],
@@ -24,7 +27,10 @@ class AddressPropositionComponent extends React.Component {
   
   async refresh() {
     await loadFunc.LoadManagerFunc(this.props.contract);
+    await this.LoadPropStatus();
+  }
 
+  async LoadPropStatus(){
     if(certFunc.isOwner){
       var Status = await VoteFunc.PropositionStatus(this.props.contract);
       var Votes = ((Status[0] != address_0)?

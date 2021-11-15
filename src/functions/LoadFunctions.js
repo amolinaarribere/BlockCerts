@@ -81,6 +81,8 @@ export async function LoadBlockchain() {
       await LoadPriceConverterFunc(Contracts.PriceConverter);
       await LoadTreasuryConfigFunc(Contracts.Treasury)
       await LoadCertisFunc(Contracts.CertisToken)
+      await LoadENSFunc(Contracts.ENS);
+
 
     } catch (e) {
       window.alert("error retrieving the main contract addresses " + JSON.stringify(e));

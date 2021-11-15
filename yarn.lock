@@ -9371,6 +9371,11 @@
   "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/mock-fs/-/mock-fs-4.14.0.tgz"
   "version" "4.14.0"
 
+"moment@^2.29.1":
+  "integrity" "sha1-sr52n6MZQL6e7qZGnAdeNQBvo9M="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/moment/-/moment-2.29.1.tgz"
+  "version" "2.29.1"
+
 "move-concurrently@^1.0.1":
   "integrity" "sha1-viwAX9oy4LKa8fBdfEszIUxwH5I="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/move-concurrently/-/move-concurrently-1.0.1.tgz"

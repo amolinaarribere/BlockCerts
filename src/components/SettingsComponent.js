@@ -22,7 +22,6 @@ class SettingsComponent extends React.Component {
   
    state = {
       loading : false,
-      contractType : 1
     };
     
     async refresh() {
