@@ -57,7 +57,7 @@ class SignVoteComponent extends React.Component{
         await SignatureFunc.retrieveContractConfig(this.props.contract);
         let Domain = await SignatureFunc.Domain(SignatureFunc.ContractName, this.props.contract._address, SignatureFunc.ContractVersion);
         let Message = SignatureFunc.VoteOnBehalfOfMessage(from, func.CurrentPropositionID, vote, Nonce, Deadline)
-      
+
         let params = [from, SignatureFunc.VoteMsgParams(Domain, Message)];
         let method = SignatureFunc.method;
         let signature = await Aux.web3.currentProvider.send({method,params,from}, 
@@ -66,7 +66,7 @@ class SignVoteComponent extends React.Component{
             else if (result.error)  window.alert("result error " + result.error)
             else return result.result
           });
-                
+   
         if(signature != null && signature != "undefined"){
           this.state.displayVoter = Aux.account;
           this.state.displayPropID = func.CurrentPropositionID;

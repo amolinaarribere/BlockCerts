@@ -52,7 +52,7 @@ class PricePropositionComponent extends React.Component {
       return (
         <div>
            <ConfigurationComponent refresh={this.refresh}
-                  text="Prices"
+                  text="Prices (USD)"
                   names={["Submit New Provider to Public Pool Price",
                    "Create New Private Pool Price",
                    "Create New Provider Price",

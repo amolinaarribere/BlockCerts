@@ -23,7 +23,7 @@ export var Items = []
 
 export async function AddProviderPool(address, Info, subscribe, contractType, price, contract){
   (3 != contractType)? 
-      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: price * ETHDecimals})) :
+      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: new BigNumber(price * ETHDecimals)})) :
       await Aux.CallBackFrame(contract.methods.addPool(address, Info, subscribe).send({from: Aux.account }));
   }
   
