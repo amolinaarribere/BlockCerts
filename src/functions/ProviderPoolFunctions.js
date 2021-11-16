@@ -58,9 +58,7 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
           await contract.methods.retrieveProvider(Aux.Bytes32ToAddress(Addresses[i])).call():
           await contract.methods.retrievePool(Aux.Bytes32ToAddress(Addresses[i])).call();
 
-        let {0:address, 1:reversed} = await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(Addresses[i]));
-
-        Items[i] = [address, Aux.Bytes32ToAddress(Addresses[i]), reversed, Info]
+        Items[i] = [await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(Addresses[i])), Info]
       }
       pendingAdd = []
       let pendingAddAddresses = (3 != contractType)?
@@ -83,7 +81,8 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
         let {0:Info} = (3 != contractType)?
           await contract.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingRemoveAddresses[i])).call():
           await contract.methods.retrievePool(Aux.Bytes32ToAddress(pendingRemoveAddresses[i])).call();
-        pendingRemove[i] = [pendingRemoveAddresses[i], Info]
+          let address = await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(pendingRemoveAddresses[i]));
+        pendingRemove[i] = [address, Info]
       }
 
     }

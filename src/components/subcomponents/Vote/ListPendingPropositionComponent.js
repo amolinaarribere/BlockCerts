@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import VoteForPropositionComponent from '../Vote/VoteForPropositionComponent.js';
 
+
 class ListPendingPropositionComponent extends React.Component{
   constructor(props) {
     super(props)

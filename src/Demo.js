@@ -7,7 +7,6 @@ import PrivateComponent from './components/PrivateComponent.js';
 import IssuerComponent from './components/IssuerComponent.js';
 import DividendsComponent from './components/DividendsComponent.js';
 import SettingsComponent from './components/SettingsComponent.js';
-//import PriceConverterComponent from './components/PriceConverterComponent.js';
 import CurrentAddressComponent from './components/CurrentAddressComponent.js';
 import EventsComponent from './components/EventsComponent.js';
 import LoadingComponent from './components/subcomponents/LoadingComponent.js';
@@ -21,7 +20,6 @@ const Settings = "Settings";
 const Public = "Public";
 const Private = "Private";
 const Provider = "Provider";
-//const PriceConverter = "Price Converter";
 const Dividends = "Dividends";
 const Event = "Events";
 

@@ -64,7 +64,7 @@ export async function LoadBlockchain() {
 
       Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS))
       await LoadManagerFunc(Contracts.certificatePoolManager);
-      
+
       Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ManagerFunc.ManagerAdminAddress));
       await LoadAdminFunc(Contracts.admin);
 
@@ -82,7 +82,6 @@ export async function LoadBlockchain() {
       await LoadTreasuryConfigFunc(Contracts.Treasury)
       await LoadCertisFunc(Contracts.CertisToken)
       await LoadENSFunc(Contracts.ENS);
-
 
     } catch (e) {
       window.alert("error retrieving the main contract addresses " + JSON.stringify(e));

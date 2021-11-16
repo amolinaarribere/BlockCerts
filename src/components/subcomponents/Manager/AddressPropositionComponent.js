@@ -9,6 +9,29 @@ const address_0 = "0x0000000000000000000000000000000000000000";
 const loadFunc = require("../../../functions/LoadFunctions.js");
 const Constants = require("../../../functions/Constants.js");
 const VoteFunc = require("../../../functions/VoteFunctions.js");
+const VarDataType=[Constants.intDataType,
+  Constants.intDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType,
+  Constants.stringDataType,
+  Constants.stringDataType]
+
 
 class AddressPropositionComponent extends React.Component {
   constructor(props) {
@@ -125,28 +148,7 @@ class AddressPropositionComponent extends React.Component {
                    "text", "text", "text", "text", "text", "text",
                    "text", "text",
                    "hidden", "hidden"]}
-                  dataType={[Constants.intDataType,
-                    Constants.intDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType,
-                    Constants.stringDataType,
-                    Constants.stringDataType]}/>
+                  dataType={VarDataType}/>
 
                   <br />
 
@@ -191,7 +193,8 @@ class AddressPropositionComponent extends React.Component {
                     ManagerFunc.PendingENSInit
                 ]}
                   PropStatus={this.state.PropStatus}
-                  RemainingVotes={this.state.RemainingVotes}/>
+                  RemainingVotes={this.state.RemainingVotes}
+                  dataType={VarDataType}/>
 
               </div>):null}
               <hr class="bg-secondary"/>

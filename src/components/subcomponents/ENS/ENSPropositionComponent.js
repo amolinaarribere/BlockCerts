@@ -9,6 +9,10 @@ const address_0 = "0x0000000000000000000000000000000000000000";
 const Constants = require("../../../functions/Constants.js");
 const VoteFunc = require("../../../functions/VoteFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
+const VarDataType=[Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.bytesDataType,
+  Constants.bytesDataType]
 
 class ENSPropositionComponent extends React.Component {
   constructor(props) {
@@ -68,10 +72,7 @@ class ENSPropositionComponent extends React.Component {
                    "text",
                    "text",
                    "text"]}
-                  dataType={[Constants.addressDataType,
-                    Constants.addressDataType,
-                    Constants.bytesDataType,
-                    Constants.bytesDataType]}/>
+                  dataType={VarDataType}/>
 
                   <br />
 
@@ -87,7 +88,8 @@ class ENSPropositionComponent extends React.Component {
                      func.PendingPrivatePoolNode,
                      func.PendingProviderNode]}
                   PropStatus={this.state.PropStatus}
-                  RemainingVotes={this.state.RemainingVotes}/>
+                  RemainingVotes={this.state.RemainingVotes}
+                  dataType={VarDataType}/>
 
               </div>):null}
               <hr class="bg-secondary"/>

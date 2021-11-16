@@ -4,9 +4,6 @@ import ListPendingOwnersComponent from './ListPendingOwnersComponent.js';
 import UpdateMinOwnerComponent from './UpdateMinOwnerComponent.js';
 import ManageOwnerComponent from './ManageOwnerComponent.js';
 
-const LoadFunc = require('../../../functions/LoadFunctions.js');
-
-
 class OwnerComponent extends React.Component{
   constructor(props) {
     super(props)

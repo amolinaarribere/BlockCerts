@@ -4,6 +4,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 const func = require("../../../functions/FactoriesFunctions.js");
 const ProviderPoolFunctions = require("../../../functions/ProviderPoolFunctions.js");
 const BrowserStorageFunctions = require("../../../functions/BrowserStorageFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 
 class FundProviderComponent extends React.Component{
@@ -46,8 +47,9 @@ class SelectPoolIssuerComponent extends React.Component{
     
       handleSelectProviderPool = async (event) => {
         event.preventDefault();
+        let Address = await ENSFunc.Resolution(this.state.ProviderPool);
         BrowserStorageFunctions.WriteKey(this.props.Key, this.state.ProviderPool);
-        await ProviderPoolFunctions.SelectProviderPool(this.state.ProviderPool, this.props.contractType);
+        await ProviderPoolFunctions.SelectProviderPool(Address, this.props.contractType);
         this.setState({ ProviderPool: "" })
         await this.props.refresh();
       };
@@ -60,7 +62,7 @@ class SelectPoolIssuerComponent extends React.Component{
                 <h3>Select {text}</h3>
                 <Form onSubmit={this.handleSelectProviderPool} style={{margin: '50px 50px 50px 50px' }}>
                 <Form.Group  className="mb-3">
-                    <Form.Control type="text" name="SelectProviderPool" placeholder="address" 
+                    <Form.Control type="text" name="SelectProviderPool" placeholder="address or ENS name" 
                         value={this.state.ProviderPool}
                         onChange={event => this.setState({ ProviderPool: event.target.value })}/>
                 </Form.Group>

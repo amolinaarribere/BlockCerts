@@ -14,7 +14,7 @@ class ListOwnersComponent extends React.Component{
             <h3>Owners</h3>
             <Container style={{margin: '10px 50px 50px 50px' }}>
               {Owners.map(Owner => (
-                        <Row class="border-0" key={Owner}>{Aux.Bytes32ToAddress(Owner)}</Row>
+                        <Row class="border-0" key={Owner}>{Owner}</Row>
                         ))} 
                 <br />
                  <Row>

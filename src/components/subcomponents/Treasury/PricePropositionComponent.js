@@ -9,6 +9,12 @@ const certFunc = require("../../../functions/CertisFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000"
 const VoteFunc = require("../../../functions/VoteFunctions.js");
 const Constants = require("../../../functions/Constants.js");
+const VarDataType=[Constants.numberDataType,
+  Constants.numberDataType,
+  Constants.numberDataType,
+  Constants.numberDataType,
+  Constants.numberDataType]
+
 
 
 class PricePropositionComponent extends React.Component {
@@ -70,11 +76,7 @@ class PricePropositionComponent extends React.Component {
                    "NewCertificatePriceUSD",
                    "NewOwnerRefundFeeUSD"]}
                   types={["number", "number", "number", "number", "number"]}
-                  dataType={[Constants.numberDataType,
-                    Constants.numberDataType,
-                    Constants.numberDataType,
-                    Constants.numberDataType,
-                    Constants.numberDataType]}/>
+                  dataType={VarDataType}/>
 
                   <br />
 
@@ -92,7 +94,8 @@ class PricePropositionComponent extends React.Component {
                     func.PendingCertificatePriceUSD,
                     func.PendingOwnerRefundFeeUSD]}
                   PropStatus={this.state.PropStatus}
-                  RemainingVotes={this.state.RemainingVotes}/>
+                  RemainingVotes={this.state.RemainingVotes}
+                  dataType={VarDataType}/>
 
               </div>):null}
               <hr class="bg-secondary"/>

@@ -57,7 +57,7 @@ class ListPendingProvidersPoolsComponent extends React.Component{
                     <Container style={{margin: '10px 50px 50px 50px' }}>
                       {pendingProvidersPoolsRemove.map(pendingProviderPoolRemove => (
                         <Row>
-                          <Col key={pendingProviderPoolRemove[0]}> {Aux.Bytes32ToAddress(pendingProviderPoolRemove[0])}</Col>
+                          <Col key={pendingProviderPoolRemove[0]}> {pendingProviderPoolRemove[0]}</Col>
                           <Col>{pendingProviderPoolRemove[1]}</Col>
                         </Row>
                         ))}

@@ -2,6 +2,8 @@
  import {ETHDecimals} from '../config'
 
  const Aux = require("./AuxiliaryFunctions.js");
+ const ENSFunc = require("./ENSFunctions.js");
+
 
  export var Addresses = []
 
@@ -15,7 +17,7 @@
       Addresses = []
 
       for (let i = 0; i < Total; i++) {
-        let Address = await contract.methods.retrieve(i).call()
+        let Address = await ENSFunc.ReverseResolution(await contract.methods.retrieve(i).call())
         Addresses[i] = Address
       }
    }
