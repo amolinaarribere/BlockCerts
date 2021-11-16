@@ -62,12 +62,12 @@ class ManagerComponent extends React.Component {
       return (
         <div>
           <h6>
-          <span style={{ color: 'blue' }}><b>BlockCerts</b></span> is an application for delivering and checking certificates on the blockchain.
+          <span style={{ color: 'blue' }}><b>BlockCerts</b></span> is a decentralized application for delivering and checking certificates on the blockchain.
             <br />
             <br />
             Validated <span style={{ color: 'blue' }}><b>providers</b></span> are allowed to deliver certificates (PDF files for example) to the blockchain, more precisely to a <span style={{ color: 'blue' }}><b>Certificate Pool (Public or Private)</b></span> and assign them to a particular account, called the <span style={{ color: 'blue' }}><b>holder</b></span>.
             <br />
-            <i>Certificates are never published to the blockchain, only the hash (keccak256) of the document is sent to the blockchain.</i>
+            <i>Certificates are never published on the blockchain, only the hash (keccak256) of the document is sent to the blockchain.</i>
             <br />
             <i>Published Certificates can never be removed from the Certificate Pool.</i>
             <br />
@@ -76,24 +76,29 @@ class ManagerComponent extends React.Component {
             <br />
             A set of predefined public <span style={{ color: 'blue' }}><b>owners</b></span> are in charge of adding and removing providers from the Public Certificate Pool. They can also add and remove other owners.
             <br />
-            Every management operation performed by the owners requires a minimum number of signatures.
+            Every management operation performed by the owners requires a minimum number of validations.
             <br />
             <br />
-            <span style={{ color: 'blue' }}><b>Private Certificate Pools</b></span> can be created by anyone, providing the set of owner accounts that would be in charge of managing the pool, in the same way the predefined public owners manage the Public Certificate Pool.
+            <span style={{ color: 'blue' }}><b>Private Certificate Pools</b></span> can be created by anyone, providing a list of owner accounts that would be in charge of managing the pool, in the same way the predefined public owners manage the Public Certificate Pool.
             <br />
             <br />
             <span style={{ color: 'blue' }}><b>Providers</b></span> can be created by anyone too, providing them a multi signature smart contract that is able to communicate directly with the Public and Private Certificate Pools they subscribe to. 
             <br />
-            Providers are not required to send certificates to the Certificate Pools but the multi signature feature offers extra security compared to using a simple account.
+            Provider contracts are not mandatory to send certificates to the Certificate Pools but the multi signature feature offers extra security compared to using a simple account.
             <br />
             <br />
-            Any change to the application logic must be validated by a majority of <span style={{ color: 'blue' }}><b>Certis Token</b></span> owners. 
+            Any change to the decentralized application must be validated by a majority of <span style={{ color: 'blue' }}><b>Certis Token</b></span> owners before the proposal expires. 
             <br />
-            <i>In fact anyone owning more than a pre-defined number of tokens can propose modification to the application logic.</i>
+            <i>In fact anyone owning more than a pre-defined number of tokens can propose modifications to the application logic and/or configuration.</i>
             <br />
             Certis Token Owners will receive a dividend for every payment received by the application.
             <br />
-            In order to retreive his/her dividends a Certis Token owner must first assign them and then withdraw them himself/herself.
+            In order to retreive his/her dividends a Certis Token owner must withdraw them himself/herself. They can either withdraw all their dividends or part of it.
+            <br />
+            <br />
+            This dapp is <span style={{ color: 'blue' }}><b>ENS enabled</b></span>, the Front End translates every address to its corresponding ENS name (if it exist) and ENS names can always be provided where an address is required.
+            <br />
+            Private Pools and Providers can also be assigned an ENS name that would be part of the Private Pool or Provider domain already purchased by the dapp.
             <br />
             <br />
             <span style={{ color: 'blue' }}><b>Paid Application services</b></span> are :
@@ -114,6 +119,14 @@ class ManagerComponent extends React.Component {
             <br />
             Prices and the Chain Link registry itself can be changed at any time if the proposition is validated by the Certis Token owners.
             <br />
+            <br />
+            Blockcerts allows for signed messages to be provided on behalf on another account using the <span style={{ color: 'blue' }}><b>EIP-712 standard for signed typed data</b></span>.
+            <br />
+            Messages that can be signed and sent by another account are :
+            <ul>
+              <li>Delivering Certificates to any Pool</li>
+              <li>Voting on any dapp proposal</li>
+            </ul>
             <br />
             <br />
           </h6>
