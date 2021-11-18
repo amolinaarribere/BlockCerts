@@ -1,9 +1,6 @@
 import React from 'react';
 import PriceConvertToWeiComponent from './PriceConvertToWeiComponent.js';
 
-const Contracts = require("../../../functions/Contracts.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
-
 class PriceConverterComponent extends React.Component {
   async componentWillMount() {
     await this.refresh();
