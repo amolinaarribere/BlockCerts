@@ -2,7 +2,8 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/OwnerFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
+
 
 class ManageOwnerComponent extends React.Component{
     state = {
@@ -11,29 +12,43 @@ class ManageOwnerComponent extends React.Component{
     };
 
     handleAddOwner = async (event) => {
-        event.preventDefault();
-      await func.AddOwner(this.state.Owner, "", this.props.contract)
-      await this.refresh();
+      event.preventDefault();
+      await this.handleOwner("1");
     };
     handleRemoveOwner = async (event) => {
-        event.preventDefault();
-      await func.RemoveOwner(this.state.Owner, this.props.contract)
-      await this.refresh();
+      event.preventDefault();
+      await this.handleOwner("2");
     };
     handleValidateOwner = async (event) => {
-        event.preventDefault();
-      await func.ValidateOwner(this.state.Owner, this.props.contract)
-      await this.refresh();
+      event.preventDefault();
+      await this.handleOwner("3");
     };
     handleRejectOwner = async (event) => {
-        event.preventDefault();
-      await func.RejectOwner(this.state.Owner, this.props.contract)
-      await this.refresh();
+      event.preventDefault();
+      await this.handleOwner("4");
     };
+
+    async handleOwner(type) {
+      let Address = await ENSFunc.Resolution(this.state.Owner);
+      switch(type){
+        case "1":
+          await func.AddOwner(Address, "", this.props.contract)
+          break;
+        case "2":
+          await func.RemoveOwner(Address, this.props.contract)
+          break;
+        case "3":
+          await func.ValidateOwner(Address, this.props.contract)
+          break;
+        case "4":
+          await func.RejectOwner(Address, this.props.contract)
+          break;
+      }
+      await this.refresh();
+    }
     
     async refresh() {
       this.setState({ Owner: "" })
-      //await loadFunc.LoadOwnersFunc(this.props.contract);
       await this.props.refresh();
     }
 
@@ -53,7 +68,7 @@ class ManageOwnerComponent extends React.Component{
                     <div class="border border-primary border-5">
                        <Form onSubmit={this.handleAddOwner} style={{margin: '50px 50px 50px 50px' }}>
                         <Form.Group  className="mb-3">
-                          <Form.Control type="text" name="Owner" placeholder="address" 
+                          <Form.Control type="text" name="Owner" placeholder="address or ENS name" 
                               value={this.state.Owner}
                               onChange={event => this.setState({ Owner: event.target.value })}/>  
                         </Form.Group>

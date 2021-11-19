@@ -1,4 +1,4 @@
-export const MANAGER_PROXY_ADDRESS =  '0x329D704f4da4b45189188148908f00787b49d365'
+export const MANAGER_PROXY_ADDRESS =  '0x5AaDfc0434F6AfEB9D24220f4299A514d5b62233' // rinkeby : 0x5AaDfc0434F6AfEB9D24220f4299A514d5b62233
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;

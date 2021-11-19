@@ -11,6 +11,7 @@ const Constants = require("../../../functions/Constants.js");
 const VoteFunc = require("../../../functions/VoteFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000"
+const VarDataType=[Constants.addressDataType,Constants.bytesDataType,Constants.addressDataType]
 
 
 class AdminPropositionComponent extends React.Component {
@@ -18,6 +19,9 @@ class AdminPropositionComponent extends React.Component {
     super(props)
     this.refresh = this.refresh.bind(this)
   }
+  async componentWillMount() {
+    await this.LoadPropStatus();
+ }
 
   state = {
     PropStatus: [],
@@ -26,15 +30,18 @@ class AdminPropositionComponent extends React.Component {
   
   async refresh() {
     await loadFunc.LoadAdminFunc(this.props.contract);
+    await this.LoadPropStatus();
+  }
 
-      if(certFunc.isOwner){
-        var Status = await VoteFunc.PropositionStatus(this.props.contract);
-        var Votes = ((Status[0] != address_0)?
-          await VoteFunc.PropositionRemainingVotes(this.props.contract)
-          : 0);
-          this.setState({PropStatus: Status,
-            RemainingVotes: Votes})
-      }
+  async LoadPropStatus(){
+    if(certFunc.isOwner){
+      var Status = await VoteFunc.PropositionStatus(this.props.contract);
+      var Votes = ((Status[0] != address_0)?
+        await VoteFunc.PropositionRemainingVotes(this.props.contract)
+        : 0);
+        this.setState({PropStatus: Status,
+          RemainingVotes: Votes})
+    }
   }
     
     render(){
@@ -53,7 +60,7 @@ class AdminPropositionComponent extends React.Component {
                   textButton="Upgrade Admin"
                   names={["NewManagerAddress", "ManagerInit", "NewAdminAddress"]}
                   types={["text", "text", "text"]}
-                  dataType={[Constants.addressDataType,Constants.bytesDataType,Constants.addressDataType]}/>
+                  dataType={VarDataType}/>
 
                   <br />
 
@@ -63,7 +70,8 @@ class AdminPropositionComponent extends React.Component {
                   headers={["Pending Manager Address", "Manager Init", "Pending Admin Address "]}
                   values={[func.PendingManagerAddress, func.PendingManagerInit, func.PendingAdminAddress]}
                   PropStatus={this.state.PropStatus}
-                  RemainingVotes={this.state.RemainingVotes}/>
+                  RemainingVotes={this.state.RemainingVotes}
+                  dataType={VarDataType}/>
 
               </div>):null}
               <hr class="bg-secondary"/>

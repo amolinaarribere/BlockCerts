@@ -15,7 +15,7 @@ class ListProvidersPoolsComponent extends React.Component{
           <Container style={{margin: '10px 50px 50px 50px' }}>
             {ProvidersPools.map(ProviderPool => (
                 <Row>
-                    <Col key={ProviderPool[0]}> {ProviderPool[0]} {(ProviderPool[2])?<i>({ProviderPool[1]})</i>:""}</Col>
+                    <Col key={ProviderPool[0]}> {ProviderPool[0]} <i>({ProviderPool[1]})</i></Col>
                     <Col><i><b>{ProviderPool[3]}</b></i></Col>
                 </Row>
                 ))}

@@ -75,7 +75,7 @@ class ListPendingOwnersComponent extends React.Component{
                     <br />
                     <Container style={{margin: '10px 50px 50px 50px' }}>
                         {pendingOwnersAdd.map(pendingOwnerAdd => (
-                        <Row key={pendingOwnerAdd}>{Aux.Bytes32ToAddress(pendingOwnerAdd)}</Row>
+                        <Row key={pendingOwnerAdd}>{pendingOwnerAdd}</Row>
                         ))}
                     </Container>
                   </div>) : null} 
@@ -92,7 +92,7 @@ class ListPendingOwnersComponent extends React.Component{
                     <br />
                     <Container style={{margin: '10px 50px 50px 50px' }}>
                       {pendingOwnersRemove.map(pendingOwnerRemove => (
-                        <Row key={pendingOwnerRemove}>{Aux.Bytes32ToAddress(pendingOwnerRemove)}</Row>
+                        <Row key={pendingOwnerRemove}>{pendingOwnerRemove}</Row>
                         ))}
                     </Container>
                   </div>) : null} 

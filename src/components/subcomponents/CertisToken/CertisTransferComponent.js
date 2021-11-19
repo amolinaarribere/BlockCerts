@@ -2,7 +2,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/CertisFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class CertisTransferComponent extends React.Component {
     state = {
@@ -12,7 +12,10 @@ class CertisTransferComponent extends React.Component {
 
     handleTransfer = async (event) => {
       event.preventDefault();
-      await func.transfer(this.state.recipient, this.state.amount, this.props.contract);
+
+      let Address = await ENSFunc.Resolution(this.state.recipient);
+
+      await func.transfer(Address, this.state.amount, this.props.contract);
       this.setState({amount: 0, recipient: ""});
       await this.props.refresh();
     };
@@ -25,7 +28,7 @@ class CertisTransferComponent extends React.Component {
                     <Form.Control type="integer" name="Amount" placeholder="amount" 
                           value={this.state.amount}
                           onChange={event => this.setState({ amount: event.target.value })}/>
-                    <Form.Control type="text" name="Recipient" placeholder="recipient" 
+                    <Form.Control type="text" name="Recipient" placeholder="recipient address or ENS name" 
                           value={this.state.recipient}
                           onChange={event => this.setState({ recipient: event.target.value })}/>
                   </Form.Group>

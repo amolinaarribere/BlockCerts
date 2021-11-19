@@ -1,6 +1,7 @@
-import ENS, { getEnsAddress } from '@ensdomains/ensjs'
+import ENS,  {getEnsAddress } from '@ensdomains/ensjs'
 
 const Aux = require("./AuxiliaryFunctions.js");
+const Contracts = require("./Contracts.js");
 const EmptyAddress = "0x0000000000000000000000000000000000000000"
 var ens = ""
 
@@ -23,7 +24,7 @@ export async function RetrieveENSConfig(contract){
       ProviderNode = result[3];
     }
     catch(e) { 
-      window.alert("error retrieving the ens config : " + JSON.stringify(e)); 
+      console.log("error retrieving the ens config : " + JSON.stringify(e)); 
     }
     
   }
@@ -42,7 +43,7 @@ export async function RetrieveENSConfig(contract){
       if(result[3] != undefined)PendingProviderNode = result[3]
     }
     catch(e) { 
-      window.alert("error retrieving the pending ens config : " + JSON.stringify(e)); 
+      console.log("error retrieving the pending ens config : " + JSON.stringify(e)); 
     }
     
   }
@@ -58,13 +59,13 @@ export async function RetrieveENSConfig(contract){
 
 export async function Resolution(name){
     try{
-        initENS();
+        await initENS();
         var address = await ens.name(name).getAddress();
         if(EmptyAddress == address)address = name;
         return address;
     }
     catch(e){
-        window.alert("error reversing the address : " + e)
+        console.log("error resolving the address : " + e)
         return name;
     }
     
@@ -72,23 +73,28 @@ export async function Resolution(name){
 
 export async function ReverseResolution(address){
     try{
-        initENS();
+        await initENS();
         var name = await ens.getName(address)
-
         if(name.name == null ||
-            Aux.web3.utils.toChecksumAddress(address) != Aux.web3.utils.toChecksumAddress(await ens.name(name.name).getAddress())) return [address, false];
-        
-        return [name.name, true];
+            Aux.web3.utils.toChecksumAddress(address) != Aux.web3.utils.toChecksumAddress(await ens.name(name.name).getAddress())) return address;
+
+        return name.name;
     }
     catch(e){
-        window.alert("error reversing the address : " + e)
-        return [address, false];
+        console.log("error reversing the address : " + e)
+        return address;
     }
    
 }
 
-function initENS(){
-    var provider = Aux.web3.currentProvider
+async function initENS(){
+  var provider = Aux.web3.currentProvider
+  try{
+    let ENSRegistryAddress = await RetrieveENSConfig(Contracts.ENS)[0];
+    ens = new ENS({ provider, ensAddress: ENSRegistryAddress })
+  }catch(e){
     ens = new ENS({ provider, ensAddress: getEnsAddress('1') })
+  }
+ 
 }
 

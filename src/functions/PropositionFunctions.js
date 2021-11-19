@@ -1,5 +1,7 @@
 // Proposition
 const Aux = require("./AuxiliaryFunctions.js");
+const ENSFunc = require("./ENSFunctions.js");
+
 
 export var CurrentPropositionID = ""
 

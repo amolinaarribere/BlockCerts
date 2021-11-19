@@ -1,6 +1,5 @@
 import React from 'react';
-import ListPublicEventsComponent from './ListPublicEventsComponent.js';
-import ListManagerEventsComponent from './ListManagerEventsComponent.js';
+import ListBaseEventsComponentTemplate from './ListBaseEventsComponentTemplate.js';
 
 const EventsFunc = require("../../../functions/EventsFunctions.js");
 
@@ -36,8 +35,46 @@ class ListEventsComponent extends React.Component {
           <br/>
           <br/>
           <br/>
-          <ListPublicEventsComponent />
-          <ListManagerEventsComponent />
+          <ListBaseEventsComponentTemplate 
+            SCName="Admin"
+            ContractId={0}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Manager"
+            ContractId={1}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Public Pool"
+            ContractId={2}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Private Pool Factory"
+            ContractId={3}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Provider Factory"
+            ContractId={4}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Treasury"
+            ContractId={5}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Certis Token"
+            ContractId={6}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Price Converter"
+            ContractId={7}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="Proposition"
+            ContractId={8}
+            />
+          <ListBaseEventsComponentTemplate 
+            SCName="ENS"
+            ContractId={9}
+            />
         </div>
       );
     }

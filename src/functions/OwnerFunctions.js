@@ -1,6 +1,8 @@
 // Owner
 const Aux = require("./AuxiliaryFunctions.js");
 const load = require("./LoadFunctions.js");
+const ENSFunc = require("./ENSFunctions.js");
+
 
 export var isOwner = false
 export var MinOwners = ""
@@ -39,21 +41,28 @@ export async function AddOwner(address, info, contract){
   export async function RetrieveOwners(contract){
     try{
         MinOwners = await contract.methods.retrieveMinOwners().call()
-        Owners = await contract.methods.retrieveAllOwners().call()
-        TotalOwners = Owners.length
-  
+        Owners = []
+        let listOfOwners = await contract.methods.retrieveAllOwners().call()
+        TotalOwners = listOfOwners.length
+
+        for (let i = 0; i < TotalOwners; i++) { 
+          Owners.push(await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(listOfOwners[i])))
+        }
+
         pendingOwnersAdd = []
         let pendingOwnersAddAddresses = await contract.methods.retrievePendingOwners(true).call();
         for (let i = 0; i < pendingOwnersAddAddresses.length; i++) {
-          let {0:Info} = await contract.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingOwnersAddAddresses[i])).call();
-          pendingOwnersAdd[i] = [pendingOwnersAddAddresses[i], Info]
+          let Address = Aux.Bytes32ToAddress(pendingOwnersAddAddresses[i])
+          let {0:Info} = await contract.methods.retrieveOwner(Address).call();
+          pendingOwnersAdd[i] = [await ENSFunc.ReverseResolution(Address), Info]
         }
   
         pendingOwnersRemove = []
         let pendingOwnersRemoveAddresses = await contract.methods.retrievePendingOwners(false).call();
         for (let i = 0; i < pendingOwnersRemoveAddresses.length; i++) {
-          let {0:Info} = await contract.methods.retrieveOwner(Aux.Bytes32ToAddress(pendingOwnersRemoveAddresses[i])).call();
-          pendingOwnersRemove[i] = [pendingOwnersRemoveAddresses[i], Info]
+          let Address = Aux.Bytes32ToAddress(pendingOwnersRemoveAddresses[i])
+          let {0:Info} = await contract.methods.retrieveOwner(Address).call();
+          pendingOwnersRemove[i] = [await ENSFunc.ReverseResolution(Address), Info]
         }
   
         PendingMinOwners = await contract.methods.retrievePendingMinOwners().call();

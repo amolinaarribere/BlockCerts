@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/ProviderPoolFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
+const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class ManageProvidersPoolsComponent extends React.Component{
     state = {
@@ -13,27 +14,42 @@ class ManageProvidersPoolsComponent extends React.Component{
     };
 
     handleAddProvider = async (event) => {
-        event.preventDefault();
-      await func.AddProviderPool(this.state.ProviderPool, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType, 0, this.props.contract)
-      await this.reset();
+      event.preventDefault();
+      await this.handleProviderPool("1")
     };
     handleRemoveProviderPool = async (event) => {
-        event.preventDefault();
-      await func.RemoveProviderPool(this.state.ProviderPool, this.props.contractType, this.props.contract)
-      await this.reset();
+      event.preventDefault();
+      await this.handleProviderPool("2")
     };
     handleValidateProviderPool = async (event) => {
-        event.preventDefault();
-      await func.ValidateProviderPool(this.state.ProviderPool, this.props.contractType, this.props.contract)
-      await this.reset();
+      event.preventDefault();
+      await this.handleProviderPool("3")
     };
     handleRejectProviderPool = async (event) => {
-        event.preventDefault();
-      await func.RejectProviderPool(this.state.ProviderPool, this.props.contractType, this.props.contract)
-      await this.reset();
+      event.preventDefault();
+      await this.handleProviderPool("4")
     };
 
-    async reset() {
+    async handleProviderPool(type) {
+      let Address = await ENSFunc.Resolution(this.state.ProviderPool);
+      switch(type){
+        case "1":
+          await func.AddProviderPool(Address, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType, 0, this.props.contract)
+          break;
+        case "2":
+          await func.RemoveProviderPool(Address, this.props.contractType, this.props.contract)
+          break;
+        case "3":
+          await func.ValidateProviderPool(Address, this.props.contractType, this.props.contract)
+          break;
+        case "4":
+          await func.RejectProviderPool(Address, this.props.contractType, this.props.contract)
+          break;
+      }
+      await this.refresh();
+    }
+
+    async refresh() {
       this.setState({ ProviderPool: "", addProviderPoolInfo: "", subscribe: false })
       await loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
       await this.props.refresh();
@@ -57,7 +73,7 @@ class ManageProvidersPoolsComponent extends React.Component{
                         <div class="border border-primary border-5">
                           <Form onSubmit={this.handleValidateProviderPool} style={{margin: '50px 50px 50px 50px' }}>
                             <Form.Group  className="mb-3">
-                                      <Form.Control type="text" name="ProviderPool" placeholder="address" 
+                                      <Form.Control type="text" name="ProviderPool" placeholder="address or ENS name" 
                                           value={this.state.ProviderPool}
                                           onChange={event => this.setState({ ProviderPool: event.target.value })}/>  
                                       <Form.Control type="text" name="addProviderInfo" placeholder="Info" 

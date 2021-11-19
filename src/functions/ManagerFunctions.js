@@ -1,5 +1,7 @@
 // Manager
 const Aux = require("./AuxiliaryFunctions.js");
+const ENSFunc = require("./ENSFunctions.js");
+
 
 export var ManagerAdminAddress = ""
 export var publicPoolAddress = ""
@@ -48,7 +50,7 @@ export async function RetrieveContractsAddresses(contract){
   let BeaconsImpl = await contract.methods.retrieveBeaconsImpl().call({from: Aux.account});
   ManagerAdminAddress = await contract.methods.retrieveManagerAdmin().call({from: Aux.account});
 
-  publicPoolAddressProxy = TransparentProxies[0];
+  publicPoolAddressProxy =  TransparentProxies[0];
   TreasuryAddressProxy = TransparentProxies[1];
   CertisTokenAddressProxy = TransparentProxies[2];
   privatePoolFactoryAddressProxy = TransparentProxies[3];

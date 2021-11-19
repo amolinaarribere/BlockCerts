@@ -1,7 +1,6 @@
 import React from 'react';
 
 const func = require("../../../functions/OwnerFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class VoteForMinOwnersComponent extends React.Component{
 
@@ -17,7 +16,6 @@ class VoteForMinOwnersComponent extends React.Component{
       };
 
     async reset(){
-        //await loadFunc.LoadOwnersFunc(this.props.contract);
         await this.props.refresh();
       }
   

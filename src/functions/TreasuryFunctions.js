@@ -6,6 +6,8 @@ const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
 const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
+const ENSFunc = require("./ENSFunctions.js");
+
 
 export var AccountBalance = new BigNumber(0);
 export var TreasuryBalance = new BigNumber(0);

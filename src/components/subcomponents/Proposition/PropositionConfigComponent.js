@@ -9,6 +9,7 @@ const Constants = require("../../../functions/Constants.js");
 const func = require("../../../functions/PropositionFunctions.js");
 const address_0 = "0x0000000000000000000000000000000000000000"
 const VoteFunc = require("../../../functions/VoteFunctions.js");
+const VarDataType=[Constants.intDataType,Constants.intDataType,Constants.intDataType]
 
 
 class PropositionConfigComponent extends React.Component{
@@ -16,6 +17,9 @@ class PropositionConfigComponent extends React.Component{
     super(props)
     this.refresh = this.refresh.bind(this)
   }
+  async componentWillMount() {
+    await this.LoadPropStatus();
+ }
 
   state = {
     PropStatus: [],
@@ -24,15 +28,18 @@ class PropositionConfigComponent extends React.Component{
 
   async refresh() {
     await LoadFunc.LoadPropositionFunc(this.props.contract);
+    await this.LoadPropStatus();
+  }
 
-      if(certFunc.isOwner){
-        var Status = await VoteFunc.PropositionStatus(this.props.contract);
-        var Votes = ((Status[0] != address_0)?
-          await VoteFunc.PropositionRemainingVotes(this.props.contract)
-          : 0);
-          this.setState({PropStatus: Status,
-            RemainingVotes: Votes})
-      }
+  async LoadPropStatus(){
+    if(certFunc.isOwner){
+      var Status = await VoteFunc.PropositionStatus(this.props.contract);
+      var Votes = ((Status[0] != address_0)?
+        await VoteFunc.PropositionRemainingVotes(this.props.contract)
+        : 0);
+        this.setState({PropStatus: Status,
+          RemainingVotes: Votes})
+    }
   }
 
        render(){
@@ -51,7 +58,7 @@ class PropositionConfigComponent extends React.Component{
                   textButton="Upgrade Proposition Configuration"
                   names={["NewPropositionLifeTime", "NewPropositionThresholdPercentage", "NewMinWeightToProposePercentage"]}
                   types={["integer", "integer", "integer"]}
-                  dataType={[Constants.intDataType,Constants.intDataType,Constants.intDataType]}/>
+                  dataType={VarDataType}/>
 
                   <br />
 
@@ -61,7 +68,8 @@ class PropositionConfigComponent extends React.Component{
                   headers={["Pending Proposition Life Time", "Pending Proposition Threshold Percentage", "Pending Min Weight To Propose Percentage"]}
                   values={[func.PendingPropositionLifeTime, func.PendingPropositionThresholdPercentage, func.PendingMinWeightToProposePercentage]}
                   PropStatus={this.state.PropStatus}
-                  RemainingVotes={this.state.RemainingVotes}/>
+                  RemainingVotes={this.state.RemainingVotes}
+                  dataType={VarDataType}/>
 
               </div>):null}
               <hr class="bg-secondary"/>
