@@ -49,33 +49,33 @@ class ListBaseEventsComponentTemplate extends React.Component {
                                         <Row>
                                           <Col><h2>{eventname}</h2></Col>
                                         </Row>
-
                                         {(this.state.Events[index] != null) ? (
-                                            <div>{this.state.Events[index].length}
-                                                {(this.state.Events[index]).map(EventLog => (
+                                            <div>
+                                                {(this.state.Events[index]).map(
+                                                   EventLog => (
                                                     <div>
-                                                        <Row>
-                                                          <p>{EventLog[0]} // {EventLog.length}--
-                                                            {(EventLog != null && EventLog.length > 0) ? (
+                                                      {(EventLog != null) ? (
                                                               <div>
-                                                                {(EventLog.map(log => (
-                                                                  <div>
-                                                                    <b>Test </b>{log} &nbsp;
-                                                                  </div>
+                                                                <b>Block Number : </b>{EventLog.blockNumber} <b>Transaction Number : </b>{EventLog.transactionIndex}
+                                                                {(Object.keys(EventLog.returnValues).map(
+                                                                   (key, i) => (
+                                                                     (i >= Object.keys(EventLog.returnValues).length / 2) ? (
+                                                                            <div>
+                                                                              <b>{key} </b>{EventLog.returnValues[key]} &nbsp;
+                                                                            </div>)
+                                                                            : null
                                                                 )))}
+                                                                <br />
                                                               </div>
-                                                            ):null}    
-                                                          </p>
-                                                        </Row>
-                                                        <br />  
+                                                      ):null}     
                                                     </div>
                                                 ))}
-                                              </div>
-                                            ):null}
+                                            </div>
+                                        ):null}
 
-                                          <br />  
-                                          <hr class="bg-secondary"/>
-                                          <br />
+                                        <br />  
+                                        <hr class="bg-secondary"/>
+                                        <br />
                                   </div>
                                 )
                             )}

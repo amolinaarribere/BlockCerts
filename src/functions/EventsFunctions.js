@@ -65,8 +65,9 @@ function ConnectEvent(func, option, Id1, Id2, Abi){
   let eventFunction = func(option);
 
 
-  eventFunction.on('data', event => {eventlogs[Id1][Id2][eventlogs[Id1][Id2].length] = 
-     Aux.web3.eth.abi.decodeLog(Abi, event.raw.data, event.raw.topics.slice(1))})
+  //eventFunction.on('data', event => {eventlogs[Id1][Id2][eventlogs[Id1][Id2].length] = 
+  //   Aux.web3.eth.abi.decodeLog(Abi, event.raw.data, event.raw.topics.slice(1))})
+  eventFunction.on('data', event => {eventlogs[Id1][Id2][eventlogs[Id1][Id2].length] = event})
   eventFunction.on('changed', changed => window.alert("event removed from blockchain : " + changed))
   eventFunction.on('error', err => window.alert("event error : " + err))
 }
