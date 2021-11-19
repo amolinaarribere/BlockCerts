@@ -7,6 +7,11 @@ const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 
 class SignVoteComponent extends React.Component{
 
+  constructor(props) {
+    super(props)
+    this.refresh = this.refresh.bind(this)
+  }
+
     state = {
         nonceToCheck: "",
         nonceValid: "",
@@ -32,6 +37,10 @@ class SignVoteComponent extends React.Component{
         displayDeadline: "",
         displaySignature: ""
       };
+
+    async refresh(){
+      await this.props.refresh();
+    }
   
     resetState() {
       this.setState({ date: "", time: "", nonceToCheck: "", nonce: "",
@@ -49,6 +58,7 @@ class SignVoteComponent extends React.Component{
           this.state.signature_2,
           this.props.contract);
       this.resetState()
+      await this.refresh();
     };
 
     async SignVote(vote){
@@ -167,7 +177,7 @@ class SignVoteComponent extends React.Component{
 
             {("" != this.state.nonceChecked)?(
               <div>
-                <b>Nonce <i>{this.state.nonceChecked}</i> {(false == this.state.nonceValid)? "is valid" : "is not valid"} </b>
+                <b>Nonce <i>{this.state.nonceChecked}</i> {(false == this.state.nonceValid)? "is valid" : "is NOT valid !!!!"} </b>
               </div>
             )
             :null}
