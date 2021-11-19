@@ -8,6 +8,10 @@ const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 class SignVoteComponent extends React.Component{
 
     state = {
+        nonceToCheck: "",
+        nonceValid: "",
+        nonceChecked: "",
+
         nonce: "",
         date: "",
         time: "",
@@ -30,7 +34,7 @@ class SignVoteComponent extends React.Component{
       };
   
     resetState() {
-      this.setState({ date: "", time: "", nonce: "",
+      this.setState({ date: "", time: "", nonceToCheck: "", nonce: "",
       voter_2: "",  propId_2: "", vote_2: false, signature_2: "",  date_2: "", time_2: "", nonce_2: ""})
     }
 
@@ -53,7 +57,7 @@ class SignVoteComponent extends React.Component{
         let Deadline = Math.ceil(new Date(this.state.date + " " + this.state.time) / 1000);
         let Nonce = this.state.nonce;
         await func.RetrievePropositionID(this.props.contract)
-  
+ 
         await SignatureFunc.retrieveContractConfig(this.props.contract);
         let Domain = await SignatureFunc.Domain(SignatureFunc.ContractName, this.props.contract._address, SignatureFunc.ContractVersion);
         let Message = SignatureFunc.VoteOnBehalfOfMessage(from, func.CurrentPropositionID, vote, Nonce, Deadline)
@@ -66,7 +70,7 @@ class SignVoteComponent extends React.Component{
             else if (result.error)  window.alert("result error " + result.error)
             else return result.result
           });
-   
+
         if(signature != null && signature != "undefined"){
           this.state.displayVoter = Aux.account;
           this.state.displayPropID = func.CurrentPropositionID;
@@ -95,10 +99,47 @@ class SignVoteComponent extends React.Component{
       await this.SignVote(false);
     }
     
+    checkNonce = async (event) => {
+      event.preventDefault();
+      let result = await SignatureFunc.retrieveNonce(this.props.contract, Aux.account, this.state.nonceToCheck);
+      this.setState({nonceValid: result, nonceChecked: this.state.nonceToCheck});
+    }
+
+    GenerateFile = () => {
+      const element = document.createElement("a");
+      const content = "Voter : " + this.state.displayVoter + "\r\n" +
+              "Proposition ID : " + this.state.displayPropID + "\r\n" +
+              "Vote : " + this.state.displayVote + "\r\n" +
+              "Nonce : " + this.state.displayNonce + "\r\n" +
+              "Deadline : " + this.state.displayDeadline + "\r\n" +
+              "Signature : " + this.state.displaySignature;
+
+      const file = new Blob([content], {type: 'text/plain'});
+      element.href = URL.createObjectURL(file);
+      element.download = "Signature_" + this.props.contract._address + ".txt";
+      document.body.appendChild(element); // Required for this to work in FireFox
+      element.click();
+    }
   
     render(){
         return (
           <div>
+            <Form onSubmit={this.checkNonce} style={{margin: '50px 0px 50px 0px' }}>
+              <Form.Group  className="mb-3">
+                <Form.Control type="integer" name="Nonce" placeholder="nonce" 
+                    value={this.state.nonceToCheck}
+                    onChange={event => this.setState({ nonceToCheck: event.target.value })}/>
+              </Form.Group>
+                 <button type="submit" class="btn btn-primary">Check Nonce</button> &nbsp;&nbsp;
+            </Form>
+
+            {("" != this.state.nonceChecked)?(
+              <div>
+                <b>Nonce <i>{this.state.nonceChecked}</i> {(false == this.state.nonceValid)? "is valid" : "is not valid"} </b>
+              </div>
+            )
+            :null}
+
             <Form onSubmit={this.handleSignVoteFor} style={{margin: '50px 0px 50px 0px' }}>
               <Form.Group  className="mb-3">
                 <Form.Control type="integer" name="Nonce" placeholder="nonce" 
@@ -122,7 +163,7 @@ class SignVoteComponent extends React.Component{
             </Form>
 
             {(this.state.signatureDisplayed)? 
-                <Container style={{margin: '10px 50px 50px 50px' }}>
+              <Container style={{margin: '10px 50px 50px 50px' }}>
                 <Row>
                   <Col><b>Voter :</b></Col> 
                   <Col>{this.state.displayVoter}</Col>
@@ -140,13 +181,16 @@ class SignVoteComponent extends React.Component{
                   <Col>{this.state.displayNonce}</Col>
                 </Row>
                 <Row>
-                  <Col><b>Dead line :</b></Col> 
+                  <Col><b>Deadline :</b></Col> 
                   <Col>{this.state.displayDeadline}</Col>
                 </Row>
                 <Row>
                   <Col><b>Signature :</b></Col> 
                   <Col>{this.state.displaySignature}</Col>
                 </Row>
+                <Form onSubmit={this.GenerateFile} style={{margin: '50px 0px 50px 0px' }}>
+                    <button type="submit" class="btn btn-primary">Extract File</button> &nbsp;&nbsp;
+                </Form>
               </Container>
             : null}
             

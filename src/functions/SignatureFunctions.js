@@ -24,7 +24,7 @@ export var ContractVersion = ""
       primaryType: 'voteOnBehalfOf',
       types: {
         EIP712Domain: EIP712Domain(),
-        voting: VoteDomain()
+        voteOnBehalfOf: VoteDomain()
       }
     });
 }
