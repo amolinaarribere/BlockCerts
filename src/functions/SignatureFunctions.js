@@ -2,8 +2,6 @@
 const Aux = require("./AuxiliaryFunctions.js");
 
 export const method = 'eth_signTypedData_v4';
-export var ContractName = ""
-export var ContractVersion = ""
 
   export function AddCertificatesMsgParams(_domain, _msg){
       return JSON.stringify({
@@ -89,9 +87,7 @@ export var ContractVersion = ""
 
   export async function retrieveContractConfig(contract){
     try{
-      let result = await contract.methods.retrieveContractConfig().call();
-      ContractName = result[0];
-      ContractVersion = result[1];
+      return await contract.methods.retrieveContractConfig().call();
     }
     catch(e) { 
       window.alert("error retrieving the contract's signature configuration :  " + e); 

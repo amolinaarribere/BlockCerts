@@ -58,8 +58,8 @@ class SignVoteComponent extends React.Component{
         let Nonce = this.state.nonce;
         await func.RetrievePropositionID(this.props.contract)
  
-        await SignatureFunc.retrieveContractConfig(this.props.contract);
-        let Domain = await SignatureFunc.Domain(SignatureFunc.ContractName, this.props.contract._address, SignatureFunc.ContractVersion);
+        let config = await SignatureFunc.retrieveContractConfig(this.props.contract);
+        let Domain = await SignatureFunc.Domain(config[0], this.props.contract._address, config[1]);
         let Message = SignatureFunc.VoteOnBehalfOfMessage(from, func.CurrentPropositionID, vote, Nonce, Deadline)
 
         let params = [from, SignatureFunc.VoteMsgParams(Domain, Message)];
@@ -105,7 +105,7 @@ class SignVoteComponent extends React.Component{
       this.setState({nonceValid: result, nonceChecked: this.state.nonceToCheck});
     }
 
-    GenerateFile = () => {
+    ExportFile = () => {
       const element = document.createElement("a");
       const content = "Voter : " + this.state.displayVoter + "\r\n" +
               "Proposition ID : " + this.state.displayPropID + "\r\n" +
@@ -120,6 +120,38 @@ class SignVoteComponent extends React.Component{
       document.body.appendChild(element); // Required for this to work in FireFox
       element.click();
     }
+
+    captureFile = (event) => {
+      event.stopPropagation();
+      event.preventDefault();
+      const file = event.target.files[0];
+      let reader = new window.FileReader();
+      reader.readAsArrayBuffer(file);
+      reader.onloadend = () => this.convertToBuffer(reader);
+    };
+
+    convertToBuffer = async (reader) => {
+      const buffer = await Buffer.from(reader.result);
+      let content = buffer.toString().split("\r\n")
+
+      let d = new Date(content[4].split("Deadline : ")[1]);
+
+      let day = d.getDate();
+      let month = d.getMonth() + 1;
+      let year = d.getFullYear();
+      let hour = d.getHours();
+      let minutes = d.getMinutes();
+
+      let ExtractedDate = year + "-" + ((10 > month) ? "0" : "") + month + "-" + ((10 > day) ? "0" : "") + day;
+      let ExtractedTime = ((10 > hour) ? "0" : "") + hour + ":" + ((10 > minutes) ? "0" : "") + minutes;
+
+      this.setState({ voter_2: content[0].split(":")[1].trim(), 
+        propId_2: content[1].split(":")[1].trim(),  
+        vote_2: content[2].split(":")[1].trim(),
+        nonce_2: content[3].split(":")[1].trim(), 
+        date_2: ExtractedDate, time_2: ExtractedTime, 
+        signature_2: content[5].split(":")[1].trim()})
+    };
   
     render(){
         return (
@@ -130,7 +162,7 @@ class SignVoteComponent extends React.Component{
                     value={this.state.nonceToCheck}
                     onChange={event => this.setState({ nonceToCheck: event.target.value })}/>
               </Form.Group>
-                 <button type="submit" class="btn btn-primary">Check Nonce</button> &nbsp;&nbsp;
+                 <button type="submit" class="btn btn-secondary">Check Nonce</button> &nbsp;&nbsp;
             </Form>
 
             {("" != this.state.nonceChecked)?(
@@ -188,14 +220,15 @@ class SignVoteComponent extends React.Component{
                   <Col><b>Signature :</b></Col> 
                   <Col>{this.state.displaySignature}</Col>
                 </Row>
-                <Form onSubmit={this.GenerateFile} style={{margin: '50px 0px 50px 0px' }}>
-                    <button type="submit" class="btn btn-primary">Extract File</button> &nbsp;&nbsp;
+                <Form onSubmit={this.ExportFile} style={{margin: '50px 0px 50px 0px' }}>
+                    <button type="submit" class="btn btn-secondary">Extract File</button> &nbsp;&nbsp;
                 </Form>
               </Container>
             : null}
             
 
             <Form onSubmit={this.handleSubmitSignature}  style={{margin: '50px 0px 50px 0px' }}>
+              <Form.Control type="file" onChange={this.captureFile} />
               <Form.Group className="mb-3">
                 <Form.Control type="text" name="voter_2" placeholder="Voter" 
                       value={this.state.voter_2}
@@ -207,7 +240,8 @@ class SignVoteComponent extends React.Component{
                     value={this.state.nonce_2}
                     onChange={event => this.setState({ nonce_2: event.target.value })}/>
                 <Form.Control as="select" name="vote_2" placeholder="vote"
-                 onChange={event => this.setState({ vote_2: event.target.value })}>
+                  value={this.state.vote_2}
+                  onChange={event => this.setState({ vote_2: event.target.value })}>
                     <option value="true">Validate</option>
                     <option value="false">Reject</option>
                 </Form.Control>
@@ -228,7 +262,7 @@ class SignVoteComponent extends React.Component{
                     onChange={event => this.setState({ signature_2: event.target.value })}/>
               </Form.Group>
             
-              <button type="submit" class="btn btn-primary" >Submit Signature</button> 
+              <button type="submit" class="btn btn-primary" >Submit Signature</button> &nbsp;&nbsp;
             </Form>
 
           </div>

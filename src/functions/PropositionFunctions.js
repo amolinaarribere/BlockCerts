@@ -27,7 +27,6 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
   }
 
   export async function VotePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature, contract){
-    window.alert("vote : " + Vote.toString())
     await Aux.CallBackFrame(contract.methods.votePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature).send({from: Aux.account }));
   }
   
