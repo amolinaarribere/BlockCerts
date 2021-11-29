@@ -115,7 +115,8 @@ class SignVoteComponent extends React.Component{
       this.setState({nonceValid: result, nonceChecked: this.state.nonceToCheck});
     }
 
-    ExportFile = () => {
+    ExportFile = (event) => {
+      event.preventDefault();
       const element = document.createElement("a");
       const content = "Voter : " + this.state.displayVoter + "\r\n" +
               "Proposition ID : " + this.state.displayPropID + "\r\n" +
