@@ -160,7 +160,8 @@ class SignVoteComponent extends React.Component{
         propId_2: content[1].split(":")[1].trim(),  
         vote_2: content[2].split(":")[1].trim(),
         nonce_2: content[3].split(":")[1].trim(), 
-        date_2: ExtractedDate, time_2: ExtractedTime, 
+        date_2: ExtractedDate, 
+        time_2: ExtractedTime, 
         signature_2: content[5].split(":")[1].trim()})
     };
   

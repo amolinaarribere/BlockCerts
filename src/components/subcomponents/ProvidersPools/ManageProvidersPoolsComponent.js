@@ -89,9 +89,11 @@ class ManageProvidersPoolsComponent extends React.Component{
                             <button type="submit" class="btn btn-primary">Validate {text}</button> &nbsp;&nbsp;
                             <button type="button" class="btn btn-primary" onClick={this.handleRejectProviderPool}>Reject {text}</button> &nbsp;&nbsp;
                               {(this.props.contractType != 1) ? (
-                                    <button type="button" class="btn btn-primary" onClick={this.handleAddProvider}>Add {text}</button>
+                                <div>
+                                  <button type="button" class="btn btn-primary" onClick={this.handleAddProvider}>Add {text}</button>  &nbsp;&nbsp;
+                                </div>
                               )
-                              :null}  &nbsp;&nbsp;
+                              :null} 
                             <button type="button" class="btn btn-primary" onClick={this.handleRemoveProviderPool}>Remove {text}</button> 
                         </Form>
                         <br/>
