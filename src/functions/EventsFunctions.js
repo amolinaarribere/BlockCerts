@@ -20,28 +20,33 @@ export async function StartEvents(){
       Contracts.CertisToken,
       Contracts.PriceConverter,
       Contracts.PropositionSettings,
-      Contracts.ENS]
+      Contracts.ENS,
+      Contracts.privatePool,
+      Contracts.provider]
 
     for(let i=0; i < ListOfContracts.length; i++){
       let contractABI = ListOfContracts[i]._jsonInterface;
-      let eventsList = []
-      let abisList = []
-  
-      Object.keys(contractABI).forEach((key) => {
-        if("event" == contractABI[key]["type"]){
-          eventsList.push(contractABI[key]["name"]);
-          abisList.push(contractABI[key]["inputs"])
-        }
-      });
+      if(contractABI != undefined){
+        let eventsList = []
+        let abisList = []
+    
+        Object.keys(contractABI).forEach((key) => {
+          if("event" == contractABI[key]["type"]){
+            eventsList.push(contractABI[key]["name"]);
+            abisList.push(contractABI[key]["inputs"])
+          }
+        });
 
-      eventNames.push(eventsList);
-  
-      await GetEvents(i, 
-        blockId, 
-        ListOfContracts[i], 
-        eventNames[i], 
-        abisList);
-    } 
+        eventNames.push(eventsList);
+    
+        await GetEvents(i, 
+          blockId, 
+          ListOfContracts[i], 
+          eventNames[i], 
+          abisList);
+        } 
+    }
+      
   
 }
 
@@ -64,9 +69,6 @@ function ConnectEvent(func, option, Id1, Id2, Abi){
   eventlogs[Id1][Id2] = []
   let eventFunction = func(option);
 
-
-  //eventFunction.on('data', event => {eventlogs[Id1][Id2][eventlogs[Id1][Id2].length] = 
-  //   Aux.web3.eth.abi.decodeLog(Abi, event.raw.data, event.raw.topics.slice(1))})
   eventFunction.on('data', event => {eventlogs[Id1][Id2][eventlogs[Id1][Id2].length] = event})
   eventFunction.on('changed', changed => window.alert("event removed from blockchain : " + changed))
   eventFunction.on('error', err => window.alert("event error : " + err))

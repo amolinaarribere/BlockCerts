@@ -2,6 +2,7 @@ import React from 'react';
 import ListBaseEventsComponentTemplate from './ListBaseEventsComponentTemplate.js';
 
 const EventsFunc = require("../../../functions/EventsFunctions.js");
+const Contracts = require("../../../functions/Contracts.js");
 
 class ListEventsComponent extends React.Component {
     state = {
@@ -75,6 +76,22 @@ class ListEventsComponent extends React.Component {
             SCName="ENS"
             ContractId={9}
             />
+          {(Contracts.privatePool == "")?
+            <div></div> :
+            <ListBaseEventsComponentTemplate 
+              SCName={"Private Provider " + Contracts.privatePool._address}
+              ContractId={10}
+            />
+          }
+          {(Contracts.provider == "")?
+            <div></div> :
+            <ListBaseEventsComponentTemplate 
+              SCName={"Provider " + Contracts.provider._address}
+              ContractId={11}
+            />
+          }
+          
+
         </div>
       );
     }

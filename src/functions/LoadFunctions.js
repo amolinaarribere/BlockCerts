@@ -137,16 +137,16 @@ export async function LoadENSFunc(contract) {
     ENSFunc.RetrievePendingENSConfig(contract)]);
 }
 
-export async function LoadProviderPoolFunc(ContractId, contract) {
-  await ProviderPoolFunc.RetrieveProviderPool(ContractId, contract);
+export async function LoadProviderPoolFunc(contractType, contract) {
+  await ProviderPoolFunc.RetrieveProviderPool(contractType, contract);
 }
 
 export async function LoadOwnersFunc(contract) {
   await OwnersFunc.RetrieveOwners(contract);
 }
 
-export async function LoadFactoriesFunc(contract) {
-  await FactoriesFunc.RetrieveFactories(contract);
+export async function LoadFactoriesFunc(contract, contractType) {
+  await FactoriesFunc.RetrieveFactories(contract, contractType);
 }
 
 export async function LoadCertificateFunc(contract) {

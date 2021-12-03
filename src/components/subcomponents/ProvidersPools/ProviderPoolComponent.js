@@ -3,8 +3,6 @@ import ListProvidersPoolsComponent from './ListProvidersPoolsComponent.js';
 import ListPendingProvidersPoolsComponent from './ListPendingProvidersPoolsComponent.js';
 import ManageProvidersPoolsComponent from './ManageProvidersPoolsComponent.js';
 
-const LoadFunc = require('../../../functions/LoadFunctions.js');
-
 class ProviderPoolComponent extends React.Component{
   constructor(props) {
     super(props)

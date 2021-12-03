@@ -1,4 +1,4 @@
-export const MANAGER_PROXY_ADDRESS =  '0x5AaDfc0434F6AfEB9D24220f4299A514d5b62233' // rinkeby : 0x5AaDfc0434F6AfEB9D24220f4299A514d5b62233
+export const MANAGER_PROXY_ADDRESS =  '0xe33C6f69F663d7A841e31e4C78EE260017E1F341' // rinkeby : 0xe33C6f69F663d7A841e31e4C78EE260017E1F341
 export const USDDecimals = 100;
 export const ETHDecimals = 1000000000000000000;
 export const AdminRights = true;
@@ -2150,10 +2150,16 @@ export const PRIVATEFACTORY_ABI = [
         "internalType": "address",
         "name": "",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2176,7 +2182,8 @@ export const PRIVATEFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2189,7 +2196,8 @@ export const PRIVATEFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2202,7 +2210,8 @@ export const PRIVATEFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2269,7 +2278,8 @@ export const PRIVATEFACTORY_ABI = [
     "name": "create",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   }
 ]
 
@@ -2386,10 +2396,16 @@ export const PROVIDERFACTORY_ABI = [
         "internalType": "address",
         "name": "",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2412,7 +2428,8 @@ export const PROVIDERFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2425,7 +2442,8 @@ export const PROVIDERFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2438,7 +2456,8 @@ export const PROVIDERFACTORY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2505,7 +2524,8 @@ export const PROVIDERFACTORY_ABI = [
     "name": "create",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   }
 ]
 
@@ -3278,7 +3298,7 @@ export const TREASURY_ABI = [
   }
 ]
 
-export const CERTIS_ABI = [
+export const CERTIS_ABI =  [
   {
     "anonymous": false,
     "inputs": [
@@ -3684,6 +3704,31 @@ export const PRIVATE_ABI =  [
       {
         "indexed": false,
         "internalType": "string",
+        "name": "ENSName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "_NewReverseENSCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "ItemType",
         "type": "string"
       },
@@ -3805,7 +3850,8 @@ export const PRIVATE_ABI =  [
     "name": "addCertificate",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -3843,7 +3889,8 @@ export const PRIVATE_ABI =  [
     "name": "addCertificateOnBehalfOf",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -3879,7 +3926,8 @@ export const PRIVATE_ABI =  [
     "name": "addProvider",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -4010,7 +4058,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4023,7 +4072,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4036,7 +4086,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4060,7 +4111,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4089,7 +4141,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4107,7 +4160,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4120,7 +4174,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4144,7 +4199,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4195,7 +4251,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4208,7 +4265,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4231,7 +4289,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4250,7 +4309,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4269,7 +4329,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4320,7 +4381,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4333,7 +4395,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4352,7 +4415,8 @@ export const PRIVATE_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4484,6 +4548,31 @@ export const PROVIDER_ABI = [
       {
         "indexed": false,
         "internalType": "string",
+        "name": "ENSName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "node",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "_NewReverseENSCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "ItemType",
         "type": "string"
       },
@@ -4636,7 +4725,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4649,7 +4739,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4700,7 +4791,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4713,7 +4805,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4736,7 +4829,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4755,7 +4849,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4779,7 +4874,8 @@ export const PROVIDER_ABI = [
   },
   {
     "stateMutability": "payable",
-    "type": "receive"
+    "type": "receive",
+    "payable": true
   },
   {
     "inputs": [
@@ -4925,7 +5021,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4949,7 +5046,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -4962,7 +5060,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -4981,7 +5080,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -5080,7 +5180,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -5109,7 +5210,8 @@ export const PROVIDER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6345,6 +6447,12 @@ export const ENS_ABI = [
         "internalType": "bytes32",
         "name": "label",
         "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
       }
     ],
     "name": "_NewSubdomainCreated",
@@ -6796,6 +6904,11 @@ export const ENS_ABI = [
         "internalType": "bytes32",
         "name": "label",
         "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
       }
     ],
     "name": "createSubdomain",
