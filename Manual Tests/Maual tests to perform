@@ -7,7 +7,7 @@
 - send 3 Public proposals & validate them => ok
 - send 2 certificates => ok
 - send 2 certificates with signatures => ok
-- create 1 private pool & 1 private provider
+- create 1 private pool & 1 private provider => ok
 - subscribe provider to public and private pool
 - Update all contracts to identical version : check that all content remains unchanged
 - Update prices and Proposition settings

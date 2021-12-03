@@ -35,6 +35,7 @@ class PublicComponent extends React.Component {
       await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.publicPool);
       await LoadFunc.LoadOwnersFunc(Contracts.publicPool);
       await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.publicPool);
+      //await LoadFunc.LoadTreasuryPrices(this.props.contract);
       this.setState({})
     }
   

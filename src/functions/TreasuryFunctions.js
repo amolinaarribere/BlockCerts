@@ -6,7 +6,6 @@ const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
 const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
-const ENSFunc = require("./ENSFunctions.js");
 
 
 export var AccountBalance = new BigNumber(0);
@@ -34,11 +33,11 @@ export var PendingOwnerRefundFeeUSD = "";
   export async function RetrievePricesTreasury(contract){
     try{
       let response = await contract.methods.retrieveSettings().call();
-      PublicPriceUSD = response[0];
-      PrivatePriceUSD = response[1];
-      ProviderPriceUSD = response[2];
-      CertificatePriceUSD = response[3];
-      OwnerRefundFeeUSD = response[4];
+      PublicPriceUSD = response[0] / USDDecimals;
+      PrivatePriceUSD = response[1] / USDDecimals;
+      ProviderPriceUSD = response[2] / USDDecimals;
+      CertificatePriceUSD = response[3] / USDDecimals;
+      OwnerRefundFeeUSD = response[4] / USDDecimals;
 
       let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
       PublicPriceWei = PublicPriceUSD * exchangeRate;
@@ -46,12 +45,12 @@ export var PendingOwnerRefundFeeUSD = "";
       ProviderPriceWei = ProviderPriceUSD * exchangeRate;
       CertificatePriceWei = CertificatePriceUSD * exchangeRate;
       OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
-
-      PublicPriceUSD = PublicPriceUSD / USDDecimals;
-      PrivatePriceUSD = PrivatePriceUSD / USDDecimals;
-      ProviderPriceUSD = ProviderPriceUSD / USDDecimals;
-      CertificatePriceUSD = CertificatePriceUSD / USDDecimals;
-      OwnerRefundFeeUSD = OwnerRefundFeeUSD / USDDecimals;
+      window.alert(exchangeRate)
+      window.alert(PublicPriceWei)
+      window.alert(PrivatePriceWei)
+      window.alert(ProviderPriceWei)
+      window.alert(CertificatePriceWei)
+      window.alert(OwnerRefundFeeWei)
     }
     catch(e){
       window.alert("error retrieving the prices : " + JSON.stringify(e))

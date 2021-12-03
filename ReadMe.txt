@@ -1,2 +1,3 @@
 - Deploy command : npm run deploy
 - Url : https://amolinaarribere.github.io/blockcerts/
+- Read : https://medium.com/@DominicCarmel/understanding-javascripts-weird-decimal-calculations-e65f0e1adefb

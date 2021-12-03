@@ -127,6 +127,10 @@ export async function LoadTreasuryConfigFunc(contract) {
     TreasuryFunc.RetrievePendingPricesTreasury(contract)]);
 }
 
+export async function LoadTreasuryPrices(contract) {
+  await TreasuryFunc.RetrievePricesTreasury(contract);
+}
+
 export async function LoadPriceConverterFunc(contract) {
   await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(contract),
     PriceConverterFunc.RetrievePendingRegistryAddress(contract)]);
