@@ -46,7 +46,6 @@ class IssuerComponent extends React.Component {
     if(this.NotEmpty(ProviderPoolFunc.ProviderAddress)){
       await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.ProviderAddress, this.state.contractType);
     }
-    //await LoadFunc.LoadTreasuryPrices(this.props.contract);
     this.setState({loading : false})
   }
  

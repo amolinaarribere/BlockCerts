@@ -1,16 +1,24 @@
   // Treasury
-import { USDDecimals } from '../config';
+import { USDDecimals, ETHDecimals } from '../config';
 
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
 const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
+export const USDFactor = new BigNumber(10**USDDecimals);
+export const ETHFactor = new BigNumber(10**ETHDecimals);
 
 
-export var AccountBalance = new BigNumber(0);
-export var TreasuryBalance = new BigNumber(0);
-export var TreasuryAggregatedBalance = new BigNumber(0);
+export var AccountBalanceWei = new BigNumber(0);
+export var TreasuryBalanceWei = new BigNumber(0);
+export var TreasuryAggregatedBalanceWei = new BigNumber(0);
+
+export var PublicPriceUSDCents = "";
+export var PrivatePriceUSDCents = "";
+export var CertificatePriceUSDCents = "";
+export var ProviderPriceUSDCents = "";
+export var OwnerRefundFeeUSDCents = "";
 
 export var PublicPriceUSD = "";
 export var PrivatePriceUSD = "";
@@ -33,24 +41,25 @@ export var PendingOwnerRefundFeeUSD = "";
   export async function RetrievePricesTreasury(contract){
     try{
       let response = await contract.methods.retrieveSettings().call();
-      PublicPriceUSD = response[0] / USDDecimals;
-      PrivatePriceUSD = response[1] / USDDecimals;
-      ProviderPriceUSD = response[2] / USDDecimals;
-      CertificatePriceUSD = response[3] / USDDecimals;
-      OwnerRefundFeeUSD = response[4] / USDDecimals;
+
+      PublicPriceUSDCents = new BigNumber(response[0]);
+      PrivatePriceUSDCents = new BigNumber(response[1]);
+      ProviderPriceUSDCents = new BigNumber(response[2]);
+      CertificatePriceUSDCents = new BigNumber(response[3]);
+      OwnerRefundFeeUSDCents = new BigNumber(response[4]);
+
+      PublicPriceUSD = PublicPriceUSDCents.dividedBy(USDFactor).dp(2,0).toString();
+      PrivatePriceUSD = PrivatePriceUSDCents.dividedBy(USDFactor).dp(2,0).toString();
+      ProviderPriceUSD = ProviderPriceUSDCents.dividedBy(USDFactor).dp(2,0).toString();
+      CertificatePriceUSD = CertificatePriceUSDCents.dividedBy(USDFactor).dp(2,0).toString();
+      OwnerRefundFeeUSD = OwnerRefundFeeUSDCents.dividedBy(USDFactor).dp(2,0).toString();
 
       let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
-      PublicPriceWei = PublicPriceUSD * exchangeRate;
-      PrivatePriceWei = PrivatePriceUSD * exchangeRate;
-      ProviderPriceWei = ProviderPriceUSD * exchangeRate;
-      CertificatePriceWei = CertificatePriceUSD * exchangeRate;
-      OwnerRefundFeeWei = OwnerRefundFeeUSD * exchangeRate;
-      window.alert(exchangeRate)
-      window.alert(PublicPriceWei)
-      window.alert(PrivatePriceWei)
-      window.alert(ProviderPriceWei)
-      window.alert(CertificatePriceWei)
-      window.alert(OwnerRefundFeeWei)
+      PublicPriceWei = new BigNumber(PublicPriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
+      PrivatePriceWei = new BigNumber(PrivatePriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
+      ProviderPriceWei = new BigNumber(ProviderPriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
+      CertificatePriceWei = new BigNumber(CertificatePriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
+      OwnerRefundFeeWei = new BigNumber(OwnerRefundFeeUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
     }
     catch(e){
       window.alert("error retrieving the prices : " + JSON.stringify(e))
@@ -66,11 +75,11 @@ export var PendingOwnerRefundFeeUSD = "";
       PendingCertificatePriceUSD = "-";
       PendingOwnerRefundFeeUSD = "-";
 
-      if(response[0] != undefined)PendingPublicPriceUSD = Number(response[0]) / USDDecimals;
-      if(response[1] != undefined)PendingPrivatePriceUSD = Number(response[1]) / USDDecimals;
-      if(response[2] != undefined)PendingProviderPriceUSD = Number(response[2]) / USDDecimals;
-      if(response[3] != undefined)PendingCertificatePriceUSD = Number(response[3]) / USDDecimals;
-      if(response[4] != undefined)PendingOwnerRefundFeeUSD = Number(response[4]) / USDDecimals;
+      if(response[0] != undefined)PendingPublicPriceUSD = new BigNumber(response[0]).dividedBy(USDFactor).dp(2,0).toString();
+      if(response[1] != undefined)PendingPrivatePriceUSD = new BigNumber(response[1]).dividedBy(USDFactor).dp(2,0).toString();
+      if(response[2] != undefined)PendingProviderPriceUSD = new BigNumber(response[2]).dividedBy(USDFactor).dp(2,0).toString();
+      if(response[3] != undefined)PendingCertificatePriceUSD = new BigNumber(response[3]).dividedBy(USDFactor).dp(2,0).toString();
+      if(response[4] != undefined)PendingOwnerRefundFeeUSD = new BigNumber(response[4]).dividedBy(USDFactor).dp(2,0).toString();
     }
     catch(e){
       window.alert("error retrieving the pending prices : " + JSON.stringify(e))
@@ -80,7 +89,7 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function RetrieveBalance(address, contract){
     try{
-      AccountBalance = new BigNumber(await contract.methods.retrieveFullBalance(address).call());
+      AccountBalanceWei = new BigNumber(await contract.methods.retrieveFullBalance(address).call());
     }
     catch(e){
       window.alert("error retrieving the account's balance : " + JSON.stringify(e))
@@ -89,8 +98,8 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function RetrieveTreasuryBalance(contract){
     try{
-      TreasuryBalance = new BigNumber(await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy));
-      TreasuryAggregatedBalance = new BigNumber(await contract.methods.retrieveAggregatedAmount().call());
+      TreasuryBalanceWei = new BigNumber(await Aux.web3.eth.getBalance(Manager.TreasuryAddressProxy));
+      TreasuryAggregatedBalanceWei = new BigNumber(await contract.methods.retrieveAggregatedAmount().call());
     }
     catch(e){
       window.alert("error retrieving the treasury balance : " + JSON.stringify(e))

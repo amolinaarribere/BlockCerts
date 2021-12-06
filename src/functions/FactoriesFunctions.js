@@ -1,6 +1,3 @@
- // Factories
- import {ETHDecimals} from '../config'
-
  const Aux = require("./AuxiliaryFunctions.js");
  const ENSFunc = require("./ENSFunctions.js");
 
@@ -9,7 +6,7 @@
  export var PrivatePoolAddresses = []
 
  export async function CreatenewPoolProvider(min, list, name, ensName, contract, price){
-  await Aux.CallBackFrame(contract.methods.create(list, min, name, ensName).send({from: Aux.account , value: price * ETHDecimals}));
+  await Aux.CallBackFrame(contract.methods.create(list, min, name, ensName).send({from: Aux.account , value: price}));
 }
 
  export async function RetrieveFactories(contract, contractType){

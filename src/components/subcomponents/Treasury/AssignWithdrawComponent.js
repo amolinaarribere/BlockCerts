@@ -4,7 +4,6 @@ import { ETHDecimals } from '../../../config';
 
 const BigNumber = require('bignumber.js');
 const func = require("../../../functions/TreasuryFunctions.js");
-const loadFunc = require("../../../functions/LoadFunctions.js");
 
 class AssignWithdrawComponent extends React.Component {
     state = {
@@ -19,7 +18,7 @@ class AssignWithdrawComponent extends React.Component {
 
     handleWithdraw = async (event) => {
       event.preventDefault();
-      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(new BigNumber("1000000000000000000"))).toString(), this.props.contract);
+      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(func.ETHFactor)).dp(0, 1).toString(), this.props.contract);
       this.setState({amount: ""});
       this.props.refresh();
     };
@@ -32,15 +31,15 @@ class AssignWithdrawComponent extends React.Component {
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Aggregated Balance (ETH) :</b></Col> 
-                <Col>{func.TreasuryAggregatedBalance.dividedBy(ETHDecimals).toString()}</Col>
+                <Col>{func.TreasuryAggregatedBalanceWei.dividedBy(func.ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Contract Balance (ETH) :</b></Col> 
-                <Col>{func.TreasuryBalance.dividedBy(ETHDecimals).toString()}</Col>
+                <Col>{func.TreasuryBalanceWei.dividedBy(func.ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Your current Balance (ETH) :</b></Col> 
-                <Col>{func.AccountBalance.dividedBy(ETHDecimals).toString()}</Col>
+                <Col>{func.AccountBalanceWei.dividedBy(func.ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <br />
               <button type="button" class="btn btn-secondary" onClick={this.handleWithdrawAll}>Withdraw All</button>

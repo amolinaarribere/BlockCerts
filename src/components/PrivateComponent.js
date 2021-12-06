@@ -46,7 +46,6 @@ class PrivateComponent extends React.Component {
       if(this.NotEmpty(ProviderPoolFunc.PrivatePoolAddress)){
         await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.PrivatePoolAddress, this.state.contractType);
       }
-      //await LoadFunc.LoadTreasuryPrices(this.props.contract);
       this.setState({loading : false})
     }
   
