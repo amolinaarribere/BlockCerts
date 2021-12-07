@@ -1,14 +1,11 @@
   // Treasury
-import { USDDecimals, ETHDecimals } from '../config';
+import { USDFactor, ETHFactor } from '../config';
 
 const Aux = require("./AuxiliaryFunctions.js");
 const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
 const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
-export const USDFactor = new BigNumber(10**USDDecimals);
-export const ETHFactor = new BigNumber(10**ETHDecimals);
-
 
 export var AccountBalanceWei = new BigNumber(0);
 export var TreasuryBalanceWei = new BigNumber(0);
@@ -54,12 +51,12 @@ export var PendingOwnerRefundFeeUSD = "";
       CertificatePriceUSD = CertificatePriceUSDCents.dividedBy(USDFactor).dp(2,0).toString();
       OwnerRefundFeeUSD = OwnerRefundFeeUSDCents.dividedBy(USDFactor).dp(2,0).toString();
 
-      let exchangeRate = await PriceConverter.USDToEther(1, Contracts.PriceConverter);
-      PublicPriceWei = new BigNumber(PublicPriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
-      PrivatePriceWei = new BigNumber(PrivatePriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
-      ProviderPriceWei = new BigNumber(ProviderPriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
-      CertificatePriceWei = new BigNumber(CertificatePriceUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
-      OwnerRefundFeeWei = new BigNumber(OwnerRefundFeeUSDCents / USDFactor * exchangeRate * ETHFactor).dp(0,1);
+      let exchangeRate = await PriceConverter.CentsToWeis(1, Contracts.PriceConverter);
+      PublicPriceWei = PublicPriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
+      PrivatePriceWei = PrivatePriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
+      ProviderPriceWei = ProviderPriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
+      CertificatePriceWei = CertificatePriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
+      OwnerRefundFeeWei = OwnerRefundFeeUSDCents.multipliedBy(exchangeRate).dp(0,1);
     }
     catch(e){
       window.alert("error retrieving the prices : " + JSON.stringify(e))

@@ -1,8 +1,11 @@
+const BigNumber = require('bignumber.js');
+
 export const MANAGER_PROXY_ADDRESS =  '0xe33C6f69F663d7A841e31e4C78EE260017E1F341' // rinkeby : 0xe33C6f69F663d7A841e31e4C78EE260017E1F341
-//export const USDDecimals = 100;
-//export const ETHDecimals = 1000000000000000000;
+
 export const USDDecimals = 2;
 export const ETHDecimals = 18;
+export const USDFactor = new BigNumber(10**USDDecimals);
+export const ETHFactor = new BigNumber(10**ETHDecimals);
 export const AdminRights = true;
 
 export const ADMIN_ABI = [

@@ -1,5 +1,5 @@
 // Provider - Pool
-import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals } from '../config'
+import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals, ETHFactor } from '../config'
 
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
@@ -7,6 +7,7 @@ const OwnersFunc = require("./OwnerFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const BrowserStorageFunction = require("./BrowserStorageFunctions.js");
 const ENSFunc = require("./ENSFunctions.js");
+const BigNumber = require('bignumber.js');
 
 export var privatePool = "";
 export var provider = "";
@@ -110,7 +111,7 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
         ProviderAddress = await ENSFunc.Resolution(address)
         provider = await new Aux.web3.eth.Contract(PROVIDER_ABI, ProviderAddress)
         Contracts.setProvider(provider);
-        Balance = await Aux.web3.eth.getBalance(ProviderAddress);
+        Balance = (new BigNumber(await Aux.web3.eth.getBalance(ProviderAddress))).dividedBy(ETHFactor).dp(ETHDecimals,0).toString();
         await RetrieveProviderPool(contractType, provider)
         await OwnersFunc.RetrieveOwners(provider)
         await CertificateFunc.RetrievePendingCertificates(provider)

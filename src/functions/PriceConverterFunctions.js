@@ -1,4 +1,4 @@
-import {  ETHDecimals } from '../config';
+import {  USDFactor, ETHFactor } from '../config';
 
 const Aux = require("./AuxiliaryFunctions.js");
 const BigNumber = require('bignumber.js');
@@ -8,10 +8,10 @@ const ENSFunc = require("./ENSFunctions.js");
 export var RegistryAddress = "";
 export var PendingRegistryAddress = "";
 
-  export async function USDToEther(amount, contract){
+  export async function CentsToWeis(amountInCents, contract){
     try{
-      let result = await contract.methods.fromUSDToETH((new BigNumber(100 * amount)).decimalPlaces(0)).call({from: Aux.account });
-      if(result != undefined)return result / ETHDecimals;
+      let resultInWei = new BigNumber(await contract.methods.fromUSDToETH(amountInCents).call({from: Aux.account }));
+      if(resultInWei != undefined)return resultInWei;
       return "-";
     }
     catch(e) { 

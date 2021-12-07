@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-import { ETHDecimals } from '../../../config';
+import { ETHDecimals, ETHFactor } from '../../../config';
 
 const BigNumber = require('bignumber.js');
 const func = require("../../../functions/TreasuryFunctions.js");
@@ -18,7 +18,7 @@ class AssignWithdrawComponent extends React.Component {
 
     handleWithdraw = async (event) => {
       event.preventDefault();
-      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(func.ETHFactor)).dp(0, 1).toString(), this.props.contract);
+      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(ETHFactor)).dp(0, 1).toString(), this.props.contract);
       this.setState({amount: ""});
       this.props.refresh();
     };
@@ -31,15 +31,15 @@ class AssignWithdrawComponent extends React.Component {
             <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Aggregated Balance (ETH) :</b></Col> 
-                <Col>{func.TreasuryAggregatedBalanceWei.dividedBy(func.ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
+                <Col>{func.TreasuryAggregatedBalanceWei.dividedBy(ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Contract Balance (ETH) :</b></Col> 
-                <Col>{func.TreasuryBalanceWei.dividedBy(func.ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
+                <Col>{func.TreasuryBalanceWei.dividedBy(ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <Row>
                 <Col><b>Your current Balance (ETH) :</b></Col> 
-                <Col>{func.AccountBalanceWei.dividedBy(func.ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
+                <Col>{func.AccountBalanceWei.dividedBy(ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <br />
               <button type="button" class="btn btn-secondary" onClick={this.handleWithdrawAll}>Withdraw All</button>

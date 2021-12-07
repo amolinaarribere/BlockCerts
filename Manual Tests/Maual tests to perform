@@ -8,9 +8,10 @@
 - send 2 certificates => ok
 - send 2 certificates with signatures => ok
 - create 1 private pool & 1 private provider => ok
-- subscribe provider to public and private pool
+- subscribe provider to public and private pool => ok
+- unsubscribe provider to public and private pool
 - Update all contracts to identical version : check that all content remains unchanged
-- Update prices and Proposition settings
+- Update prices and Proposition settings => ok
 - Send new proposals without voting them
 - Transfer 6% tokens to address_4 to address_10
 - send new public proposals and certificates and check dividends and voter rights
