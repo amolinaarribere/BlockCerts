@@ -49,8 +49,8 @@ class AdminPropositionComponent extends React.Component {
         <div>
           <ConfigurationComponent refresh={this.refresh}
                   text="Admin Configuration"
-                  names={["Admin Address", "Manager Address", "Manager Proxy Address"]}
-                  values={[ManagerFunc.ManagerAdminAddress,func.ManagerAddress,func.ManagerAddressProxy]}/>
+                  names={["Admin Address", "Manager Address", "Proxy Admin Address", "Manager Proxy Address"]}
+                  values={[ManagerFunc.ManagerAdminAddress, func.ManagerAddress, func.ProxyAdminAddress, func.ManagerAddressProxy]}/>
 
           {certFunc.isOwner ? (
               <div>

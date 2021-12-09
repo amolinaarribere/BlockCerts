@@ -1,5 +1,6 @@
 export var ManagerAddress = ""
 export var ManagerAddressProxy = ""
+export var ProxyAdminAddress = ""
 
 export var PendingManagerAddress = ""
 export var PendingManagerInit = ""
@@ -13,6 +14,7 @@ export async function RetrieveManagerAddresses(contract){
     try{
         ManagerAddress = await ENSFunc.ReverseResolution(await contract.methods.retrieveManager().call());
         ManagerAddressProxy = await ENSFunc.ReverseResolution(await contract.methods.retrieveManagerProxy().call());
+        ProxyAdminAddress = await ENSFunc.ReverseResolution(await contract.methods.retrieveAdminProxy().call());
     }
     catch(e){
       window.alert("error retrieving the admin addresses : " + JSON.stringify(e))

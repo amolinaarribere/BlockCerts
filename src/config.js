@@ -1,6 +1,6 @@
 const BigNumber = require('bignumber.js');
 
-export const MANAGER_PROXY_ADDRESS =  '0xe33C6f69F663d7A841e31e4C78EE260017E1F341' // rinkeby : 0xe33C6f69F663d7A841e31e4C78EE260017E1F341
+export const MANAGER_PROXY_ADDRESS =  '0x49aCE77a02b93a97c71952F23Fa768Fd92EE23B8' // rinkeby : 0x49aCE77a02b93a97c71952F23Fa768Fd92EE23B8
 
 export const USDDecimals = 2;
 export const ETHDecimals = 18;
@@ -9,32 +9,6 @@ export const ETHFactor = new BigNumber(10**ETHDecimals);
 export const AdminRights = true;
 
 export const ADMIN_ABI = [
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "contractName",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "contractVersion",
-        "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "managerContract",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes",
-        "name": "managerInit",
-        "type": "bytes"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
   {
     "anonymous": false,
     "inputs": [
@@ -304,7 +278,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -322,7 +297,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -335,7 +311,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -348,7 +325,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -372,7 +350,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -385,7 +364,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -418,7 +398,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -442,7 +423,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -509,6 +491,76 @@ export const ADMIN_ABI = [
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "managerContract",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "managerInit",
+        "type": "bytes"
+      }
+    ],
+    "name": "Admin_init",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "contractName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "contractVersion",
+        "type": "string"
+      },
+      {
+        "internalType": "address payable",
+        "name": "managerContractProxyAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "AdminProxyAddress",
+        "type": "address"
+      }
+    ],
+    "name": "Admin_init_redeploy",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "retrieveAdminProxy",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function",
+    "constant": true
+  },
+  {
     "inputs": [],
     "name": "retrieveManagerProxy",
     "outputs": [
@@ -519,7 +571,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -532,7 +585,8 @@ export const ADMIN_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
