@@ -1,28 +1,28 @@
 {
   "files": {
     "main.css": "/blockcerts/static/css/main.afd7172b.chunk.css",
-    "main.js": "/blockcerts/static/js/main.412f3022.chunk.js",
-    "main.js.map": "/blockcerts/static/js/main.412f3022.chunk.js.map",
+    "main.js": "/blockcerts/static/js/main.397456b5.chunk.js",
+    "main.js.map": "/blockcerts/static/js/main.397456b5.chunk.js.map",
     "runtime-main.js": "/blockcerts/static/js/runtime-main.b976188a.js",
     "runtime-main.js.map": "/blockcerts/static/js/runtime-main.b976188a.js.map",
     "static/css/2.4f8976c6.chunk.css": "/blockcerts/static/css/2.4f8976c6.chunk.css",
-    "static/js/2.e26ae7c7.chunk.js": "/blockcerts/static/js/2.e26ae7c7.chunk.js",
-    "static/js/2.e26ae7c7.chunk.js.map": "/blockcerts/static/js/2.e26ae7c7.chunk.js.map",
+    "static/js/2.9170a9ae.chunk.js": "/blockcerts/static/js/2.9170a9ae.chunk.js",
+    "static/js/2.9170a9ae.chunk.js.map": "/blockcerts/static/js/2.9170a9ae.chunk.js.map",
     "index.html": "/blockcerts/index.html",
     "static/css/2.4f8976c6.chunk.css.map": "/blockcerts/static/css/2.4f8976c6.chunk.css.map",
     "static/css/main.afd7172b.chunk.css.map": "/blockcerts/static/css/main.afd7172b.chunk.css.map",
-    "static/js/2.e26ae7c7.chunk.js.LICENSE.txt": "/blockcerts/static/js/2.e26ae7c7.chunk.js.LICENSE.txt",
-    "static/media/Owner1.a9de4b98.PNG": "/blockcerts/static/media/Owner1.a9de4b98.PNG",
-    "static/media/Owner2.4d9fca76.PNG": "/blockcerts/static/media/Owner2.4d9fca76.PNG",
-    "static/media/Private.c0f3915c.PNG": "/blockcerts/static/media/Private.c0f3915c.PNG",
-    "static/media/Provider.ba18360f.PNG": "/blockcerts/static/media/Provider.ba18360f.PNG",
-    "static/media/Public.bbbfdedf.PNG": "/blockcerts/static/media/Public.bbbfdedf.PNG"
+    "static/js/2.9170a9ae.chunk.js.LICENSE.txt": "/blockcerts/static/js/2.9170a9ae.chunk.js.LICENSE.txt",
+    "static/media/Owner1.af067a80.PNG": "/blockcerts/static/media/Owner1.af067a80.PNG",
+    "static/media/Owner2.7fef538a.PNG": "/blockcerts/static/media/Owner2.7fef538a.PNG",
+    "static/media/Private.77b8f6b4.PNG": "/blockcerts/static/media/Private.77b8f6b4.PNG",
+    "static/media/Provider.76072a9a.PNG": "/blockcerts/static/media/Provider.76072a9a.PNG",
+    "static/media/Public.009ff416.PNG": "/blockcerts/static/media/Public.009ff416.PNG"
   },
   "entrypoints": [
     "static/js/runtime-main.b976188a.js",
     "static/css/2.4f8976c6.chunk.css",
-    "static/js/2.e26ae7c7.chunk.js",
+    "static/js/2.9170a9ae.chunk.js",
     "static/css/main.afd7172b.chunk.css",
-    "static/js/main.412f3022.chunk.js"
+    "static/js/main.397456b5.chunk.js"
   ]
 }
