@@ -13,6 +13,6 @@
 - Update all contracts to identical version : check that all content remains unchanged
 - Update prices and Proposition settings => ok
 - Send new proposals without voting them
-- Transfer 6% tokens to address_4 to address_10
-- send new public proposals and certificates and check dividends and voter rights
-- In ropsten : test ENS names
+- Transfer some tokens to address_4 to address_6 => ok
+- send new public proposals and certificates and check dividends and voter rights => ok
+- In rinkeby : test ENS names => ok

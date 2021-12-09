@@ -1,6 +1,12 @@
 const BigNumber = require('bignumber.js');
 
-export const MANAGER_PROXY_ADDRESS =  '0x49aCE77a02b93a97c71952F23Fa768Fd92EE23B8' // rinkeby : 0x49aCE77a02b93a97c71952F23Fa768Fd92EE23B8
+export const MANAGER_PROXY_ADDRESS = {
+  "ganache": '',
+  "rinkeby": '0x49aCE77a02b93a97c71952F23Fa768Fd92EE23B8',
+  "ropsten": '',
+  "kovan": '0x18BB6B9cB3084ff75671Cdb90F514ad2bFAa913e',
+  "mumbai": '0x07F2B8E27Ff8A648319F40270C20638aAEc22081'
+}
 
 export const USDDecimals = 2;
 export const ETHDecimals = 18;
