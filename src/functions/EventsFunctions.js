@@ -6,8 +6,7 @@ export var eventlogs = [];
 export var eventNames = [];
 
 
-export async function StartEvents(){
-    const blockId = 0;
+export async function StartEvents(blockId){
     eventNames = [];
 
     // Contracts
@@ -70,8 +69,8 @@ function ConnectEvent(func, option, Id1, Id2, Abi){
   let eventFunction = func(option);
 
   eventFunction.on('data', event => {eventlogs[Id1][Id2][eventlogs[Id1][Id2].length] = event})
-  eventFunction.on('changed', changed => window.alert("event removed from blockchain : " + changed))
-  eventFunction.on('error', err => window.alert("event error : " + err))
+  eventFunction.on('changed', changed => console.log("event removed from blockchain : " + changed))
+  eventFunction.on('error', err => console.log("event error : " + JSON.stringify(err)))
 }
 
 export async function StopEvents(){
