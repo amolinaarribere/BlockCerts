@@ -102,6 +102,8 @@ class ManagerComponent extends React.Component {
             <br />
             Private Pools and Providers can also be assigned an ENS name that would be part of the Private Pool or Provider domain already purchased by the dapp.
             <br />
+            <span style={{ color: 'orange' }}><i>It is important to note that since ENS contracts are only available on Rinkeby and Ropsten so far, the other Test Nets where blockcerts is deployed use a "Mock" ENS Registry contract explicitly deployed to be used by blockcerts.</i></span>
+            <br />
             <br />
             <span style={{ color: 'blue' }}><b>Paid Application services</b></span> are :
             <ul>
@@ -120,6 +122,8 @@ class ManagerComponent extends React.Component {
             Application services prices are defined in USD, the actual amount being paid in ETH, the exchange rate is calculated for every transaction using the <span style={{ color: 'blue' }}><b>Chain Link (ETH-USD) Feed Registry</b></span>.
             <br />
             Prices and the Chain Link registry itself can be changed at any time if the proposition is validated by the Certis Token owners.
+            <br />
+            <span style={{ color: 'orange' }}><i>It is important to note that since Chain Link has only deployed so far the Feed Registry contract on Kovan, the other Test Nets where blockcerts is deployed use a "Mock" Feed Registry contract explicitly deployed to be used by blockcerts.</i></span>
             <br />
             <br />
             Blockcerts allows for signed messages to be provided on behalf on another account using the <span style={{ color: 'blue' }}><b>EIP-712 standard for signed typed data</b></span>.
