@@ -60,7 +60,7 @@ class CertificateComponent extends React.Component{
     }
   
     handleAddCertificate = async (event) => {
-        event.preventDefault();
+      event.preventDefault();
       let reset = true;
       [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
       this.setState({})
@@ -69,11 +69,12 @@ class CertificateComponent extends React.Component{
       let PoolAddress = await ENSFunc.Resolution(this.state.poolAddress);
 
       this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
-      this.state.errors.poolAddress = ValFunc.validateAddress(PoolAddress);
+      if(3 == this.props.contractType)this.state.errors.poolAddress = ValFunc.validateAddress(PoolAddress);
+      else this.state.errors.poolAddress = true;
       this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
 
       if(ValFunc.validate(this.state.errors)){
-        await func.AddCertificate(this.state.certificateHash, HolderAddress, this.props.price, this.props.contract, PoolAddress);
+        await func.AddCertificate(this.state.certificateHash, HolderAddress, this.props.price, this.props.contractType, this.props.contract, PoolAddress);
       }
       else{
         this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
@@ -82,6 +83,7 @@ class CertificateComponent extends React.Component{
       } 
 
       if(reset)this.resetState()
+
     };
   
     handleCheckCertificate = async (event) => {

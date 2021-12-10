@@ -62,7 +62,9 @@ class ManagerComponent extends React.Component {
       return (
         <div>
           <h6>
-          <span style={{ color: 'blue' }}><b>BlockCerts</b></span> is a decentralized application for delivering and checking certificates on the blockchain.
+            <span style={{ color: 'blue' }}><b>BlockCerts</b></span> is a decentralized application for delivering and checking certificates on the blockchain.
+            <br />
+            The application is available on the Ethereum TestNets <span style={{ color: 'blue' }}><b>Rinkeby, Kovan and Ropsten</b></span> and the Polygon TestNet <span style={{ color: 'blue' }}><b>Mumbai</b></span>
             <br />
             <br />
             Validated <span style={{ color: 'blue' }}><b>providers</b></span> are allowed to deliver certificates (PDF files for example) to the blockchain, more precisely to a <span style={{ color: 'blue' }}><b>Certificate Pool (Public or Private)</b></span> and assign them to a particular account, called the <span style={{ color: 'blue' }}><b>holder</b></span>.
@@ -126,6 +128,12 @@ class ManagerComponent extends React.Component {
             <ul>
               <li>Delivering Certificates to any Pool</li>
               <li>Voting on any dapp proposal</li>
+            </ul>
+            <br />
+            <span style={{ color: 'red' }}><b>DISCLAIMER :</b></span> blockcerts is intended as a PoC to showcase my skills as a solidity developer, the <span style={{ color: 'blue' }}><b>Source code</b></span> can be found at : 
+            <ul>
+              <li>Smart Contracts (Solidity) : <a href="https://github.com/amolinaarribere/Certificates">Certificates source code</a></li>
+              <li>Front End (React.js) : <a href="https://github.com/amolinaarribere/blockcerts">Blockcert source code</a></li>
             </ul>
             <br />
             <br />

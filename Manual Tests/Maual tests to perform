@@ -1,17 +1,18 @@
-- address_1 is the main address
-- Send 30% tokens to address_2
-- Send 4% tokens to address_3
-- Try to submit proposals with address_3
-- Try to submit proposals with address_1 and address_2
-- approve proposals with address_3 and address_2 (with and without signtaures) and reject with address_1 (with and without signatures)
-- send 3 Public proposals & validate them
-- send 2 certificates
-- send 2 certificates with signatures
-- create 1 private pool & 1 private provider
-- subscribe provider to public and private pool
+- address_1 is the main address => ok
+- Send 30% tokens to address_2 => ok
+- Send 4% tokens to address_3 => ok
+- Try to submit proposals with address_3 => ok
+- Try to submit proposals with address_1 and address_2 => ok
+- approve proposals with address_3 and address_2 (with and without signtaures) and reject with address_1 (with and without signatures) => ok
+- send 3 Public proposals & validate them => ok
+- send 2 certificates => ok
+- send 2 certificates with signatures => ok
+- create 1 private pool & 1 private provider => ok
+- subscribe provider to public and private pool => ok
+- unsubscribe provider to public and private pool
 - Update all contracts to identical version : check that all content remains unchanged
-- Update prices and Proposition settings
+- Update prices and Proposition settings => ok
 - Send new proposals without voting them
-- Transfer 6% tokens to address_4 to address_10
-- send new public proposals and certificates and check dividends and voter rights
-- In ropsten : test ENS names
+- Transfer some tokens to address_4 to address_6 => ok
+- send new public proposals and certificates and check dividends and voter rights => ok
+- In rinkeby : test ENS names => ok

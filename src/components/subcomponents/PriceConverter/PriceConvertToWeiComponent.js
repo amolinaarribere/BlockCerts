@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
+import { USDFactor, ETHDecimals, ETHFactor } from '../../../config';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
 
@@ -7,13 +8,13 @@ class PriceConvertToWeiComponent extends React.Component {
     state = {
       AmountUSDText : "",
       AmountUSD : 0,
-      AmountWei : 0
+      AmountETH : 0
     };
 
     Convert = async (event) => {
       event.preventDefault();
       if(this.state.AmountUSDText != "") this.state.AmountUSD = this.state.AmountUSDText;
-      this.state.AmountWei = await func.USDToEther(this.state.AmountUSD, this.props.contract);
+      this.state.AmountETH = (await func.CentsToWeis(USDFactor.multipliedBy(this.state.AmountUSD), this.props.contract)).dividedBy(ETHFactor).dp(ETHDecimals, 0).toString();
       this.setState({ AmountUSDText: ""})
     };
     
@@ -32,7 +33,7 @@ class PriceConvertToWeiComponent extends React.Component {
           <Container style={{margin: '10px 50px 50px 50px' }}>
               <Row>
                 <Col><b>Amount In ETH :</b></Col> 
-                <Col>{this.state.AmountWei} ({this.state.AmountUSD}USD)</Col>
+                <Col>{this.state.AmountETH} ({this.state.AmountUSD}USD)</Col>
               </Row>
           </Container>
           <hr class="bg-secondary"/>

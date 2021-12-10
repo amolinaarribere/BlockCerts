@@ -99,10 +99,12 @@ class UnSelectPoolIssuerComponent extends React.Component{
 class ListPoolsIssuers extends React.Component {
 
     render(){
-        var text = (this.props.contractType == 3) ? "Provider" : "Private Pool";
-        var addresses = func.Addresses;
-        var selectedAddress = ProviderPoolFunctions.Address;
-        var Provider = false;
+        let text = (this.props.contractType == 3) ? "Provider" : "Private Pool";
+        let addresses = (this.props.contractType == 3) ? func.ProviderAddresses : func.PrivatePoolAddresses;
+        let selectedUnresolvedAddress = (this.props.contractType == 3) ? ProviderPoolFunctions.ProviderUnResolvedAddress : ProviderPoolFunctions.PrivatePoolUnResolvedAddress;
+        let selectedAddress = (this.props.contractType == 3) ? ProviderPoolFunctions.ProviderAddress : ProviderPoolFunctions.PrivatePoolAddress;
+        selectedAddress = (selectedUnresolvedAddress == selectedAddress)?" ":selectedAddress;
+        let Provider = false;
 
         return(
             <div>
@@ -110,8 +112,9 @@ class ListPoolsIssuers extends React.Component {
                 <Container style={{margin: '10px 50px 50px 50px' }}>
                         {addresses.map(address => (
                         <Row key={address[1]}>
-                            <Col><i><b>creator </b></i>{address[0]}</Col> 
-                            <Col><i><b>address </b></i>{address[1]}</Col></Row>
+                            <Col><i><b>creator </b></i>{address[0]}</Col>
+                            <Col><i><b>name </b></i>{address[2]}</Col>
+                            <Col><i><b>addr </b></i>{address[1]}</Col></Row>
                         ))}
                 </Container>
                 <br />
@@ -121,7 +124,7 @@ class ListPoolsIssuers extends React.Component {
                     refresh={this.props.refresh}/>
                 <hr class="bg-secondary"/>
                 <br />
-                <h3 class="text-primary"> Selected {text} : {selectedAddress}</h3>
+                <h3 class="text-primary"> Selected {text} : {selectedUnresolvedAddress} <i>{selectedAddress}</i></h3>
                 <UnSelectPoolIssuerComponent contractType={this.props.contractType} 
                     Key={this.props.Key} 
                     refresh={this.props.refresh}/>

@@ -1,5 +1,5 @@
 // Provider - Pool
-import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals } from '../config'
+import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals, ETHFactor } from '../config'
 
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
@@ -16,14 +16,18 @@ export var pendingAdd = []
 export var pendingRemove = []
 export var Balance = "";
 
-export var Address = "";
+export var PrivatePoolAddress = "";
+export var PrivatePoolUnResolvedAddress = "";
+
+export var ProviderAddress = "";
+export var ProviderUnResolvedAddress = "";
 
 export var Total = ""
 export var Items = []
 
 export async function AddProviderPool(address, Info, subscribe, contractType, price, contract){
   (3 != contractType)? 
-      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: new BigNumber(price * ETHDecimals)})) :
+      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: price})) :
       await Aux.CallBackFrame(contract.methods.addPool(address, Info, subscribe).send({from: Aux.account }));
   }
   
@@ -94,17 +98,20 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
 
   export async function SelectProviderPool(address, contractType){
     try{
-      Address = address
       if(2 == contractType){
-        privatePool = await new Aux.web3.eth.Contract(PRIVATE_ABI, Address)
+        PrivatePoolUnResolvedAddress = address
+        PrivatePoolAddress = await ENSFunc.Resolution(address)
+        privatePool = await new Aux.web3.eth.Contract(PRIVATE_ABI, PrivatePoolAddress)
         Contracts.setPrivatePool(privatePool);
         await RetrieveProviderPool(contractType, privatePool)
         await OwnersFunc.RetrieveOwners(privatePool)
       }
       else{
-        provider = await new Aux.web3.eth.Contract(PROVIDER_ABI, Address)
+        ProviderUnResolvedAddress = address
+        ProviderAddress = await ENSFunc.Resolution(address)
+        provider = await new Aux.web3.eth.Contract(PROVIDER_ABI, ProviderAddress)
         Contracts.setProvider(provider);
-        Balance = await Aux.web3.eth.getBalance(Address);
+        Balance = (new BigNumber(await Aux.web3.eth.getBalance(ProviderAddress))).dividedBy(ETHFactor).dp(ETHDecimals,0).toString();
         await RetrieveProviderPool(contractType, provider)
         await OwnersFunc.RetrieveOwners(provider)
         await CertificateFunc.RetrievePendingCertificates(provider)
@@ -117,12 +124,15 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
 
   export async function UnSelectProviderPool(contractType){
     try{
-      Address = ""
       if(2 == contractType){
+        PrivatePoolUnResolvedAddress = ""
+        PrivatePoolAddress = ""
         privatePool = ""
         Contracts.setPrivatePool(privatePool);
       }
       else{
+        ProviderUnResolvedAddress = ""
+        ProviderAddress = ""
         provider = ""
         Contracts.setProvider(provider);
       }  
@@ -136,6 +146,15 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
     await Aux.web3.eth.sendTransaction({from:Aux.account , to:provider._address, value:amount});
   }
 
-  export function ReadKeys(key){
-    Address = BrowserStorageFunction.ReadKey(key);
+  export async function ReadKeys(key, contractType){
+    let UnResolvedAddress = BrowserStorageFunction.ReadKey(key);
+    let Address = await ENSFunc.Resolution(UnResolvedAddress)
+    if(2 == contractType){
+      PrivatePoolUnResolvedAddress = UnResolvedAddress;
+      PrivatePoolAddress = Address
+    }
+    else{
+      ProviderUnResolvedAddress = UnResolvedAddress;
+      ProviderAddress = Address
+    }  
   }

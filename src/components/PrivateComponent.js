@@ -15,7 +15,6 @@ const LoadFunc = require("../functions/LoadFunctions.js");
 const TreasuryFunc = require("../functions/TreasuryFunctions.js");
 
 
-
 class PrivateComponent extends React.Component {
   async componentWillMount() {
     Certificatefunc.SwitchContext()
@@ -28,7 +27,7 @@ class PrivateComponent extends React.Component {
   }
 
     state = {
-      loading : false,
+      loading : true,
       privateEnv : true,
       contractType : 2
     };
@@ -41,13 +40,13 @@ class PrivateComponent extends React.Component {
     }
       
     async refresh() {
-      ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.privatePoolKey);
-      await LoadFunc.LoadFactoriesFunc(Contracts.privatePoolFactory); 
+      await ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.privatePoolKey, this.state.contractType);
+      await LoadFunc.LoadFactoriesFunc(Contracts.privatePoolFactory, this.state.contractType); 
       Ownerfunc.resetOwners();    
-      if(this.NotEmpty(ProviderPoolFunc.Address)){
-        await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
+      if(this.NotEmpty(ProviderPoolFunc.PrivatePoolAddress)){
+        await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.PrivatePoolAddress, this.state.contractType);
       }
-      this.setState({})
+      this.setState({loading : false})
     }
   
     render(){
@@ -66,7 +65,7 @@ class PrivateComponent extends React.Component {
                 Key={BrowserStorageFunctions.privatePoolKey} 
                 refresh={this.refresh}/>
               <br />
-              {(this.NotEmpty(ProviderPoolFunc.Address))?
+              {(this.NotEmpty(ProviderPoolFunc.PrivatePoolAddress))?
                 <div>
                   <CertificateComponent contract={Contracts.privatePool}  
                     contractType={this.state.contractType}

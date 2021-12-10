@@ -32,11 +32,11 @@ class PricePropositionComponent extends React.Component {
     };
 
   async refresh() {
-    await loadFunc.LoadTreasuryConfigFunc(this.props.contract);
     await this.LoadPropStatus();
-    }
+  }
 
     async LoadPropStatus(){
+      await loadFunc.LoadTreasuryConfigFunc(this.props.contract);
       if(certFunc.isOwner){
         var Status = await VoteFunc.PropositionStatus(this.props.contract);
         var Votes = ((Status[0] != address_0)?

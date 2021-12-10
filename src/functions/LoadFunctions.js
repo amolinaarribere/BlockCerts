@@ -62,7 +62,14 @@ export async function LoadBlockchain() {
       await ReadAccount();
       Network = await Aux.web3.eth.net.getNetworkType();
 
-      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS))
+      if("rinkeby" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.rinkeby))
+      else if("ropsten" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ropsten))
+      else if("kovan" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.kovan))
+      else{
+        //window.alert("blockcert will default to mumbai since network was not detected : " + Network);
+        Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.mumbai))
+      }
+
       await LoadManagerFunc(Contracts.certificatePoolManager);
 
       Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ManagerFunc.ManagerAdminAddress));
@@ -127,6 +134,10 @@ export async function LoadTreasuryConfigFunc(contract) {
     TreasuryFunc.RetrievePendingPricesTreasury(contract)]);
 }
 
+export async function LoadTreasuryPrices(contract) {
+  await TreasuryFunc.RetrievePricesTreasury(contract);
+}
+
 export async function LoadPriceConverterFunc(contract) {
   await Promise.all([PriceConverterFunc.RetrieveRegistryAddress(contract),
     PriceConverterFunc.RetrievePendingRegistryAddress(contract)]);
@@ -137,16 +148,16 @@ export async function LoadENSFunc(contract) {
     ENSFunc.RetrievePendingENSConfig(contract)]);
 }
 
-export async function LoadProviderPoolFunc(ContractId, contract) {
-  await ProviderPoolFunc.RetrieveProviderPool(ContractId, contract);
+export async function LoadProviderPoolFunc(contractType, contract) {
+  await ProviderPoolFunc.RetrieveProviderPool(contractType, contract);
 }
 
 export async function LoadOwnersFunc(contract) {
   await OwnersFunc.RetrieveOwners(contract);
 }
 
-export async function LoadFactoriesFunc(contract) {
-  await FactoriesFunc.RetrieveFactories(contract);
+export async function LoadFactoriesFunc(contract, contractType) {
+  await FactoriesFunc.RetrieveFactories(contract, contractType);
 }
 
 export async function LoadCertificateFunc(contract) {

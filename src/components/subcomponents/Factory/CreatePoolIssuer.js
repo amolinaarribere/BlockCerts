@@ -28,7 +28,7 @@ class CreatePoolIssuer extends React.Component {
         for(let i=0; i < this.state.listOfOwners.length; i++){
             OwnersAddresses.push(await ENSFunc.Resolution(this.state.listOfOwners[i]));
         }
-        await func.CreatenewPoolProvider(this.state.minOwners, OwnersAddresses, this.state.name, this.state.ensname, this.props.contract, this.props.price)
+        await func.CreatenewPoolProvider(this.state.minOwners, OwnersAddresses, this.state.name, this.state.ensname.toLowerCase(), this.props.contract, this.props.price)
         this.setState({ minOwners: 0, listOfOwners: [], name : "", ensname: "" })
         await LoadFunc.LoadFactoriesFunc(this.props.contract);
         await this.refresh()

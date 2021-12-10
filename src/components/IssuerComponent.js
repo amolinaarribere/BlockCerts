@@ -17,7 +17,6 @@ const LoadFunc = require("../functions/LoadFunctions.js");
 const TreasuryFunc = require("../functions/TreasuryFunctions.js");
 
 
-
 class IssuerComponent extends React.Component {
     async componentWillMount() {
       await this.refresh();
@@ -29,7 +28,7 @@ class IssuerComponent extends React.Component {
   }
 
   state = {
-    loading : false,
+    loading : true,
     contractType : 3
   };
 
@@ -41,13 +40,13 @@ class IssuerComponent extends React.Component {
   }
 
   async refresh() {
-    ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey);
-    await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory); 
+    await ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey, this.state.contractType);
+    await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory, this.state.contractType); 
     Ownerfunc.resetOwners();    
-    if(this.NotEmpty(ProviderPoolFunc.Address)){
-      await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.Address, this.state.contractType);
+    if(this.NotEmpty(ProviderPoolFunc.ProviderAddress)){
+      await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.ProviderAddress, this.state.contractType);
     }
-    this.setState({})
+    this.setState({loading : false})
   }
  
     render(){
