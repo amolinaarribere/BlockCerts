@@ -3,9 +3,9 @@ const BigNumber = require('bignumber.js');
 export const MANAGER_PROXY_ADDRESS = {
   "ganache": '',
   "rinkeby": '0x49aCE77a02b93a97c71952F23Fa768Fd92EE23B8',
-  "ropsten": '0xce76836A436303A7261b66C6cBDc4Fa7e560F4b1',
-  "kovan": '0x18BB6B9cB3084ff75671Cdb90F514ad2bFAa913e',
-  "mumbai": '0x07F2B8E27Ff8A648319F40270C20638aAEc22081'
+  "ropsten": '0x8A94F55C260189aBF46f64DE78e0939f4d9ff6Be', //'0xce76836A436303A7261b66C6cBDc4Fa7e560F4b1',
+  "kovan": '0x27755d1CEcfB6C29ED8f03bE1e73a614e7D8202f', //'0x18BB6B9cB3084ff75671Cdb90F514ad2bFAa913e',
+  "mumbai": '0x1cCdBdA719a0c85E541861A54D7fd75c5213Cc2a'//'0x07F2B8E27Ff8A648319F40270C20638aAEc22081'
 }
 
 export const USDDecimals = 2;
@@ -13,6 +13,7 @@ export const ETHDecimals = 18;
 export const USDFactor = new BigNumber(10**USDDecimals);
 export const ETHFactor = new BigNumber(10**ETHDecimals);
 export const AdminRights = true;
+
 
 export const ADMIN_ABI = [
   {
@@ -890,7 +891,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -908,7 +910,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -921,7 +924,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -934,7 +938,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -958,7 +963,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -971,7 +977,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1004,7 +1011,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1028,7 +1036,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1181,7 +1190,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1194,7 +1204,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1207,7 +1218,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1220,7 +1232,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1233,7 +1246,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1246,7 +1260,8 @@ export const CERTIFICATE_POOL_MANAGER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
@@ -1472,7 +1487,8 @@ export const PUBLIC_ABI = [
     "name": "addCertificate",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -1510,7 +1526,8 @@ export const PUBLIC_ABI = [
     "name": "addCertificateOnBehalfOf",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -1613,7 +1630,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1626,7 +1644,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1650,7 +1669,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1679,7 +1699,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1697,7 +1718,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1710,7 +1732,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1723,7 +1746,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1747,7 +1771,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1798,7 +1823,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1811,7 +1837,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -1834,7 +1861,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1853,7 +1881,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1872,7 +1901,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1923,7 +1953,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -1942,7 +1973,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2026,7 +2058,8 @@ export const PUBLIC_ABI = [
     "name": "addProvider",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [],
@@ -2039,7 +2072,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2052,7 +2086,8 @@ export const PUBLIC_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -2969,7 +3004,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -2987,7 +3023,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3000,7 +3037,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3013,7 +3051,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3037,7 +3076,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3050,7 +3090,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3083,7 +3124,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3107,7 +3149,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3237,7 +3280,8 @@ export const TREASURY_ABI = [
     "name": "pay",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
+    "type": "function",
+    "payable": true
   },
   {
     "inputs": [
@@ -3294,7 +3338,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3313,7 +3358,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3346,7 +3392,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3359,7 +3406,8 @@ export const TREASURY_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
@@ -3436,7 +3484,8 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3479,7 +3528,8 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3540,7 +3590,8 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3553,7 +3604,8 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3566,7 +3618,8 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -3579,7 +3632,8 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -3683,11 +3737,12 @@ export const CERTIS_ABI =  [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
-export const PRIVATE_ABI =  [
+export const PRIVATE_ABI =   [
   {
     "anonymous": false,
     "inputs": [
@@ -5583,7 +5638,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -5601,7 +5657,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -5614,7 +5671,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -5627,7 +5685,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -5651,7 +5710,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -5664,7 +5724,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -5697,7 +5758,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -5721,7 +5783,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -5837,7 +5900,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -5850,7 +5914,8 @@ export const PRICECONVERTER_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
@@ -5916,15 +5981,15 @@ export const PROPOSITIONSETTINGS_ABI = [
       },
       {
         "indexed": false,
-        "internalType": "uint8",
-        "name": "ThresholdPercentage",
-        "type": "uint8"
+        "internalType": "uint256",
+        "name": "Threshold",
+        "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint8",
-        "name": "minWeightToProposePercentage",
-        "type": "uint8"
+        "internalType": "uint256",
+        "name": "minToPropose",
+        "type": "uint256"
       }
     ],
     "name": "_NewSettings",
@@ -6123,7 +6188,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6141,7 +6207,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6154,7 +6221,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6167,7 +6235,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6191,7 +6260,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6204,7 +6274,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6237,7 +6308,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6261,7 +6333,8 @@ export const PROPOSITIONSETTINGS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6345,14 +6418,14 @@ export const PROPOSITIONSETTINGS_ABI = [
         "type": "uint256"
       },
       {
-        "internalType": "uint8",
-        "name": "PropositionThresholdPercentage",
-        "type": "uint8"
+        "internalType": "uint256",
+        "name": "PropositionThreshold",
+        "type": "uint256"
       },
       {
-        "internalType": "uint8",
-        "name": "minWeightToProposePercentage",
-        "type": "uint8"
+        "internalType": "uint256",
+        "name": "minToPropose",
+        "type": "uint256"
       },
       {
         "internalType": "string",
@@ -6380,18 +6453,19 @@ export const PROPOSITIONSETTINGS_ABI = [
         "type": "uint256"
       },
       {
-        "internalType": "uint8",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint8"
+        "type": "uint256"
       },
       {
-        "internalType": "uint8",
+        "internalType": "uint256",
         "name": "",
-        "type": "uint8"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]
 
@@ -6464,12 +6538,38 @@ export const ENS_ABI = [
     "inputs": [
       {
         "indexed": false,
+        "internalType": "string",
+        "name": "PrivatePoolSuffix",
+        "type": "string"
+      }
+    ],
+    "name": "_NewPrivatePoolSuffix",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "bytes32",
         "name": "ProviderNode",
         "type": "bytes32"
       }
     ],
     "name": "_NewProviderNode",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "ProviderSuffix",
+        "type": "string"
+      }
+    ],
+    "name": "_NewProviderSuffix",
     "type": "event"
   },
   {
@@ -6716,7 +6816,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6734,7 +6835,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6747,7 +6849,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6760,7 +6863,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6784,7 +6888,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6797,7 +6902,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [],
@@ -6830,7 +6936,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6854,7 +6961,8 @@ export const ENS_ABI = [
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   },
   {
     "inputs": [
@@ -6938,6 +7046,11 @@ export const ENS_ABI = [
         "type": "bytes32[]"
       },
       {
+        "internalType": "string[]",
+        "name": "suffixes",
+        "type": "string[]"
+      },
+      {
         "internalType": "address",
         "name": "managerContractAddress",
         "type": "address"
@@ -7004,9 +7117,20 @@ export const ENS_ABI = [
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
-    "type": "function"
+    "type": "function",
+    "constant": true
   }
 ]

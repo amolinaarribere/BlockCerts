@@ -1,25 +1,23 @@
 // Proposition
 const Aux = require("./AuxiliaryFunctions.js");
-const ENSFunc = require("./ENSFunctions.js");
-
 
 export var CurrentPropositionID = ""
 
 export var PropositionLifeTime = "";
-export var PropositionThresholdPercentage = "";
-export var MinWeightToProposePercentage = "";
+export var PropositionThreshold = "";
+export var MinToPropose = "";
 
 export var PendingPropositionLifeTime = "";
-export var PendingPropositionThresholdPercentage = "";
-export var PendingMinWeightToProposePercentage = "";
+export var PendingPropositionThreshold = "";
+export var PendingMinToPropose = "";
 
 export var ContractName = ""
 export var ContractVersion = ""
 
-export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionThresholdPercentage, NewMinWeightToProposePercentage, contract){
+export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionThreshold, NewMinToPropose, contract){
   await Aux.CallBackFrame(contract.methods.sendProposition([Aux.IntToBytes32(NewPropositionLifeTime),
-                            Aux.IntToBytes32(NewPropositionThresholdPercentage), 
-                            Aux.IntToBytes32(NewMinWeightToProposePercentage)]).send({from: Aux.account }));
+                            Aux.IntToBytes32(NewPropositionThreshold), 
+                            Aux.IntToBytes32(NewMinToPropose)]).send({from: Aux.account }));
   }
   
   export async function VoteProposition(Vote, contract){
@@ -34,12 +32,12 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
     try{
       let response = await contract.methods.retrieveProposition().call();
       PendingPropositionLifeTime = "-";
-      PendingPropositionThresholdPercentage = "-";
-      PendingMinWeightToProposePercentage = "-";
+      PendingPropositionThreshold = "-";
+      PendingMinToPropose = "-";
 
       if(response[0] != undefined)PendingPropositionLifeTime = Number(response[0]);
-      if(response[1] != undefined)PendingPropositionThresholdPercentage = Number(response[1]);
-      if(response[2] != undefined)PendingMinWeightToProposePercentage = Number(response[2]);
+      if(response[1] != undefined)PendingPropositionThreshold = Number(response[1]);
+      if(response[2] != undefined)PendingMinToPropose = Number(response[2]);
     }
     catch(e) { 
       window.alert("error retrieving the pending propositions : " + JSON.stringify(e)); 
@@ -51,8 +49,8 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
     try{
       let response = await contract.methods.retrieveSettings().call();
       PropositionLifeTime = response[0];
-      PropositionThresholdPercentage = response[1];
-      MinWeightToProposePercentage = response[2];
+      PropositionThreshold = response[1];
+      MinToPropose = response[2];
     }
     catch(e) { 
       window.alert("error retrieving the propositions : " + JSON.stringify(e)); 
