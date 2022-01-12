@@ -24,6 +24,10 @@ export async function UpgradeProposition(NewPropositionLifeTime, NewPropositionT
     await Aux.CallBackFrame(contract.methods.voteProposition(Vote).send({from: Aux.account }));
   }
 
+  export async function CancelProposition(contract){
+    await Aux.CallBackFrame(contract.methods.cancelProposition().send({from: Aux.account }));
+  }
+
   export async function VotePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature, contract){
     await Aux.CallBackFrame(contract.methods.votePropositionOnBehalfOf(voter, PropID, Vote, nonce, deadline, signature).send({from: Aux.account }));
   }

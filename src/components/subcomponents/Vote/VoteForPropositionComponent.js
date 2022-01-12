@@ -20,6 +20,12 @@ class VoteForPropositionComponent extends React.Component{
         await func.VoteProposition(false, this.props.contract);
         await this.refresh();
       };
+
+      handleCancelPropConfig = async (event) => {
+        event.preventDefault();
+        await func.CancelProposition(this.props.contract);
+        await this.refresh();
+      };
     
     async refresh() {
         await this.props.refresh();
@@ -29,7 +35,8 @@ class VoteForPropositionComponent extends React.Component{
       return(
         <div>
           <button type="button" class="btn btn-success" onClick={this.handleValidatePropConfig}>Validate Proposition</button> &nbsp;&nbsp;
-          <button type="button" class="btn btn-danger" onClick={this.handleRejectPropConfig}>Reject Proposition</button>
+          <button type="button" class="btn btn-danger" onClick={this.handleRejectPropConfig}>Reject Proposition</button> &nbsp;&nbsp;
+          <button type="button" class="btn btn-dark" onClick={this.handleCancelPropConfig}>Cancel Proposition</button>
           <SignVoteComponent contract={this.props.contract}
             refresh={this.refresh}/>
         </div>
