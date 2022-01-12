@@ -14,6 +14,8 @@ export const USDFactor = new BigNumber(10**USDDecimals);
 export const ETHFactor = new BigNumber(10**ETHDecimals);
 export const AdminRights = true;
 
+export const MumbaiNode = "https://matic-mumbai.chainstacklabs.com"
+
 
 export const ADMIN_ABI = [
   {

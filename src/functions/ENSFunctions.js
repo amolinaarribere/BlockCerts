@@ -21,7 +21,7 @@ export var PendingProviderDomain = "";
 
 export async function RetrieveENSConfig(contract){
     try{
-      let result = await contract.methods.retrieveSettings().call({from: Aux.account });
+      let result = await contract.methods.retrieveSettings().call();
       ENSRegistryAddress = result[0];
       ENSReverseRegistryAddress = result[1];
       PrivatePoolNode = result[2];
@@ -37,7 +37,7 @@ export async function RetrieveENSConfig(contract){
 
   export async function RetrievePendingENSConfig(contract){
     try{
-      let result = await contract.methods.retrieveProposition().call({from: Aux.account });
+      let result = await contract.methods.retrieveProposition().call();
       PendingENSRegistryAddress = "-"
       PendingENSReverseRegistryAddress = "-"
       PendingPrivatePoolNode = "-"

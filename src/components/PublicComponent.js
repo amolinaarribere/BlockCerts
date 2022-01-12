@@ -54,18 +54,16 @@ class PublicComponent extends React.Component {
                 refresh={this.refresh}
                 price={Treasury.CertificatePriceWei}/>
               <br />
-              {
-              (Ownerfunc.isOwner)?(
-                <div>
-                  <OwnerComponent contract={Contracts.publicPool} 
-                    contractType={this.state.contractType} 
-                    refresh={this.refresh}/>
-                  <br/>
-                  <ProviderPoolComponent contract={Contracts.publicPool} 
-                    contractType={this.state.contractType} 
-                    refresh={this.refresh}/>
-                </div>
-              ):null}
+              <OwnerComponent contract={Contracts.publicPool} 
+                contractType={this.state.contractType} 
+                isOwner={Ownerfunc.isOwner}
+                refresh={this.refresh}/>
+              <br/>
+              <ProviderPoolComponent contract={Contracts.publicPool} 
+                contractType={this.state.contractType} 
+                isOwner={Ownerfunc.isOwner}
+                refresh={this.refresh}/>
+              <br />
             </div>
           :
             <div>

@@ -6,19 +6,26 @@ const ENSFunc = require("./ENSFunctions.js");
 export var account = "";
 export var accountResolved = "";
 export var web3 = "";
+export var accountLoaded = false;
 
 export async function setAccount(_value){
   account = _value;
-  accountResolved = await ENSFunc.ReverseResolution(account)
+  accountResolved = await ENSFunc.ReverseResolution(account);
+  accountLoaded = true;
 }
 
 export function removeAccount(){
   account = "";
-  accountResolved = ""
+  accountResolved = "";
+  accountLoaded = false;
 }
 
 export function LoadWeb3(){
   web3 = new Web3(window.ethereum)
+}
+
+export function LoadWeb3ToNode(node){
+  web3 = new Web3(node)
 }
 
 export async function CallBackFrame(callback){

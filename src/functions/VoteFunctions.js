@@ -12,14 +12,14 @@ export async function VoteProposition(Vote, contract){
   }
 
 export async function PropositionStatus(contract){
-    return await contract.methods.retrievePropositionStatus().call({from: Aux.account });
+    return await contract.methods.retrievePropositionStatus().call();
 }
 
 export async function PropositionRemainingVotes(contract){
-    let PropID = await contract.methods.retrieveNextPropId().call({from: Aux.account });
+    let PropID = await contract.methods.retrieveNextPropId().call();
     let votes = "-"
     if(PropID > 0){
-        votes = await contract.methods.retrieveVotesForVoter(PropID - 1, Aux.account).call({from: Aux.account });
+        votes = await contract.methods.retrieveVotesForVoter(PropID - 1, Aux.account).call();
         return certFunc.TokensBalance - votes;
     }
     return 0;

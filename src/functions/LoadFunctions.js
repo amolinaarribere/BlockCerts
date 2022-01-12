@@ -9,7 +9,8 @@ import { ADMIN_ABI,
   PRICECONVERTER_ABI, 
   PROPOSITIONSETTINGS_ABI,
   ENS_ABI,
-  AdminRights } from '../config'
+  AdminRights,
+  MumbaiNode } from '../config'
 
 const ProviderPoolFunc = require("./ProviderPoolFunctions.js");
 const OwnersFunc = require("./OwnerFunctions.js");
@@ -33,18 +34,23 @@ export var Admin = AdminRights;
 
 export async function ReadAccount(){
   try{
-    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    window.ethereum.on('accountsChanged', function (accounts) {
-      window.location.reload();
-    })
-    window.ethereum.on('chainChanged', function (chainId) {
-      window.location.reload();
-    });
-    window.ethereum.on('disconnect', function () {
-      Aux.removeAccount();
-    });
-    Aux.LoadWeb3();
-    await Aux.setAccount(accounts[0]);
+    if(window.ethereum){
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      window.ethereum.on('accountsChanged', function (accounts) {
+        window.location.reload();
+      })
+      window.ethereum.on('chainChanged', function (chainId) {
+        window.location.reload();
+      });
+      window.ethereum.on('disconnect', function () {
+        Aux.removeAccount();
+      });
+      Aux.LoadWeb3();
+      await Aux.setAccount(accounts[0]);
+    }
+   else{
+      Aux.LoadWeb3ToNode(MumbaiNode);
+   }
   }
   catch(e){
     if (e.code === 4001) {
@@ -57,46 +63,39 @@ export async function ReadAccount(){
 }
 
 export async function LoadBlockchain() {
-  if (window.ethereum) {
-    try {
-      await ReadAccount();
-      Network = await Aux.web3.eth.net.getNetworkType();
+  try {
+    await ReadAccount();
+    Network = await Aux.web3.eth.net.getNetworkType();
 
-      if("rinkeby" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.rinkeby))
-      else if("ropsten" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ropsten))
-      else if("kovan" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.kovan))
-      else{
-        //window.alert("blockcert will default to mumbai since network was not detected : " + Network);
-        Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.mumbai))
-      }
-
-      await LoadManagerFunc(Contracts.certificatePoolManager);
-
-      Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ManagerFunc.ManagerAdminAddress));
-      await LoadAdminFunc(Contracts.admin);
-
-      Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
-      Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
-      Contracts.setProviderFactory(await new Aux.web3.eth.Contract(PROVIDERFACTORY_ABI, ManagerFunc.providerFactoryAddressProxy))
-      Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
-      Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
-      Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
-      Contracts.setPropositionSettings(await new Aux.web3.eth.Contract(PROPOSITIONSETTINGS_ABI, ManagerFunc.PropositionSettingsAddressProxy))
-      Contracts.setENS(await new Aux.web3.eth.Contract(ENS_ABI, ManagerFunc.ENSAddressProxy))
-
-      await LoadPropositionFunc(Contracts.PropositionSettings);
-      await LoadPriceConverterFunc(Contracts.PriceConverter);
-      await LoadTreasuryConfigFunc(Contracts.Treasury)
-      await LoadCertisFunc(Contracts.CertisToken)
-      await LoadENSFunc(Contracts.ENS);
-
-    } catch (e) {
-      window.alert("error retrieving the main contract addresses " + JSON.stringify(e));
+    if("rinkeby" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.rinkeby))
+    else if("ropsten" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ropsten))
+    else if("kovan" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.kovan))
+    else{
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.mumbai))
     }
-    
-  }
-  else{
-    window.alert("You should connect your wallet for the dAPP to work")
+
+    await LoadManagerFunc(Contracts.certificatePoolManager);
+
+    Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ManagerFunc.ManagerAdminAddress));
+    await LoadAdminFunc(Contracts.admin);
+
+    Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
+    Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
+    Contracts.setProviderFactory(await new Aux.web3.eth.Contract(PROVIDERFACTORY_ABI, ManagerFunc.providerFactoryAddressProxy))
+    Contracts.setTreasury(await new Aux.web3.eth.Contract(TREASURY_ABI, ManagerFunc.TreasuryAddressProxy))
+    Contracts.setCertisToken(await new Aux.web3.eth.Contract(CERTIS_ABI, ManagerFunc.CertisTokenAddressProxy))
+    Contracts.setPriceConverter(await new Aux.web3.eth.Contract(PRICECONVERTER_ABI, ManagerFunc.PriceConverterAddressProxy))
+    Contracts.setPropositionSettings(await new Aux.web3.eth.Contract(PROPOSITIONSETTINGS_ABI, ManagerFunc.PropositionSettingsAddressProxy))
+    Contracts.setENS(await new Aux.web3.eth.Contract(ENS_ABI, ManagerFunc.ENSAddressProxy))
+
+    await LoadPropositionFunc(Contracts.PropositionSettings);
+    await LoadPriceConverterFunc(Contracts.PriceConverter);
+    await LoadTreasuryConfigFunc(Contracts.Treasury)
+    await LoadCertisFunc(Contracts.CertisToken)
+    await LoadENSFunc(Contracts.ENS);
+
+  } catch (e) {
+    window.alert("error retrieving the main contract addresses " + JSON.stringify(e));
   }
   
 }

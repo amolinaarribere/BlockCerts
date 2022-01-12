@@ -73,21 +73,17 @@ class PrivateComponent extends React.Component {
                     refresh={this.refresh}
                     price={0}/>
                   <br />
-                </div>
-              :null}
-              
-              {
-              (Ownerfunc.isOwner)?(
-                <div>
                   <OwnerComponent contract={Contracts.privatePool} 
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                   <br/>
                   <ProviderPoolComponent contract={Contracts.privatePool} 
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                 </div>
-              ):null}
+              :null}
             </div>
           : 
             <div>

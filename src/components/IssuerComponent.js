@@ -80,10 +80,12 @@ class IssuerComponent extends React.Component {
                   <br />
                   <OwnerComponent contract={Contracts.provider}
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                   <br/>
                   <ProviderPoolComponent contract={Contracts.provider}
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                 </div>
               ):null}
