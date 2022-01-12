@@ -23,7 +23,7 @@ export async function RetrieveManagerAddresses(contract){
 
 export async function RetrievePendingAdminConfig(contract){
   try{
-    let result = await contract.methods.retrieveProposition().call({from: Aux.account });
+    let result = await contract.methods.retrieveProposition().call();
     PendingManagerAddress = "-"
     PendingManagerInit = "-"
     PendingAdminAddress = "-"
