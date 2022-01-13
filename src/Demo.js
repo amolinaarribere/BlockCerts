@@ -8,12 +8,15 @@ import IssuerComponent from './components/IssuerComponent.js';
 import DividendsComponent from './components/DividendsComponent.js';
 import SettingsComponent from './components/SettingsComponent.js';
 import CurrentAddressComponent from './components/CurrentAddressComponent.js';
+import ConnectDisconnectComponent from './components/ConnectDisconnectComponent.js';
 import EventsComponent from './components/EventsComponent.js';
 import LoadingComponent from './components/subcomponents/LoadingComponent.js';
 
 
 const certFunc = require("./functions/CertisFunctions.js");
 const loadFunc = require("./functions/LoadFunctions.js");
+const BrowserStorageFunctions = require("./functions/BrowserStorageFunctions.js");
+
 
 const Home = "Home";
 const Settings = "Settings";
@@ -27,16 +30,29 @@ const Event = "Events";
 
 class Demo extends React.Component {
   async componentWillMount() {
+    let currentTab = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.currentTabKey);
+    if(currentTab){
+      this.state.Component = currentTab
+    }
+    
     this.state.loading = true;
     await loadFunc.LoadBlockchain();
+
+    let account = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.accountConnectedKey);
+    if(account){
+      await loadFunc.ConnectNewAccount(account)
+    }
+
     this.state.loading = false;
+    this.refresh = this.refresh.bind(this)
     this.refresh();
  }
 
   state = {
     value : 0,
     loading : false,
-    Component : "Home"
+    Component : "",
+    address : ""
   };
 
   refresh(){
@@ -44,6 +60,7 @@ class Demo extends React.Component {
   }
 
   toggleMenu(newValue){
+    BrowserStorageFunctions.WriteKey(BrowserStorageFunctions.currentTabKey, newValue);
     this.setState({Component: newValue});
   };
 
@@ -51,7 +68,7 @@ class Demo extends React.Component {
   render(){
     return (
       <div style={{backgroundColor: 'White'}}>
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" class="w-75">
             <Container>
               <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
               <Nav className="me-auto">
@@ -62,7 +79,12 @@ class Demo extends React.Component {
                 {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(Dividends)}>{Dividends}</Nav.Link>) : null}
                 <Nav.Link onClick={() => this.toggleMenu(Event)}>{Event}</Nav.Link>
               </Nav>
-              <CurrentAddressComponent />
+              {
+                  (false == this.state.loading) ? <CurrentAddressComponent /> : <LoadingComponent />
+              }&nbsp;&nbsp;
+              {
+                  (false == this.state.loading) ? <ConnectDisconnectComponent refresh={this.refresh} /> : <LoadingComponent />
+              }
             </Container>
         </Navbar>
         <br />

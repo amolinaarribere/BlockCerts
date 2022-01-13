@@ -18,7 +18,7 @@ export var isOwner = false;
 
   export async function balanceOf(address, contract){
     try{
-      if(Aux.accountLoaded) TokensBalance = await contract.methods.balanceOf(address).call();
+      if(address) TokensBalance = await contract.methods.balanceOf(address).call();
       else TokensBalance = 0;
     }
     catch(e){

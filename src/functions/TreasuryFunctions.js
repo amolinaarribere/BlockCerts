@@ -86,7 +86,8 @@ export var PendingOwnerRefundFeeUSD = "";
 
   export async function RetrieveBalance(address, contract){
     try{
-      AccountBalanceWei = new BigNumber(await contract.methods.retrieveFullBalance(address).call());
+      AccountBalanceWei = new BigNumber(0);
+      if(address)AccountBalanceWei = new BigNumber(await contract.methods.retrieveFullBalance(address).call());
     }
     catch(e){
       window.alert("error retrieving the account's balance : " + JSON.stringify(e))

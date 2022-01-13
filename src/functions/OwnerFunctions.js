@@ -67,11 +67,11 @@ export async function AddOwner(address, info, contract){
   
         PendingMinOwners = await contract.methods.retrievePendingMinOwners().call();
 
-        if(load.Admin && Aux.accountLoaded){
+        if(load.Admin && Aux.account){
           let result = await contract.methods.retrieveOwner(Aux.account).call();
           isOwner = result[1];
         }
-        else if(!Aux.accountLoaded) isOwner = false;
+        else if(!Aux.account) isOwner = false;
         else isOwner = true;
     }
     catch(e){
