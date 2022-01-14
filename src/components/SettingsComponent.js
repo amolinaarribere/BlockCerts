@@ -8,7 +8,7 @@ import ENSPropositionComponent from './subcomponents/ENS/ENSPropositionComponent
 import LoadingComponent from './subcomponents/LoadingComponent.js';
 
 const Contracts = require("../functions/Contracts.js");
-const loadFunc = require("../functions/LoadFunctions.js");
+const LoadFunc = require("../functions/LoadFunctions.js");
 
 class SettingsComponent extends React.Component {
   async componentWillMount() {
@@ -25,7 +25,10 @@ class SettingsComponent extends React.Component {
     };
     
     async refresh() {
-      await loadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
+      this.setState({loading: true})
+      await LoadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
+      this.setState({})
+      this.setState({loading: false})
     }
   
     render(){

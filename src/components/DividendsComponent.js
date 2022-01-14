@@ -5,7 +5,7 @@ import PriceConverterComponent from './subcomponents/PriceConverter/PriceConvert
 import LoadingComponent from './subcomponents/LoadingComponent.js';
 
 const Contracts = require("../functions/Contracts.js");
-const loadFunc = require("../functions/LoadFunctions.js");
+const LoadFunc = require("../functions/LoadFunctions.js");
 
 class DividendsComponent extends React.Component {
   async componentWillMount() {
@@ -23,9 +23,10 @@ class DividendsComponent extends React.Component {
     }
     
     async refresh() {
-      await loadFunc.LoadTreasuryStateFunc(Contracts.Treasury);
-      await loadFunc.LoadCertisFunc(Contracts.CertisToken);
-      this.setState({})
+      this.setState({loading: true})
+      await LoadFunc.LoadTreasuryStateFunc(Contracts.Treasury);
+      await LoadFunc.LoadCertisFunc(Contracts.CertisToken);
+      this.setState({loading: false})
     }
     
     render(){

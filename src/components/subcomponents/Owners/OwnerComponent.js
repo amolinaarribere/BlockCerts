@@ -11,7 +11,7 @@ class OwnerComponent extends React.Component{
   }
   
   async refresh() {
-    await this.props.refresh()
+    await this.props.refresh();
   }
 
     render(){

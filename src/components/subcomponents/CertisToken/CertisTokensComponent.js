@@ -5,17 +5,9 @@ import CertisTransferComponent from './CertisTransferComponent.js';
 const Contracts = require("../../../functions/Contracts.js");
 
 class CertisTokensComponent extends React.Component {
-  async componentWillMount() {
-    await this.refresh();
-  }
-
   constructor(props) {
     super(props)
     this.refresh = this.refresh.bind(this)
-  }
-
-  state = {
-    loading : false
   }
   
   async refresh() {

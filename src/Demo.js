@@ -14,7 +14,7 @@ import LoadingComponent from './components/subcomponents/LoadingComponent.js';
 
 
 const certFunc = require("./functions/CertisFunctions.js");
-const loadFunc = require("./functions/LoadFunctions.js");
+const LoadFunc = require("./functions/LoadFunctions.js");
 const BrowserStorageFunctions = require("./functions/BrowserStorageFunctions.js");
 
 
@@ -30,22 +30,22 @@ const Event = "Events";
 
 class Demo extends React.Component {
   async componentWillMount() {
+    this.state.loading = true;
     let currentTab = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.currentTabKey);
     if(currentTab){
       this.state.Component = currentTab
     }
+    else this.state.Component = "Home"
     
-    this.state.loading = true;
-    await loadFunc.LoadBlockchain();
+    await LoadFunc.LoadBlockchain();
 
     let account = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.accountConnectedKey);
     if(account){
-      await loadFunc.ConnectNewAccount(account)
+      await LoadFunc.ConnectNewAccount(account)
     }
 
-    this.state.loading = false;
     this.refresh = this.refresh.bind(this)
-    this.refresh();
+    this.state.loading = false;
  }
 
   state = {
@@ -55,8 +55,9 @@ class Demo extends React.Component {
     address : ""
   };
 
-  refresh(){
-    this.setState({});
+  async refresh(){
+    this.setState({loading: true})
+    this.setState({loading: false})
   }
 
   toggleMenu(newValue){
@@ -70,7 +71,7 @@ class Demo extends React.Component {
       <div style={{backgroundColor: 'White'}}>
         <Navbar bg="dark" variant="dark" class="w-75">
             <Container>
-              <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({loadFunc.Network})</i></Navbar.Brand>
+              <Navbar.Brand onClick={() => this.toggleMenu(Home)}>Blockcerts <i>({LoadFunc.Network})</i></Navbar.Brand>
               <Nav className="me-auto">
                 <Nav.Link onClick={() => this.toggleMenu(Settings)}>{Settings}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Public)}>{Public}</Nav.Link>
