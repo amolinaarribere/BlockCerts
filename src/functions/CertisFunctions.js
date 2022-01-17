@@ -4,7 +4,7 @@ const load = require("./LoadFunctions.js");
 
 export var TokensTotalSupply = "";
 export var TokensBalance = "";
-export var isOwner;
+export var isOwner = false;
 
  export async function totalSupply(contract){
    try{
@@ -18,7 +18,8 @@ export var isOwner;
 
   export async function balanceOf(address, contract){
     try{
-      TokensBalance = await contract.methods.balanceOf(address).call();
+      if(address) TokensBalance = await contract.methods.balanceOf(address).call();
+      else TokensBalance = 0;
     }
     catch(e){
       window.alert("error retrieving the account's balance : " + JSON.stringify(e))

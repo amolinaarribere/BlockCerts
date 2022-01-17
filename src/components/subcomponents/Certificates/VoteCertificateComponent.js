@@ -63,7 +63,7 @@ class VoteCertificateComponent extends React.Component{
     reset = async () => {
       this.setState({ pool: "",  hash : "", holder: ""})
       await loadFunc.LoadCertificateFunc()
-      this.props.refresh();
+      await this.props.refresh();
     };
   
     render(){

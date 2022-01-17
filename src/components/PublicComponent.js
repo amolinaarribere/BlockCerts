@@ -10,12 +10,13 @@ const Ownerfunc = require("../functions/OwnerFunctions.js");
 const Contracts = require("../functions/Contracts.js");
 const Treasury = require("../functions/TreasuryFunctions.js");
 const LoadFunc = require("../functions/LoadFunctions.js");
+const AuxFunc = require("../functions/AuxiliaryFunctions.js");
 
 
 class PublicComponent extends React.Component {
     async componentWillMount() {
       Certificatefunc.SwitchContext()
-      await this.refresh();
+      await this.refresh(); 
    }
 
    constructor(props) {
@@ -32,10 +33,10 @@ class PublicComponent extends React.Component {
     };
     
     async refresh() {
+      this.setState({loading: true})
       await LoadFunc.LoadProviderPoolFunc(this.state.contractType, Contracts.publicPool);
       await LoadFunc.LoadOwnersFunc(Contracts.publicPool);
-      await LoadFunc.LoadProviderPoolFunc(this.state.ContractType, Contracts.publicPool);
-      this.setState({})
+      this.setState({loading: false})
     }
   
     render(){
@@ -43,37 +44,42 @@ class PublicComponent extends React.Component {
         <div>
           {(false == this.state.loading)? 
             <div>
-              <SendNewProposalComponent contract={Contracts.publicPool}  
-                price={Treasury.PublicPriceWei}
-                contractType={this.state.contractType} 
-                refresh={this.refresh}/>
-              <br />
-              <CertificateComponent contract={Contracts.publicPool} 
-                contractType={this.state.contractType}
-                privateEnv={this.state.privateEnv} 
-                refresh={this.refresh}
-                price={Treasury.CertificatePriceWei}/>
-              <br />
-              {
-              (Ownerfunc.isOwner)?(
-                <div>
-                  <OwnerComponent contract={Contracts.publicPool} 
-                    contractType={this.state.contractType} 
-                    refresh={this.refresh}/>
-                  <br/>
-                  <ProviderPoolComponent contract={Contracts.publicPool} 
-                    contractType={this.state.contractType} 
-                    refresh={this.refresh}/>
-                </div>
-              ):null}
+                {
+                  (AuxFunc.account)?
+                    <div>
+                      <SendNewProposalComponent contract={Contracts.publicPool}  
+                        price={Treasury.PublicPriceWei}
+                        contractType={this.state.contractType} 
+                        refresh={this.refresh}/>
+                      <br />
+                    </div>
+                  :
+                    null
+                }
+                <CertificateComponent contract={Contracts.publicPool} 
+                  contractType={this.state.contractType}
+                  privateEnv={this.state.privateEnv} 
+                  refresh={this.refresh}
+                  price={Treasury.CertificatePriceWei}/>
+                <br />
+                <OwnerComponent contract={Contracts.publicPool} 
+                  contractType={this.state.contractType} 
+                  isOwner={Ownerfunc.isOwner}
+                  refresh={this.refresh}/>
+                <br/>
+                <ProviderPoolComponent contract={Contracts.publicPool} 
+                  contractType={this.state.contractType} 
+                  isOwner={Ownerfunc.isOwner}
+                  refresh={this.refresh}/>
+                <br />
             </div>
           :
-            <div>
-              <LoadingComponent />
-            </div>
+          <div>
+            <LoadingComponent />
+          </div>
           }
-
         </div>
+        
       );
     }
   }

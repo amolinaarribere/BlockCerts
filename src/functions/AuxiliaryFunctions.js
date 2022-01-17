@@ -2,6 +2,7 @@
 import Web3 from 'web3';
 
 const ENSFunc = require("./ENSFunctions.js");
+const BrowserStorageFunctions = require("./BrowserStorageFunctions.js");
 
 export var account = "";
 export var accountResolved = "";
@@ -9,16 +10,24 @@ export var web3 = "";
 
 export async function setAccount(_value){
   account = _value;
-  accountResolved = await ENSFunc.ReverseResolution(account)
+  accountResolved = await ENSFunc.ReverseResolution(account);
+  BrowserStorageFunctions.WriteKey(BrowserStorageFunctions.accountConnectedKey, account);
 }
 
 export function removeAccount(){
   account = "";
-  accountResolved = ""
+  accountResolved = "";
+  BrowserStorageFunctions.WriteKey(BrowserStorageFunctions.accountConnectedKey, "");
 }
 
 export function LoadWeb3(){
   web3 = new Web3(window.ethereum)
+  console.log("web3 loaded ethereum")
+}
+
+export function LoadWeb3ToNode(node){
+  web3 = new Web3(node)
+  console.log("web3 loaded default")
 }
 
 export async function CallBackFrame(callback){

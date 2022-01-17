@@ -1,5 +1,3 @@
-import {  USDFactor, ETHFactor } from '../config';
-
 const Aux = require("./AuxiliaryFunctions.js");
 const BigNumber = require('bignumber.js');
 const ENSFunc = require("./ENSFunctions.js");
@@ -10,7 +8,7 @@ export var PendingRegistryAddress = "";
 
   export async function CentsToWeis(amountInCents, contract){
     try{
-      let resultInWei = new BigNumber(await contract.methods.fromUSDToETH(amountInCents).call({from: Aux.account }));
+      let resultInWei = new BigNumber(await contract.methods.fromUSDToETH(amountInCents).call());
       if(resultInWei != undefined)return resultInWei;
       return "-";
     }
@@ -21,7 +19,7 @@ export var PendingRegistryAddress = "";
 
   export async function RetrieveRegistryAddress(contract){
     try{
-      RegistryAddress = await ENSFunc.ReverseResolution(await contract.methods.retrieveSettings().call({from: Aux.account }));
+      RegistryAddress = await ENSFunc.ReverseResolution(await contract.methods.retrieveSettings().call());
     }
     catch(e) { 
       window.alert("error retrieving the registry address : " + JSON.stringify(e)); 
@@ -31,7 +29,7 @@ export var PendingRegistryAddress = "";
 
   export async function RetrievePendingRegistryAddress(contract){
     try{
-      let result = await contract.methods.retrieveProposition().call({from: Aux.account });
+      let result = await contract.methods.retrieveProposition().call();
       PendingRegistryAddress = "-"
       
       if(result[0] != undefined)PendingRegistryAddress = await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(result[0]))

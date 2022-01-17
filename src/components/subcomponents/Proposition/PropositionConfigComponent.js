@@ -47,8 +47,8 @@ class PropositionConfigComponent extends React.Component{
            <div>
              <ConfigurationComponent refresh={this.refresh}
                   text="Proposition Configuration Parameters"
-                  names={["Proposition Life Time", "Proposition Threshold Percentage", "Min Weight To Propose Percentage"]}
-                  values={[func.PropositionLifeTime,func.PropositionThresholdPercentage,func.MinWeightToProposePercentage]}/>
+                  names={["Proposition Life Time", "Proposition Threshold", "Min To Propose"]}
+                  values={[func.PropositionLifeTime,func.PropositionThreshold,func.MinToPropose]}/>
 
           {certFunc.isOwner ? (
               <div>
@@ -56,7 +56,7 @@ class PropositionConfigComponent extends React.Component{
                   refresh={this.refresh}
                   text="Manage Proposition Configuration"
                   textButton="Upgrade Proposition Configuration"
-                  names={["NewPropositionLifeTime", "NewPropositionThresholdPercentage", "NewMinWeightToProposePercentage"]}
+                  names={["NewPropositionLifeTime", "NewPropositionThreshold", "NewMinToPropose"]}
                   types={["integer", "integer", "integer"]}
                   dataType={VarDataType}/>
 
@@ -65,8 +65,8 @@ class PropositionConfigComponent extends React.Component{
                 <ListPendingPropositionComponent contract={this.props.contract}
                   refresh={this.refresh}
                   text="Check Pending Proposition Config"
-                  headers={["Pending Proposition Life Time", "Pending Proposition Threshold Percentage", "Pending Min Weight To Propose Percentage"]}
-                  values={[func.PendingPropositionLifeTime, func.PendingPropositionThresholdPercentage, func.PendingMinWeightToProposePercentage]}
+                  headers={["Pending Proposition Life Time", "Pending Proposition Threshold", "Pending Min To Propose"]}
+                  values={[func.PendingPropositionLifeTime, func.PendingPropositionThreshold, func.PendingMinToPropose]}
                   PropStatus={this.state.PropStatus}
                   RemainingVotes={this.state.RemainingVotes}
                   dataType={VarDataType}/>

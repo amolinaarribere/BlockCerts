@@ -1499,7 +1499,7 @@
     "aes-js" "3.0.0"
     "scrypt-js" "3.0.1"
 
-"@ethersproject/keccak256@^5.0.3", "@ethersproject/keccak256@^5.4.0", "@ethersproject/keccak256@5.4.0":
+"@ethersproject/keccak256@^5.0.0-beta.130", "@ethersproject/keccak256@^5.0.3", "@ethersproject/keccak256@^5.4.0", "@ethersproject/keccak256@5.4.0":
   "integrity" "sha1-cUO47qSXYIAkHSvZLjsfG/cCUxg="
   "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/@ethersproject/keccak256/-/keccak256-5.4.0.tgz"
   "version" "5.4.0"
@@ -2630,6 +2630,38 @@
   dependencies:
     "@typescript-eslint/types" "4.27.0"
     "eslint-visitor-keys" "^2.0.0"
+
+"@web3-react/abstract-connector@^6.0.7":
+  "integrity" "sha1-QBs8BF8eD6sEJWMRvknVFE6brcY="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/@web3-react/abstract-connector/-/abstract-connector-6.0.7.tgz"
+  "version" "6.0.7"
+  dependencies:
+    "@web3-react/types" "^6.0.7"
+
+"@web3-react/core@^6.1.9":
+  "integrity" "sha1-X12qBUWo6gd3CmmVgM7VUlg6/Jc="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/@web3-react/core/-/core-6.1.9.tgz"
+  "version" "6.1.9"
+  dependencies:
+    "@ethersproject/keccak256" "^5.0.0-beta.130"
+    "@web3-react/abstract-connector" "^6.0.7"
+    "@web3-react/types" "^6.0.7"
+    "tiny-invariant" "^1.0.6"
+    "tiny-warning" "^1.0.3"
+
+"@web3-react/injected-connector@^6.0.7":
+  "integrity" "sha1-HgviP1H6B/5lR/6YZ2ika3TDpCY="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/@web3-react/injected-connector/-/injected-connector-6.0.7.tgz"
+  "version" "6.0.7"
+  dependencies:
+    "@web3-react/abstract-connector" "^6.0.7"
+    "@web3-react/types" "^6.0.7"
+    "tiny-warning" "^1.0.3"
+
+"@web3-react/types@^6.0.7":
+  "integrity" "sha1-NKYgQiRGfu3GEjq69V+7a66ygJ8="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/@web3-react/types/-/types-6.0.7.tgz"
+  "version" "6.0.7"
 
 "@webassemblyjs/ast@1.9.0":
   "integrity" "sha1-vYUGBLQEJFmlpBzX0zjL7Wle2WQ="
@@ -11459,7 +11491,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@*", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha1-0LXMUW0p6z7uOD91tihkz7aAADc="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/react/-/react-17.0.2.tgz"
   "version" "17.0.2"
@@ -13184,7 +13216,12 @@
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/timsort/-/timsort-0.3.0.tgz"
   "version" "0.3.0"
 
-"tiny-warning@^1.0.2":
+"tiny-invariant@^1.0.6":
+  "integrity" "sha1-oRQfhrZyqRSMcul4oZpzublKFak="
+  "resolved" "https://packages.vaudoise.ch:443/artifactory/api/npm/npm-repo/tiny-invariant/-/tiny-invariant-1.2.0.tgz"
+  "version" "1.2.0"
+
+"tiny-warning@^1.0.2", "tiny-warning@^1.0.3":
   "integrity" "sha1-lKMNtFPfTGQ9D9VmBg1gqHXYR1Q="
   "resolved" "https://packages.vaudoise.ch/artifactory/api/npm/npm-repo/tiny-warning/-/tiny-warning-1.0.3.tgz"
   "version" "1.0.3"

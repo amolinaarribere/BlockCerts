@@ -13,6 +13,7 @@ class ProviderPoolComponent extends React.Component{
     await this.props.refresh()
   }
 
+
     render(){
         return(
           <div>
@@ -20,13 +21,18 @@ class ProviderPoolComponent extends React.Component{
             <ListProvidersPoolsComponent contract={this.props.contract}
               contractType={this.props.contractType} />
             <br/>
-            <ManageProvidersPoolsComponent contract={this.props.contract}
-              contractType={this.props.contractType} 
-              refresh={this.refresh}/>
-            <br/>
-            <ListPendingProvidersPoolsComponent contract={this.props.contract}
-              contractType={this.props.contractType} />
-            <br/>
+            {
+            (this.props.isOwner)?(
+              <div>
+                  <ManageProvidersPoolsComponent contract={this.props.contract}
+                    contractType={this.props.contractType} 
+                    refresh={this.refresh}/>
+                  <br/>
+                  <ListPendingProvidersPoolsComponent contract={this.props.contract}
+                    contractType={this.props.contractType} />
+                  <br/>
+              </div>
+              ):null}
           </div>
         );
     }

@@ -12,7 +12,9 @@ const loadFunc = require("../../../functions/LoadFunctions.js");
 const VarDataType=[Constants.addressDataType,
   Constants.addressDataType,
   Constants.bytesDataType,
-  Constants.bytesDataType]
+  Constants.bytesDataType,
+  Constants.stringDataType,
+  Constants.stringDataType]
 
 class ENSPropositionComponent extends React.Component {
   constructor(props) {
@@ -52,11 +54,15 @@ class ENSPropositionComponent extends React.Component {
                   names={["ENS Registry Address",
                    "ENS Reverse Registry Address",
                     "Private Pool Node",
-                    "Provider Node"]}
+                    "Provider Node",
+                    "Private Pool Domain",
+                    "Provider Domain"]}
                   values={[func.ENSRegistryAddress,
                     func.ENSReverseRegistryAddress,
                     func.PrivatePoolNode,
-                    func.ProviderNode]}/>
+                    func.ProviderNode,
+                    func.PrivatePoolDomain,
+                    func.ProviderDomain]}/>
 
           {certFunc.isOwner ? (
               <div>
@@ -67,8 +73,12 @@ class ENSPropositionComponent extends React.Component {
                   names={["NewENSRegistryAddress",
                    "NewENSReverseRegistryAddress",
                    "NewPrivatePoolNode",
-                   "NewProviderNode"]}
+                   "NewProviderNode",
+                   "NewPrivatePoolDomain",
+                   "NewProviderDomain",]}
                   types={["text",
+                   "text",
+                   "text",
                    "text",
                    "text",
                    "text"]}
@@ -82,11 +92,15 @@ class ENSPropositionComponent extends React.Component {
                   headers={["Pending ENS Registry Address",
                    "Pending ENS Reverse Registry Address",
                    "Pending Private Pool Node",
-                   "Pending Provider Node"]}
+                   "Pending Provider Node",
+                   "Pending Private Pool Domain",
+                   "Pending Provider Domain"]}
                   values={[func.PendingENSRegistryAddress,
                      func.PendingENSReverseRegistryAddress,
                      func.PendingPrivatePoolNode,
-                     func.PendingProviderNode]}
+                     func.PendingProviderNode,
+                     func.PendingPrivatePoolDomain,
+                     func.PendingProviderDomain]}
                   PropStatus={this.state.PropStatus}
                   RemainingVotes={this.state.RemainingVotes}
                   dataType={VarDataType}/>

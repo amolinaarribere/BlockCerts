@@ -15,8 +15,8 @@ class CertificateComponent extends React.Component{
     this.refresh = this.refresh.bind(this)
   }
   
-  refresh() {
-    this.props.refresh();
+  async refresh() {
+    await this.props.refresh()
   }
 
     state = {

@@ -27,7 +27,7 @@ class PrivateComponent extends React.Component {
   }
 
     state = {
-      loading : true,
+      loading : false,
       privateEnv : true,
       contractType : 2
     };
@@ -38,15 +38,17 @@ class PrivateComponent extends React.Component {
       }
       return false;
     }
+
       
     async refresh() {
+      this.setState({loading: true})
       await ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.privatePoolKey, this.state.contractType);
       await LoadFunc.LoadFactoriesFunc(Contracts.privatePoolFactory, this.state.contractType); 
       Ownerfunc.resetOwners();    
       if(this.NotEmpty(ProviderPoolFunc.PrivatePoolAddress)){
         await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.PrivatePoolAddress, this.state.contractType);
       }
-      this.setState({loading : false})
+      this.setState({loading: false})
     }
   
     render(){
@@ -73,21 +75,17 @@ class PrivateComponent extends React.Component {
                     refresh={this.refresh}
                     price={0}/>
                   <br />
-                </div>
-              :null}
-              
-              {
-              (Ownerfunc.isOwner)?(
-                <div>
                   <OwnerComponent contract={Contracts.privatePool} 
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                   <br/>
                   <ProviderPoolComponent contract={Contracts.privatePool} 
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                 </div>
-              ):null}
+              :null}
             </div>
           : 
             <div>

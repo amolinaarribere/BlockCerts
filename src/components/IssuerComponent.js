@@ -28,7 +28,7 @@ class IssuerComponent extends React.Component {
   }
 
   state = {
-    loading : true,
+    loading : false,
     contractType : 3
   };
 
@@ -40,13 +40,14 @@ class IssuerComponent extends React.Component {
   }
 
   async refresh() {
+    this.setState({loading: true})
     await ProviderPoolFunc.ReadKeys(BrowserStorageFunctions.providerKey, this.state.contractType);
     await LoadFunc.LoadFactoriesFunc(Contracts.providerFactory, this.state.contractType); 
     Ownerfunc.resetOwners();    
     if(this.NotEmpty(ProviderPoolFunc.ProviderAddress)){
-      await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.ProviderAddress, this.state.contractType);
+        await ProviderPoolFunc.SelectProviderPool(ProviderPoolFunc.ProviderAddress, this.state.contractType);
     }
-    this.setState({loading : false})
+    this.setState({loading: false})
   }
  
     render(){
@@ -80,10 +81,12 @@ class IssuerComponent extends React.Component {
                   <br />
                   <OwnerComponent contract={Contracts.provider}
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                   <br/>
                   <ProviderPoolComponent contract={Contracts.provider}
                     contractType={this.state.contractType} 
+                    isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                 </div>
               ):null}

@@ -126,7 +126,7 @@ class ManagerComponent extends React.Component {
             <span style={{ color: 'orange' }}><i>It is important to note that since Chain Link has only deployed so far the Feed Registry contract on Kovan, the other Test Nets where blockcerts is deployed use a "Mock" Feed Registry contract explicitly deployed to be used by blockcerts.</i></span>
             <br />
             <br />
-            Blockcerts allows for signed messages to be provided on behalf on another account using the <span style={{ color: 'blue' }}><b>EIP-712 standard for signed typed data</b></span>.
+            Blockcerts allows for signed messages to be provided on behalf of another account using the <span style={{ color: 'blue' }}><b>EIP-712 standard for signed typed data</b></span>.
             <br />
             Messages that can be signed and sent by another account are :
             <ul>

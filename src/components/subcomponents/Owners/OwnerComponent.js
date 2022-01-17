@@ -11,7 +11,7 @@ class OwnerComponent extends React.Component{
   }
   
   async refresh() {
-    await this.props.refresh()
+    await this.props.refresh();
   }
 
     render(){
@@ -21,17 +21,22 @@ class OwnerComponent extends React.Component{
           <ListOwnersComponent contract={this.props.contract}
             contractType={this.props.contractType}/>
           <br />
-          <ManageOwnerComponent contract={this.props.contract}
-            contractType={this.props.contractType} 
-            refresh={this.refresh}/>
-          <br/>
-          <UpdateMinOwnerComponent contract={this.props.contract}
-            contractType={this.props.contractType} 
-            refresh={this.refresh}/>
-          <br/>
-          <ListPendingOwnersComponent contract={this.props.contract}
-            contractType={this.props.contractType} 
-            refresh={this.refresh}/>
+          {
+            (this.props.isOwner)?(
+              <div>
+                  <ManageOwnerComponent contract={this.props.contract}
+                    contractType={this.props.contractType} 
+                    refresh={this.refresh}/>
+                  <br/>
+                  <UpdateMinOwnerComponent contract={this.props.contract}
+                    contractType={this.props.contractType} 
+                    refresh={this.refresh}/>
+                  <br/>
+                  <ListPendingOwnersComponent contract={this.props.contract}
+                    contractType={this.props.contractType} 
+                    refresh={this.refresh}/>
+              </div>
+              ):null}
           <hr class="bg-secondary"/>
         </div>
       );

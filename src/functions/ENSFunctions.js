@@ -9,19 +9,25 @@ export var ENSRegistryAddress = "";
 export var ENSReverseRegistryAddress = "";
 export var PrivatePoolNode = "";
 export var ProviderNode = "";
+export var PrivatePoolDomain = "";
+export var ProviderDomain = "";
 
 export var PendingENSRegistryAddress = "";
 export var PendingENSReverseRegistryAddress = "";
 export var PendingPrivatePoolNode = "";
 export var PendingProviderNode = "";
+export var PendingPrivatePoolDomain = "";
+export var PendingProviderDomain = "";
 
 export async function RetrieveENSConfig(contract){
     try{
-      let result = await contract.methods.retrieveSettings().call({from: Aux.account });
+      let result = await contract.methods.retrieveSettings().call();
       ENSRegistryAddress = result[0];
       ENSReverseRegistryAddress = result[1];
       PrivatePoolNode = result[2];
       ProviderNode = result[3];
+      PrivatePoolDomain = result[4];
+      ProviderDomain = result[5];
     }
     catch(e) { 
       console.log("error retrieving the ens config : " + JSON.stringify(e)); 
@@ -31,16 +37,20 @@ export async function RetrieveENSConfig(contract){
 
   export async function RetrievePendingENSConfig(contract){
     try{
-      let result = await contract.methods.retrieveProposition().call({from: Aux.account });
+      let result = await contract.methods.retrieveProposition().call();
       PendingENSRegistryAddress = "-"
       PendingENSReverseRegistryAddress = "-"
       PendingPrivatePoolNode = "-"
       PendingProviderNode = "-"
+      PendingPrivatePoolDomain = "-"
+      PendingProviderDomain = "-"
       
       if(result[0] != undefined)PendingENSRegistryAddress = Aux.Bytes32ToAddress(result[0])
       if(result[1] != undefined)PendingENSReverseRegistryAddress = Aux.Bytes32ToAddress(result[1])
       if(result[2] != undefined)PendingPrivatePoolNode = result[2]
       if(result[3] != undefined)PendingProviderNode = result[3]
+      if(result[4] != undefined)PendingPrivatePoolDomain = Aux.BytesToString(result[4])
+      if(result[5] != undefined)PendingProviderDomain = Aux.BytesToString(result[5])
     }
     catch(e) { 
       console.log("error retrieving the pending ens config : " + JSON.stringify(e)); 
@@ -90,7 +100,7 @@ export async function ReverseResolution(address){
 async function initENS(){
   var provider = Aux.web3.currentProvider
   try{
-    let ENSRegistryAddress = await RetrieveENSConfig(Contracts.ENS)[0];
+    await RetrieveENSConfig(Contracts.ENS)[0];
     ens = new ENS({ provider, ensAddress: ENSRegistryAddress })
   }catch(e){
     ens = new ENS({ provider, ensAddress: getEnsAddress('1') })
