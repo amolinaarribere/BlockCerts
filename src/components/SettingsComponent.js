@@ -1,5 +1,4 @@
 import React from 'react';
-import AdminPropositionComponent from './subcomponents/Admin/AdminPropositionComponent.js';
 import ManagerAddressPropositionComponent from './subcomponents/Manager/AddressPropositionComponent.js';
 import PriceConverterAddressPropositionComponent from './subcomponents/PriceConverter/AddressPropositionComponent.js';
 import PropositionConfigComponent from './subcomponents/Proposition/PropositionConfigComponent.js';
@@ -27,7 +26,6 @@ class SettingsComponent extends React.Component {
     async refresh() {
       this.setState({loading: true})
       await LoadFunc.LoadManagerFunc(Contracts.certificatePoolManager);
-      this.setState({})
       this.setState({loading: false})
     }
   
@@ -36,8 +34,6 @@ class SettingsComponent extends React.Component {
         <div>
           {(false == this.state.loading)? 
             <div>
-              <AdminPropositionComponent contract={Contracts.admin}/>
-              <br />
               <ManagerAddressPropositionComponent contract={Contracts.certificatePoolManager}/>
               <br />
               <PropositionConfigComponent contract={Contracts.PropositionSettings}/>
