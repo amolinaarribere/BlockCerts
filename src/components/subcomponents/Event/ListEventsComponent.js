@@ -64,57 +64,53 @@ class ListEventsComponent extends React.Component {
           <br/>
           <br/>
           <ListBaseEventsComponentTemplate 
-            SCName="Admin"
-            ContractId={0}
-            />
-          <ListBaseEventsComponentTemplate 
             SCName="Manager"
-            ContractId={1}
+            ContractId={EventsFunc.certificatePoolManagerId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Public Pool"
-            ContractId={2}
+            ContractId={EventsFunc.publicPoolId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Private Pool Factory"
-            ContractId={3}
+            ContractId={EventsFunc.privatePoolFactoryId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Provider Factory"
-            ContractId={4}
+            ContractId={EventsFunc.providerFactoryId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Treasury"
-            ContractId={5}
+            ContractId={EventsFunc.TreasuryId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Certis Token"
-            ContractId={6}
+            ContractId={EventsFunc.CertisTokenId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Price Converter"
-            ContractId={7}
+            ContractId={EventsFunc.PriceConverterId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="Proposition"
-            ContractId={8}
+            ContractId={EventsFunc.PropositionSettingsId}
             />
           <ListBaseEventsComponentTemplate 
             SCName="ENS"
-            ContractId={9}
+            ContractId={EventsFunc.ENSId}
             />
           {(Contracts.privatePool == "")?
             <div></div> :
             <ListBaseEventsComponentTemplate 
-              SCName={"Private Provider " + Contracts.privatePool._address}
-              ContractId={10}
+              SCName={"Private Pool " + Contracts.privatePool._address}
+              ContractId={EventsFunc.privatePoolId}
             />
           }
           {(Contracts.provider == "")?
             <div></div> :
             <ListBaseEventsComponentTemplate 
               SCName={"Provider " + Contracts.provider._address}
-              ContractId={11}
+              ContractId={EventsFunc.providerId}
             />
           }
           

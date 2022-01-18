@@ -21,6 +21,8 @@ const VarDataType=[Constants.intDataType,
   Constants.addressDataType,
   Constants.addressDataType,
   Constants.addressDataType,
+  Constants.addressDataType,
+  Constants.bytesDataType,
   Constants.bytesDataType,
   Constants.bytesDataType,
   Constants.bytesDataType,
@@ -69,7 +71,9 @@ class AddressPropositionComponent extends React.Component {
         <div>
           <ConfigurationComponent refresh={this.refresh}
                   text="Contract Proxies Addresses"
-                  names={["Public Address", 
+                  names={["Proxy Admin",
+                    "Manager Address",
+                    "Public Address", 
                     "Treasury Address", 
                     "Certis Token Address",
                     "Private Factory Address", 
@@ -78,7 +82,9 @@ class AddressPropositionComponent extends React.Component {
                     "Proposition Settings Address", 
                     "ENS Address"
                    ]}
-                  values={[ManagerFunc.publicPoolAddressProxy,
+                  values={[ManagerFunc.ProxyAdminAddress,
+                    ManagerFunc.ManagerAddressProxy,
+                    ManagerFunc.publicPoolAddressProxy,
                     ManagerFunc.TreasuryAddressProxy,
                     ManagerFunc.CertisTokenAddressProxy,
                     ManagerFunc.privatePoolFactoryAddressProxy,
@@ -90,7 +96,8 @@ class AddressPropositionComponent extends React.Component {
 
           <ConfigurationComponent refresh={this.refresh}
                   text="Contract Implementation Addresses"
-                  names={["Public Address", 
+                  names={["Manager Address",
+                    "Public Address", 
                     "Treasury Address", 
                     "Certis Token Address",
                     "Private Factory Address", 
@@ -101,7 +108,8 @@ class AddressPropositionComponent extends React.Component {
                     "Private Address",
                     "Provider Address",
                     ]}
-                  values={[ManagerFunc.publicPoolAddress,
+                  values={[ManagerFunc.ManagerAddress,
+                    ManagerFunc.publicPoolAddress,
                     ManagerFunc.TreasuryAddress,
                     ManagerFunc.CertisTokenAddress,
                     ManagerFunc.privatePoolFactoryAddress,
@@ -119,8 +127,9 @@ class AddressPropositionComponent extends React.Component {
                   refresh={this.refresh}
                   text="Manage Contracts"
                   textButton="Submit Contracts"
-                  names={["NewTransaprent",
+                  names={["NewTransparent",
                    "NewBeacons",
+                   "NewManagerAddress", 
                    "NewPublicPoolAddress", 
                    "NewTreasuryAddress",               
                    "NewCertisTokenAddress",
@@ -131,6 +140,7 @@ class AddressPropositionComponent extends React.Component {
                    "NewENSAddress",
                    "NewPrivatePoolAddress",
                    "NewProviderAddress",
+                   "ManagerInit",
                    "PublicInit",
                    "TreasuryInit",
                    "CertisInit",
@@ -143,8 +153,8 @@ class AddressPropositionComponent extends React.Component {
                    "NewPrivateContractVersion"
                    ]}
                   types={["hidden", "hidden",
-                    "text", "text", "text", "text", "text", "text", "text", "text",
-                   "text", "text",
+                    "text", "text", "text", "text", "text", "text", "text", "text", "text",
+                   "text", "text", "text",
                    "text", "text", "text", "text", "text", "text",
                    "text", "text",
                    "hidden", "hidden"]}
@@ -155,7 +165,9 @@ class AddressPropositionComponent extends React.Component {
                 <ListPendingPropositionComponent contract={this.props.contract}
                   refresh={this.refresh}
                   text="Check Pending Contracts"
-                  headers={["Pending Public Address", 
+                  headers={["Pending Manager Address", 
+                  "ManagerInit",
+                  "Pending Public Address", 
                   "PublicInit",
                   "Pending Treasury Address",   
                   "TreasuryInit",            
@@ -173,7 +185,9 @@ class AddressPropositionComponent extends React.Component {
                   "PropositionInit",
                   "Pending ENS Address",
                   "ENSInit"]}
-                  values={[ManagerFunc.PendingPublicPoolAddress, 
+                  values={[ManagerFunc.PendingManagerAddress, 
+                    ManagerFunc.PendingManagerInit,
+                    ManagerFunc.PendingPublicPoolAddress, 
                     ManagerFunc.PendingPublicPoolInit,
                     ManagerFunc.PendingTreasuryAddress, 
                     ManagerFunc.PendingTreasuryInit,

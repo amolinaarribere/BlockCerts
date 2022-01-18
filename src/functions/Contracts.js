@@ -1,4 +1,3 @@
-export var admin = "";
 export var certificatePoolManager = "";
 export var publicPool = "";
 export var privatePool = "";
@@ -10,10 +9,6 @@ export var CertisToken = "";
 export var PriceConverter = "";
 export var PropositionSettings = "";
 export var ENS = "";
-
-export function setAdmin(_value){
-    admin = _value;
-}
 
 export function setCertificatePoolManager(_value){
     certificatePoolManager = _value;
