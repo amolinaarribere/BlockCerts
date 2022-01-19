@@ -1,3 +1,4 @@
+import {ProviderContractType} from '../../../config.js';
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
@@ -6,7 +7,7 @@ const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 class ListProvidersPoolsComponent extends React.Component{
     render(){
-      var text = (this.props.contractType == 3)? "Pools" : "Providers";
+      var text = (this.props.contractType == ProviderContractType)? "Pools" : "Providers";
       var ProvidersPools = func.Items;
 
       return(

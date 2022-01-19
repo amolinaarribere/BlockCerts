@@ -1,9 +1,8 @@
+import {ProviderContractType} from '../../../config.js';
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const func = require("../../../functions/ProviderPoolFunctions.js");
-const Aux = require("../../../functions/AuxiliaryFunctions.js");
-const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class ListPendingProvidersPoolsComponent extends React.Component{
   state = {
@@ -21,7 +20,7 @@ class ListPendingProvidersPoolsComponent extends React.Component{
   };
 
     render(){
-      var text = (this.props.contractType == 3)? "Pools" : "Providers";
+      var text = (this.props.contractType == ProviderContractType)? "Pools" : "Providers";
       var pendingProvidersPoolsAdd = func.pendingAdd;
       var pendingProvidersPoolsRemove = func.pendingRemove;
 

@@ -1,4 +1,4 @@
-import {PublicContractType, PrivateContractType, ProviderContractType} from '../../../config.js';
+import {PublicContractType, ProviderContractType} from '../../../config.js';
 import React from 'react';
 import { Form } from 'react-bootstrap';
 

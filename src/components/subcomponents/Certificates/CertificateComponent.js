@@ -1,4 +1,4 @@
-import {PublicContractType, PrivateContractType, ProviderContractType} from '../../../config.js';
+import {ProviderContractType} from '../../../config.js';
 import React from 'react';
 import ListPendingCertificatesComponent from './ListPendingCertificatesComponent';
 import VoteCertificateComponent from './VoteCertificateComponent';

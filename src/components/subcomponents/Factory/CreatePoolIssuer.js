@@ -1,3 +1,4 @@
+import {ProviderContractType} from '../../../config.js';
 import React from 'react';
 import { Form} from 'react-bootstrap';
 
@@ -36,7 +37,7 @@ class CreatePoolIssuer extends React.Component {
 
     render(){
         var text = "Private Pool";
-        if(this.props.contractType == 3)text = "Provider";
+        if(this.props.contractType == ProviderContractType)text = "Provider";
         return(
             <div>
                  <h3>Create {text}</h3>
