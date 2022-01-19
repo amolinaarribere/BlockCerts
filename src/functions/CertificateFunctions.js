@@ -1,5 +1,6 @@
 // Certificate
 const Aux = require("./AuxiliaryFunctions.js");
+const ENSFunc = require("./ENSFunctions.js");
 
 export var pendingCertificates = []
 export var certificatesByHolder = []
@@ -47,8 +48,8 @@ export async function AddCertificate(hash, holder, price, contractType, contract
   export async function CheckCertificate(hash, address, contract){
     try{
       certificateProvider = await contract.methods.retrieveCertificateProvider(hash, address).call();
-      if (certificateProvider == "0x0000000000000000000000000000000000000000")certificateProvider = "Certificate Does not Belong to Holder " + address
-      else certificateProvider = "Certificate Provided by " + certificateProvider + " to " + address
+      if (certificateProvider == "0x0000000000000000000000000000000000000000")certificateProvider = "Certificate Does not Belong to Holder " + await ENSFunc.ReverseResolution(address)
+      else certificateProvider = "Certificate Provided by " + await ENSFunc.ReverseResolution(certificateProvider) + " to " + await ENSFunc.ReverseResolution(address)
     }
     catch(e) { 
       window.alert("error retrieving provider's certificate : " + JSON.stringify(e)); 
@@ -58,7 +59,7 @@ export async function AddCertificate(hash, holder, price, contractType, contract
   export async function retrieveCertificatesByHolder(address, init, max, contract){
     try{
       certificatesByHolder = []
-      currentHolder = address;
+      currentHolder = await ENSFunc.ReverseResolution(address);
       certificatesByHolder = await contract.methods.retrieveCertificatesByHolder(address, init, max).call();
     }
     catch(e) { 

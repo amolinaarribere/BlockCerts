@@ -1,5 +1,6 @@
 // Provider - Pool
-import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals, ETHFactor } from '../config'
+import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals, ETHFactor,
+  PublicContractType, PrivateContractType, ProviderContractType} from '../config'
 
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
@@ -26,63 +27,63 @@ export var Total = ""
 export var Items = []
 
 export async function AddProviderPool(address, Info, subscribe, contractType, price, contract){
-  (3 != contractType)? 
+  (ProviderContractType != contractType)? 
       await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: price})) :
       await Aux.CallBackFrame(contract.methods.addPool(address, Info, subscribe).send({from: Aux.account }));
   }
   
   export async function RemoveProviderPool(address, contractType, contract){
-    (3 != contractType)? 
+    (ProviderContractType != contractType)? 
       await Aux.CallBackFrame(contract.methods.removeProvider(address).send({from: Aux.account })) :
       await Aux.CallBackFrame(contract.methods.removePool(address).send({from: Aux.account }));
   }
 
   export async function ValidateProviderPool(address, contractType, contract){
-    (3 != contractType)? 
+    (ProviderContractType != contractType)? 
       await Aux.CallBackFrame(contract.methods.validateProvider(address).send({from: Aux.account })) :
       await Aux.CallBackFrame(contract.methods.validatePool(address).send({from: Aux.account }));
   }
   
   export async function RejectProviderPool(address, contractType, contract){
-    (3 != contractType)? 
+    (ProviderContractType != contractType)? 
       await Aux.CallBackFrame(contract.methods.rejectProvider(address).send({from: Aux.account })) :
       await Aux.CallBackFrame(contract.methods.rejectPool(address).send({from: Aux.account }));
   }
 
   export async function RetrieveProviderPool(contractType, contract){
     try{
-      let Addresses = (3 != contractType)? 
+      let Addresses = (ProviderContractType != contractType)? 
         await contract.methods.retrieveAllProviders().call():
         await contract.methods.retrieveAllPools().call();
       Total = Addresses.length
       Items = []
 
       for (let i = 0; i < Total; i++) {
-        let {0:Info,1:is} = (3 != contractType)?
+        let {0:Info,1:is} = (ProviderContractType != contractType)?
           await contract.methods.retrieveProvider(Aux.Bytes32ToAddress(Addresses[i])).call():
           await contract.methods.retrievePool(Aux.Bytes32ToAddress(Addresses[i])).call();
 
         Items[i] = [await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(Addresses[i])), Info]
       }
       pendingAdd = []
-      let pendingAddAddresses = (3 != contractType)?
+      let pendingAddAddresses = (ProviderContractType != contractType)?
         await contract.methods.retrievePendingProviders(true).call():
         await contract.methods.retrievePendingPools(true).call();
 
       for (let i = 0; i < pendingAddAddresses.length; i++) {
-        let {0:Info} = (3 != contractType)?
+        let {0:Info} = (ProviderContractType != contractType)?
           await contract.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingAddAddresses[i])).call():
           await contract.methods.retrievePool(Aux.Bytes32ToAddress(pendingAddAddresses[i])).call();
           let address = await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(pendingAddAddresses[i]));
         pendingAdd[i] = [address, Info]
       }
       pendingRemove = []
-      let pendingRemoveAddresses = (3 != contractType)?
+      let pendingRemoveAddresses = (ProviderContractType != contractType)?
         await contract.methods.retrievePendingProviders(false).call():
         await contract.methods.retrievePendingPools(false).call();
 
       for (let i = 0; i < pendingRemoveAddresses.length; i++) {
-        let {0:Info} = (3 != contractType)?
+        let {0:Info} = (ProviderContractType != contractType)?
           await contract.methods.retrieveProvider(Aux.Bytes32ToAddress(pendingRemoveAddresses[i])).call():
           await contract.methods.retrievePool(Aux.Bytes32ToAddress(pendingRemoveAddresses[i])).call();
           let address = await ENSFunc.ReverseResolution(Aux.Bytes32ToAddress(pendingRemoveAddresses[i]));
@@ -98,7 +99,7 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
 
   export async function SelectProviderPool(address, contractType){
     try{
-      if(2 == contractType){
+      if(ProviderContractType != contractType){
         PrivatePoolUnResolvedAddress = address
         PrivatePoolAddress = await ENSFunc.Resolution(address)
         privatePool = await new Aux.web3.eth.Contract(PRIVATE_ABI, PrivatePoolAddress)
@@ -124,7 +125,7 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
 
   export async function UnSelectProviderPool(contractType){
     try{
-      if(2 == contractType){
+      if(ProviderContractType != contractType){
         PrivatePoolUnResolvedAddress = ""
         PrivatePoolAddress = ""
         privatePool = ""
@@ -149,7 +150,7 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
   export async function ReadKeys(key, contractType){
     let UnResolvedAddress = BrowserStorageFunction.ReadKey(key);
     let Address = await ENSFunc.Resolution(UnResolvedAddress)
-    if(2 == contractType){
+    if(ProviderContractType != contractType){
       PrivatePoolUnResolvedAddress = UnResolvedAddress;
       PrivatePoolAddress = Address
     }

@@ -16,7 +16,7 @@ import LoadingComponent from './components/subcomponents/LoadingComponent.js';
 const certFunc = require("./functions/CertisFunctions.js");
 const LoadFunc = require("./functions/LoadFunctions.js");
 const BrowserStorageFunctions = require("./functions/BrowserStorageFunctions.js");
-
+const AuxFunc = require("./functions/AuxiliaryFunctions.js");
 
 const Home = "Home";
 const Settings = "Settings";
@@ -76,7 +76,7 @@ class Demo extends React.Component {
                 <Nav.Link onClick={() => this.toggleMenu(Settings)}>{Settings}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Public)}>{Public}</Nav.Link>
                 <Nav.Link onClick={() => this.toggleMenu(Private)}>{Private}</Nav.Link>
-                <Nav.Link onClick={() => this.toggleMenu(Provider)}>{Provider}</Nav.Link>
+                {AuxFunc.account ? (<Nav.Link onClick={() => this.toggleMenu(Provider)}>{Provider}</Nav.Link>) : null}
                 {certFunc.isOwner ? (<Nav.Link onClick={() => this.toggleMenu(Dividends)}>{Dividends}</Nav.Link>) : null}
                 <Nav.Link onClick={() => this.toggleMenu(Event)}>{Event}</Nav.Link>
               </Nav>

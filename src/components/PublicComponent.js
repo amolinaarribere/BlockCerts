@@ -1,3 +1,4 @@
+import {PublicContractType} from '../config.js';
 import React from 'react';
 import CertificateComponent from './subcomponents/Certificates/CertificateComponent.js';
 import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
@@ -29,7 +30,7 @@ class PublicComponent extends React.Component {
       newProvider : "",
       newProviderInfo : "",
       privateEnv : false,
-      contractType : 1
+      contractType : PublicContractType
     };
     
     async refresh() {
@@ -63,7 +64,6 @@ class PublicComponent extends React.Component {
                   price={Treasury.CertificatePriceWei}/>
                 <br />
                 <OwnerComponent contract={Contracts.publicPool} 
-                  contractType={this.state.contractType} 
                   isOwner={Ownerfunc.isOwner}
                   refresh={this.refresh}/>
                 <br/>

@@ -74,8 +74,8 @@ class ManageOwnerComponent extends React.Component{
                         </Form.Group>
                         <button type="submit" class="btn btn-primary">Add Owner</button> &nbsp;&nbsp;
                         <button type="button" class="btn btn-primary" onClick={this.handleRemoveOwner}>Remove Owner</button> &nbsp;&nbsp;
-                        <button type="button" class="btn btn-primary" onClick={this.handleValidateOwner}>Validate Owner</button> &nbsp;&nbsp;
-                        <button type="button" class="btn btn-primary" onClick={this.handleRejectOwner}>Reject Owner</button> 
+                        <button type="button" class="btn btn-success" onClick={this.handleValidateOwner}>Validate Owner</button> &nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger" onClick={this.handleRejectOwner}>Reject Owner</button> 
                       </Form>
                       <br/>
                     </div>) : null}

@@ -68,7 +68,7 @@ class SendNewProposalComponent extends React.Component {
                     value={this.state.newProviderInfo}
                     onChange={event => this.setState({ newProviderInfo: event.target.value })}/>    
             </Form.Group>
-            <button class="btn btn-secondary">Submit Proposal</button> 
+            <button class="btn btn-primary">Submit Proposal</button> 
           </Form>
           <hr class="bg-secondary"/>
         </div>

@@ -21,7 +21,6 @@ const CertisFunc = require("./CertisFunctions.js");
 const CertificateFunc = require("./CertificateFunctions.js");
 const Contracts = require("./Contracts.js");
 const ManagerFunc = require("./ManagerFunctions.js");
-const AdminFunc = require("./AdminFunctions.js");
 const PriceConverterFunc = require("./PriceConverterFunctions.js");
 const ENSFunc = require("./ENSFunctions.js");
 const BrowserStorageFunc = require("./BrowserStorageFunctions.js");
@@ -125,6 +124,7 @@ async function LoadNetwork(){
   if("rinkeby" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.rinkeby))
   else if("ropsten" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ropsten))
   else if("kovan" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.kovan))
+  else if("private" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ganache))
   else{
       Network = "Mumbai";
       Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.mumbai))
@@ -136,9 +136,6 @@ async function LoadContracts(){
   console.log("loading contracts")
 
   await LoadManagerFunc(Contracts.certificatePoolManager);
-
-  Contracts.setAdmin(await new Aux.web3.eth.Contract(ADMIN_ABI, ManagerFunc.ManagerAdminAddress));
-  await LoadAdminFunc(Contracts.admin);
 
   Contracts.setPublicPool(await new Aux.web3.eth.Contract(PUBLIC_ABI, ManagerFunc.publicPoolAddressProxy))
   Contracts.setPrivatePoolFactory(await new Aux.web3.eth.Contract(PRIVATEFACTORY_ABI, ManagerFunc.privatePoolFactoryAddressProxy))
@@ -170,15 +167,6 @@ export async function LoadBlockchain() {
     window.alert("error retrieving the main contract addresses " + JSON.stringify(e));
   }
   
-}
-
-export async function LoadAdminFunc(contract) {
-  console.log("loading Admin Contract State");
-
-  await Promise.all([AdminFunc.RetrieveManagerAddresses(contract), 
-    AdminFunc.RetrievePendingAdminConfig(contract)]);
-
-  console.log("Admin Contract State Loaded");
 }
 
 export async function LoadManagerFunc(contract) {

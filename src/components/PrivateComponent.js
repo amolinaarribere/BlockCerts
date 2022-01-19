@@ -1,3 +1,4 @@
+import {PrivateContractType} from '../config.js';
 import React from 'react';
 import CertificateComponent from './subcomponents/Certificates/CertificateComponent.js';
 import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
@@ -13,6 +14,7 @@ const Ownerfunc = require("../functions/OwnerFunctions.js");
 const Contracts = require("../functions/Contracts.js");
 const LoadFunc = require("../functions/LoadFunctions.js");
 const TreasuryFunc = require("../functions/TreasuryFunctions.js");
+const AuxFunc = require("../functions/AuxiliaryFunctions.js");
 
 
 class PrivateComponent extends React.Component {
@@ -29,7 +31,7 @@ class PrivateComponent extends React.Component {
     state = {
       loading : false,
       privateEnv : true,
-      contractType : 2
+      contractType : PrivateContractType
     };
 
     NotEmpty(value){
@@ -56,12 +58,19 @@ class PrivateComponent extends React.Component {
         <div>
           {(false == this.state.loading)? 
             <div>
-              <CreatePoolIssuer contract={Contracts.privatePoolFactory}
-                price={TreasuryFunc.PrivatePriceWei}
-                contractType={this.state.contractType} 
-                refresh={this.refresh}/>
-              <br />
-              <br />
+              {(AuxFunc.account)?
+                <div>
+                  <CreatePoolIssuer contract={Contracts.privatePoolFactory}
+                    price={TreasuryFunc.PrivatePriceWei}
+                    contractType={this.state.contractType} 
+                    refresh={this.refresh}/>
+                  <br />
+                  <br />
+                </div>
+                
+                 :
+                null
+              }
               <ListPoolsIssuers contract={Contracts.privatePoolFactory}
                 contractType={this.state.contractType} 
                 Key={BrowserStorageFunctions.privatePoolKey} 
@@ -76,7 +85,6 @@ class PrivateComponent extends React.Component {
                     price={0}/>
                   <br />
                   <OwnerComponent contract={Contracts.privatePool} 
-                    contractType={this.state.contractType} 
                     isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                   <br/>

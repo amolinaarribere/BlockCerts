@@ -18,22 +18,18 @@ class OwnerComponent extends React.Component{
       return(
         <div>
           <br />
-          <ListOwnersComponent contract={this.props.contract}
-            contractType={this.props.contractType}/>
+          <ListOwnersComponent contract={this.props.contract}/>
           <br />
           {
             (this.props.isOwner)?(
               <div>
                   <ManageOwnerComponent contract={this.props.contract}
-                    contractType={this.props.contractType} 
                     refresh={this.refresh}/>
                   <br/>
                   <UpdateMinOwnerComponent contract={this.props.contract}
-                    contractType={this.props.contractType} 
                     refresh={this.refresh}/>
                   <br/>
                   <ListPendingOwnersComponent contract={this.props.contract}
-                    contractType={this.props.contractType} 
                     refresh={this.refresh}/>
               </div>
               ):null}

@@ -81,8 +81,8 @@ class VoteCertificateComponent extends React.Component{
                   value={this.state.holder}
                   onChange={event => this.setState({ holder: event.target.value })}/>
               </Form.Group>
-              <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
-              <button type="button" class="btn btn-secondary" onClick={this.handleRejectCertificate}>Reject Certificate</button> &nbsp;&nbsp;
+              <button type="submit" class="btn btn-success">Validate Certificate</button> &nbsp;&nbsp;
+              <button type="button" class="btn btn-danger" onClick={this.handleRejectCertificate}>Reject Certificate</button> &nbsp;&nbsp;
             </Form>
         </div>
       );

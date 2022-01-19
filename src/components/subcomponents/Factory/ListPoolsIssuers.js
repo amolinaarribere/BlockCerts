@@ -1,3 +1,4 @@
+import {ProviderContractType} from '../../../config.js';
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 
@@ -56,7 +57,7 @@ class SelectPoolIssuerComponent extends React.Component{
       
       render(){
         var text = "Pool";
-        if (this.props.contractType == 3)text = "Provider";
+        if (this.props.contractType == ProviderContractType)text = "Provider";
         return (
             <div>
                 <h3>Select {text}</h3>
@@ -85,7 +86,7 @@ class UnSelectPoolIssuerComponent extends React.Component{
     
     render(){
       var text = "Pool";
-      if (this.props.contractType == 3)text = "Provider";
+      if (this.props.contractType == ProviderContractType)text = "Provider";
       return (
           <div>
               <Form onSubmit={this.handleUnSelectProviderPool} style={{margin: '50px 50px 50px 50px' }}>
@@ -99,10 +100,10 @@ class UnSelectPoolIssuerComponent extends React.Component{
 class ListPoolsIssuers extends React.Component {
 
     render(){
-        let text = (this.props.contractType == 3) ? "Provider" : "Private Pool";
-        let addresses = (this.props.contractType == 3) ? func.ProviderAddresses : func.PrivatePoolAddresses;
-        let selectedUnresolvedAddress = (this.props.contractType == 3) ? ProviderPoolFunctions.ProviderUnResolvedAddress : ProviderPoolFunctions.PrivatePoolUnResolvedAddress;
-        let selectedAddress = (this.props.contractType == 3) ? ProviderPoolFunctions.ProviderAddress : ProviderPoolFunctions.PrivatePoolAddress;
+        let text = (this.props.contractType == ProviderContractType) ? "Provider" : "Private Pool";
+        let addresses = (this.props.contractType == ProviderContractType) ? func.ProviderAddresses : func.PrivatePoolAddresses;
+        let selectedUnresolvedAddress = (this.props.contractType == ProviderContractType) ? ProviderPoolFunctions.ProviderUnResolvedAddress : ProviderPoolFunctions.PrivatePoolUnResolvedAddress;
+        let selectedAddress = (this.props.contractType == ProviderContractType) ? ProviderPoolFunctions.ProviderAddress : ProviderPoolFunctions.PrivatePoolAddress;
         selectedAddress = (selectedUnresolvedAddress == selectedAddress)?" ":selectedAddress;
         let Provider = false;
 
