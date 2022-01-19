@@ -1,3 +1,4 @@
+import {ProviderContractType} from '../config.js';
 import React from 'react';
 import CertificateComponent from './subcomponents/Certificates/CertificateComponent.js';
 import OwnerComponent from './subcomponents/Owners/OwnerComponent.js';
@@ -29,7 +30,7 @@ class IssuerComponent extends React.Component {
 
   state = {
     loading : false,
-    contractType : 3
+    contractType : ProviderContractType
   };
 
   NotEmpty(value){
@@ -80,7 +81,6 @@ class IssuerComponent extends React.Component {
                     price={0}/>
                   <br />
                   <OwnerComponent contract={Contracts.provider}
-                    contractType={this.state.contractType} 
                     isOwner={Ownerfunc.isOwner}
                     refresh={this.refresh}/>
                   <br/>

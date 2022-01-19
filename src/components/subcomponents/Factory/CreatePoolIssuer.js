@@ -55,7 +55,7 @@ class CreatePoolIssuer extends React.Component {
                             value={this.state.ensname}
                             onChange={event => this.setState({ ensname: event.target.value })}/>
                     </Form.Group>
-                    <button  class="btn btn-secondary">Request New {text}</button>
+                    <button  class="btn btn-primary">Request New {text}</button>
                 </Form>
                 <hr class="bg-secondary"/>
             </div>

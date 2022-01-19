@@ -1,3 +1,4 @@
+import {PublicContractType, PrivateContractType, ProviderContractType} from '../../../config.js';
 import React from 'react';
 import { Form } from 'react-bootstrap';
 
@@ -51,7 +52,7 @@ class ManageProvidersPoolsComponent extends React.Component{
   
     render(){
         var text = "Provider"
-        if(this.props.contractType == 3)text = "Pool"
+        if(this.props.contractType == ProviderContractType)text = "Pool"
         return(
             <div>
             <button
@@ -69,21 +70,21 @@ class ManageProvidersPoolsComponent extends React.Component{
                                           value={this.state.addProviderPoolInfo}
                                           onChange={event => this.setState({ addProviderPoolInfo: event.target.value })}/>
                                   </Form.Group>
-                                {(this.props.contractType == 3) ? 
+                                {(this.props.contractType == ProviderContractType) ? 
                                 <Form.Group  className="mb-3">
                                     <Form.Check type="checkbox" name="subscribe" label="Automatically Subscribe"
                                         checked={this.state.subscribe}
                                         onChange={event => this.setState({ subscribe: event.target.checked })} />
                                 </Form.Group>: null} 
-                            <button type="submit" class="btn btn-primary">Validate {text}</button> &nbsp;&nbsp;
-                            <button type="button" class="btn btn-primary" onClick={this.handleRejectProviderPool}>Reject {text}</button> &nbsp;&nbsp;
-                              {(this.props.contractType != 1) ? (
+                            {(this.props.contractType != PublicContractType) ? (
                                 <span>
                                   <button type="button" class="btn btn-primary" onClick={this.handleAddProvider}>Add {text}</button>  &nbsp;&nbsp;
                                 </span>
                               )
-                              :null} 
-                            <button type="button" class="btn btn-primary" onClick={this.handleRemoveProviderPool}>Remove {text}</button> 
+                            :null} 
+                            <button type="button" class="btn btn-primary" onClick={this.handleRemoveProviderPool}>Remove {text}</button> &nbsp;&nbsp;
+                            <button type="submit" class="btn btn-success">Validate {text}</button> &nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger" onClick={this.handleRejectProviderPool}>Reject {text}</button>
                         </Form>
                         <br/>
                         </div>) : null}

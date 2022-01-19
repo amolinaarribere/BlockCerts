@@ -42,7 +42,7 @@ class AssignWithdrawComponent extends React.Component {
                 <Col>{func.AccountBalanceWei.dividedBy(ETHFactor).dp(ETHDecimals, 0).toString()}</Col>
               </Row>
               <br />
-              <button type="button" class="btn btn-secondary" onClick={this.handleWithdrawAll}>Withdraw All</button>
+              <button type="button" class="btn btn-primary" onClick={this.handleWithdrawAll}>Withdraw All</button>
             </Container>
           </div>
           <div class="border border border-0">
@@ -52,7 +52,7 @@ class AssignWithdrawComponent extends React.Component {
                   value={this.state.amount}
                   onChange={event => this.setState({ amount: event.target.value })}/>
               </Form.Group>
-              <button class="btn btn-secondary">Withdraw Amount</button>
+              <button class="btn btn-primary">Withdraw Amount</button>
             </Form>
           </div>
           <hr class="bg-secondary"/>

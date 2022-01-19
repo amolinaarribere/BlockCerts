@@ -1,12 +1,17 @@
 const BigNumber = require('bignumber.js');
 
 export const MANAGER_PROXY_ADDRESS = {
-  "ganache": '0xE8d21297369352E45056Adb818aB7181f808672B',
-  "rinkeby": '0xB665031c58ff9f5F8C6AFE307e9732Af5F1e92af',
+  "ganache": '0x85A7e144E79e476957b975246865f150f7a62889',
+  "rinkeby": '0x73cE5E1Cfac797C81988175e6F668Fa2E09E487c',//'0xB665031c58ff9f5F8C6AFE307e9732Af5F1e92af',
   "ropsten": '0x8A94F55C260189aBF46f64DE78e0939f4d9ff6Be',
-  "kovan": '0x4BeeC9F6D25fB11Cc3ECB6d0Ed3aA141d8F2605b',
+  "kovan": '0x72b7b7D7d7629fBE41CE1aC2a45919C30265cbDe',//'0x4BeeC9F6D25fB11Cc3ECB6d0Ed3aA141d8F2605b',
   "mumbai": '0xCcdD41B28da80d46bE54fdFa72593aadC6565d51'
 }
+
+
+export const PublicContractType = 1;
+export const PrivateContractType = 2;
+export const ProviderContractType = 3;
 
 export const USDDecimals = 2;
 export const ETHDecimals = 18;

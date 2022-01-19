@@ -27,7 +27,7 @@ class FundIssuerComponent extends React.Component {
                           value={this.state.amount}
                           onChange={event => this.setState({ amount: event.target.value })}/>
                   </Form.Group>
-                  <button class="btn btn-secondary">Transfer Amount</button>
+                  <button class="btn btn-primary">Transfer Amount</button>
                 </Form>
                 <br/>
           </div>

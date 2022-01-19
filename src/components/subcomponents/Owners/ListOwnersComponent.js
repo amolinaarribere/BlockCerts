@@ -18,7 +18,7 @@ class ListOwnersComponent extends React.Component{
                         ))} 
                 <br />
                  <Row>
-                  <Col><b>Min Public Owners :</b></Col>
+                  <Col><b>Min Owners :</b></Col>
                   <Col>{MinOwners}</Col>
                 </Row>
             </Container>

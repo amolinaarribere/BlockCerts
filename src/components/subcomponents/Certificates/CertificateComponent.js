@@ -1,3 +1,4 @@
+import {PublicContractType, PrivateContractType, ProviderContractType} from '../../../config.js';
 import React from 'react';
 import ListPendingCertificatesComponent from './ListPendingCertificatesComponent';
 import VoteCertificateComponent from './VoteCertificateComponent';
@@ -5,7 +6,7 @@ import { Form, Container, Row, Col } from 'react-bootstrap';
 import SignCertificateComponent from './SignCertificateComponent';
 
 const func = require("../../../functions/CertificateFunctions.js");
-const Aux = require("../../../functions/AuxiliaryFunctions.js");
+const AuxFunc = require("../../../functions/AuxiliaryFunctions.js");
 const ValFunc = require("../../../functions/ValidationFunctions.js");
 const ENSFunc = require("../../../functions/ENSFunctions.js");
 
@@ -52,7 +53,7 @@ class CertificateComponent extends React.Component{
   
     convertToBuffer = async (reader) => {
       const buffer = await Buffer.from(reader.result);
-      this.setState({certificateHash: Aux.web3.utils.keccak256(buffer)});
+      this.setState({certificateHash: AuxFunc.web3.utils.keccak256(buffer)});
     };
 
     resetState() {
@@ -69,7 +70,7 @@ class CertificateComponent extends React.Component{
       let PoolAddress = await ENSFunc.Resolution(this.state.poolAddress);
 
       this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
-      if(3 == this.props.contractType)this.state.errors.poolAddress = ValFunc.validateAddress(PoolAddress);
+      if(ProviderContractType == this.props.contractType)this.state.errors.poolAddress = ValFunc.validateAddress(PoolAddress);
       else this.state.errors.poolAddress = true;
       this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
 
@@ -132,19 +133,19 @@ class CertificateComponent extends React.Component{
     };
   
     render(){
-      if(3 != this.props.contractType){
+      if(ProviderContractType != this.props.contractType){
         return (
           <div>
             <h3>Certificates</h3>
-            <Form onSubmit={this.handleAddCertificate} style={{margin: '50px 50px 50px 50px' }}>
+            <Form onSubmit={this.handleCheckCertificate} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Control type="file" onChange={this.captureFile} className={this.state.highlights.certificateHash}/>
                 <Form.Control type="text" name="HolderAddress" placeholder="holder address or ENS name" className={this.state.highlights.holderAddress}
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
               </Form.Group>
-                 <button type="submit" class="btn btn-success">Add Certificate</button> &nbsp;&nbsp;
-                 <button type="button" class="btn btn-secondary" onClick={this.handleCheckCertificate}>Check Certificate</button>
+                 <button type="submit" class="btn btn-secondary">Check Certificate</button> &nbsp;&nbsp;
+                 {(AuxFunc.account)?<button type="button" class="btn btn-primary" onClick={this.handleAddCertificate}>Add Certificate</button>:null}
             </Form>
 
             <Container>
@@ -153,8 +154,12 @@ class CertificateComponent extends React.Component{
               </Row>
             </Container>
 
-           <SignCertificateComponent contract={this.props.contract} 
-            price={this.props.price}/>
+            {(AuxFunc.account)?
+                <SignCertificateComponent contract={this.props.contract} 
+                  price={this.props.price}/>
+                  :
+                null
+            }
 
             <Form onSubmit={this.handleRetrieveByHolder} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
@@ -166,7 +171,7 @@ class CertificateComponent extends React.Component{
             </Form>
 
             <Container>
-              {(func.certificatesByHolder.length > 0)? (<Row><Col><b>Certificates for Holder :</b></Col> <Col>{func.currentHolder}</Col></Row>):null}
+              {(func.certificatesByHolder.length > 0)? (<Row><Col><b>{func.certificatesByHolder.length} Certificate(s) for Holder :</b></Col> <Col>{func.currentHolder}</Col></Row>):null}
               {(func.certificatesByHolder.length == 0 && func.currentHolder != "")? (<Row><Col><b>No Certificates for Holder :</b></Col>  <Col>{func.currentHolder}</Col></Row>):null}
               {func.certificatesByHolder.map(certificateByHolder => (
                 <Row key={certificateByHolder}>{certificateByHolder}</Row>
@@ -191,7 +196,7 @@ class CertificateComponent extends React.Component{
                     value={this.state.poolAddress}
                     onChange={event => this.setState({ poolAddress: event.target.value })}/>
               </Form.Group>
-              <button type="submit" class="btn btn-secondary">Add Certificate</button> &nbsp;&nbsp;
+              <button type="submit" class="btn btn-primary">Add Certificate</button> &nbsp;&nbsp;
             </Form>
             <VoteCertificateComponent contract={this.props.contract}
               refresh={this.refresh} />

@@ -32,7 +32,7 @@ class CertisTransferComponent extends React.Component {
                           value={this.state.recipient}
                           onChange={event => this.setState({ recipient: event.target.value })}/>
                   </Form.Group>
-                  <button class="btn btn-secondary">Transfer Amount</button>
+                  <button class="btn btn-primary">Transfer Amount</button>
                 </Form>
                 <br/>
           </div>

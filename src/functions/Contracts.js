@@ -10,6 +10,7 @@ export var PriceConverter = "";
 export var PropositionSettings = "";
 export var ENS = "";
 
+
 export function setCertificatePoolManager(_value){
     certificatePoolManager = _value;
 }
