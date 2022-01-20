@@ -62,6 +62,20 @@ class ManagerComponent extends React.Component {
       return (
         <div>
           <h6>
+          <span style={{ color: 'red' }}><b>DISCLAIMER :</b></span> blockcerts is intended as a PoC to showcase my skills as a solidity developer, the <span style={{ color: 'blue' }}><b>Source code</b></span> can be found at : 
+            <ul>
+              <li>Smart Contracts (Solidity) : <a href="https://github.com/amolinaarribere/Certificates">Certificates source code</a></li>
+              <li>Front End (React.js) : <a href="https://github.com/amolinaarribere/blockcerts">Blockcert source code</a></li>
+            </ul>
+            Some <span style={{ color: 'blue' }}><b>articles</b></span> I wrote about how I implemented certain functionalities that can be interesting to other developers can be found at : 
+            <ul>
+              <li>Governance : <a href="https://coinsbench.com/dapp-governance-using-erc-20-tokens-solidity-9953c2e82831">dApp Governance using ERC-20 tokens (solidity)</a></li>
+              <li>Dividends : <a href="https://coinsbench.com/erc-20-tokens-as-dividends-paying-shares-solidity-b95f6c6c52ce">ERC-20 tokens as dividends paying shares (solidity)</a></li>
+              <li>dapp Architecture : <a href="https://coinsbench.com/upgradeable-dapp-architecture-1c18643e358a">Upgradeable dapp architecture</a></li>
+            </ul>
+            <hr />
+            <h1><b>What is Blockcerts?</b></h1>
+            <br />
             <span style={{ color: 'blue' }}><b>BlockCerts</b></span> is a decentralized application for delivering and checking certificates on the blockchain.
             <br />
             The application is available on the Ethereum TestNets <span style={{ color: 'blue' }}><b>Rinkeby, Kovan and Ropsten</b></span> and the Polygon TestNet <span style={{ color: 'blue' }}><b>Mumbai</b></span>
@@ -132,12 +146,6 @@ class ManagerComponent extends React.Component {
             <ul>
               <li>Delivering Certificates to any Pool</li>
               <li>Voting on any dapp proposal</li>
-            </ul>
-            <br />
-            <span style={{ color: 'red' }}><b>DISCLAIMER :</b></span> blockcerts is intended as a PoC to showcase my skills as a solidity developer, the <span style={{ color: 'blue' }}><b>Source code</b></span> can be found at : 
-            <ul>
-              <li>Smart Contracts (Solidity) : <a href="https://github.com/amolinaarribere/Certificates">Certificates source code</a></li>
-              <li>Front End (React.js) : <a href="https://github.com/amolinaarribere/blockcerts">Blockcert source code</a></li>
             </ul>
             <br />
             <br />
