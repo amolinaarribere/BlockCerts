@@ -23,6 +23,10 @@ export async function AddCertificate(hash, holder, price, contractType, contract
     await Aux.CallBackFrame(contract.methods.addCertificateOnBehalfOf(provider, hash, holder, nonce, deadline, signature).send({from: Aux.account, value: price}));
   }
 
+  export async function TransferCertificate(hash, newHolder, contract){
+    await Aux.CallBackFrame(contract.methods.transferCertificate(hash, newHolder).send({from: Aux.account }));
+  }
+
   export async function ValidateCertificate(pool, hash, holder, contract){
     await Aux.CallBackFrame(contract.methods.validateCertificate(pool, hash, holder).send({from: Aux.account }));
   }
