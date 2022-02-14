@@ -86,6 +86,30 @@ class CertificateComponent extends React.Component{
       if(reset)this.resetState()
 
     };
+
+    handleTransferCertificate = async (event) => {
+      event.preventDefault();
+      let reset = true;
+      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
+      this.setState({})
+
+      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress);
+
+      this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
+      this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
+
+      if(ValFunc.validate(this.state.errors)){
+        await func.TransferCertificate(this.state.certificateHash, HolderAddress, this.props.contract);
+      }
+      else{
+        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
+        reset = false;
+        this.setState({})
+      } 
+
+      if(reset)this.resetState()
+
+    };
   
     handleCheckCertificate = async (event) => {
         event.preventDefault();
@@ -145,7 +169,13 @@ class CertificateComponent extends React.Component{
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
               </Form.Group>
                  <button type="submit" class="btn btn-secondary">Check Certificate</button> &nbsp;&nbsp;
-                 {(AuxFunc.account)?<button type="button" class="btn btn-primary" onClick={this.handleAddCertificate}>Add Certificate</button>:null}
+                 {(AuxFunc.account)?
+                      <button type="button" class="btn btn-primary" onClick={this.handleAddCertificate}>Add Certificate</button>                 :
+                    null} &nbsp;&nbsp;   
+                {(AuxFunc.account)?
+                      <button type="button" class="btn btn-primary" onClick={this.handleTransferCertificate}>Transfer Certificate</button>
+                    :
+                    null}
             </Form>
 
             <Container>
