@@ -29,8 +29,9 @@ class ListEventsComponent extends React.Component {
 
     handleStartEvents = async (event) => {
       event.preventDefault();
-      await EventsFunc.StartEvents(this.state.block);
-      this.setState({ EventsActivated: true,  blockChecked: this.state.block});
+      let success = await EventsFunc.StartEvents(this.state.block);
+      if(true == success)this.setState({ EventsActivated: true,  blockChecked: this.state.block});
+      else this.setState({ EventsActivated: false,  blockChecked: 0});
     }
 
     render(){

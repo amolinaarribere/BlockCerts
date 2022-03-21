@@ -6,6 +6,7 @@ const Manager = require("./ManagerFunctions.js");
 const PriceConverter = require("./PriceConverterFunctions.js");
 const Contracts = require("./Contracts.js");
 const BigNumber = require('bignumber.js');
+const ValidationFunc = require("./ValidationFunctions.js");
 
 export var AccountBalanceWei = new BigNumber(0);
 export var TreasuryBalanceWei = new BigNumber(0);
@@ -109,7 +110,14 @@ export var PendingOwnerRefundFeeUSD = "";
   }
 
   export async function WithdrawAmount(amount, contract){
-    await Aux.CallBackFrame(contract.methods.withdraw(amount).send({from: Aux.account }));
+    let CheckAmount = ValidationFunc.validatePositiveLargeInteger(amount);
+
+    if(true == CheckAmount[1]){
+      await Aux.CallBackFrame(contract.methods.withdraw(CheckAmount[0].multipliedBy(ETHFactor).dp(0, 1).toString()).send({from: Aux.account }));
+    }
+    else{
+      ValidationFunc.FormatErrorMessage([CheckAmount[1]], ["Amount"]);
+    }
   }
 
   export async function WithdrawAll(contract){

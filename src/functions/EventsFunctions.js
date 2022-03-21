@@ -1,6 +1,7 @@
 
 const Aux = require("./AuxiliaryFunctions.js");
 const Contracts = require("./Contracts.js");
+const ValidationFunc = require("./ValidationFunctions.js");
 
 export var eventlogs = [];
 export var eventNames = [];
@@ -17,6 +18,10 @@ export const privatePoolId = 9
 export const providerId = 10
 
 export async function StartEvents(blockId){
+
+  let CheckBlockID = ValidationFunc.validatePositiveInteger(blockId);
+
+  if(true == CheckBlockID[1]){
     eventNames = [];
 
     // Contracts
@@ -54,9 +59,16 @@ export async function StartEvents(blockId){
           eventNames[i], 
           abisList);
         } 
+      }
+
+      return true;
     }
-      
   
+  else{
+    ValidationFunc.FormatErrorMessage([CheckBlockID[1]], ["Block ID"]);
+    return false;
+  } 
+      
 }
 
 export async function GetEvents(eventLogId, _block, contract, eventsList, abisList){
@@ -74,7 +86,7 @@ export async function GetEvents(eventLogId, _block, contract, eventsList, abisLi
 
 }
 
-function ConnectEvent(func, option, Id1, Id2, Abi){
+function ConnectEvent(func, option, Id1, Id2){
   eventlogs[Id1][Id2] = []
   let eventFunction = func(option);
 

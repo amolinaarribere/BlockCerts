@@ -1,19 +1,17 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import { ETHFactor } from '../../../config';
 
-const BigNumber = require('bignumber.js');
 const func = require("../../../functions/ProviderPoolFunctions.js");
 
 class FundIssuerComponent extends React.Component {
     state = {
-      amount : 0
+      amount : ""
     };
 
     handleTransfer = async (event) => {
       event.preventDefault();
-      await func.FundProvider((new BigNumber(this.state.amount).multipliedBy(ETHFactor)).dp(0, 1).toString());
-      this.setState({amount: 0});
+      await func.FundProvider(this.state.amount.trim());
+      this.setState({amount: ""});
       await this.props.refresh();
     };
     

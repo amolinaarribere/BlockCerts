@@ -7,7 +7,6 @@ import SignCertificateComponent from './SignCertificateComponent';
 
 const func = require("../../../functions/CertificateFunctions.js");
 const AuxFunc = require("../../../functions/AuxiliaryFunctions.js");
-const ValFunc = require("../../../functions/ValidationFunctions.js");
 const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class CertificateComponent extends React.Component{
@@ -21,24 +20,9 @@ class CertificateComponent extends React.Component{
   }
 
     state = {
-      errors: {
-        certificateHash: true,
-        holderAddress: true,
-        poolAddress: true,
-        retrieveholderAddress: true
-      },
-
-      highlights: {
-        certificateHash: '',
-        holderAddress: '',
-        poolAddress: '',
-        retrieveholderAddress: ''
-      },
-
       certificateHash : "",
       holderAddress: "",
       poolAddress: "",
-
       retrieveholderAddress: "" 
     };
   
@@ -62,98 +46,43 @@ class CertificateComponent extends React.Component{
   
     handleAddCertificate = async (event) => {
       event.preventDefault();
-      let reset = true;
-      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
-      this.setState({})
 
-      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress);
-      let PoolAddress = await ENSFunc.Resolution(this.state.poolAddress);
+      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress.trim());
+      let PoolAddress = await ENSFunc.Resolution(this.state.poolAddress.trim());
 
-      this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
-      if(ProviderContractType == this.props.contractType)this.state.errors.poolAddress = ValFunc.validateAddress(PoolAddress);
-      else this.state.errors.poolAddress = true;
-      this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
+      await func.AddCertificate(this.state.certificateHash.trim(), HolderAddress, this.props.price, this.props.contractType, this.props.contract, PoolAddress);
 
-      if(ValFunc.validate(this.state.errors)){
-        await func.AddCertificate(this.state.certificateHash, HolderAddress, this.props.price, this.props.contractType, this.props.contract, PoolAddress);
-      }
-      else{
-        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
-        reset = false;
-        this.setState({})
-      } 
-
-      if(reset)this.resetState()
-
+      this.resetState()
     };
 
     handleTransferCertificate = async (event) => {
       event.preventDefault();
-      let reset = true;
-      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
-      this.setState({})
 
-      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress);
+      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress.trim());
 
-      this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
-      this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
+      await func.TransferCertificate(this.state.certificateHash.trim(), HolderAddress, this.props.contract);
 
-      if(ValFunc.validate(this.state.errors)){
-        await func.TransferCertificate(this.state.certificateHash, HolderAddress, this.props.contract);
-      }
-      else{
-        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
-        reset = false;
-        this.setState({})
-      } 
-
-      if(reset)this.resetState()
-
+      this.resetState()
     };
   
     handleCheckCertificate = async (event) => {
-        event.preventDefault();
-      let reset = true;
-      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
-      this.setState({})
+      event.preventDefault();
 
-      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress);
+      let HolderAddress = await ENSFunc.Resolution(this.state.holderAddress.trim());
 
-      this.state.errors.holderAddress = ValFunc.validateAddress(HolderAddress);
-      this.state.errors.certificateHash = ValFunc.validateHash(this.state.certificateHash);
-
-      if(ValFunc.validate(this.state.errors)){
-        await func.CheckCertificate(this.state.certificateHash, HolderAddress, this.props.contract);
-      }
-      else{
-        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
-        reset = false;
-        this.setState({})
-      } 
-     
-      if(reset)this.resetState()
+      await func.CheckCertificate(this.state.certificateHash.trim(), HolderAddress, this.props.contract);
+  
+      this.resetState()
     };
   
     handleRetrieveByHolder = async (event) => {
-        event.preventDefault();
-      let reset = true;
-      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
-      this.setState({})
+      event.preventDefault();
 
-      let HolderAddress = await ENSFunc.Resolution(this.state.retrieveholderAddress);
+      let HolderAddress = await ENSFunc.Resolution(this.state.retrieveholderAddress.trim());
       
-      this.state.errors.retrieveholderAddress = ValFunc.validateAddress(HolderAddress);
+      await func.retrieveCertificatesByHolder(HolderAddress, 0, 99, this.props.contract)
 
-      if(ValFunc.validate(this.state.errors)){
-        await func.retrieveCertificatesByHolder(HolderAddress, 0, 99, this.props.contract)
-      }
-      else{
-        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
-        reset = false;
-        this.setState({})
-      } 
-
-      if(reset)this.setState({ retrieveholderAddress: ""})
+      this.setState({ retrieveholderAddress: ""})
     };
   
     render(){
@@ -163,8 +92,8 @@ class CertificateComponent extends React.Component{
             <h3>Certificates</h3>
             <Form onSubmit={this.handleCheckCertificate} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group controlId="formFile" className="mb-3">
-                <Form.Control type="file" onChange={this.captureFile} className={this.state.highlights.certificateHash}/>
-                <Form.Control type="text" name="HolderAddress" placeholder="holder address or ENS name" className={this.state.highlights.holderAddress}
+                <Form.Control type="file" onChange={this.captureFile}/>
+                <Form.Control type="text" name="HolderAddress" placeholder="holder address or ENS name"
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
               </Form.Group>
@@ -193,7 +122,7 @@ class CertificateComponent extends React.Component{
 
             <Form onSubmit={this.handleRetrieveByHolder} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="text" name="RetreiveByHolder" placeholder="holder address or ENS name" className={this.state.highlights.retrieveholderAddress}
+                <Form.Control type="text" name="RetreiveByHolder" placeholder="holder address or ENS name"
                     value={this.state.retrieveholderAddress}
                     onChange={event => this.setState({ retrieveholderAddress: event.target.value })}/>
               </Form.Group>
@@ -218,11 +147,11 @@ class CertificateComponent extends React.Component{
             <h3>Certificates</h3>
             <Form onSubmit={this.handleAddCertificate} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group controlId="formFile" className="mb-3">
-                <Form.Control type="file" onChange={this.captureFile} className={this.state.highlights.certificateHash}/>
-                <Form.Control type="text" name="HolderAddress" placeholder="holder address or ENS name" className={this.state.highlights.holderAddress}
+                <Form.Control type="file" onChange={this.captureFile}/>
+                <Form.Control type="text" name="HolderAddress" placeholder="holder address or ENS name"
                     value={this.state.holderAddress}
                     onChange={event => this.setState({ holderAddress: event.target.value })}/>
-                <Form.Control type="text" name="PoolAddress" placeholder="pool address or ENS name" className={this.state.highlights.poolAddress}
+                <Form.Control type="text" name="PoolAddress" placeholder="pool address or ENS name"
                     value={this.state.poolAddress}
                     onChange={event => this.setState({ poolAddress: event.target.value })}/>
               </Form.Group>

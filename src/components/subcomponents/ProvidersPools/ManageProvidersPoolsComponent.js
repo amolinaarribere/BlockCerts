@@ -16,25 +16,25 @@ class ManageProvidersPoolsComponent extends React.Component{
 
     handleAddProvider = async (event) => {
       event.preventDefault();
-      let Address = await ENSFunc.Resolution(this.state.ProviderPool);
-      await func.AddProviderPool(Address, this.state.addProviderPoolInfo, this.state.subscribe, this.props.contractType, 0, this.props.contract)
+      let Address = await ENSFunc.Resolution(this.state.ProviderPool.trim());
+      await func.AddProviderPool(Address, this.state.addProviderPoolInfo.trim(), this.state.subscribe, this.props.contractType, 0, this.props.contract)
       await this.refresh();
     };
     handleRemoveProviderPool = async (event) => {
       event.preventDefault();
-      let Address = await ENSFunc.Resolution(this.state.ProviderPool);
+      let Address = await ENSFunc.Resolution(this.state.ProviderPool.trim());
       await func.RemoveProviderPool(Address, this.props.contractType, this.props.contract)
       await this.refresh();
     };
     handleValidateProviderPool = async (event) => {
       event.preventDefault();
-      let Address = await ENSFunc.Resolution(this.state.ProviderPool);
+      let Address = await ENSFunc.Resolution(this.state.ProviderPool.trim());
       await func.ValidateProviderPool(Address, this.props.contractType, this.props.contract)
       await this.refresh();
     };
     handleRejectProviderPool = async (event) => {
       event.preventDefault();
-      let Address = await ENSFunc.Resolution(this.state.ProviderPool);
+      let Address = await ENSFunc.Resolution(this.state.ProviderPool.trim());
       await func.RejectProviderPool(Address, this.props.contractType, this.props.contract)
       await this.refresh();
     };

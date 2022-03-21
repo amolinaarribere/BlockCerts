@@ -1,7 +1,7 @@
 import React from 'react';
 import SignVoteComponent from './SignVoteComponent.js';
 
-const func = require("../../../functions/PropositionFunctions.js");
+const func = require("../../../functions/VoteFunctions.js");
 
 class VoteForPropositionComponent extends React.Component{
   constructor(props) {
