@@ -13,9 +13,15 @@ class PriceConvertToWeiComponent extends React.Component {
 
     Convert = async (event) => {
       event.preventDefault();
-      if(this.state.AmountUSDText.trim() != "") this.state.AmountUSD = this.state.AmountUSDText.trim();
-      this.state.AmountETH = (await func.CentsToWeis(USDFactor.multipliedBy(this.state.AmountUSD), this.props.contract)).dividedBy(ETHFactor).dp(ETHDecimals, 0).toString();
+
+      this.state.AmountUSD = this.state.AmountUSDText.trim();
+      let result = await func.CentsToWeis(this.state.AmountUSD, this.props.contract);
+      if(true == result[1]) this.state.AmountETH = await result[0].dividedBy(ETHFactor).dp(ETHDecimals, 0).toString();
       this.setState({ AmountUSDText: ""})
+
+      //if(this.state.AmountUSDText.trim() != "") this.state.AmountUSD = this.state.AmountUSDText.trim();
+      //this.state.AmountETH = (await func.CentsToWeis(USDFactor.multipliedBy(this.state.AmountUSD), this.props.contract)).dividedBy(ETHFactor).dp(ETHDecimals, 0).toString();
+      //this.setState({ AmountUSDText: ""})
     };
     
     render(){

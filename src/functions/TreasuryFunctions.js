@@ -110,7 +110,7 @@ export var PendingOwnerRefundFeeUSD = "";
   }
 
   export async function WithdrawAmount(amount, contract){
-    let CheckAmount = ValidationFunc.validatePositiveLargeInteger(amount);
+    let CheckAmount = ValidationFunc.validatePositiveFloat(amount);
 
     if(true == CheckAmount[1]){
       await Aux.CallBackFrame(contract.methods.withdraw(CheckAmount[0].multipliedBy(ETHFactor).dp(0, 1).toString()).send({from: Aux.account }));

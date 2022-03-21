@@ -1,3 +1,5 @@
+import { USDFactor } from '../config';
+
 const Aux = require("./AuxiliaryFunctions.js");
 const BigNumber = require('bignumber.js');
 const ENSFunc = require("./ENSFunctions.js");
@@ -8,22 +10,29 @@ export var RegistryAddress = "";
 export var PendingRegistryAddress = "";
 
   export async function CentsToWeis(amountInCents, contract){
-    let CheckAmount = ValidationFunc.validatePositiveLargeInteger(amountInCents);
+    let CheckAmount = ValidationFunc.validatePositiveFloat(amountInCents);
 
     if(true == CheckAmount[1]){
       try{
-        let resultInWei = new BigNumber(await contract.methods.fromUSDToETH(CheckAmount[0]).call());
-        if(resultInWei != undefined)return resultInWei;
-        return "-";
+        let NewAmountInCents = CheckAmount[0].multipliedBy(USDFactor);
+        let CheckAmountInCents = ValidationFunc.validatePositiveLargeInteger(NewAmountInCents);
+
+        if(true == CheckAmountInCents[1]){
+          let resultInWei =new BigNumber(await contract.methods.fromUSDToETH(CheckAmountInCents[0].toString()).call());
+          if(resultInWei != undefined)return [resultInWei, true];
+        }
+        else ValidationFunc.FormatErrorMessage([CheckAmountInCents[1]], ["Amount"]);
+        return ["-", false];
       }
       catch(e) { 
         window.alert("error getting the USD to Ether excahgne rate : " + JSON.stringify(e)); 
+        return ["-", false];
       }
     }
     else{
       ValidationFunc.FormatErrorMessage([CheckAmount[1]], ["Amount"]);
+      return ["-", false];
     }
-
     
   }
 
