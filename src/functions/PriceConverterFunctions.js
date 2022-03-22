@@ -9,7 +9,7 @@ const ValidationFunc = require("./ValidationFunctions.js");
 export var RegistryAddress = "";
 export var PendingRegistryAddress = "";
 
-  export async function CentsToWeis(amountInCents, contract){
+  export async function USDsToWeis(amountInCents, contract){
     let CheckAmount = ValidationFunc.validatePositiveFloat(amountInCents);
 
     if(true == CheckAmount[1]){

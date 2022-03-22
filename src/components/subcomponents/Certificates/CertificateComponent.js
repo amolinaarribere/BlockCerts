@@ -23,16 +23,18 @@ class CertificateComponent extends React.Component{
       certificateHash : "",
       holderAddress: "",
       poolAddress: "",
-      retrieveholderAddress: "" 
+      retrieveholderAddress: ""
     };
   
     captureFile = (event) => {
       event.stopPropagation();
       event.preventDefault();
       const file = event.target.files[0];
-      let reader = new window.FileReader();
-      reader.readAsArrayBuffer(file);
-      reader.onloadend = () => this.convertToBuffer(reader);
+      if(file){
+        let reader = new window.FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onloadend = () => this.convertToBuffer(reader);
+      }
     };
   
     convertToBuffer = async (reader) => {

@@ -3,7 +3,6 @@ import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/CertificateFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
-const ValFunc = require("../../../functions/ValidationFunctions.js");
 const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class VoteCertificateComponent extends React.Component{
@@ -35,7 +34,7 @@ class VoteCertificateComponent extends React.Component{
 
     reset = async () => {
       this.setState({ pool: "",  hash : "", holder: ""})
-      await loadFunc.LoadCertificateFunc()
+      await loadFunc.LoadCertificateFunc(this.props.contract)
       await this.props.refresh();
     };
   

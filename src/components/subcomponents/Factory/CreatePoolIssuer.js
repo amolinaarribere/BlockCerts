@@ -43,7 +43,7 @@ class CreatePoolIssuer extends React.Component {
                  <h3>Create {text}</h3>
                 <Form onSubmit={this.handleNewPrivatePoolProvider} style={{margin: '50px 50px 50px 50px' }}>
                     <Form.Group className="mb-3">
-                        <Form.Control type="integer" name="minOwners" placeholder="min Owners" 
+                        <Form.Control type="number" min="0" name="minOwners" placeholder="min Owners" 
                             value={this.state.minOwners}
                             onChange={event => this.setState({ minOwners: event.target.value })}/>
                         <Form.Control type="text" name="listOfOwners" placeholder="list Of Owners addresses or ENS names" 

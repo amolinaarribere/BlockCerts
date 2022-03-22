@@ -52,7 +52,8 @@ export var PendingOwnerRefundFeeUSD = "";
       CertificatePriceUSD = CertificatePriceUSDCents.dividedBy(USDFactor).dp(2,0).toString();
       OwnerRefundFeeUSD = OwnerRefundFeeUSDCents.dividedBy(USDFactor).dp(2,0).toString();
 
-      let exchangeRate = await PriceConverter.CentsToWeis(1, Contracts.PriceConverter);
+      let result = await PriceConverter.USDsToWeis(new BigNumber(1).dividedBy(USDFactor), Contracts.PriceConverter);
+      let exchangeRate = result[0];
       PublicPriceWei = PublicPriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
       PrivatePriceWei = PrivatePriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
       ProviderPriceWei = ProviderPriceUSDCents.multipliedBy(exchangeRate).dp(0,1);
