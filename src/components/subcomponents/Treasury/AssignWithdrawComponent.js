@@ -47,7 +47,7 @@ class AssignWithdrawComponent extends React.Component {
           <div class="border border border-0">
             <Form onSubmit={this.handleWithdraw} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="string" name="Amount" placeholder="Amount in ETH" 
+                <Form.Control type="number" min="0" step="0.000000001" name="Amount" placeholder="Amount in ETH" 
                   value={this.state.amount}
                   onChange={event => this.setState({ amount: event.target.value })}/>
               </Form.Group>
