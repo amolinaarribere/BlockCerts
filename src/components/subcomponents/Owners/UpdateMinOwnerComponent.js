@@ -12,7 +12,7 @@ class UpdateMinOwnerComponent extends React.Component{
 
     handleMinOwner = async (event) => {
         event.preventDefault();
-      await func.UpdateMinOwner(this.state.minOwner, this.props.contract)
+      await func.UpdateMinOwner(this.state.minOwner.trim(), this.props.contract)
       this.setState({ minOwner: "" })
       await loadFunc.LoadOwnersFunc(this.props.contract);
       this.props.refresh();
@@ -34,7 +34,7 @@ class UpdateMinOwnerComponent extends React.Component{
                     <div class="border border-primary border-5">
                        <Form onSubmit={this.handleMinOwner} style={{margin: '50px 50px 50px 50px' }}>
                         <Form.Group  className="mb-3">
-                        <Form.Control type="interger" name="MinOwner" placeholder="min owner" 
+                        <Form.Control type="number" min="0" name="MinOwner" placeholder="min owner" 
                             value={this.state.minOwner}
                             onChange={event => this.setState({ minOwner: event.target.value })}/> 
                         </Form.Group>

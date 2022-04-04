@@ -1,5 +1,6 @@
 
 const Aux = require("./AuxiliaryFunctions.js");
+const ValidationFunc = require("./ValidationFunctions.js");
 
 export const method = 'eth_signTypedData_v4';
 
@@ -95,10 +96,22 @@ export const method = 'eth_signTypedData_v4';
   }
 
   export async function retrieveNonce(contract, address, nonce){
-    try{
-      return await contract.methods.retrieveNonce(address, nonce).call();
+    let CheckNonce = ValidationFunc.validatePositiveInteger(nonce);
+    let CheckAddress = ValidationFunc.validateAddress(address);
+
+    if(true == CheckAddress &&
+      true == CheckNonce[1]){
+        try{
+          return await contract.methods.retrieveNonce(address, CheckNonce[0]).call();
+        }
+        catch(e) { 
+          window.alert("error retrieving the nonce :  " + e); 
+        }
     }
-    catch(e) { 
-      window.alert("error retrieving the nonce :  " + e); 
+    else{
+      ValidationFunc.FormatErrorMessage([CheckAddress, CheckNonce[1]], 
+        ["Address", "Nonce"]);
     }
+
+    
   }

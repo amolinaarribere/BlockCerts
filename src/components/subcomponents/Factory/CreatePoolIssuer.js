@@ -27,11 +27,11 @@ class CreatePoolIssuer extends React.Component {
         event.preventDefault();
         let OwnersAddresses = []
         for(let i=0; i < this.state.listOfOwners.length; i++){
-            OwnersAddresses.push(await ENSFunc.Resolution(this.state.listOfOwners[i]));
+            OwnersAddresses.push(await ENSFunc.Resolution(this.state.listOfOwners[i].trim()));
         }
-        await func.CreatenewPoolProvider(this.state.minOwners, OwnersAddresses, this.state.name, this.state.ensname.toLowerCase(), this.props.contract, this.props.price)
+        await func.CreatenewPoolProvider(this.state.minOwners.trim(), OwnersAddresses, this.state.name.trim(), this.state.ensname.toLowerCase().trim(), this.props.contract, this.props.price)
         this.setState({ minOwners: 0, listOfOwners: [], name : "", ensname: "" })
-        await LoadFunc.LoadFactoriesFunc(this.props.contract);
+        await LoadFunc.LoadFactoriesFunc(this.props.contract, this.props.contractType);
         await this.refresh()
       };
 
@@ -43,7 +43,7 @@ class CreatePoolIssuer extends React.Component {
                  <h3>Create {text}</h3>
                 <Form onSubmit={this.handleNewPrivatePoolProvider} style={{margin: '50px 50px 50px 50px' }}>
                     <Form.Group className="mb-3">
-                        <Form.Control type="integer" name="minOwners" placeholder="min Owners" 
+                        <Form.Control type="number" min="0" name="minOwners" placeholder="min Owners" 
                             value={this.state.minOwners}
                             onChange={event => this.setState({ minOwners: event.target.value })}/>
                         <Form.Control type="text" name="listOfOwners" placeholder="list Of Owners addresses or ENS names" 

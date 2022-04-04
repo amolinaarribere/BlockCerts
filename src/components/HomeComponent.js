@@ -76,6 +76,9 @@ class ManagerComponent extends React.Component {
             <hr />
             <h1><b>What is Blockcerts?</b></h1>
             <br />
+            <span style={{ color: 'green' }}>Follow the Youtube video demos for the application by clicking <a href="https://www.youtube.com/watch?v=V7rpXOALMt0&list=PLVIEyBzmTaf68KBCBUDYeQV0lI_FlfNLp">here</a></span>
+            <br />
+            <br />
             <span style={{ color: 'blue' }}><b>BlockCerts</b></span> is a decentralized application for delivering and checking certificates on the blockchain.
             <br />
             The application is available on the Ethereum TestNets <span style={{ color: 'blue' }}><b>Rinkeby, Kovan and Ropsten</b></span> and the Polygon TestNet <span style={{ color: 'blue' }}><b>Mumbai</b></span>

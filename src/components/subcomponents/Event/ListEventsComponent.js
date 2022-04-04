@@ -29,8 +29,9 @@ class ListEventsComponent extends React.Component {
 
     handleStartEvents = async (event) => {
       event.preventDefault();
-      await EventsFunc.StartEvents(this.state.block);
-      this.setState({ EventsActivated: true,  blockChecked: this.state.block});
+      let success = await EventsFunc.StartEvents(this.state.block);
+      if(true == success)this.setState({ EventsActivated: true,  blockChecked: this.state.block});
+      else this.setState({ EventsActivated: false,  blockChecked: 0});
     }
 
     render(){
@@ -39,7 +40,7 @@ class ListEventsComponent extends React.Component {
           <h3>Events</h3> 
           <Form onSubmit={this.handleStartEvents} style={{margin: '50px 50px 50px 50px' }}>
             <Form.Group controlId="formFile" className="mb-3">
-              <Form.Control type="integer" name="Block" placeholder="block for events"
+              <Form.Control type="number" min="0" name="Block" placeholder="block for events"
                     onChange={event => this.setState({ block: event.target.value })}/>
             </Form.Group>
               <button

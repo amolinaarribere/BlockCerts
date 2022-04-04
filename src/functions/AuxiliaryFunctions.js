@@ -31,11 +31,20 @@ export function LoadWeb3ToNode(node){
 }
 
 export async function CallBackFrame(callback){
-    try{
-      let result = await callback;
-      return result;
+  try{
+    let result = await callback;
+    return result;
+   }
+   catch(e) { 
+     if(e.code == 4001){
+       window.alert("Transaction rejected"); 
      }
-     catch(e) { window.alert(JSON.stringify(e)); }
+     else {
+      window.alert("Unexpected error"); 
+      console.log(JSON.stringify(e)); 
+     }
+     return false;
+  }
 }
   
 export function Bytes32ToAddress(bytes){

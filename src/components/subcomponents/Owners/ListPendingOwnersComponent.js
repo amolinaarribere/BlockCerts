@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap';
 import VoteForMinOwnersComponent from './VoteForMinOwnersComponent.js';
 
 const func = require("../../../functions/OwnerFunctions.js");
-const Aux = require("../../../functions/AuxiliaryFunctions.js");
 
 class ListPendingOwnersComponent extends React.Component{
   constructor(props) {

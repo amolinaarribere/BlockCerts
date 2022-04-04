@@ -14,14 +14,6 @@ class SendNewProposalComponent extends React.Component {
   }
 
     state = {
-      errors: {
-        newProvider: true
-      },
-
-      highlights: {
-        newProvider: ''
-      },
-
       newProvider : "",
       newProviderInfo : ""
     };
@@ -32,27 +24,15 @@ class SendNewProposalComponent extends React.Component {
 
     handleNewProposal = async (event) => {
       event.preventDefault();
-      let reset = true;
-      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
-      this.setState({})
 
-      let Address = await ENSFunc.Resolution(this.state.newProvider);
-      
-      this.state.errors.newProvider = ValFunc.validateAddress(Address);
+      let Address = await ENSFunc.Resolution(this.state.newProvider.trim());
 
-      if(ValFunc.validate(this.state.errors)){
-        await ProviderPoolFunc.AddProviderPool(Address, this.state.newProviderInfo, false, this.props.contractType, this.props.price, this.props.contract)
+      await ProviderPoolFunc.AddProviderPool(Address, this.state.newProviderInfo.trim(), false, this.props.contractType, this.props.price, this.props.contract)
         this.setState({ newProvider: "" })
         this.setState({ newProviderInfo: "" })
         await loadFunc.LoadProviderPoolFunc(this.props.contractType, this.props.contract);
-      }
-      else{
-        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
-        reset = false;
-        this.setState({})
-      } 
       
-      if(reset)await this.refresh()
+      await this.refresh()
     };
 
     render(){
@@ -61,7 +41,7 @@ class SendNewProposalComponent extends React.Component {
          <h3>New Proposal</h3>
          <Form onSubmit={this.handleNewProposal} style={{margin: '50px 50px 50px 50px' }}>
             <Form.Group  className="mb-3">
-               <Form.Control type="text" name="newProvider" placeholder="address or ENS name" className={this.state.highlights.newProvider}
+               <Form.Control type="text" name="newProvider" placeholder="address or ENS name"
                     value={this.state.newProvider}
                     onChange={event => this.setState({ newProvider: event.target.value })}/>
                 <Form.Control type="text" name="newProviderInfo" placeholder="Info" 

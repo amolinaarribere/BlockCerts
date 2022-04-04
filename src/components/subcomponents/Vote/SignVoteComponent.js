@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 
-const func = require("../../../functions/PropositionFunctions.js");
+const func = require("../../../functions/VoteFunctions.js");
 const Aux = require("../../../functions/AuxiliaryFunctions.js");
 const SignatureFunc = require("../../../functions/SignatureFunctions.js");
 
@@ -111,7 +111,7 @@ class SignVoteComponent extends React.Component{
     
     checkNonce = async (event) => {
       event.preventDefault();
-      let result = await SignatureFunc.retrieveNonce(this.props.contract, Aux.account, this.state.nonceToCheck);
+      let result = await SignatureFunc.retrieveNonce(this.props.contract, Aux.account, this.state.nonceToCheck.trim());
       this.setState({nonceValid: result, nonceChecked: this.state.nonceToCheck});
     }
 
@@ -170,7 +170,7 @@ class SignVoteComponent extends React.Component{
           <div>
             <Form onSubmit={this.checkNonce} style={{margin: '50px 0px 50px 0px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="integer" name="Nonce" placeholder="nonce" 
+                <Form.Control type="number" min="0" name="Nonce" placeholder="nonce" 
                     value={this.state.nonceToCheck}
                     onChange={event => this.setState({ nonceToCheck: event.target.value })}/>
               </Form.Group>
@@ -186,7 +186,7 @@ class SignVoteComponent extends React.Component{
 
             <Form onSubmit={this.handleSignVoteFor} style={{margin: '50px 0px 50px 0px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="integer" name="Nonce" placeholder="nonce" 
+                <Form.Control type="number" min="0" name="Nonce" placeholder="nonce" 
                     value={this.state.nonce}
                     onChange={event => this.setState({ nonce: event.target.value })}/>
                 <Row>
@@ -245,10 +245,10 @@ class SignVoteComponent extends React.Component{
                 <Form.Control type="text" name="voter_2" placeholder="Voter" 
                       value={this.state.voter_2}
                       onChange={event => this.setState({ voter_2: event.target.value })}/>
-                <Form.Control type="integer" name="PropID_2" placeholder="Proposition ID" 
+                <Form.Control type="number" min="0" name="PropID_2" placeholder="Proposition ID" 
                       value={this.state.propId_2}
                     onChange={event => this.setState({ propId_2: event.target.value })}/>
-                <Form.Control type="integer" name="nonce_2" placeholder="nonce" 
+                <Form.Control type="number" min="0" name="nonce_2" placeholder="nonce" 
                     value={this.state.nonce_2}
                     onChange={event => this.setState({ nonce_2: event.target.value })}/>
                 <Form.Control as="select" name="vote_2" placeholder="vote"

@@ -1,6 +1,5 @@
 // Provider - Pool
-import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals, ETHFactor,
-  PublicContractType, PrivateContractType, ProviderContractType} from '../config'
+import {PRIVATE_ABI, PROVIDER_ABI, ETHDecimals, ETHFactor, ProviderContractType} from '../config'
 
 const Contracts = require("./Contracts.js");
 const Aux = require("./AuxiliaryFunctions.js");
@@ -9,6 +8,8 @@ const CertificateFunc = require("./CertificateFunctions.js");
 const BrowserStorageFunction = require("./BrowserStorageFunctions.js");
 const ENSFunc = require("./ENSFunctions.js");
 const BigNumber = require('bignumber.js');
+const ValidationFunc = require("./ValidationFunctions.js");
+
 
 export var privatePool = "";
 export var provider = "";
@@ -27,27 +28,58 @@ export var Total = ""
 export var Items = []
 
 export async function AddProviderPool(address, Info, subscribe, contractType, price, contract){
-  (ProviderContractType != contractType)? 
-      await Aux.CallBackFrame(contract.methods.addProvider(address, Info).send({from: Aux.account , value: price})) :
-      await Aux.CallBackFrame(contract.methods.addPool(address, Info, subscribe).send({from: Aux.account }));
+  let CheckAddress = ValidationFunc.validateAddress(address);
+  let CheckInfo = ValidationFunc.validateString(Info);
+  let CheckContractType = ValidationFunc.validatePositiveInteger(contractType);
+  let CheckSubscribe = (ProviderContractType != CheckContractType[0])? true : ValidationFunc.validateBoolean(subscribe);
+  let CheckPrice = ValidationFunc.validatePositiveFloat(price);
+
+  if(true == CheckAddress &&
+    true == CheckPrice[1] &&
+    true == CheckContractType[1] &&
+    true == CheckSubscribe){
+      (ProviderContractType != CheckContractType[0])? 
+        await Aux.CallBackFrame(contract.methods.addProvider(address, CheckInfo).send({from: Aux.account , value: CheckPrice[0]})) :
+        await Aux.CallBackFrame(contract.methods.addPool(address, CheckInfo, subscribe).send({from: Aux.account }));
+    }
+  else{
+    ValidationFunc.FormatErrorMessage([CheckAddress, CheckPrice[1], CheckContractType[1], CheckSubscribe], ["Address", "Price", "Contract Type", "Subscribe"]);
   }
   
+}
+  
   export async function RemoveProviderPool(address, contractType, contract){
-    (ProviderContractType != contractType)? 
-      await Aux.CallBackFrame(contract.methods.removeProvider(address).send({from: Aux.account })) :
-      await Aux.CallBackFrame(contract.methods.removePool(address).send({from: Aux.account }));
+    await ManagerProviderPool(address, contractType, contract, 0);
   }
 
   export async function ValidateProviderPool(address, contractType, contract){
-    (ProviderContractType != contractType)? 
-      await Aux.CallBackFrame(contract.methods.validateProvider(address).send({from: Aux.account })) :
-      await Aux.CallBackFrame(contract.methods.validatePool(address).send({from: Aux.account }));
+    await ManagerProviderPool(address, contractType, contract, 1);
   }
   
   export async function RejectProviderPool(address, contractType, contract){
-    (ProviderContractType != contractType)? 
-      await Aux.CallBackFrame(contract.methods.rejectProvider(address).send({from: Aux.account })) :
-      await Aux.CallBackFrame(contract.methods.rejectPool(address).send({from: Aux.account }));
+    await ManagerProviderPool(address, contractType, contract, 2);
+  }
+
+  async function ManagerProviderPool(address, contractType, contract, id){
+    let CheckAddress = ValidationFunc.validateAddress(address);
+    let CheckContractType = ValidationFunc.validatePositiveInteger(contractType);
+
+    if(true == CheckAddress &&
+      true == CheckContractType[1]){
+
+      if(id == 0) (ProviderContractType != CheckContractType[0])? 
+        await Aux.CallBackFrame(contract.methods.removeProvider(address).send({from: Aux.account })) :
+        await Aux.CallBackFrame(contract.methods.removePool(address).send({from: Aux.account }));
+      else if(id == 1) (ProviderContractType != CheckContractType[0])? 
+        await Aux.CallBackFrame(contract.methods.validateProvider(address).send({from: Aux.account })) :
+        await Aux.CallBackFrame(contract.methods.validatePool(address).send({from: Aux.account }));
+      else if(id == 2) (ProviderContractType != CheckContractType[0])? 
+        await Aux.CallBackFrame(contract.methods.rejectProvider(address).send({from: Aux.account })) :
+        await Aux.CallBackFrame(contract.methods.rejectPool(address).send({from: Aux.account }));
+    }
+    else{
+      ValidationFunc.FormatErrorMessage([CheckAddress, CheckContractType[1]], ["Address", "Contract Type"]);
+    }
   }
 
   export async function RetrieveProviderPool(contractType, contract){
@@ -98,29 +130,40 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
   }
 
   export async function SelectProviderPool(address, contractType){
-    try{
-      if(ProviderContractType != contractType){
-        PrivatePoolUnResolvedAddress = address
-        PrivatePoolAddress = await ENSFunc.Resolution(address)
-        privatePool = await new Aux.web3.eth.Contract(PRIVATE_ABI, PrivatePoolAddress)
-        Contracts.setPrivatePool(privatePool);
-        await RetrieveProviderPool(contractType, privatePool)
-        await OwnersFunc.RetrieveOwners(privatePool)
-      }
-      else{
-        ProviderUnResolvedAddress = address
-        ProviderAddress = await ENSFunc.Resolution(address)
-        provider = await new Aux.web3.eth.Contract(PROVIDER_ABI, ProviderAddress)
-        Contracts.setProvider(provider);
-        Balance = (new BigNumber(await Aux.web3.eth.getBalance(ProviderAddress))).dividedBy(ETHFactor).dp(ETHDecimals,0).toString();
-        await RetrieveProviderPool(contractType, provider)
-        await OwnersFunc.RetrieveOwners(provider)
-        await CertificateFunc.RetrievePendingCertificates(provider)
-      }
+    let CheckAddress = ValidationFunc.validateAddress(address);
+    let CheckContractType = ValidationFunc.validatePositiveInteger(contractType);
+
+    if(true == CheckAddress &&
+      true == CheckContractType[1]){
+
+        try{
+          if(ProviderContractType != CheckContractType[0]){
+            PrivatePoolUnResolvedAddress = address
+            PrivatePoolAddress = await ENSFunc.Resolution(address)
+            privatePool = await new Aux.web3.eth.Contract(PRIVATE_ABI, PrivatePoolAddress)
+            Contracts.setPrivatePool(privatePool);
+            await RetrieveProviderPool(CheckContractType[0], privatePool)
+            await OwnersFunc.RetrieveOwners(privatePool)
+          }
+          else{
+            ProviderUnResolvedAddress = address
+            ProviderAddress = await ENSFunc.Resolution(address)
+            provider = await new Aux.web3.eth.Contract(PROVIDER_ABI, ProviderAddress)
+            Contracts.setProvider(provider);
+            Balance = (new BigNumber(await Aux.web3.eth.getBalance(ProviderAddress))).dividedBy(ETHFactor).dp(ETHDecimals,0).toString();
+            await RetrieveProviderPool(CheckContractType[0], provider)
+            await OwnersFunc.RetrieveOwners(provider)
+            await CertificateFunc.RetrievePendingCertificates(provider)
+          }
+        }
+        catch(e) { 
+          window.alert("error selecting the providers or pools : " + JSON.stringify(e)); 
+        }
     }
-    catch(e) { 
-      window.alert("error selecting the providers or pools : " + JSON.stringify(e)); 
+    else{
+      ValidationFunc.FormatErrorMessage([CheckAddress, CheckContractType[1]], ["Address", "Contract Type"]);
     }
+    
   }
 
   export async function UnSelectProviderPool(contractType){
@@ -144,7 +187,15 @@ export async function AddProviderPool(address, Info, subscribe, contractType, pr
   }
 
   export async function FundProvider(amount){
-    await Aux.web3.eth.sendTransaction({from:Aux.account , to:provider._address, value:amount});
+    let CheckAmount = ValidationFunc.validatePositiveFloat(amount);
+
+    if(true == CheckAmount[1]){
+      await Aux.web3.eth.sendTransaction({from:Aux.account , to:provider._address, value:CheckAmount[0].multipliedBy(ETHFactor).dp(0, 1).toString()});
+    }
+    else{
+      ValidationFunc.FormatErrorMessage([CheckAmount[1]], ["Amount"]);
+    }
+
   }
 
   export async function ReadKeys(key, contractType){

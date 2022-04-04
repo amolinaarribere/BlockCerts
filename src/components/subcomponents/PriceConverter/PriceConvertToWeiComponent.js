@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
-import { USDFactor, ETHDecimals, ETHFactor } from '../../../config';
+import { ETHDecimals, ETHFactor } from '../../../config';
 
 const func = require("../../../functions/PriceConverterFunctions.js");
 
@@ -13,8 +13,11 @@ class PriceConvertToWeiComponent extends React.Component {
 
     Convert = async (event) => {
       event.preventDefault();
-      if(this.state.AmountUSDText != "") this.state.AmountUSD = this.state.AmountUSDText;
-      this.state.AmountETH = (await func.CentsToWeis(USDFactor.multipliedBy(this.state.AmountUSD), this.props.contract)).dividedBy(ETHFactor).dp(ETHDecimals, 0).toString();
+
+      this.state.AmountUSD = this.state.AmountUSDText.trim();
+      let result = await func.USDsToWeis(this.state.AmountUSD, this.props.contract);
+      if(true == result[1]) this.state.AmountETH = await result[0].dividedBy(ETHFactor).dp(ETHDecimals, 0).toString();
+      else this.state.AmountETH = ""
       this.setState({ AmountUSDText: ""})
     };
     

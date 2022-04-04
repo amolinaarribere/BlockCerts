@@ -3,23 +3,10 @@ import { Form } from 'react-bootstrap';
 
 const func = require("../../../functions/CertificateFunctions.js");
 const loadFunc = require("../../../functions/LoadFunctions.js");
-const ValFunc = require("../../../functions/ValidationFunctions.js");
 const ENSFunc = require("../../../functions/ENSFunctions.js");
 
 class VoteCertificateComponent extends React.Component{
     state = {
-      errors: {
-        pool: true,
-        hash: true,
-        holder: true
-      },
-
-      highlights: {
-        pool: '',
-        hash: '',
-        holder: ''
-      },
-
       pool : "",
       hash : "",
       holder: ""
@@ -36,33 +23,18 @@ class VoteCertificateComponent extends React.Component{
     };
 
     handleCertificate = async (option) => {
-      let reset = true;
-      [this.state.highlights, this.state.errors] = ValFunc.resetHighlightsFields(this.state.errors)
-      this.setState({})
+      let HolderAddress = await ENSFunc.Resolution(this.state.holder.trim());
+      let PoolAddress = await ENSFunc.Resolution(this.state.pool.trim());
 
-      let HolderAddress = await ENSFunc.Resolution(this.state.holder);
-      let PoolAddress = await ENSFunc.Resolution(this.state.pool);
-
-      this.state.errors.holder = ValFunc.validateAddress(HolderAddress);
-      this.state.errors.pool = ValFunc.validateAddress(PoolAddress);
-      this.state.errors.certificateHash = ValFunc.validateHash(this.state.hash);
-
-      if(ValFunc.validate(this.state.errors)){
-        if(option == 1)await func.ValidateCertificate(PoolAddress, this.state.hash, HolderAddress, this.props.contract)
-        else await func.RejectCertificate(PoolAddress, this.state.hash, HolderAddress, this.props.contract)
-      }
-      else{
-        this.state.highlights = ValFunc.HighlightsFields(this.state.errors)
-        reset = false;
-        this.setState({})
-      } 
+      if(option == 1)await func.ValidateCertificate(PoolAddress, this.state.hash.trim(), HolderAddress, this.props.contract)
+      else await func.RejectCertificate(PoolAddress, this.state.hash.trim(), HolderAddress, this.props.contract)
      
-      if(reset)this.reset()
+      await this.reset()
     };
 
     reset = async () => {
       this.setState({ pool: "",  hash : "", holder: ""})
-      await loadFunc.LoadCertificateFunc()
+      await loadFunc.LoadCertificateFunc(this.props.contract)
       await this.props.refresh();
     };
   

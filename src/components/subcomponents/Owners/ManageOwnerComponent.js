@@ -29,7 +29,7 @@ class ManageOwnerComponent extends React.Component{
     };
 
     async handleOwner(type) {
-      let Address = await ENSFunc.Resolution(this.state.Owner);
+      let Address = await ENSFunc.Resolution(this.state.Owner.trim());
       switch(type){
         case "1":
           await func.AddOwner(Address, "", this.props.contract)

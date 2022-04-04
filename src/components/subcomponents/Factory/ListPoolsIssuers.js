@@ -113,7 +113,6 @@ class ListPoolsIssuers extends React.Component {
                 <Container style={{margin: '10px 50px 50px 50px' }}>
                         {addresses.map(address => (
                         <Row key={address[1]}>
-                            <Col><i><b>creator </b></i>{address[0]}</Col>
                             <Col><i><b>name </b></i>{address[2]}</Col>
                             <Col><i><b>addr </b></i>{address[1]}</Col></Row>
                         ))}

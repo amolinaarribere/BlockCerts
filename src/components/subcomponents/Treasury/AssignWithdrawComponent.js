@@ -2,7 +2,6 @@ import React from 'react';
 import { Form, Container, Row, Col } from 'react-bootstrap';
 import { ETHDecimals, ETHFactor } from '../../../config';
 
-const BigNumber = require('bignumber.js');
 const func = require("../../../functions/TreasuryFunctions.js");
 
 class AssignWithdrawComponent extends React.Component {
@@ -18,7 +17,7 @@ class AssignWithdrawComponent extends React.Component {
 
     handleWithdraw = async (event) => {
       event.preventDefault();
-      await func.WithdrawAmount((new BigNumber(this.state.amount).multipliedBy(ETHFactor)).dp(0, 1).toString(), this.props.contract);
+      await func.WithdrawAmount(this.state.amount.trim(), this.props.contract);
       this.setState({amount: ""});
       this.props.refresh();
     };
@@ -48,7 +47,7 @@ class AssignWithdrawComponent extends React.Component {
           <div class="border border border-0">
             <Form onSubmit={this.handleWithdraw} style={{margin: '50px 50px 50px 50px' }}>
               <Form.Group  className="mb-3">
-                <Form.Control type="string" name="Amount" placeholder="Amount in ETH" 
+                <Form.Control type="number" min="0" step="0.000000001" name="Amount" placeholder="Amount in ETH" 
                   value={this.state.amount}
                   onChange={event => this.setState({ amount: event.target.value })}/>
               </Form.Group>
