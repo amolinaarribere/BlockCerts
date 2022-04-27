@@ -1,7 +1,9 @@
 import React from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
+import { NETWORK_ID_LABELS} from './config';
 
 import HomeComponent from './components/HomeComponent.js';
+import NotRecognizedComponent from './components/NotRecognizedComponent.js';
 import PublicComponent from './components/PublicComponent.js';
 import PrivateComponent from './components/PrivateComponent.js';
 import IssuerComponent from './components/IssuerComponent.js';
@@ -25,19 +27,24 @@ const Private = "Private";
 const Provider = "Provider";
 const Dividends = "Dividends";
 const Event = "Events";
-
+const NotRecognized = "NotRecognized";
 
 
 class Demo extends React.Component {
   async componentWillMount() {
     this.setState({loading: true})
-    let currentTab = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.currentTabKey);
-    if(currentTab){
-      this.state.Component = currentTab
-    }
-    else this.state.Component = "Home"
-    
     await LoadFunc.LoadBlockchain();
+
+    if(LoadFunc.Network != NETWORK_ID_LABELS.Other.Label){
+      let currentTab = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.currentTabKey);
+      if(currentTab){
+        this.state.Component = currentTab
+      }
+      else this.state.Component = Home
+    }
+    else{
+      this.state.Component = NotRecognized
+    }
 
     let account = BrowserStorageFunctions.ReadKey(BrowserStorageFunctions.accountConnectedKey);
     if(account){
@@ -62,7 +69,10 @@ class Demo extends React.Component {
 
   toggleMenu(newValue){
     BrowserStorageFunctions.WriteKey(BrowserStorageFunctions.currentTabKey, newValue);
-    this.setState({Component: newValue});
+    if(LoadFunc.Network != NETWORK_ID_LABELS.Other.Label || newValue == Home){
+      this.setState({Component: newValue});
+    }
+    else this.setState({Component: NotRecognized});
   };
 
   
@@ -115,6 +125,10 @@ class Demo extends React.Component {
                 case Event:
                     return (
                       ((false == this.state.loading) ? <EventsComponent /> : <LoadingComponent />)
+                    )
+                case NotRecognized:
+                    return (
+                      <NotRecognizedComponent />
                     )
                 default:
                     return (

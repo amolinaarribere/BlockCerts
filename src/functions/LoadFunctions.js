@@ -1,4 +1,5 @@
-import { ADMIN_ABI, 
+import { NETWORK_ID_LABELS,
+  ADMIN_ABI, 
   MANAGER_PROXY_ADDRESS, 
   CERTIFICATE_POOL_MANAGER_ABI, 
   PUBLIC_ABI, 
@@ -30,6 +31,7 @@ const Aux = require("./AuxiliaryFunctions.js");
 
 export var chairPerson = ""
 export var balance = ""
+export var NetworkId = ""
 export var Network = ""
 export var Admin = AdminRights;
 
@@ -113,22 +115,41 @@ export async function DisconnectAccount(){
 }
 
 async function ResetAccount(){
-  await LoadCertisFunc(Contracts.CertisToken)
-  await LoadTreasuryStateFunc(Contracts.Treasury);
+  if(Network != NETWORK_ID_LABELS.Other.Label){
+    await LoadCertisFunc(Contracts.CertisToken)
+    await LoadTreasuryStateFunc(Contracts.Treasury);
+  }
 }
 
 async function LoadNetwork(){
   console.log("loading network")
-  Network = await Aux.web3.eth.net.getNetworkType();
+  NetworkId = await Aux.web3.eth.net.getId();
 
-  if("rinkeby" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.rinkeby))
-  else if("ropsten" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ropsten))
-  else if("kovan" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.kovan))
-  else if("private" == Network) Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ganache))
-  else{
-      Network = "Mumbai";
+  switch(NetworkId){
+    case NETWORK_ID_LABELS.Rinkeby.Id:
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.rinkeby))
+      Network = NETWORK_ID_LABELS.Rinkeby.Label
+      break;
+    case NETWORK_ID_LABELS.Mumbai.Id:
       Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.mumbai))
+      Network = NETWORK_ID_LABELS.Mumbai.Label
+      break;
+    case NETWORK_ID_LABELS.Ropsten.Id:
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ropsten))
+      Network = NETWORK_ID_LABELS.Ropsten.Label
+      break;
+    case NETWORK_ID_LABELS.Kovan.Id:
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.kovan))
+      Network = NETWORK_ID_LABELS.Kovan.Label
+      break;
+    case NETWORK_ID_LABELS.Ganache.Id:
+      Contracts.setCertificatePoolManager(await new Aux.web3.eth.Contract(CERTIFICATE_POOL_MANAGER_ABI, MANAGER_PROXY_ADDRESS.ganache))
+      Network = NETWORK_ID_LABELS.Ganache.Label
+      break;
+    default:
+      Network = NETWORK_ID_LABELS.Other.Label
   }
+
   console.log("network loaded : " + Network)
 }
 
@@ -154,14 +175,20 @@ export async function LoadBlockchain() {
     console.log("loading blockchain")
     await LoadProvider();
     await LoadNetwork();
-    await LoadContracts();
+    if(Network != NETWORK_ID_LABELS.Other.Label){
+      await LoadContracts();
+      await LoadPropositionFunc(Contracts.PropositionSettings);
+      await LoadPriceConverterFunc(Contracts.PriceConverter);
+      await LoadTreasuryConfigFunc(Contracts.Treasury)
+      await LoadCertisFunc(Contracts.CertisToken)
+      await LoadENSFunc(Contracts.ENS);
+      console.log("blockchain loaded")
+    }
+    else{
+      console.log("Dapp not deployed on this network : " + NetworkId)
+      window.alert("BlockCerts is not deployed on this network : " + NetworkId)
+    }
     
-    await LoadPropositionFunc(Contracts.PropositionSettings);
-    await LoadPriceConverterFunc(Contracts.PriceConverter);
-    await LoadTreasuryConfigFunc(Contracts.Treasury)
-    await LoadCertisFunc(Contracts.CertisToken)
-    await LoadENSFunc(Contracts.ENS);
-    console.log("blockchain loaded")
 
   } catch (e) {
     window.alert("error retrieving the main contract addresses " + JSON.stringify(e));
