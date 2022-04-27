@@ -7,7 +7,7 @@ import Dividends from '../diagram/Owner2.PNG';
 import Voting from '../diagram/Owner1.PNG';
 
 
-class ManagerComponent extends React.Component {
+class HomeComponent extends React.Component {
 
   state = {
     isPublicShown: false,
@@ -221,5 +221,5 @@ class ManagerComponent extends React.Component {
     }
   }
 
-  export default ManagerComponent;
+  export default HomeComponent;
 

@@ -8,6 +8,32 @@ export const MANAGER_PROXY_ADDRESS = {
   "mumbai": '0xadA387D5a04982323de1C2957E2DCD08FE52b4E0' //'0xCcdD41B28da80d46bE54fdFa72593aadC6565d51'
 }
 
+export const NETWORK_ID_LABELS = {
+  "Ganache" : {
+    "Id" : 5777,
+    "Label" : "ganache"
+  },
+  "Rinkeby" : {
+    "Id" : 4,
+    "Label" : "rinkeby"
+  },
+  "Ropsten" : {
+    "Id" : 3,
+    "Label" : "ropsten"
+  },
+  "Kovan" : {
+    "Id" : 42,
+    "Label" : "kovan"
+  },
+  "Mumbai" : {
+    "Id" : 80001,
+    "Label" : "mumbai"
+  },
+  "Other" : {
+    "Label" : "not recognized"
+  }
+}
+
 
 export const PublicContractType = 1;
 export const PrivateContractType = 2;
